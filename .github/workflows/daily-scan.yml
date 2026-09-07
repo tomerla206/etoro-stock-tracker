@@ -275,10 +275,22 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
+
+          # Commit BEFORE pulling: `git pull --rebase` refuses outright on a
+          # dirty working tree, and aggregate_scan_shards.py's own file
+          # writes (+ build_site.py) always leave one - this exact ordering
+          # bug ("cannot pull with rebase: you have unstaged changes") is
+          # what made the very first parallel run's push fail. Commit first,
+          # then rebase our one commit onto whatever's new on origin, then
+          # push - retrying a few times in case something else (a manual
+          # push, another run) lands on main in between.
           git add -A
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Automated daily scan update (parallel) [skip ci]"
-          git push
+          for i in 1 2 3 4 5; do
+            git pull --rebase && git push && break
+            echo "Push attempt $i failed, retrying..."
+            sleep $((RANDOM % 5 + 3))
+          done
 
   report_failure:
     # Only fires if the aggregation itself failed (which already tolerates a
