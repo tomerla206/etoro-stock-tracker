@@ -352,6 +352,7 @@
     background: var(--surface-2);
     padding: 10px 8px;
     border-bottom: 1px solid var(--border);
+    white-space: nowrap;
   }
 
   thead th.analysis-group {
@@ -1596,6 +1597,18 @@
     display: none;
   }
 
+  table.hide-roe .col-roe {
+    display: none;
+  }
+
+  table.hide-instown .col-instown {
+    display: none;
+  }
+
+  table.hide-currentratio .col-currentratio {
+    display: none;
+  }
+
   /* Short Interest %, RSI, and P/E all use the same 5-step graded scale:
      vgood/good = bullish or cheap (green, strongest to mildest), mid =
      neutral, bad/vbad = bearish or expensive (red, mildest to strongest).
@@ -1990,7 +2003,9 @@
   table.compact-mode th.analysis-group,
   table.compact-mode th.rownum-col,
   table.compact-mode #sortName,
-  table.compact-mode #sortExchange {
+  table.compact-mode #sortExchange,
+  table.compact-mode #sortUpsideRatio,
+  table.compact-mode #sortCurrentRatio {
     max-width: none;
     white-space: nowrap !important;
   }
@@ -2502,6 +2517,9 @@
         <label><input type="checkbox" id="toggleRiskScore" checked> Risk Score</label>
         <label><input type="checkbox" id="toggleOverallScore" checked> Overall Score</label>
         <label><input type="checkbox" id="togglePercentile" checked> Sector %ile</label>
+        <label><input type="checkbox" id="toggleRoe" checked> ROE</label>
+        <label><input type="checkbox" id="toggleInstOwn" checked> Inst. Own.</label>
+        <label><input type="checkbox" id="toggleCurrentRatio" checked> Current Ratio</label>
       </div>
     </div>
   </div>
@@ -2538,6 +2556,9 @@
         <th rowspan="2" class="num sortable col-riskscore" id="sortRiskScore" data-dir="desc">Risk Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שלישי, שונה בסוג מהשניים האחרים</b> — Score ו-Secondary Score מודדים "איכות" (חיובי מול שלילי). זה מודד <b>תנודתיות/חוסר יציבות</b> (רגוע מול פרוע) — ציר <b>שונה לגמרי</b>, שאין בו "טוב" או "רע" אוניברסלי, רק פרופיל סיכון שונה.<br><br><b>למה זה קיים:</b> 5 המדדים הבאים כל אחד בנפרד <b>אין להם כיוון</b> (לא ניתן לומר "טוב" או "רע") — לכן אף אחד מהם לא יכול היה להיכנס ל-Score או ל-Secondary Score. אבל כולם <b>חולקים נושא משותף</b> (תנודתיות/סיכון), אז אפשר לחבר אותם לציר שלישי שימושי, גם אם הוא לא "איכות".<br><br><b>1. Beta</b> — עד 2 נק': |Beta| רחוק מ-1 (תנודתי מהשוק) = ניקוד גבוה<br><b>2. מרחק מאמצע הטווח השנתי</b> — עד 2 נק': קרוב לשיא <b>או</b> לשפל השנתי (שני הקצוות!) = ניקוד גבוה, לא רק קרוב לשפל<br><b>3. עוצמת Volume Spike</b> — עד 2 נק': כאן רק <b>העוצמה</b> של הספייק קובעת, לא הכיוון (בניגוד לעמודת Volume Spike עצמה)<br><b>4. Debt/Equity</b> — עד 2 נק': יחס חוב להון גבוה = חברה ממונפת יותר, שברירית יותר תחת לחץ, ללא קשר אם המניה נראית זולה או יקרה<br><b>5. Days-to-Cover</b> — עד 2 נק': כמה ימי מסחר ממוצעים יידרשו כדי לסגור את כל הפוזיציות השורט (short interest חלקי נפח מסחר יומי ממוצע) — ערך גבוה = פוטנציאל ל"סקוויז" שיזיז את המחיר בחדות בכל כיוון אם השורטיסטים ייאלצו לקנות בחזרה<br><br>סה"כ (0-10) — 5 מדדים כפול 2 נק' מקסימום כל אחד, כבר על סקאלת 0-10 ישירות ללא צורך בהכפלה.<br><br><b>איך לקרוא את הצבע:</b> <span style="color:#3b82c4">כחול</span> = רגועה/יציבה, אפור = ממוצעת, <span style="color:#d97b3f">כתום</span> = תנודתית/פרועה — <b>לא ירוק/אדום במכוון</b>, כדי לא לרמז ש"תנודתי" = "רע". תנודתיות גבוהה יכולה להתאים למי שרוצה סיכוי לרווח גדול, ונמוכה למי שרוצה יציבות.<br><br><b>המספר הקטן ("X/5")</b> — אינדיקטור ביטחון, אותו עיקרון כמו שני הציונים האחרים.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN (Beta/52W Range/Volume/Debt-Equity/Short Ratio, כולם נשלפים מ-Yahoo Finance)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-overallscore" id="sortOverallScore" data-dir="desc">Overall Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מספר אחד שמשלב את Score ו-Secondary Score</b> — לנוחות מי שרוצה מספר בודד להשוואה מהירה, במקום להסתכל על שני ציונים בנפרד.<br><br><b>נוסחה:</b> Score &times; 0.7 + Secondary Score &times; 0.3<br><br><b>למה המשקלים האלה:</b> Score בנוי מ-11 מדדים שכוללים עובדות "קשות יותר" (דירוג אנליסטים, Insider $, Short Interest, ROE, אחזקה מוסדית), בעוד Secondary Score בנוי במכוון מ-6 מדדים "חלשים יותר" (PEG, מדגם קטן של Hedge Funds, Volume Spike, EPS Trend, שולי רווח, צמיחה) — לכן הוא מקבל משקל נמוך יותר בבלנד, לא נעלם, אבל גם לא שווה-ערך.<br><br><b>למה Risk Score לא נכנס לחישוב בכלל:</b> Risk Score מודד תנודתיות (רגוע מול פרוע), לא איכות (טוב מול רע) — ציר שונה לגמרי. לחבר אותו לתוך ציון "איכות" היה הופך את המספר לחסר משמעות: מניה תנודתית לא "טובה יותר" ולא "גרועה יותר" רק בגלל התנודתיות שלה. Risk Score נשאר עמודה נפרדה בכוונה.<br><br>אם לטיקר יש רק אחד מהשניים (Score או Secondary Score), הוא משמש לבד (במקום להתייחס לחסר כ-0).<br><br><b>המספר הקטן ("X/17")</b> — סכום פשוט של רמות הביטחון של שני הציונים המקוריים (עד 11+6=17), לא מדידה עצמאית חדשה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, ישירות מ-score.tsv ו-secondary_score.tsv (ללא נתונים חדשים משלו).<br><br><b>חץ קטן (▲/▼)</b> ליד הציון מופיע רק כשהיה שינוי משמעותי (1.0+ נק') מהסריקה היומית הקודמת — רחפו מעליו לפרטים. <b>גרף זעיר</b> מתחת לציון מציג את ה-14 הימים האחרונים של Overall Score (יתמלא בהדרגה ככל שיצטבר יותר היסטוריה יומית).</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-percentile" id="sortPercentile" data-dir="desc">Sector %ile<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>דירוג יחסי לסקטור</b> — כמה אחוז מהחברות באותו סקטור ה-Overall Score של הטיקר הזה משיג או עולה עליהן. Overall Score של 7 יכול להיות ממוצע בטכנולוגיה (סקטור עם ציונים גבוהים בממוצע) אבל מצוין בשירותים ציבוריים — המספר הגולמי לבד לא מראה את זה.<br><br><b>לדוגמה:</b> 78% אומר שהטיקר הזה טוב יותר (או שווה) מ-78% מהחברות באותו סקטור.<br><br><b>מוצג רק לסקטורים עם 5+ חברות</b> — עם פחות מזה, "אחוזון" כמעט חסר משמעות (חברה אחת יכולה להזיז אותו מ-0 ל-100 לבד).<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מדרג את Overall Score מול טיקרים אחרים באותו סקטור (Yahoo assetProfile).</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-roe" id="sortRoe" data-dir="desc">ROE<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>Return on Equity (תשואה על ההון העצמי)</b> — כמה רווח נקי החברה מייצרת ביחס להון העצמי שלה. מודד עד כמה יעיל ההנהלה בהפיכת כסף של בעלי המניות לרווח.<br><br><b>דוגמה:</b> ROE של AAPL עומד על כ-149% (מנופח ע"י רכישות עצמיות שמקטינות את ההון העצמי) — יעילות קיצונית בהפקת רווח מההון.<br><br>ROE גבוה = חיובי. ROE שלילי = החברה מפסידה כסף.<br><br><b>נכנס ל-Score:</b> מעל 25%=2 נק', 15-25%=1.5, 5-15%=1, 0-5%=0.5, שלילי=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-instown" id="sortInstOwn" data-dir="desc">Inst. Own.<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>אחזקה מוסדית</b> — אחוז המניות המוחזק ע"י קרנות/בנקים/מוסדות פיננסיים גדולים (לא משקיעים פרטיים). נחשב אינדיקטור גס ל"אמון חכם" — מוסדות עושים מחקר מעמיק לפני שהם קונים.<br><br><b>דוגמה:</b> AAPL עומד על כ-66% אחזקה מוסדית — רוב המניה בידי גופים גדולים.<br><br><b>לא מדד מושלם:</b> אחזקה נמוכה לא בהכרח רעה (יכולה להעיד על מניה קטנה שעדיין לא התגלתה), ואחזקה גבוהה מאוד יכולה גם להעיד על "צפיפות" (פחות מקום לקונים חדשים).<br><br><b>נכנס ל-Score:</b> מעל 70%=2 נק', 50-70%=1.5, 30-50%=1, 10-30%=0.5, מתחת ל-10%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-currentratio" id="sortCurrentRatio" data-dir="desc">Current Ratio<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>יחס שוטף (נזילות)</b> — נכסים שוטפים חלקי התחייבויות שוטפות. בודק אם לחברה יש מספיק נכסים נזילים כדי לכסות את החובות הקרובים שלה.<br><br><b>דוגמה:</b> AAPL עומד על כ-1.00 — בדיוק מספיק כדי לכסות התחייבויות שוטפות, לא רזרבה גדולה.<br><br><b>בניגוד לרוב המדדים כאן, יש לזה "טווח מתוק" ולא "כמה שיותר טוב":</b> מתחת ל-1.0 = סיכון נזילות (אולי לא תוכל לשלם חובות קרובים). מעל 3.0 = כנראה יותר מדי מזומן חסר פעילות שלא עובד בשביל החברה.<br><br><b>נכנס ל-Score:</b> מתחת ל-1.0=0 נק' (סיכון), 1.0-1.5=1, 1.5-3.0=2 (בריא), מעל 3.0=1 (חוזר ל-"מדי הרבה").<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
       </tr>
       <tr>
         <th class="num sortable analysis-col col-target" id="sortLow" data-dir="asc">Low<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הנמוך ביותר מבין האנליסטים (TipRanks/eToro).<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>

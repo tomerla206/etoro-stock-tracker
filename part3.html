@@ -48,6 +48,9 @@
   const sortRiskScore = document.getElementById('sortRiskScore');
   const sortOverallScore = document.getElementById('sortOverallScore');
   const sortPercentile = document.getElementById('sortPercentile');
+  const sortRoe = document.getElementById('sortRoe');
+  const sortInstOwn = document.getElementById('sortInstOwn');
+  const sortCurrentRatio = document.getElementById('sortCurrentRatio');
   const sortScore = document.getElementById('sortScore');
   const pctBasisToggle = document.getElementById('pctBasisToggle');
   const exchangeFilters = document.getElementById('exchangeFilters');
@@ -1560,7 +1563,7 @@
   const numericKeys = [
     'price', 'cons', 'div', 'low', 'avg', 'high', 'yhLow', 'yhAvg', 'yhHigh', 'yhDiv',
     'etPct', 'yhPct', 'upsideRatio', 'insNet', 'allocShare', 'allocPl', 'allocPlShare',
-    'yhAllocShare', 'yhAllocPl', 'yhAllocPlShare', 'score', 'short', 'rsi', 'pe', 'mcap', 'hfNet', 'beta', 'vol', 'peg', 'r52', 'secscore', 'riskscore', 'overallscore', 'percentile',
+    'yhAllocShare', 'yhAllocPl', 'yhAllocPlShare', 'score', 'short', 'rsi', 'pe', 'mcap', 'hfNet', 'beta', 'vol', 'peg', 'r52', 'secscore', 'riskscore', 'overallscore', 'percentile', 'roe', 'instown', 'currentratio',
   ];
   const myPortfolioKeys = { myUnits: 'units', myAvg: 'avg', myPl: 'pl', myPlpct: 'plpct' };
   function applySort() {
@@ -1614,6 +1617,7 @@
     yhAllocShare: sortYhAlloc, yhAllocPl: sortYhAllocPl, yhAllocPlShare: sortYhAllocPlShare,
     myUnits: sortMyUnits, myAvg: sortMyAvg, myPl: sortMyPl, myPlpct: sortMyPlpct,
     score: sortScore, short: sortShort, rsi: sortRsi, pe: sortPe, mcap: sortMcap, hfNet: sortHf, beta: sortBeta, vol: sortVol, peg: sortPeg, r52: sortR52, secscore: sortSecScore, riskscore: sortRiskScore, overallscore: sortOverallScore, percentile: sortPercentile,
+    roe: sortRoe, instown: sortInstOwn, currentratio: sortCurrentRatio,
   };
   function setSort(key, dir) {
     if (dir) {
@@ -1707,6 +1711,9 @@
     riskscore: document.getElementById('toggleRiskScore'),
     overallscore: document.getElementById('toggleOverallScore'),
     percentile: document.getElementById('togglePercentile'),
+    roe: document.getElementById('toggleRoe'),
+    instown: document.getElementById('toggleInstOwn'),
+    currentratio: document.getElementById('toggleCurrentRatio'),
   };
   colToggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -1746,6 +1753,9 @@
   attachHeaderSort(sortRiskScore, 'riskscore');
   attachHeaderSort(sortOverallScore, 'overallscore');
   attachHeaderSort(sortPercentile, 'percentile');
+  attachHeaderSort(sortRoe, 'roe');
+  attachHeaderSort(sortInstOwn, 'instown');
+  attachHeaderSort(sortCurrentRatio, 'currentratio');
   attachHeaderSort(sortScore, 'score');
   attachHeaderSort(sortAlloc, 'allocShare');
   attachHeaderSort(sortAllocPl, 'allocPl');

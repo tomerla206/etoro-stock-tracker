@@ -19,6 +19,8 @@ def load_fundamentals():
                     "market_cap": parts[8], "market_cap_fmt": parts[9],
                     "volume_ratio": parts[10], "price_change_pct": parts[11],
                     "peg": parts[12], "range52_pos": parts[13],
+                    "return_on_equity": parts[21], "current_ratio": parts[22],
+                    "institutional_ownership": parts[23],
                 }
     except FileNotFoundError:
         pass
@@ -107,6 +109,52 @@ def peg_class(peg):
     return "grade-vbad"
 
 
+def roe_class(roe_pct):
+    """Same buckets as score_roe() in compute_score.py, so the color always
+    matches the Score's own reasoning - higher ROE is graded more bullish."""
+    v = float(roe_pct)
+    if v > 25:
+        return "grade-vgood"
+    if v > 15:
+        return "grade-good"
+    if v > 5:
+        return "grade-mid"
+    if v > 0:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def inst_own_class(pct):
+    """Same buckets as score_institutional_ownership() in compute_score.py -
+    higher institutional ownership graded more bullish (more 'smart money'
+    confidence), not tied to any objective "correct" level."""
+    v = float(pct)
+    if v > 70:
+        return "grade-vgood"
+    if v > 50:
+        return "grade-good"
+    if v > 30:
+        return "grade-mid"
+    if v > 10:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def current_ratio_class(ratio):
+    """Same SWEET-SPOT shape as score_current_ratio() in compute_score.py -
+    unlike the other grades here, higher is not simply better: below 1.0 is
+    a liquidity risk (bad), 1.5-3.0 is the healthy range (best), and above
+    3.0 circles back to just "mid" (idle cash, not necessarily great)."""
+    v = float(ratio)
+    if v < 1.0:
+        return "grade-vbad"
+    if v < 1.5:
+        return "grade-mid"
+    if v <= 3.0:
+        return "grade-vgood"
+    return "grade-mid"
+
+
 def volume_class(ratio, price_change_pct):
     """Unlike Short/RSI/P-E, volume alone has no direction - a spike can
     accompany either a rally or a selloff. Only graded when there's an
@@ -142,6 +190,9 @@ def main():
         tr_open = re.sub(r'\s*data-vol="[^"]*"', "", tr_open)
         tr_open = re.sub(r'\s*data-peg="[^"]*"', "", tr_open)
         tr_open = re.sub(r'\s*data-r52="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-roe="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-instown="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-currentratio="[^"]*"', "", tr_open)
         d = data.get(ticker)
         if not d:
             return tr_open
@@ -154,10 +205,14 @@ def main():
         vol_ratio = fnum(d["volume_ratio"], 2) if d["volume_ratio"] not in (None, "None") else ""
         peg = fnum(d["peg"], 2) if d["peg"] not in (None, "None") else ""
         range52_pos = fnum(d["range52_pos"], 1) if d["range52_pos"] not in (None, "None") else ""
+        roe = fnum(float(d["return_on_equity"]) * 100, 1) if d["return_on_equity"] not in (None, "None") else ""
+        inst_own = fnum(float(d["institutional_ownership"]) * 100, 1) if d["institutional_ownership"] not in (None, "None") else ""
+        current_ratio = fnum(d["current_ratio"], 2) if d["current_ratio"] not in (None, "None") else ""
         attrs = (
             f' data-short="{esc(short_pct)}" data-rsi="{esc(rsi)}" data-pe="{esc(pe)}"'
             f' data-mcap="{esc(mcap_raw)}" data-beta="{esc(beta)}" data-vol="{esc(vol_ratio)}"'
             f' data-peg="{esc(peg)}" data-r52="{esc(range52_pos)}"'
+            f' data-roe="{esc(roe)}" data-instown="{esc(inst_own)}" data-currentratio="{esc(current_ratio)}"'
         )
         return tr_open[:-1] + attrs + ">"
 
@@ -237,6 +292,30 @@ def main():
                 f'<td class="r52-cell col-r52">{esc(range52_pos)}%</td>',
                 full_tr, count=1,
             )
+        roe = fnum(float(d["return_on_equity"]) * 100, 1) if d["return_on_equity"] not in (None, "None") else None
+        if roe is not None:
+            cls = roe_class(roe)
+            full_tr = re.sub(
+                r'<td class="roe-cell col-roe[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="roe-cell col-roe {cls}">{esc(roe)}%</td>',
+                full_tr, count=1,
+            )
+        inst_own = fnum(float(d["institutional_ownership"]) * 100, 1) if d["institutional_ownership"] not in (None, "None") else None
+        if inst_own is not None:
+            cls = inst_own_class(inst_own)
+            full_tr = re.sub(
+                r'<td class="instown-cell col-instown[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="instown-cell col-instown {cls}">{esc(inst_own)}%</td>',
+                full_tr, count=1,
+            )
+        current_ratio = fnum(d["current_ratio"], 2) if d["current_ratio"] not in (None, "None") else None
+        if current_ratio is not None:
+            cls = current_ratio_class(current_ratio)
+            full_tr = re.sub(
+                r'<td class="currentratio-cell col-currentratio[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="currentratio-cell col-currentratio {cls}">{esc(current_ratio)}</td>',
+                full_tr, count=1,
+            )
         return full_tr
 
     html = re.sub(r'<tr data-ticker="([^"]+)"[^>]*>.*?</tr>', repl_cells, html)
@@ -244,7 +323,7 @@ def main():
     with open(ROWS_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: {matched} rows tagged (out of {len(data)} scanned tickers).")
+    print(f"Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio) merged: {matched} rows tagged (out of {len(data)} scanned tickers).")
 
 
 if __name__ == "__main__":
