@@ -439,6 +439,7 @@
   if (scanStatusPanel) {
     const justFinished = new Set(); // names that were running last poll, to know when to offer a reload
     const wasRunning = {};
+    let cloudActiveScan = null; // data-scan key currently being updated by the cloud poller below
 
     function fmtAgo(unixSec) {
       const s = Date.now() / 1000 - unixSec;
@@ -471,6 +472,11 @@
           justFinished.add(name);
           wasRunning[name] = false;
         }
+        // If the cloud poller (below) is actively updating this same row
+        // with live cloud progress, don't stomp on it with the local
+        // "last: Xh ago" text every 10s - the cloud poller owns this row's
+        // text until its own scan completes.
+        if (name === cloudActiveScan) return;
         text.textContent = info.last_completed ? `last: ${fmtAgo(info.last_completed)}` : 'never run';
       }
     }
@@ -542,6 +548,13 @@
       // raw-content CDN, which isn't subject to the API's 60 req/hr limit,
       // so a fast 30s poll is fine here even though the status check below
       // stays slow.
+      const LOG_TO_SCAN = {
+        'MEGASCAN_LOG.md': 'megascan',
+        'MEGASCAN_YAHOO_LOG.md': 'megascan_yahoo',
+        'INSIDER_SCAN_LOG.md': 'insider_scan',
+        'FUNDAMENTALS_SCAN_LOG.md': 'fundamentals_scan',
+      };
+
       async function pollCloudProgress() {
         try {
           const res = await fetch(`https://raw.githubusercontent.com/tomerla206/etoro-stock-tracker/main/CLOUD_PROGRESS.md?t=${Date.now()}`);
@@ -552,9 +565,22 @@
           if (doneMatch) {
             const done = +doneMatch[1], total = +doneMatch[2];
             const pct = total ? Math.round((done / total) * 100) : 0;
-            const name = sourceMatch ? sourceMatch[1].replace('_LOG.md', '') : 'scan';
+            const sourceFile = sourceMatch ? sourceMatch[1] : null;
+            const name = sourceFile ? sourceFile.replace('_LOG.md', '') : 'scan';
             const eta = etaMatch ? `, ETA ${Math.round(+etaMatch[1])}m` : '';
-            cloudScanText.textContent = `${name}: ${done}/${total} (${pct}%)${eta}`;
+            const progressText = `${done}/${total} (${pct}%)${eta}`;
+            cloudScanText.textContent = `${name}: ${progressText}`;
+
+            // Also mirror this into the matching individual scan row (e.g.
+            // the "MEGASCAN" row itself), prefixed so it's clear this is
+            // coming from the cloud, not a local run.
+            const scanKey = sourceFile ? LOG_TO_SCAN[sourceFile] : null;
+            if (scanKey) {
+              cloudActiveScan = scanKey;
+              const row = scanStatusPanel.querySelector(`[data-scan="${scanKey}"]`);
+              const rowText = row && row.querySelector('.scan-status-text');
+              if (rowText) rowText.textContent = `☁ ${progressText}`;
+            }
             return true;
           }
         } catch (err) {
@@ -583,6 +609,7 @@
               clearInterval(progressInterval);
               progressInterval = null;
             }
+            cloudActiveScan = null; // let local /status own the individual scan rows' text again
             const ago = fmtAgo(new Date(run.updated_at).getTime() / 1000);
             cloudScanText.textContent = `${run.conclusion}, last: ${ago}`;
           }
