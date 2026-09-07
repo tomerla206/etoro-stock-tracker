@@ -557,55 +557,75 @@
     // min, not 10s) to stay well under GitHub's 60 req/hr unauthenticated
     // rate limit per visitor.
     const cloudScanText = document.getElementById('cloudScanText');
+    const cloudShardDetails = document.getElementById('cloudShardDetails');
     if (cloudScanText) {
       let progressInterval = null;
 
-      // CLOUD_PROGRESS.md is overwritten + pushed every ~30s by the
-      // workflow itself while a scan is running (whichever *_LOG.md was
-      // most recently touched), in the exact "Done: X / Y" / "ETA: Z min"
-      // format the local scan panel already parses - fetched from GitHub's
-      // raw-content CDN, which isn't subject to the API's 60 req/hr limit,
-      // so a fast 30s poll is fine here even though the status check below
-      // stays slow.
-      const LOG_TO_SCAN = {
-        'MEGASCAN_LOG.md': 'megascan',
-        'MEGASCAN_YAHOO_LOG.md': 'megascan_yahoo',
-        'INSIDER_SCAN_LOG.md': 'insider_scan',
-        'FUNDAMENTALS_SCAN_LOG.md': 'fundamentals_scan',
+      // Each shard of the parallel cloud workflow force-pushes its own tiny
+      // "Done: X / Y" progress file to its own dedicated branch every ~15s
+      // (see daily-scan.yml) - no two shards share a branch, so polling them
+      // here is just plain reads from GitHub's raw-content CDN (not the
+      // rate-limited API), same as the old single-file CLOUD_PROGRESS.md was.
+      const SHARD_BRANCHES = {
+        megascan: [0, 1, 2, 3, 4, 5].map(i => `progress-megascan-shard${i}`),
+        megascan_yahoo: [0, 1, 2, 3, 4, 5].map(i => `progress-megascan-yahoo-shard${i}`),
+        fundamentals_scan: [0, 1, 2].map(i => `progress-fundamentals-shard${i}`),
+        insider_scan: ['progress-insider-scan'],
       };
 
-      async function pollCloudProgress() {
+      async function fetchShardProgress(branch) {
         try {
-          const res = await fetch(`https://raw.githubusercontent.com/tomerla206/etoro-stock-tracker/main/CLOUD_PROGRESS.md?t=${Date.now()}`);
+          const res = await fetch(`https://raw.githubusercontent.com/tomerla206/etoro-stock-tracker/${branch}/shard_progress.md?t=${Date.now()}`);
+          if (!res.ok) return null;
           const text = await res.text();
-          const doneMatch = text.match(/Done:\s*(\d+)\s*\/\s*(\d+)/);
-          const etaMatch = text.match(/ETA:\s*([\d.]+)\s*min/);
-          const sourceMatch = text.match(/^SOURCE:\s*(\S+)/m);
-          if (doneMatch) {
-            const done = +doneMatch[1], total = +doneMatch[2];
-            const pct = total ? Math.round((done / total) * 100) : 0;
-            const sourceFile = sourceMatch ? sourceMatch[1] : null;
-            const name = sourceFile ? sourceFile.replace('_LOG.md', '') : 'scan';
-            const eta = etaMatch ? `, ETA ${Math.round(+etaMatch[1])}m` : '';
-            const progressText = `${done}/${total} (${pct}%)${eta}`;
-            cloudScanText.textContent = `${name}: ${progressText}`;
-
-            // Also mirror this into the matching individual scan row (e.g.
-            // the "MEGASCAN" row itself), prefixed so it's clear this is
-            // coming from the cloud, not a local run.
-            const scanKey = sourceFile ? LOG_TO_SCAN[sourceFile] : null;
-            if (scanKey) {
-              cloudActiveScan = scanKey;
-              const row = scanStatusPanel.querySelector(`[data-scan="${scanKey}"]`);
-              const rowText = row && row.querySelector('.scan-status-text');
-              if (rowText) rowText.textContent = `☁ ${progressText}`;
-            }
-            return true;
-          }
+          const m = text.match(/Done:\s*(\d+)\s*\/\s*(\d+)/);
+          return m ? { done: +m[1], total: +m[2] } : null;
         } catch (err) {
-          // fall through - the status-based text from pollCloudScan stays shown
+          return null;
         }
-        return false;
+      }
+
+      function renderShardGroup(scanKey, branches, results) {
+        let group = cloudShardDetails.querySelector(`[data-shard-group="${scanKey}"]`);
+        if (!group) {
+          group = document.createElement('div');
+          group.className = 'cloud-shard-group';
+          group.dataset.shardGroup = scanKey;
+          cloudShardDetails.appendChild(group);
+        }
+        const valid = results.filter(r => r);
+        const done = valid.reduce((a, r) => a + r.done, 0);
+        const total = valid.reduce((a, r) => a + r.total, 0);
+        const pct = total ? Math.round((done / total) * 100) : 0;
+        const bars = branches.map((b, i) => {
+          const r = results[i];
+          const barPct = r && r.total ? Math.round((r.done / r.total) * 100) : 0;
+          const label = r ? `${r.done}/${r.total}` : (branches.length > 1 ? 'waiting…' : '');
+          return branches.length > 1
+            ? `<div class="cloud-shard-bar-row">
+                 <span class="cloud-shard-label">#${i}</span>
+                 <div class="cloud-shard-bar"><div class="cloud-shard-fill" style="width:${barPct}%"></div></div>
+                 <span class="cloud-shard-pct">${label}</span>
+               </div>`
+            : '';
+        }).join('');
+        group.innerHTML = `<div class="cloud-shard-title">${scanKey}<span class="cloud-shard-total">${done}/${total} (${pct}%)</span></div>${bars}`;
+        return { done, total, pct };
+      }
+
+      async function pollShardProgress() {
+        let anyFound = false;
+        for (const [scanKey, branches] of Object.entries(SHARD_BRANCHES)) {
+          const results = await Promise.all(branches.map(fetchShardProgress));
+          if (!results.some(r => r)) continue;
+          anyFound = true;
+          const agg = renderShardGroup(scanKey, branches, results);
+          const row = scanStatusPanel.querySelector(`[data-scan="${scanKey}"]`);
+          const rowText = row && row.querySelector('.scan-status-text');
+          if (rowText) rowText.textContent = `☁ ${agg.done}/${agg.total} (${agg.pct}%)`;
+          cloudActiveScan = scanKey;
+        }
+        return anyFound;
       }
 
       async function pollCloudScan() {
@@ -620,8 +640,8 @@
           if (run.status !== 'completed') {
             cloudScanText.textContent = `running… (started ${fmtAgo(new Date(run.created_at).getTime() / 1000)})`;
             if (!progressInterval) {
-              pollCloudProgress();
-              progressInterval = setInterval(pollCloudProgress, 30000);
+              pollShardProgress();
+              progressInterval = setInterval(pollShardProgress, 15000);
             }
           } else {
             if (progressInterval) {
@@ -629,6 +649,7 @@
               progressInterval = null;
             }
             cloudActiveScan = null; // let local /status own the individual scan rows' text again
+            cloudShardDetails.innerHTML = ''; // clear yesterday's bars once the run is done
             const ago = fmtAgo(new Date(run.updated_at).getTime() / 1000);
             cloudScanText.textContent = `${run.conclusion}, last: ${ago}`;
           }

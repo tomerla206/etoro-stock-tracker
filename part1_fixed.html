@@ -974,6 +974,77 @@
     align-items: center;
   }
 
+  /* Per-shard live progress, filled in by pollShardProgress() in part3.html
+     while the parallel cloud workflow is running - one group per scan type
+     (MEGASCAN/MEGASCAN YAHOO/Fundamentals/Insider), one bar per shard. */
+  .cloud-shard-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 4px 0 8px;
+  }
+
+  .cloud-shard-details:empty {
+    display: none;
+  }
+
+  .cloud-shard-group {
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 11px;
+    min-width: 160px;
+  }
+
+  .cloud-shard-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .cloud-shard-total {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .cloud-shard-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 2px 0;
+  }
+
+  .cloud-shard-label {
+    width: 18px;
+    flex: none;
+    color: var(--text-dim);
+  }
+
+  .cloud-shard-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    min-width: 50px;
+  }
+
+  .cloud-shard-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.5s ease;
+  }
+
+  .cloud-shard-pct {
+    width: 60px;
+    flex: none;
+    text-align: right;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
   .scan-status-row.local-only {
     border: 1px solid #7d2447;
     background: rgba(125, 36, 71, 0.12);
@@ -2273,6 +2344,7 @@
       <a class="scan-status-btn cloud-scan-link" href="https://github.com/tomerla206/etoro-stock-tracker/actions/workflows/daily-scan.yml" target="_blank" rel="noopener">View on GitHub</a>
       <span class="scan-status-text" id="cloudScanText">&ndash;</span>
     </div>
+    <div class="cloud-shard-details" id="cloudShardDetails"></div>
   </div>
 
   <div class="portfolio-summary-panel" id="portfolioSummaryPanel">

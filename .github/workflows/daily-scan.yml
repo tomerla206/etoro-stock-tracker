@@ -25,12 +25,16 @@ name: Daily Stock Scan
 # shards can't safely touch the same shared file), rebuilds the site once,
 # and pushes a single commit.
 #
-# Trade-off vs. the old single-job design: no more live "Done X/Y, ETA"
-# heartbeat pushed to CLOUD_PROGRESS.md every 30s, since several concurrent
-# jobs can't all push progress commits without constantly conflicting with
-# each other. Progress is visible directly on this workflow's Actions page
-# (each shard's own status) instead - less of a loss than it sounds, since a
-# run that used to take over an hour now takes minutes.
+# LIVE PROGRESS: the old design had one CLOUD_PROGRESS.md file that every
+# heartbeat push overwrote - fine for a single job, but concurrent shards
+# would constantly reject each other's pushes (non-fast-forward) if they all
+# tried to update the same file/branch. Instead, each shard force-pushes a
+# tiny single-file commit (built directly with git hash-object/mktree/
+# commit-tree - never touches the actual working directory the scan script
+# is using) to its OWN dedicated branch (progress-<scan>-shard<N>). Since no
+# two shards ever share a branch, there's zero ref contention and no
+# pull/rebase/retry needed. The site polls every shard's branch directly via
+# raw.githubusercontent.com to show per-shard bars plus a combined total.
 
 on:
   schedule:
@@ -65,11 +69,39 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install headless Chromium for Playwright
         run: playwright install --with-deps chromium
-      - name: Run MEGASCAN shard ${{ matrix.shard }}/6
+      - name: Run MEGASCAN shard ${{ matrix.shard }}/6 with live progress heartbeat
         env:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: 6
-        run: python -u megascan.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Live per-shard progress without touching the working directory
+          # (which the running python process still needs) or racing the other
+          # 5 concurrent shards: build a minimal single-file commit directly in
+          # the object database (hash-object/mktree/commit-tree, no checkout
+          # involved) and force-push it to this shard's own dedicated branch.
+          # Every shard has its own branch name, so there's zero ref
+          # contention - no pull/rebase/retry needed, unlike a shared file
+          # would require under concurrent writers.
+          BRANCH="progress-megascan-shard${{ matrix.shard }}"
+          (
+            while true; do
+              sleep 15
+              if [ -f MEGASCAN_LOG.md ]; then
+                BLOB=$(git hash-object -w --stdin < MEGASCAN_LOG.md)
+                TREE=$(printf '100644 blob %s\tshard_progress.md\n' "$BLOB" | git mktree)
+                COMMIT=$(git commit-tree "$TREE" -m "progress [skip ci]")
+                git push -q origin "$COMMIT:refs/heads/$BRANCH" --force 2>/dev/null || true
+              fi
+            done
+          ) &
+          HEARTBEAT_PID=$!
+
+          python -u megascan.py
+
+          kill "$HEARTBEAT_PID" 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: megascan-shard-${{ matrix.shard }}
@@ -92,11 +124,31 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install headless Chromium for Playwright
         run: playwright install --with-deps chromium
-      - name: Run MEGASCAN YAHOO shard ${{ matrix.shard }}/6
+      - name: Run MEGASCAN YAHOO shard ${{ matrix.shard }}/6 with live progress heartbeat
         env:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: 6
-        run: python -u megascan_yahoo.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="progress-megascan-yahoo-shard${{ matrix.shard }}"
+          (
+            while true; do
+              sleep 15
+              if [ -f MEGASCAN_YAHOO_LOG.md ]; then
+                BLOB=$(git hash-object -w --stdin < MEGASCAN_YAHOO_LOG.md)
+                TREE=$(printf '100644 blob %s\tshard_progress.md\n' "$BLOB" | git mktree)
+                COMMIT=$(git commit-tree "$TREE" -m "progress [skip ci]")
+                git push -q origin "$COMMIT:refs/heads/$BRANCH" --force 2>/dev/null || true
+              fi
+            done
+          ) &
+          HEARTBEAT_PID=$!
+
+          python -u megascan_yahoo.py
+
+          kill "$HEARTBEAT_PID" 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: megascan-yahoo-shard-${{ matrix.shard }}
@@ -117,11 +169,31 @@ jobs:
           python-version: "3.11"
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-      - name: Run FUNDAMENTALS SCAN shard ${{ matrix.shard }}/3
+      - name: Run FUNDAMENTALS SCAN shard ${{ matrix.shard }}/3 with live progress heartbeat
         env:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: 3
-        run: python -u fundamentals_scan.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="progress-fundamentals-shard${{ matrix.shard }}"
+          (
+            while true; do
+              sleep 15
+              if [ -f FUNDAMENTALS_SCAN_LOG.md ]; then
+                BLOB=$(git hash-object -w --stdin < FUNDAMENTALS_SCAN_LOG.md)
+                TREE=$(printf '100644 blob %s\tshard_progress.md\n' "$BLOB" | git mktree)
+                COMMIT=$(git commit-tree "$TREE" -m "progress [skip ci]")
+                git push -q origin "$COMMIT:refs/heads/$BRANCH" --force 2>/dev/null || true
+              fi
+            done
+          ) &
+          HEARTBEAT_PID=$!
+
+          python -u fundamentals_scan.py
+
+          kill "$HEARTBEAT_PID" 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: fundamentals-shard-${{ matrix.shard }}
@@ -140,10 +212,30 @@ jobs:
           python-version: "3.11"
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-      - name: Run INSIDER SCAN
+      - name: Run INSIDER SCAN with live progress heartbeat
         env:
           SKIP_BUILD_SITE: "1"   # runs concurrently with the other scans - the real build happens once, in aggregate
-        run: python -u insider_scan.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="progress-insider-scan"
+          (
+            while true; do
+              sleep 15
+              if [ -f INSIDER_SCAN_LOG.md ]; then
+                BLOB=$(git hash-object -w --stdin < INSIDER_SCAN_LOG.md)
+                TREE=$(printf '100644 blob %s\tshard_progress.md\n' "$BLOB" | git mktree)
+                COMMIT=$(git commit-tree "$TREE" -m "progress [skip ci]")
+                git push -q origin "$COMMIT:refs/heads/$BRANCH" --force 2>/dev/null || true
+              fi
+            done
+          ) &
+          HEARTBEAT_PID=$!
+
+          python -u insider_scan.py
+
+          kill "$HEARTBEAT_PID" 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         with:
           name: insider-scan-output
