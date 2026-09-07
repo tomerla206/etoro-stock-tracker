@@ -2007,22 +2007,15 @@
     contain-intrinsic-size: auto 16px;
   }
 
+  /* Every header sizes itself to its own text length instead of wrapping
+     into unreadable letter-per-line text at a fixed max-width (the exact bug
+     that hit "TP/Yahoo Ratio" and "Current Ratio" before they were exempted
+     one at a time) - table-layout:auto grows each column to fit its widest
+     content, header included, so this is just "don't fight that". */
   table.compact-mode th {
     padding: 2px 3px !important;
     font-size: 9px !important;
     line-height: 1.1 !important;
-    white-space: normal !important;
-    word-break: break-word;
-    max-width: 60px;
-  }
-
-  table.compact-mode th.analysis-group,
-  table.compact-mode th.rownum-col,
-  table.compact-mode #sortName,
-  table.compact-mode #sortExchange,
-  table.compact-mode #sortUpsideRatio,
-  table.compact-mode #sortCurrentRatio {
-    max-width: none;
     white-space: nowrap !important;
   }
 

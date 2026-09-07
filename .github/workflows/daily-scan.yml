@@ -46,6 +46,7 @@ jobs:
         run: playwright install --with-deps chromium
 
       - name: Run all 4 scans with live progress heartbeat
+        timeout-minutes: 240
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -76,6 +77,22 @@ jobs:
           python fundamentals_scan.py
 
           kill "$HEARTBEAT_PID" 2>/dev/null || true
+
+      - name: Report failure to CLOUD_PROGRESS.md
+        # Runs only if the scan step above failed or hit its 240-minute
+        # timeout (e.g. the browser kept dying faster than the in-script
+        # relaunch/watchdog could recover). Without this, the site's cloud
+        # progress panel would just go stale with no clear signal that
+        # something actually failed vs. still slowly running.
+        if: failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "SCAN FAILED at $(date -u +%Y-%m-%dT%H:%M:%SZ) UTC - see the Actions run log for details. Checkpoint files were preserved, so the next scheduled/manual run resumes from where this one stopped, it does not start over." > CLOUD_PROGRESS.md
+          git add CLOUD_PROGRESS.md
+          git commit -m "Cloud scan failed [skip ci]" || true
+          git pull --rebase || true
+          git push || true
 
       - name: Publish site to GitHub Pages entry point
         run: cp nasdaq-stocks.html index.html
