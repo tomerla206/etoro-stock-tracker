@@ -1,10 +1,12 @@
-SOURCE: FUNDAMENTALS_SCAN_LOG.md
-# FUNDAMENTALS SCAN progress
+SOURCE: MEGASCAN_LOG.md
+# MEGASCAN progress
 
-Done: 5500 / 6356
+Done: 50 / 6356
 
-Elapsed: 7.6 min | Rate: 12.02/s | ETA: 1.2 min
+Elapsed: 0.5 min | Rate: 1.79/s | ETA: 58.6 min
 
-Updated: 5034
-No data: 153
-Errors: 313
+New green (yellow->green): 0
+Lost coverage (green->yellow): 0
+Refreshed (still green): 45
+Unchanged (still yellow): 5
+Errors: 0
