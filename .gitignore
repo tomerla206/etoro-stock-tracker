@@ -18,6 +18,13 @@ portfolio_tp.tsv
 .claude/scheduled_tasks.lock
 .build_site.lock
 
+# Intermediate per-shard scan output from the parallel cloud pipeline
+# (megascan.py/megascan_yahoo.py/fundamentals_scan.py with SHARD_COUNT>1) -
+# consumed once by aggregate_scan_shards.py and pointless to keep afterward;
+# the aggregate job's own "git add -A" swept these into main by accident on
+# the first parallel run before this rule existed.
+shard_out/
+
 # Python
 __pycache__/
 *.pyc
