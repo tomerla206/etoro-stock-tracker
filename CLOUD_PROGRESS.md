@@ -1,11 +1,10 @@
-SOURCE: INSIDER_SCAN_LOG.md
-# INSIDER SCAN progress
+SOURCE: FUNDAMENTALS_SCAN_LOG.md
+# FUNDAMENTALS SCAN progress
 
-Done: 3267 / 3267
+Done: 300 / 6356
 
-Elapsed: 0.6 min | Rate: 87.99/s | ETA: 0.0 min
+Elapsed: 0.4 min | Rate: 13.50/s | ETA: 7.5 min
 
-Tickers with recent insider activity: 21
-No CIK match (non-US/foreign issuer): 3089
-CIK matched, no recent Form 4: 3246
+Updated: 264
+No data: 36
 Errors: 0
