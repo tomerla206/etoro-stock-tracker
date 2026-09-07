@@ -1,10 +1,11 @@
-SOURCE: MEGASCAN_YAHOO_LOG.md
-# MEGASCAN YAHOO progress
+SOURCE: INSIDER_SCAN_LOG.md
+# INSIDER SCAN progress
 
-Done: 850 / 915
+Done: 100 / 3267
 
-Elapsed: 15.8 min | Rate: 0.89/s | ETA: 1.2 min
+Elapsed: 0.1 min | Rate: 27.47/s | ETA: 1.9 min
 
-Updated: 61
-No data: 789
+Tickers with recent insider activity: 19
+No CIK match (non-US/foreign issuer): 3089
+CIK matched, no recent Form 4: 81
 Errors: 0
