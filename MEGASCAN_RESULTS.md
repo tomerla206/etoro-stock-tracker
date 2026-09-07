@@ -1,16 +1,7 @@
-# MEGASCAN Results
+# MEGASCAN Results (aggregated from shards)
 
-Total scanned: 6356
-
-## New GREEN (yellow -> green, 2)
-WSBC, WT
-
-## Lost coverage (green -> yellow, 1)
-GCT
-
-## Refreshed numbers, still green (4294)
-
-## Still yellow, unchanged (2059)
-
-## Errors (0)
-
+New GREEN (yellow -> green): 2
+Lost coverage (green -> yellow): 0
+Refreshed, still green: 4296
+Still yellow, unchanged: 2058
+Errors (0): 

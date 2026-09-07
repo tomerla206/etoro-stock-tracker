@@ -3,7 +3,7 @@ GAIN	Gladstone Investment Corporation	16.40				NOFAQ	TRADEABLE
 GASS	StealthGas Inc	9.29	14.00	14.00	14.00	OK	TRADEABLE
 GBDC	Golub Capital BDC Inc	13.00	13.00	13.56	14.00	OK	TRADEABLE
 GCMG	Grosvenor Capital Management LP	13.27	16.00	16.33	17.00	OK	TRADEABLE
-GCT	GigaCloud Technology Inc	51.75				NOFAQ	TRADEABLE
+GCT	GigaCloud Technology Inc	51.75	73.00	73.00	73.00	OK	TRADEABLE
 GDHG	Golden Heaven Group Holdings	1.24				NOFAQ	NOT_TRADEABLE
 GDRX	GoodRx Holdings Inc.	3.48	2.65	4.17	5.00	OK	TRADEABLE
 GDS	GDS Holdings Ltd-ADR	31.36	45.00	48.50	52.00	OK	TRADEABLE
