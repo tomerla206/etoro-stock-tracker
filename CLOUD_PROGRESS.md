@@ -1,12 +1,10 @@
-SOURCE: MEGASCAN_LOG.md
-# MEGASCAN progress
+SOURCE: MEGASCAN_YAHOO_LOG.md
+# MEGASCAN YAHOO progress
 
-Done: 6356 / 6356
+Done: 50 / 915
 
-Elapsed: 50.2 min | Rate: 2.11/s | ETA: 0.0 min
+Elapsed: 1.1 min | Rate: 0.73/s | ETA: 19.9 min
 
-New green (yellow->green): 2
-Lost coverage (green->yellow): 0
-Refreshed (still green): 4296
-Unchanged (still yellow): 2058
+Updated: 0
+No data: 50
 Errors: 0
