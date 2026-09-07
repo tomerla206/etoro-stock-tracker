@@ -14,7 +14,11 @@ name: Daily Stock Scan
 
 on:
   schedule:
-    - cron: "0 4 * * *"  # 04:00 UTC daily
+    # 21:00 UTC = ~23:00-00:00 Israel time depending on DST - a few hours
+    # before the local machine's earliest daily pull (02:00 Israel via the
+    # "eToro Daily Scan" Scheduled Task), so pull_and_merge.py finds fresh
+    # data waiting rather than yesterday's.
+    - cron: "0 21 * * *"
   workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
 
 permissions:
