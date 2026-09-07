@@ -20,6 +20,7 @@ Result:    MEGASCAN_RESULTS.md (written at the end)
 
 import asyncio
 import glob
+import json
 import re
 import statistics
 import subprocess
@@ -276,6 +277,24 @@ def write_progress_log(log_state, results):
         f.write(f"Errors: {len(results['errors'])}\n")
 
 
+def write_shard_output(shard_index, results):
+    """Parallel cloud mode (SHARD_COUNT > 1): each shard only scans its own
+    slice of tickers and can't safely touch the shared analyst_targets_*.txt
+    files or run build_site.py itself (concurrent shards would race on the
+    same files) - it just drops its results as JSON for aggregate_scan_shards.py
+    to combine once every shard is done."""
+    out_dir = ROOT / "shard_out"
+    out_dir.mkdir(exist_ok=True)
+    payload = {
+        "changed": results["changed"], "consensus": results["consensus"],
+        "hedgefund": results["hedgefund"], "new_green": results["new_green"],
+        "lost_coverage": results["lost_coverage"], "refreshed": results["refreshed"],
+        "unchanged": results["unchanged"], "errors": results["errors"],
+    }
+    with open(out_dir / f"megascan_shard{shard_index}.json", "w", encoding="utf-8") as f:
+        json.dump(payload, f)
+
+
 def apply_changes(changed_rows):
     by_file = {}
     for row in changed_rows:
@@ -296,6 +315,17 @@ async def main():
     limit = os.environ.get("MEGASCAN_LIMIT")
     if limit:
         rows = rows[: int(limit)]
+
+    # Parallel cloud mode: SHARD_COUNT > 1 means this is one of several
+    # concurrent GitHub Actions jobs each covering a slice of the full
+    # universe. Slicing with a stride (not contiguous chunks) spreads any
+    # clustering in the source files (e.g. all-.HK tickers grouped together)
+    # evenly across shards instead of giving one shard all the slow ones.
+    shard_index = int(os.environ.get("SHARD_INDEX", "0"))
+    shard_count = int(os.environ.get("SHARD_COUNT", "1"))
+    if shard_count > 1:
+        rows = rows[shard_index::shard_count]
+        print(f"Shard {shard_index}/{shard_count}: {len(rows)} tickers assigned")
     print(f"Loaded {len(rows)} tickers to scan")
 
     results = {"new_green": [], "lost_coverage": [], "refreshed": [], "unchanged": [], "errors": [], "changed": [], "consensus": {}, "hedgefund": {}}
@@ -327,6 +357,12 @@ async def main():
     if log_state["relaunches"]:
         print(f"Browser was relaunched {log_state['relaunches']} time(s) during this run "
               "(crashed or went unresponsive) - handled automatically.")
+
+    if shard_count > 1:
+        write_shard_output(shard_index, results)
+        print(f"Shard {shard_index} complete - wrote shard_out/megascan_shard{shard_index}.json "
+              "(aggregate_scan_shards.py applies changes/rebuilds the site once every shard is done).")
+        return
 
     print("Applying changes to analyst_targets_*.txt files...")
     apply_changes(results["changed"])

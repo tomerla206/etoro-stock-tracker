@@ -205,10 +205,19 @@ def main():
         f.write(f"\n## Errors ({len(results['errors'])})\n")
         f.write(", ".join(results["errors"]) + "\n")
 
-    print("Rebuilding site (build_site.py runs every merge script + reassembles)...")
-    import subprocess
-    import sys
-    subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
+    import os
+    if os.environ.get("SKIP_BUILD_SITE"):
+        # Parallel cloud mode: insider_scan.py runs concurrently with the
+        # sharded megascan/megascan_yahoo/fundamentals jobs, so building the
+        # site here would use whichever of their outputs happen to exist yet
+        # (a race, not a real state) - aggregate_scan_shards.py does the one
+        # real build after every job has finished.
+        print("SKIP_BUILD_SITE set - leaving the site build to aggregate_scan_shards.py.")
+    else:
+        print("Rebuilding site (build_site.py runs every merge script + reassembles)...")
+        import subprocess
+        import sys
+        subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
 
     print("INSIDER SCAN complete.")
 

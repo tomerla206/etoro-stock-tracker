@@ -18,6 +18,7 @@ Result:    MEGASCAN_YAHOO_RESULTS.md (written at the end)
 
 import asyncio
 import glob
+import json
 import re
 import time
 from pathlib import Path
@@ -232,6 +233,27 @@ async def watchdog(browser_state, lock, log_state):
             log_state["last_done_time"] = time.time()  # don't refire every 15s while relaunch is in flight
 
 
+def write_shard_output(shard_index, tickers, results):
+    """Parallel cloud mode (SHARD_COUNT > 1): each shard only scans its own
+    slice of the still-missing tickers and can't safely rewrite the shared
+    checkpoint files itself (concurrent shards would clobber each other's
+    results) - it drops just its own newly-scanned tickers as JSON for
+    aggregate_scan_shards.py to merge with the checkpoint once every shard is
+    done. `tickers` is this shard's own assigned slice, used to filter out
+    the pre-existing checkpoint entries that results["targets"]/["dividends"]
+    were seeded with (every shard loads the same full checkpoint - only the
+    genuinely new entries belong in this shard's own output)."""
+    out_dir = ROOT / "shard_out"
+    out_dir.mkdir(exist_ok=True)
+    payload = {
+        "targets": {t: results["targets"][t] for t in tickers if t in results["targets"]},
+        "dividends": {t: results["dividends"][t] for t in tickers if t in results["dividends"]},
+        "updated": results["updated"], "no_data": results["no_data"], "errors": results["errors"],
+    }
+    with open(out_dir / f"megascan_yahoo_shard{shard_index}.json", "w", encoding="utf-8") as f:
+        json.dump(payload, f)
+
+
 def write_checkpoint(results):
     """Write partial results to disk periodically, so a mid-run crash (browser
     driver disconnect, host machine hiccup, etc.) doesn't lose everything -
@@ -271,6 +293,16 @@ async def main():
     tickers = [t for t in all_tickers if t not in already_done]
     print(f"Loaded {len(all_tickers)} tickers total, {len(already_done)} already done from a "
           f"previous checkpoint, {len(tickers)} left to scan")
+
+    # Parallel cloud mode: SHARD_COUNT > 1 means this is one of several
+    # concurrent GitHub Actions jobs. Shard only the *remaining* work (not the
+    # full universe) so the checkpoint's short-circuit still applies, and use
+    # a stride so any clustering in the source order doesn't overload one shard.
+    shard_index = int(os.environ.get("SHARD_INDEX", "0"))
+    shard_count = int(os.environ.get("SHARD_COUNT", "1"))
+    if shard_count > 1:
+        tickers = tickers[shard_index::shard_count]
+        print(f"Shard {shard_index}/{shard_count}: {len(tickers)} tickers assigned")
 
     results = {
         "updated": [], "no_data": [], "errors": [],
@@ -325,6 +357,12 @@ async def main():
             pass
 
     write_progress_log(log_state, results)
+
+    if shard_count > 1:
+        write_shard_output(shard_index, tickers, results)
+        print(f"Shard {shard_index} complete - wrote shard_out/megascan_yahoo_shard{shard_index}.json "
+              "(aggregate_scan_shards.py merges with the checkpoint and rebuilds the site once every shard is done).")
+        return
 
     print("Writing yahoo_targets_0_MEGASCAN.txt and yahoo_dividends_MEGASCAN.txt ...")
     # Leading "0_" makes this sort alphabetically FIRST among yahoo_targets_*.txt

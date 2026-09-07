@@ -34,6 +34,7 @@ mismatched-suffix exchanges, not genuinely missing from Yahoo.
 
 import concurrent.futures
 import glob
+import json
 import time
 from pathlib import Path
 
@@ -330,12 +331,38 @@ def write_sector_file(results):
             f.write(f"{ticker}\t{sector}\t{industry}\n")
 
 
+def write_shard_output(shard_index, results):
+    """Parallel cloud mode (SHARD_COUNT > 1): each shard only scans its own
+    slice of tickers and can't safely rewrite fundamentals_data.tsv itself
+    (concurrent shards would clobber each other's results) - it drops its
+    results as JSON for aggregate_scan_shards.py to combine once every shard
+    is done."""
+    out_dir = ROOT / "shard_out"
+    out_dir.mkdir(exist_ok=True)
+    payload = {
+        "data": results["data"], "updated": results["updated"],
+        "no_data": results["no_data"], "errors": results["errors"],
+    }
+    with open(out_dir / f"fundamentals_shard{shard_index}.json", "w", encoding="utf-8") as f:
+        json.dump(payload, f)
+
+
 def main():
     tickers = load_all_tickers()
     import os
     limit = os.environ.get("FUNDAMENTALS_SCAN_LIMIT")
     if limit:
         tickers = tickers[: int(limit)]
+
+    # Parallel cloud mode: SHARD_COUNT > 1 means this is one of several
+    # concurrent GitHub Actions jobs each covering a slice of the full
+    # universe. A stride (not contiguous chunks) spreads any clustering in
+    # the source order evenly across shards.
+    shard_index = int(os.environ.get("SHARD_INDEX", "0"))
+    shard_count = int(os.environ.get("SHARD_COUNT", "1"))
+    if shard_count > 1:
+        tickers = tickers[shard_index::shard_count]
+        print(f"Shard {shard_index}/{shard_count}: {len(tickers)} tickers assigned")
     print(f"Loaded {len(tickers)} tickers")
 
     print("Getting Yahoo crumb/cookie...")
@@ -349,6 +376,13 @@ def main():
         concurrent.futures.wait(futures)
 
     write_progress_log(log_state, results)
+
+    if shard_count > 1:
+        write_shard_output(shard_index, results)
+        print(f"Shard {shard_index} complete - wrote shard_out/fundamentals_shard{shard_index}.json "
+              "(aggregate_scan_shards.py combines all shards and runs the score/site pipeline once every shard is done).")
+        return
+
     write_data_file(results)
     write_sector_file(results)
 

@@ -1,7 +1,7 @@
 name: Daily Stock Scan
 
 # Runs the 4 public-data scans (MEGASCAN, MEGASCAN YAHOO, INSIDER SCAN,
-# FUNDAMENTALS SCAN) entirely in the cloud, on GitHub's own runner, and
+# FUNDAMENTALS SCAN) entirely in the cloud, on GitHub's own runners, and
 # commits the refreshed data + rebuilt site back to this repo. None of these
 # scripts need a login or any personal data - they scrape/query public
 # market data (TipRanks/Yahoo Finance/SEC EDGAR) for the full universe of
@@ -11,6 +11,26 @@ name: Daily Stock Scan
 # account's actual holdings - reads portfolio_virtual.tsv/portfolio_real.tsv,
 # which are gitignored and never exist on this runner), and SCAN
 # HOLDINGS/SCAN RED (need a live authenticated eToro browser session).
+#
+# PARALLEL DESIGN: MEGASCAN and MEGASCAN YAHOO (the two Playwright/browser
+# scans, and by far the slowest sequentially - ~50min + ~20min) are each
+# split into several shards (matrix jobs) that scan a slice of the ticker
+# universe concurrently on separate runners. FUNDAMENTALS SCAN (plain HTTP,
+# already fast) is split more lightly; INSIDER SCAN (already ~2min) isn't
+# split at all. All 4 scan types start at the same time - MEGASCAN and
+# MEGASCAN YAHOO don't depend on each other, so there's no reason to run one
+# after the other like the old single-job version did. A final "aggregate"
+# job waits for every shard, merges their JSON outputs into the real shared
+# data files (each shard only writes its own shard_out/*.json - concurrent
+# shards can't safely touch the same shared file), rebuilds the site once,
+# and pushes a single commit.
+#
+# Trade-off vs. the old single-job design: no more live "Done X/Y, ETA"
+# heartbeat pushed to CLOUD_PROGRESS.md every 30s, since several concurrent
+# jobs can't all push progress commits without constantly conflicting with
+# each other. Progress is visible directly on this workflow's Actions page
+# (each shard's own status) instead - less of a loss than it sounds, since a
+# run that used to take over an hour now takes minutes.
 
 on:
   schedule:
@@ -29,78 +49,163 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  scan:
+  megascan:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false   # one shard's browser trouble shouldn't cancel the other 5
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-
       - name: Install headless Chromium for Playwright
         run: playwright install --with-deps chromium
+      - name: Run MEGASCAN shard ${{ matrix.shard }}/6
+        env:
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: 6
+        run: python -u megascan.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: megascan-shard-${{ matrix.shard }}
+          path: shard_out/megascan_shard${{ matrix.shard }}.json
+          if-no-files-found: warn
 
-      - name: Run all 4 scans with live progress heartbeat
-        timeout-minutes: 240
+  megascan_yahoo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Install headless Chromium for Playwright
+        run: playwright install --with-deps chromium
+      - name: Run MEGASCAN YAHOO shard ${{ matrix.shard }}/6
+        env:
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: 6
+        run: python -u megascan_yahoo.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: megascan-yahoo-shard-${{ matrix.shard }}
+          path: shard_out/megascan_yahoo_shard${{ matrix.shard }}.json
+          if-no-files-found: warn   # a shard can legitimately have 0 tickers left (checkpoint already covers it)
+
+  fundamentals_scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Run FUNDAMENTALS SCAN shard ${{ matrix.shard }}/3
+        env:
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: 3
+        run: python -u fundamentals_scan.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fundamentals-shard-${{ matrix.shard }}
+          path: shard_out/fundamentals_shard${{ matrix.shard }}.json
+          if-no-files-found: warn
+
+  insider_scan:
+    # Not sharded - already ~2 minutes via plain HTTP (no browser), so
+    # splitting it further wouldn't meaningfully help.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Run INSIDER SCAN
+        env:
+          SKIP_BUILD_SITE: "1"   # runs concurrently with the other scans - the real build happens once, in aggregate
+        run: python -u insider_scan.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: insider-scan-output
+          path: |
+            insider_activity.tsv
+            INSIDER_SCAN_RESULTS.md
+          if-no-files-found: warn
+
+  aggregate:
+    needs: [megascan, megascan_yahoo, fundamentals_scan, insider_scan]
+    if: always()   # still aggregate whatever succeeded even if one shard job failed/timed out, so it doesn't lose everyone else's results
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Download every shard's output
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded_artifacts
+      - name: Lay out shard files for aggregation
+        run: |
+          mkdir -p shard_out
+          find downloaded_artifacts -name "*.json" -exec cp {} shard_out/ \;
+          find downloaded_artifacts -name "insider_activity.tsv" -exec cp {} . \;
+          find downloaded_artifacts -name "INSIDER_SCAN_RESULTS.md" -exec cp {} . \;
+          ls -la shard_out/
+      - name: Aggregate all shard results, compute scores, rebuild site
+        run: python -u aggregate_scan_shards.py
+      - name: Publish site to GitHub Pages entry point
+        run: cp nasdaq-stocks.html index.html
+      - name: Commit and push refreshed data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add -A
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Automated daily scan update (parallel) [skip ci]"
+          git push
 
-          # Every 30s, copy whichever *_LOG.md was most recently written (the
-          # scan currently in progress) into CLOUD_PROGRESS.md and push it -
-          # the site polls this raw file directly to show live "Done/Total,
-          # ETA" progress for the cloud scan, same format the local scan
-          # panel already parses. [skip ci] avoids re-triggering this
-          # workflow on its own progress commits.
-          (
-            while true; do
-              sleep 30
-              latest=$(ls -t MEGASCAN_LOG.md MEGASCAN_YAHOO_LOG.md INSIDER_SCAN_LOG.md FUNDAMENTALS_SCAN_LOG.md 2>/dev/null | head -1)
-              if [ -n "$latest" ]; then
-                echo "SOURCE: $latest" > CLOUD_PROGRESS.md
-                cat "$latest" >> CLOUD_PROGRESS.md
-                git add CLOUD_PROGRESS.md
-                git diff --cached --quiet || (git commit -q -m "Cloud scan progress update [skip ci]" && git push -q)
-              fi
-            done
-          ) &
-          HEARTBEAT_PID=$!
-
-          python megascan.py
-          python megascan_yahoo.py
-          python insider_scan.py
-          python fundamentals_scan.py
-
-          kill "$HEARTBEAT_PID" 2>/dev/null || true
-
+  report_failure:
+    # Only fires if the aggregation itself failed (which already tolerates a
+    # single flaky shard - it just aggregates whatever shards did produce
+    # output). A single shard failing among many, with aggregate still
+    # succeeding and pushing real updated data, is not worth a "SCAN FAILED"
+    # marker that would misleadingly override a mostly-successful run.
+    needs: aggregate
+    if: needs.aggregate.result == 'failure' || needs.aggregate.result == 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
       - name: Report failure to CLOUD_PROGRESS.md
-        # Runs only if the scan step above failed or hit its 240-minute
-        # timeout (e.g. the browser kept dying faster than the in-script
-        # relaunch/watchdog could recover). Without this, the site's cloud
-        # progress panel would just go stale with no clear signal that
-        # something actually failed vs. still slowly running.
-        if: failure()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          echo "SCAN FAILED at $(date -u +%Y-%m-%dT%H:%M:%SZ) UTC - see the Actions run log for details. Checkpoint files were preserved, so the next scheduled/manual run resumes from where this one stopped, it does not start over." > CLOUD_PROGRESS.md
+          echo "SCAN FAILED at $(date -u +%Y-%m-%dT%H:%M:%SZ) UTC - see the Actions run log for details. Checkpoint/aggregation state was preserved where possible, so the next scheduled/manual run resumes rather than starting fully over." > CLOUD_PROGRESS.md
           git add CLOUD_PROGRESS.md
           git commit -m "Cloud scan failed [skip ci]" || true
           git pull --rebase || true
           git push || true
-
-      - name: Publish site to GitHub Pages entry point
-        run: cp nasdaq-stocks.html index.html
-
-      - name: Commit and push refreshed data
-        run: |
-          git pull --rebase
-          echo "Done - see CLOUD_PROGRESS.md history for this run's own log" > CLOUD_PROGRESS.md
-          git add -A
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Automated daily scan update [skip ci]"
-          git push
