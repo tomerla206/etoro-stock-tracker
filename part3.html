@@ -524,6 +524,37 @@
 
     pollStatus();
     setInterval(pollStatus, 10000);
+
+    // Cloud Scan row: live status of the GitHub Actions workflow that runs
+    // MEGASCAN/MEGASCAN YAHOO/INSIDER SCAN/FUNDAMENTALS SCAN daily in the
+    // cloud. Uses GitHub's public REST API directly (no auth needed for a
+    // public repo) - polled far less often than the local /status (every 5
+    // min, not 10s) to stay well under GitHub's 60 req/hr unauthenticated
+    // rate limit per visitor.
+    const cloudScanText = document.getElementById('cloudScanText');
+    if (cloudScanText) {
+      async function pollCloudScan() {
+        try {
+          const res = await fetch('https://api.github.com/repos/tomerla206/etoro-stock-tracker/actions/workflows/daily-scan.yml/runs?per_page=1');
+          const data = await res.json();
+          const run = data.workflow_runs && data.workflow_runs[0];
+          if (!run) {
+            cloudScanText.textContent = 'no runs yet';
+            return;
+          }
+          if (run.status !== 'completed') {
+            cloudScanText.textContent = `running… (started ${fmtAgo(new Date(run.created_at).getTime() / 1000)})`;
+          } else {
+            const ago = fmtAgo(new Date(run.updated_at).getTime() / 1000);
+            cloudScanText.textContent = `${run.conclusion}, last: ${ago}`;
+          }
+        } catch (err) {
+          cloudScanText.textContent = 'unavailable';
+        }
+      }
+      pollCloudScan();
+      setInterval(pollCloudScan, 5 * 60 * 1000);
+    }
   }
 
   rows.forEach(row => {

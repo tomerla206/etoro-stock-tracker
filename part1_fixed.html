@@ -963,6 +963,16 @@
     color: var(--bg);
   }
 
+  .scan-status-row.cloud-scan-row {
+    border: 1px solid var(--accent-dim);
+  }
+
+  .cloud-scan-link {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
   .scan-status-row.local-only {
     border: 1px solid #7d2447;
     background: rgba(125, 36, 71, 0.12);
@@ -2230,6 +2240,11 @@
       <span class="scan-status-name">Fundamentals Scan</span>
       <button type="button" class="scan-status-btn" data-run="fundamentals_scan">&#8635; Run</button>
       <span class="scan-status-text">&ndash;</span>
+    </div>
+    <div class="scan-status-row cloud-scan-row" id="cloudScanRow">
+      <span class="scan-status-name">Cloud Scan<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מציג את הסטטוס של הריצה האוטומטית בענן (MEGASCAN + MEGASCAN YAHOO + INSIDER SCAN + FUNDAMENTALS SCAN, רצות כל יום ב-21:00 UTC ב-GitHub Actions). המחשב שלך מושך (Pull) את התוצאות שלה — לא צריך ללחוץ כאן כלום, זה רק תצוגת מידע חיה מ-GitHub.</span></span></span>
+      <a class="scan-status-btn cloud-scan-link" href="https://github.com/tomerla206/etoro-stock-tracker/actions/workflows/daily-scan.yml" target="_blank" rel="noopener">View on GitHub</a>
+      <span class="scan-status-text" id="cloudScanText">&ndash;</span>
     </div>
   </div>
 
