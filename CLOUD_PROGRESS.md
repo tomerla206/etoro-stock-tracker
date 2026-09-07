@@ -1,12 +1,12 @@
 SOURCE: MEGASCAN_LOG.md
 # MEGASCAN progress
 
-Done: 3850 / 6356
+Done: 3900 / 6356
 
-Elapsed: 30.7 min | Rate: 2.09/s | ETA: 20.0 min
+Elapsed: 31.1 min | Rate: 2.09/s | ETA: 19.6 min
 
 New green (yellow->green): 2
 Lost coverage (green->yellow): 3
-Refreshed (still green): 2704
-Unchanged (still yellow): 1141
+Refreshed (still green): 2748
+Unchanged (still yellow): 1147
 Errors: 0
