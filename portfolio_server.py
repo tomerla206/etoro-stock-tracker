@@ -17,17 +17,26 @@ live Claude session driving a real logged-in eToro browser session, which no
 local script can do unattended.
 """
 
+import gzip
 import http.server
 import json
+import mimetypes
 import re
 import socketserver
 import subprocess
 import sys
 import time
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).parent
 PORT = 8791
+
+# Text-based file types worth gzip-compressing before sending - nasdaq-stocks.html
+# is ~27MB and compresses to a fraction of that, cutting download time a lot on
+# a first visit (this doesn't speed up the browser's HTML parsing itself, only
+# the network transfer beforehand).
+COMPRESSIBLE_EXTS = {".html", ".htm", ".js", ".css", ".json", ".txt", ".tsv", ".md", ".csv"}
 
 # name -> (script, progress-log file, results file or None)
 SCANS = {
@@ -129,8 +138,40 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self._json({name: parse_log(name) for name in SCANS})
             except Exception as e:
                 self._json({"status": "error", "message": str(e)}, 500)
+        elif self._try_serve_gzip():
+            pass
         else:
             super().do_GET()
+
+    def _try_serve_gzip(self):
+        """Serve compressible files gzip-encoded when the browser supports it
+        (virtually always). Falls back to the normal (uncompressed) path -
+        returns False - for anything not eligible, so this can never break a
+        request, only speed some of them up."""
+        if "gzip" not in self.headers.get("Accept-Encoding", ""):
+            return False
+        parsed = urlparse(self.path)
+        rel_path = unquote(parsed.path).lstrip("/")
+        if not rel_path or parsed.path.endswith("/"):
+            return False
+        if Path(rel_path).suffix.lower() not in COMPRESSIBLE_EXTS:
+            return False
+        file_path = ROOT / rel_path
+        try:
+            if not file_path.is_file():
+                return False
+            data = file_path.read_bytes()
+        except OSError:
+            return False
+        compressed = gzip.compress(data, compresslevel=6)
+        content_type = mimetypes.guess_type(str(file_path))[0] or "application/octet-stream"
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Encoding", "gzip")
+        self.send_header("Content-Length", str(len(compressed)))
+        self.end_headers()
+        self.wfile.write(compressed)
+        return True
 
     def log_message(self, fmt, *args):
         print(fmt % args)

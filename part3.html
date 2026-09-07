@@ -123,30 +123,46 @@
   const tbody = document.getElementById('rows');
   const rows = Array.from(document.querySelectorAll('#rows tr'));
 
-  function renderSparklines() {
-    // Draws a tiny inline SVG trend line into each row's .oscore-spark
+  function renderSparklineRow(row) {
+    // Draws a tiny inline SVG trend line into a row's .oscore-spark
     // placeholder from its data-overallscore-history attribute (comma-
     // separated Overall Score values, oldest first, written by
-    // merge_overall_score.py from score_history.tsv). Runs once on load -
-    // the history doesn't change with sorting/filtering, only with the next
-    // day's scan, so there's no need to re-draw on every applyFilters() call.
-    rows.forEach(row => {
-      const holder = row.querySelector('.oscore-spark');
-      const raw = row.dataset.overallscoreHistory;
-      if (!holder || !raw) return;
-      const values = raw.split(',').map(Number).filter(v => !isNaN(v));
-      if (values.length < 2) return;  // one point alone isn't a trend line yet
-      const w = 40, h = 14;
-      const min = Math.min(...values), max = Math.max(...values);
-      const range = max - min || 1;
-      const points = values.map((v, i) => {
-        const x = (i / (values.length - 1)) * w;
-        const y = h - ((v - min) / range) * h;
-        return `${x.toFixed(1)},${y.toFixed(1)}`;
-      }).join(' ');
-      const trendColor = values[values.length - 1] >= values[0] ? 'var(--analysis-high)' : 'var(--analysis-low)';
-      holder.innerHTML = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${points}" fill="none" stroke="${trendColor}" stroke-width="1.5"/></svg>`;
-    });
+    // merge_overall_score.py from score_history.tsv).
+    const holder = row.querySelector('.oscore-spark');
+    const raw = row.dataset.overallscoreHistory;
+    if (!holder || !raw) return;
+    const values = raw.split(',').map(Number).filter(v => !isNaN(v));
+    if (values.length < 2) return;  // one point alone isn't a trend line yet
+    const w = 40, h = 14;
+    const min = Math.min(...values), max = Math.max(...values);
+    const range = max - min || 1;
+    const points = values.map((v, i) => {
+      const x = (i / (values.length - 1)) * w;
+      const y = h - ((v - min) / range) * h;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    const trendColor = values[values.length - 1] >= values[0] ? 'var(--analysis-high)' : 'var(--analysis-low)';
+    holder.innerHTML = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${points}" fill="none" stroke="${trendColor}" stroke-width="1.5"/></svg>`;
+  }
+
+  function renderSparklines() {
+    // Runs once on load - the history doesn't change with sorting/filtering,
+    // only with the next day's scan, so there's no need to re-draw on every
+    // applyFilters() call. Spread across idle-time chunks instead of one
+    // single loop over 6,761 rows, so it doesn't block the main thread (and
+    // the page feels responsive) right after the page finishes loading.
+    const CHUNK_SIZE = 300;
+    let i = 0;
+    function renderChunk() {
+      const end = Math.min(i + CHUNK_SIZE, rows.length);
+      for (; i < end; i++) renderSparklineRow(rows[i]);
+      if (i < rows.length) scheduleNext();
+    }
+    function scheduleNext() {
+      if (window.requestIdleCallback) requestIdleCallback(renderChunk, { timeout: 200 });
+      else setTimeout(renderChunk, 0);
+    }
+    scheduleNext();
   }
   renderSparklines();
 
@@ -1525,6 +1541,19 @@
       isRangeActive(overallConfidenceRangeMinInput, overallConfidenceRangeMaxInput, 0, 14));
   }
 
+  function getRowSearchText(row) {
+    // row.textContent walks every cell/span in the row and rebuilds a string
+    // from scratch - expensive across 6,761 rows, and applyFilters() calls
+    // this for EVERY row on EVERY filter interaction (checkbox, slider,
+    // typing), not just when the search box has text. Cached once per row
+    // element (never invalidated - the row's own content never changes
+    // client-side after page load, only its display/order do).
+    if (row._searchText === undefined) {
+      row._searchText = row.textContent.toLowerCase();
+    }
+    return row._searchText;
+  }
+
   function applyFilters() {
     updateFilterGroupDots();
     const q = search.value.trim().toLowerCase();
@@ -1532,7 +1561,7 @@
     const max = parseFloat(priceMax.value);
     let shown = 0;
     rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
+      const text = getRowSearchText(row);
       const price = parseFloat(row.dataset.price);
       let match = text.includes(q);
       if (match && activeExchange !== 'all') match = row.dataset.exchange === activeExchange;
@@ -1595,7 +1624,14 @@
       }
       return sortDir === 'asc' ? cmp : -cmp;
     });
-    rows.forEach(row => tbody.appendChild(row));
+    // Batch the reorder into one reflow instead of up to 6,761 (appendChild
+    // on an already-attached node just moves it, but doing that one row at a
+    // time in the live document can force the browser to recompute layout
+    // repeatedly - collecting into an off-document fragment first and
+    // appending once gives the identical final order with a single reflow).
+    const frag = document.createDocumentFragment();
+    rows.forEach(row => frag.appendChild(row));
+    tbody.appendChild(frag);
     renumberRows();
   }
 
@@ -1651,7 +1687,7 @@
         sortMenuEl.classList.remove('open');
       }
     });
-    window.addEventListener('scroll', () => sortMenuEl.classList.remove('open'), true);
+    window.addEventListener('scroll', () => sortMenuEl.classList.remove('open'), { capture: true, passive: true });
     return sortMenuEl;
   }
 
@@ -1772,7 +1808,11 @@
   attachHeaderSort(sortMyAvg, 'myAvg');
   attachHeaderSort(sortMyPl, 'myPl');
   attachHeaderSort(sortMyPlpct, 'myPlpct');
-  search.addEventListener('input', applyFilters);
+  let searchDebounceTimer = null;
+  search.addEventListener('input', () => {
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(applyFilters, 150);
+  });
   priceMin.addEventListener('input', applyFilters);
   priceMax.addEventListener('input', applyFilters);
 
@@ -1801,13 +1841,13 @@
       syncingScroll = true;
       tableWrapEl.scrollLeft = tableScrollTop.scrollLeft;
       syncingScroll = false;
-    });
+    }, { passive: true });
     tableWrapEl.addEventListener('scroll', () => {
       if (syncingScroll) return;
       syncingScroll = true;
       tableScrollTop.scrollLeft = tableWrapEl.scrollLeft;
       syncingScroll = false;
-    });
+    }, { passive: true });
     syncMirrorWidth();
     new ResizeObserver(syncMirrorWidth).observe(stockTable);
     window.addEventListener('resize', syncMirrorWidth);

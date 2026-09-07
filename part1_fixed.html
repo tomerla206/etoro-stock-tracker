@@ -1991,6 +1991,22 @@
     line-height: 1.1 !important;
   }
 
+  /* Lets the browser skip layout/paint work for rows currently scrolled out
+     of view - the rows stay real DOM nodes (filtering/sorting/data-* reads
+     all keep working exactly as before), only the rendering work for
+     off-screen ones is deferred. contain-intrinsic-size gives an estimated
+     height so the scrollbar doesn't jump around before a row is ever
+     actually measured. This is what actually helps scroll smoothness on a
+     6,761-row table, without the risk of a full virtual-scroll rewrite. */
+  #rows tr {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 32px;
+  }
+
+  table.compact-mode #rows tr {
+    contain-intrinsic-size: auto 16px;
+  }
+
   table.compact-mode th {
     padding: 2px 3px !important;
     font-size: 9px !important;
@@ -2010,9 +2026,13 @@
     white-space: nowrap !important;
   }
 
-  /* These 3 columns are only ever populated when the user sets a $ allocation
-     (rare) - they show "-" almost always, so shrink them hard in compact mode
-     instead of letting their own (now-wrapped) header dictate width. */
+  /* These 3 columns show "-" when no $ allocation is set, but real dollar
+     amounts once the user enters one - a fixed max-width made those real
+     values overflow into the next column (illegible) instead of the table
+     just growing the column to fit, which is what plain nowrap + no
+     max-width does automatically. Letting natural table auto-sizing take
+     over here means the column is exactly as wide as its longest value,
+     whatever that value turns out to be. */
   table.compact-mode .col-target.alloc-cell,
   table.compact-mode .col-target.pl-cell,
   table.compact-mode .col-target.pl-share-cell,
@@ -2025,7 +2045,6 @@
   table.compact-mode #yhAllocHeader,
   table.compact-mode #yhPlHeader,
   table.compact-mode #yhPlShareHeader {
-    max-width: 40px;
     white-space: nowrap !important;
   }
 

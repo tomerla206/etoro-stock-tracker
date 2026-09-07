@@ -94,3 +94,37 @@ Writing yahoo_targets_0_MEGASCAN.txt and yahoo_dividends_MEGASCAN.txt ...
 Rebuilding site (build_site.py runs every merge script + reassembles)...
 MEGASCAN YAHOO complete. 915 tickers still have no data at all out of 6356 - re-run the script to pick those up if that number is > 0.
 ===== Daily scan finished: Mon 09/07/2026 12:29:40.02 ===== 
+===== Daily pull started: Mon 09/07/2026 17:00:01.83 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5940 rows tagged (out of 5940 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4296 rows tagged (out of 4296 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2748 rows tagged (out of 2748 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4317 rows tagged (out of 4317 scored tickers).
+WARNING: merge_secondary_score.py exited with code 1:
+Traceback (most recent call last):
+  File "H:\\u05e7\u05dc\u05d5\u05d3\\u05e7\u05dc\u05d5\u05d3 2 - Copy\merge_secondary_score.py", line 108, in <module>
+    main()
+  File "H:\\u05e7\u05dc\u05d5\u05d3\\u05e7\u05dc\u05d5\u05d3 2 - Copy\merge_secondary_score.py", line 101, in main
+    with open(ROWS_FILE, "w", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'all_rows.html'
+
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 0 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 27 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Updating 9362346..4a8e1f8
+Fast-forward
+ CLOUD_PROGRESS.md | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Mon 09/07/2026 17:00:25.57 ===== 

@@ -139,8 +139,17 @@ async def scan_one(context, sem, row, results, log_state):
     async with sem:
         ticker = row["ticker"]
         query_ticker = strip_suffix(ticker)
-        page = await context.new_page()
+        page = None
         try:
+            # context.new_page() has no timeout of its own - if the browser
+            # process has crashed or become unresponsive (seen in the cloud
+            # runner, which has far less headroom than a local machine), this
+            # call can hang forever with no exception ever raised, freezing
+            # every concurrent task waiting on it and the whole scan with it.
+            # Bounding it here turns "hangs forever, blocks the entire
+            # pipeline" into "this ticker fails after 15s", so the scan can
+            # still finish (with some errors) instead of never finishing.
+            page = await asyncio.wait_for(context.new_page(), timeout=15)
             await page.goto(TIPRANKS_URL.format(query_ticker), wait_until="domcontentloaded", timeout=25000)
             await page.wait_for_timeout(3500)
             text = await page.inner_text("body")
@@ -158,7 +167,11 @@ async def scan_one(context, sem, row, results, log_state):
         except Exception as e:
             found = "ERROR"
         finally:
-            await page.close()
+            if page is not None:
+                try:
+                    await page.close()
+                except Exception:
+                    pass  # a dead browser/driver connection must never abort the whole batch
 
         old_status = row["status"]
         if found == "ERROR":

@@ -127,7 +127,15 @@ async def scan_one(context, sem, ticker, results, log_state):
     async with sem:
         page = None
         try:
-            page = await context.new_page()
+            # context.new_page() has no timeout of its own - if the browser
+            # process has crashed or become unresponsive (seen in the cloud
+            # runner, which has far less headroom than a local machine), this
+            # call can hang forever with no exception ever raised, freezing
+            # every concurrent task waiting on it and the whole scan with it.
+            # Bounding it here turns "hangs forever, blocks the entire
+            # pipeline" into "this ticker fails after 15s", so the scan can
+            # still finish (with some errors) instead of never finishing.
+            page = await asyncio.wait_for(context.new_page(), timeout=15)
             url = YAHOO_URL.format(ticker)
             await page.goto(url, wait_until="domcontentloaded", timeout=25000)
             await page.wait_for_timeout(3000)
@@ -223,14 +231,21 @@ async def main():
         context = await browser.new_context()
 
         # Warm-up: dismiss the Yahoo cookie wall once before going concurrent,
-        # so the consent cookie is already in the shared context.
-        warm = await context.new_page()
-        warm_url = YAHOO_URL.format(tickers[0])
-        await warm.goto(warm_url, wait_until="domcontentloaded", timeout=25000)
-        await warm.wait_for_timeout(2000)
-        if await dismiss_yahoo_consent(warm, warm_url):
-            await warm.wait_for_timeout(1000)
-        await warm.close()
+        # so the consent cookie is already in the shared context. Best-effort
+        # only - if this hangs/fails (e.g. the browser is slow to come up),
+        # every per-ticker scan_one() already has its own consent-dismiss
+        # fallback, so skipping the warm-up just means the first few tickers
+        # pay that cost individually instead of it being pre-paid once.
+        try:
+            warm = await asyncio.wait_for(context.new_page(), timeout=15)
+            warm_url = YAHOO_URL.format(tickers[0])
+            await warm.goto(warm_url, wait_until="domcontentloaded", timeout=25000)
+            await warm.wait_for_timeout(2000)
+            if await dismiss_yahoo_consent(warm, warm_url):
+                await warm.wait_for_timeout(1000)
+            await warm.close()
+        except Exception:
+            pass
 
         tasks = [scan_one(context, sem, t, results, log_state) for t in tickers]
         await asyncio.gather(*tasks, return_exceptions=True)
