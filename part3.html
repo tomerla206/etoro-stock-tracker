@@ -533,6 +533,36 @@
     // rate limit per visitor.
     const cloudScanText = document.getElementById('cloudScanText');
     if (cloudScanText) {
+      let progressInterval = null;
+
+      // CLOUD_PROGRESS.md is overwritten + pushed every ~30s by the
+      // workflow itself while a scan is running (whichever *_LOG.md was
+      // most recently touched), in the exact "Done: X / Y" / "ETA: Z min"
+      // format the local scan panel already parses - fetched from GitHub's
+      // raw-content CDN, which isn't subject to the API's 60 req/hr limit,
+      // so a fast 30s poll is fine here even though the status check below
+      // stays slow.
+      async function pollCloudProgress() {
+        try {
+          const res = await fetch(`https://raw.githubusercontent.com/tomerla206/etoro-stock-tracker/main/CLOUD_PROGRESS.md?t=${Date.now()}`);
+          const text = await res.text();
+          const doneMatch = text.match(/Done:\s*(\d+)\s*\/\s*(\d+)/);
+          const etaMatch = text.match(/ETA:\s*([\d.]+)\s*min/);
+          const sourceMatch = text.match(/^SOURCE:\s*(\S+)/m);
+          if (doneMatch) {
+            const done = +doneMatch[1], total = +doneMatch[2];
+            const pct = total ? Math.round((done / total) * 100) : 0;
+            const name = sourceMatch ? sourceMatch[1].replace('_LOG.md', '') : 'scan';
+            const eta = etaMatch ? `, ETA ${Math.round(+etaMatch[1])}m` : '';
+            cloudScanText.textContent = `${name}: ${done}/${total} (${pct}%)${eta}`;
+            return true;
+          }
+        } catch (err) {
+          // fall through - the status-based text from pollCloudScan stays shown
+        }
+        return false;
+      }
+
       async function pollCloudScan() {
         try {
           const res = await fetch('https://api.github.com/repos/tomerla206/etoro-stock-tracker/actions/workflows/daily-scan.yml/runs?per_page=1');
@@ -544,7 +574,15 @@
           }
           if (run.status !== 'completed') {
             cloudScanText.textContent = `running… (started ${fmtAgo(new Date(run.created_at).getTime() / 1000)})`;
+            if (!progressInterval) {
+              pollCloudProgress();
+              progressInterval = setInterval(pollCloudProgress, 30000);
+            }
           } else {
+            if (progressInterval) {
+              clearInterval(progressInterval);
+              progressInterval = null;
+            }
             const ago = fmtAgo(new Date(run.updated_at).getTime() / 1000);
             cloudScanText.textContent = `${run.conclusion}, last: ${ago}`;
           }

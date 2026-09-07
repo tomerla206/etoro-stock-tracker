@@ -24,6 +24,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -41,25 +45,45 @@ jobs:
       - name: Install headless Chromium for Playwright
         run: playwright install --with-deps chromium
 
-      - name: MEGASCAN (TipRanks analyst targets)
-        run: python megascan.py
+      - name: Run all 4 scans with live progress heartbeat
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: MEGASCAN YAHOO (Yahoo Finance targets)
-        run: python megascan_yahoo.py
+          # Every 30s, copy whichever *_LOG.md was most recently written (the
+          # scan currently in progress) into CLOUD_PROGRESS.md and push it -
+          # the site polls this raw file directly to show live "Done/Total,
+          # ETA" progress for the cloud scan, same format the local scan
+          # panel already parses. [skip ci] avoids re-triggering this
+          # workflow on its own progress commits.
+          (
+            while true; do
+              sleep 30
+              latest=$(ls -t MEGASCAN_LOG.md MEGASCAN_YAHOO_LOG.md INSIDER_SCAN_LOG.md FUNDAMENTALS_SCAN_LOG.md 2>/dev/null | head -1)
+              if [ -n "$latest" ]; then
+                echo "SOURCE: $latest" > CLOUD_PROGRESS.md
+                cat "$latest" >> CLOUD_PROGRESS.md
+                git add CLOUD_PROGRESS.md
+                git diff --cached --quiet || (git commit -q -m "Cloud scan progress update [skip ci]" && git push -q)
+              fi
+            done
+          ) &
+          HEARTBEAT_PID=$!
 
-      - name: INSIDER SCAN (SEC EDGAR Form 4 activity)
-        run: python insider_scan.py
+          python megascan.py
+          python megascan_yahoo.py
+          python insider_scan.py
+          python fundamentals_scan.py
 
-      - name: FUNDAMENTALS SCAN (Short%/RSI/P-E/Scores/etc.)
-        run: python fundamentals_scan.py
+          kill "$HEARTBEAT_PID" 2>/dev/null || true
 
       - name: Publish site to GitHub Pages entry point
         run: cp nasdaq-stocks.html index.html
 
       - name: Commit and push refreshed data
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          echo "Done - see CLOUD_PROGRESS.md history for this run's own log" > CLOUD_PROGRESS.md
           git add -A
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "Automated daily scan update [skip ci]"
           git push
