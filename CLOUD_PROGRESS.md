@@ -1,10 +1,10 @@
 SOURCE: FUNDAMENTALS_SCAN_LOG.md
 # FUNDAMENTALS SCAN progress
 
-Done: 3200 / 6356
+Done: 3600 / 6356
 
-Elapsed: 4.6 min | Rate: 11.70/s | ETA: 4.5 min
+Elapsed: 5.1 min | Rate: 11.73/s | ETA: 3.9 min
 
-Updated: 3086
-No data: 113
+Updated: 3478
+No data: 121
 Errors: 1
