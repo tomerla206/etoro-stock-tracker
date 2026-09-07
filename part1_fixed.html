@@ -963,6 +963,30 @@
     color: var(--bg);
   }
 
+  .scan-status-row.local-only {
+    border: 1px solid #7d2447;
+    background: rgba(125, 36, 71, 0.12);
+  }
+
+  .scan-status-row.local-only .scan-status-name {
+    color: #b3336b;
+  }
+
+  .scan-status-row.local-only .scan-status-btn {
+    background: #7d2447;
+  }
+
+  .local-only-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    background: #7d2447;
+    border-radius: 999px;
+    padding: 2px 7px;
+    margin-inline-start: 4px;
+    white-space: nowrap;
+  }
+
   .info-tip {
     position: relative;
     display: inline-flex;
@@ -2182,8 +2206,8 @@
       <button type="button" class="scan-status-btn run-all-btn" id="runAllBackgroundBtn">&#8635; Run All</button>
       <span class="scan-status-text"></span>
     </div>
-    <div class="scan-status-row" data-scan="scan_values">
-      <span class="scan-status-name">Scan Values</span>
+    <div class="scan-status-row local-only" data-scan="scan_values">
+      <span class="scan-status-name">Scan Values<span class="local-only-badge">להריץ בעצמך</span><span class="info-tip" tabindex="0">i<span class="info-tip-bubble">בצבע בורדו כי זו סריקה שצריך להריץ בעצמך במחשב המקומי — היא סורקת רק את המניות שבפועל מוחזקות בתיק שלך (Real/Virtual), ולכן לא הועברה להפעלה אוטומטית בענן (כדי שנתוני התיק האישי שלך לא יעלו לשום מקום חוץ מהמחשב הזה).</span></span></span>
       <button type="button" class="scan-status-btn" data-run="scan_values">&#8635; Run</button>
       <span class="scan-status-text">&ndash;</span>
     </div>

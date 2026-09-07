@@ -1,0 +1,61 @@
+name: Daily Stock Scan
+
+# Runs the 4 public-data scans (MEGASCAN, MEGASCAN YAHOO, INSIDER SCAN,
+# FUNDAMENTALS SCAN) entirely in the cloud, on GitHub's own runner, and
+# commits the refreshed data + rebuilt site back to this repo. None of these
+# scripts need a login or any personal data - they scrape/query public
+# market data (TipRanks/Yahoo Finance/SEC EDGAR) for the full universe of
+# 6,761 tickers, same as running them locally.
+#
+# NOT run here (must stay local, see README): SCAN VALUES (scoped to this
+# account's actual holdings - reads portfolio_virtual.tsv/portfolio_real.tsv,
+# which are gitignored and never exist on this runner), and SCAN
+# HOLDINGS/SCAN RED (need a live authenticated eToro browser session).
+
+on:
+  schedule:
+    - cron: "0 4 * * *"  # 04:00 UTC daily
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install headless Chromium for Playwright
+        run: playwright install --with-deps chromium
+
+      - name: MEGASCAN (TipRanks analyst targets)
+        run: python megascan.py
+
+      - name: MEGASCAN YAHOO (Yahoo Finance targets)
+        run: python megascan_yahoo.py
+
+      - name: INSIDER SCAN (SEC EDGAR Form 4 activity)
+        run: python insider_scan.py
+
+      - name: FUNDAMENTALS SCAN (Short%/RSI/P-E/Scores/etc.)
+        run: python fundamentals_scan.py
+
+      - name: Publish site to GitHub Pages entry point
+        run: cp nasdaq-stocks.html index.html
+
+      - name: Commit and push refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Automated daily scan update [skip ci]"
+          git push
