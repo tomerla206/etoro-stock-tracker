@@ -1,6 +1,6 @@
 RAIN	Rain Enhancement Technologies Holdco Inc	0.89			NOFAQ	TRADEABLE
 RAPP	Rapport Therapeutics Inc	45.77	50.00	60.25	75.00	OK	TRADEABLE
-RARE.US	Ultragenyx Pharmaceutical Inc.	15.30	16.00	29.07	68.00	OK	TRADEABLE
+RARE.US	Ultragenyx Pharmaceutical Inc.	15.30	16.00	29.31	68.00	OK	TRADEABLE
 RBB	Rbb Bancorp	27.07	27.00	28.50	29.00	OK	TRADEABLE
 RBBN	Ribbon Communications Inc	1.99	3.30	3.60	4.00	OK	TRADEABLE
 RBC	RBC Bearings Incorporated	488.54	645.00	659.00	686.00	OK	TRADEABLE
