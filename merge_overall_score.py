@@ -93,9 +93,9 @@ def score_class(total):
 
 def confidence_class(confidence):
     v = int(confidence)
-    if v >= 10:
+    if v >= 12:
         return "conf-high"
-    if v >= 5:
+    if v >= 6:
         return "conf-mid"
     return "conf-low"
 
@@ -150,7 +150,7 @@ def main():
 
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/14 מדדים עם נתונים אמיתיים (משוקלל משני הציונים)">{d["confidence"]}/14</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/17 מדדים עם נתונים אמיתיים (משוקלל משני הציונים)">{d["confidence"]}/17</sup>'
             f'{change_html}'
             f'<span class="oscore-spark" aria-hidden="true"></span>'
         )

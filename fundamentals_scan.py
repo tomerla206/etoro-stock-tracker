@@ -190,6 +190,9 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 short_ratio = (dks.get("shortRatio") or {}).get("raw")
                 profit_margins = fd.get("profitMargins", {}).get("raw") if fd.get("profitMargins") else None
                 revenue_growth = fd.get("revenueGrowth", {}).get("raw") if fd.get("revenueGrowth") else None
+                return_on_equity = fd.get("returnOnEquity", {}).get("raw") if fd.get("returnOnEquity") else None
+                current_ratio = fd.get("currentRatio", {}).get("raw") if fd.get("currentRatio") else None
+                institutional_ownership = (dks.get("heldPercentInstitutions") or {}).get("raw")
 
                 surprises = [
                     (h.get("surprisePercent") or {}).get("raw")
@@ -272,6 +275,8 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 "profit_margins": profit_margins, "revenue_growth": revenue_growth,
                 "rating_trend_delta": rating_trend_delta,
                 "sector": sector, "industry": industry,
+                "return_on_equity": return_on_equity, "current_ratio": current_ratio,
+                "institutional_ownership": institutional_ownership,
             }
             results["updated"].append(ticker)
     except Exception:
@@ -308,7 +313,8 @@ def write_data_file(results):
                 f"{d['peg']}\t{d['range52_pos']}\t"
                 f"{d['debt_to_equity']}\t{d['short_ratio']}\t"
                 f"{d['earnings_surprise_avg']}\t{d['eps_trend_pct']}\t"
-                f"{d['profit_margins']}\t{d['revenue_growth']}\t{d['rating_trend_delta']}\n"
+                f"{d['profit_margins']}\t{d['revenue_growth']}\t{d['rating_trend_delta']}\t"
+                f"{d['return_on_equity']}\t{d['current_ratio']}\t{d['institutional_ownership']}\n"
             )
 
 

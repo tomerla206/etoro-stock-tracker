@@ -1179,19 +1179,19 @@
   function updateConfidenceRangeFillBar() {
     const minV = +confidenceRangeMinSlider.value;
     const maxV = +confidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, minV * 100 / 8));
-    const rightPct = Math.max(0, Math.min(100, maxV * 100 / 8));
+    const leftPct = Math.max(0, Math.min(100, minV * 100 / 11));
+    const rightPct = Math.max(0, Math.min(100, maxV * 100 / 11));
     confidenceRangeFill.style.left = leftPct + '%';
     confidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  confidenceRangeMaxHint.textContent = '(range: 0 to 8)';
+  confidenceRangeMaxHint.textContent = '(range: 0 to 11)';
   updateConfidenceRangeFillBar();
 
   function confidenceInRange(row) {
     const min = confidenceRangeMinInput.value === '' ? 0 : parseFloat(confidenceRangeMinInput.value);
-    const max = confidenceRangeMaxInput.value === '' ? 8 : parseFloat(confidenceRangeMaxInput.value);
+    const max = confidenceRangeMaxInput.value === '' ? 11 : parseFloat(confidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.scoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 8;  // only passes if the filter is still at its full default range
+    if (isNaN(c)) return min <= 0 && max >= 11;  // only passes if the filter is still at its full default range
     return c >= min && c <= max;
   }
 
@@ -1214,7 +1214,7 @@
     applyFilters();
   });
   confidenceRangeMaxInput.addEventListener('input', () => {
-    const v = confidenceRangeMaxInput.value === '' ? 8 : +confidenceRangeMaxInput.value;
+    const v = confidenceRangeMaxInput.value === '' ? 11 : +confidenceRangeMaxInput.value;
     confidenceRangeMaxSlider.value = Math.max(v, +confidenceRangeMinSlider.value);
     updateConfidenceRangeFillBar();
     applyFilters();
@@ -1443,19 +1443,19 @@
   function updateOverallConfidenceRangeFillBar() {
     const minV = +overallConfidenceRangeMinSlider.value;
     const maxV = +overallConfidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, (minV / 14) * 100));
-    const rightPct = Math.max(0, Math.min(100, (maxV / 14) * 100));
+    const leftPct = Math.max(0, Math.min(100, (minV / 17) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 17) * 100));
     overallConfidenceRangeFill.style.left = leftPct + '%';
     overallConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  overallConfidenceRangeMaxHint.textContent = '(range: 0 to 14)';
+  overallConfidenceRangeMaxHint.textContent = '(range: 0 to 17)';
   updateOverallConfidenceRangeFillBar();
 
   function overallConfidenceInRange(row) {
     const min = overallConfidenceRangeMinInput.value === '' ? 0 : parseFloat(overallConfidenceRangeMinInput.value);
-    const max = overallConfidenceRangeMaxInput.value === '' ? 14 : parseFloat(overallConfidenceRangeMaxInput.value);
+    const max = overallConfidenceRangeMaxInput.value === '' ? 17 : parseFloat(overallConfidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.overallscoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 14;
+    if (isNaN(c)) return min <= 0 && max >= 17;
     return c >= min && c <= max;
   }
 
@@ -1478,7 +1478,7 @@
     applyFilters();
   });
   overallConfidenceRangeMaxInput.addEventListener('input', () => {
-    const v = overallConfidenceRangeMaxInput.value === '' ? 14 : +overallConfidenceRangeMaxInput.value;
+    const v = overallConfidenceRangeMaxInput.value === '' ? 17 : +overallConfidenceRangeMaxInput.value;
     overallConfidenceRangeMaxSlider.value = Math.max(v, +overallConfidenceRangeMinSlider.value);
     updateOverallConfidenceRangeFillBar();
     applyFilters();

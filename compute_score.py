@@ -1,5 +1,5 @@
 """
-COMPUTE SCORE - combines 8 independent signals into one 1-10 composite Score
+COMPUTE SCORE - combines 11 independent signals into one 1-10 composite Score
 per ticker:
 
   1. Analyst Rating      (Strong Buy .. Strong Sell, from consensus_ratings.txt)
@@ -14,8 +14,17 @@ per ticker:
   8. Rating Trend        (change in analysts' average recommendation over the
                           last 3 months - upgrades vs downgrades - from
                           fundamentals_data.tsv/Yahoo's recommendationTrend)
+  9. Return on Equity    (net income / shareholder equity - how efficiently
+                          the company turns equity into profit, from
+                          fundamentals_data.tsv/Yahoo's financialData)
+  10. Institutional Ownership (% of shares held by institutions - a rough
+                          "smart money" confidence signal, from
+                          fundamentals_data.tsv/Yahoo's defaultKeyStatistics)
+  11. Current Ratio      (current assets / current liabilities - short-term
+                          liquidity health, from fundamentals_data.tsv/Yahoo's
+                          financialData)
 
-Each signal is scored 0-2 points (2 = most bullish), summed (max 16) and
+Each signal is scored 0-2 points (2 = most bullish), summed (max 22) and
 scaled to 0-10. This is a transparent, hand-picked heuristic, not a
 statistically fitted model - the bucket thresholds below are the whole
 "methodology" and are deliberately simple so they can be explained in a
@@ -25,7 +34,8 @@ usable Score instead of dragging it to zero.
 
 Run: python compute_score.py
 Result: score.tsv (TICKER, score, rating_pts, upside_pts, insider_pts, short_pts,
-tech_pts, dispersion_pts, surprise_pts, rating_trend_pts, confidence). A raw data file only - does
+tech_pts, dispersion_pts, surprise_pts, rating_trend_pts, roe_pts, inst_own_pts,
+current_ratio_pts, confidence). A raw data file only - does
 NOT merge into all_rows.html itself, and does NOT call score_history.py itself
 either (that needs both this AND compute_secondary_score.py's output, so the
 caller runs it once after both - see score_history.py's own docstring). The
@@ -101,12 +111,13 @@ def load_fundamentals():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 21:
+        if len(parts) != 24:
             continue
         (ticker, short_pct, beta, pe, rsi14, price, ma50, ma200, market_cap, market_cap_fmt,
          volume_ratio, price_change_pct, peg, range52_pos,
          debt_to_equity, short_ratio, earnings_surprise_avg, eps_trend_pct,
-         profit_margins, revenue_growth, rating_trend_delta) = parts
+         profit_margins, revenue_growth, rating_trend_delta,
+         return_on_equity, current_ratio, institutional_ownership) = parts
 
         def f(v):
             try:
@@ -120,6 +131,8 @@ def load_fundamentals():
             "market_cap": f(market_cap), "market_cap_fmt": market_cap_fmt if market_cap_fmt != "None" else None,
             "earnings_surprise_avg": f(earnings_surprise_avg),
             "rating_trend_delta": f(rating_trend_delta),
+            "return_on_equity": f(return_on_equity), "current_ratio": f(current_ratio),
+            "institutional_ownership": f(institutional_ownership),
         }
     return data
 
@@ -240,6 +253,58 @@ def score_rating_trend(rating_trend_delta):
     return 0.0
 
 
+def score_roe(return_on_equity):
+    """Yahoo's raw value is a fraction (1.4875 = 148.75% for AAPL, inflated
+    by buybacks shrinking equity - extreme values still just mean "very
+    efficient at turning equity into profit", not penalized here)."""
+    if return_on_equity is None:
+        return 1.0
+    pct = return_on_equity * 100
+    if pct > 25:
+        return 2.0
+    if pct > 15:
+        return 1.5
+    if pct > 5:
+        return 1.0
+    if pct > 0:
+        return 0.5
+    return 0.0
+
+
+def score_institutional_ownership(institutional_ownership):
+    """Yahoo's raw value is a fraction (0.664 = 66.4% held by institutions).
+    Higher = more "smart money" confidence backing the stock."""
+    if institutional_ownership is None:
+        return 1.0
+    pct = institutional_ownership * 100
+    if pct > 70:
+        return 2.0
+    if pct > 50:
+        return 1.5
+    if pct > 30:
+        return 1.0
+    if pct > 10:
+        return 0.5
+    return 0.0
+
+
+def score_current_ratio(current_ratio):
+    """Current assets / current liabilities - short-term liquidity health.
+    Unlike the other signals here, this has a SWEET SPOT rather than
+    "higher is always better": below 1.0 means the company may struggle to
+    cover its near-term bills; above ~3.0 usually means too much cash is
+    sitting idle instead of being put to work."""
+    if current_ratio is None:
+        return 1.0
+    if current_ratio < 1.0:
+        return 0.0
+    if current_ratio < 1.5:
+        return 1.0
+    if current_ratio <= 3.0:
+        return 2.0
+    return 1.0
+
+
 def score_technicals(price, ma50, ma200, rsi14):
     if price is None and rsi14 is None:
         return 1.0
@@ -271,6 +336,9 @@ def main():
         ma50, ma200, rsi14 = fnd.get("ma50"), fnd.get("ma200"), fnd.get("rsi14")
         surprise = fnd.get("earnings_surprise_avg")
         rating_trend_delta = fnd.get("rating_trend_delta")
+        return_on_equity = fnd.get("return_on_equity")
+        institutional_ownership = fnd.get("institutional_ownership")
+        current_ratio = fnd.get("current_ratio")
 
         rating_pts = score_rating(rating)
         upside_pts = score_upside(price, avg_target)
@@ -280,10 +348,13 @@ def main():
         dispersion_pts = score_dispersion(low_target, high_target, avg_target)
         surprise_pts = score_earnings_surprise(surprise)
         rating_trend_pts = score_rating_trend(rating_trend_delta)
+        roe_pts = score_roe(return_on_equity)
+        inst_own_pts = score_institutional_ownership(institutional_ownership)
+        current_ratio_pts = score_current_ratio(current_ratio)
 
-        # Confidence: how many of the 8 signals were REAL data vs. a neutral
-        # default because the signal was missing. A 7.0 built from 8 real
-        # signals and a 7.0 built from 2 real + 6 defaults are not equally
+        # Confidence: how many of the 11 signals were REAL data vs. a neutral
+        # default because the signal was missing. A 7.0 built from 11 real
+        # signals and a 7.0 built from 2 real + 9 defaults are not equally
         # trustworthy, even though the number looks the same - see the
         # Score column's tooltip for how this is surfaced on screen.
         confidence = sum([
@@ -295,19 +366,24 @@ def main():
             bool(low_target and high_target and avg_target),
             surprise is not None,
             rating_trend_delta is not None,
+            return_on_equity is not None,
+            institutional_ownership is not None,
+            current_ratio is not None,
         ])
 
         raw_total = (rating_pts + upside_pts + insider_pts + short_pts + tech_pts
-                     + dispersion_pts + surprise_pts + rating_trend_pts)
-        total = raw_total * 10 / 16
+                     + dispersion_pts + surprise_pts + rating_trend_pts
+                     + roe_pts + inst_own_pts + current_ratio_pts)
+        total = raw_total * 10 / 22
         rows.append((ticker, total, rating_pts, upside_pts, insider_pts, short_pts, tech_pts,
-                     dispersion_pts, surprise_pts, rating_trend_pts, confidence))
+                     dispersion_pts, surprise_pts, rating_trend_pts,
+                     roe_pts, inst_own_pts, current_ratio_pts, confidence))
 
     with open(ROOT / "score.tsv", "w", encoding="utf-8") as f:
-        for ticker, total, r, u, i, s, t, disp, surp, rtrend, confidence in rows:
+        for ticker, total, r, u, i, s, t, disp, surp, rtrend, roe, iown, curr, confidence in rows:
             f.write(
                 f"{ticker}\t{total:.1f}\t{r:.1f}\t{u:.1f}\t{i:.1f}\t{s:.1f}\t{t:.1f}\t"
-                f"{disp:.1f}\t{surp:.1f}\t{rtrend:.1f}\t{confidence}\n"
+                f"{disp:.1f}\t{surp:.1f}\t{rtrend:.1f}\t{roe:.1f}\t{iown:.1f}\t{curr:.1f}\t{confidence}\n"
             )
 
     print(f"Computed Score for {len(rows)} tickers -> score.tsv")

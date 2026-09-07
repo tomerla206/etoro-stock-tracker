@@ -12,7 +12,7 @@ def load_fundamentals():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 21:
+                if len(parts) != 24:
                     continue
                 data[parts[0]] = {
                     "short_pct": parts[1], "beta": parts[2], "pe": parts[3], "rsi14": parts[4],

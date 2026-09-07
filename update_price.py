@@ -31,7 +31,7 @@ def load_fresh_prices():
         return prices
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 21:
+        if len(parts) != 24:
             continue
         ticker, price = parts[0], parts[5]
         try:

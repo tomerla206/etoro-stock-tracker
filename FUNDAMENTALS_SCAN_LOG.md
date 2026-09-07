@@ -2,8 +2,8 @@
 
 Done: 6356 / 6356
 
-Elapsed: 9.5 min | Rate: 11.19/s | ETA: 0.0 min
+Elapsed: 12.5 min | Rate: 8.46/s | ETA: 0.0 min
 
-Updated: 6183
+Updated: 6182
 No data: 173
-Errors: 0
+Errors: 1

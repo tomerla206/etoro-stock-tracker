@@ -48,6 +48,7 @@ HISTORY_COLUMNS = [
     "score", "score_confidence", "score_rating_pts", "score_upside_pts",
     "score_insider_pts", "score_short_pts", "score_tech_pts",
     "score_dispersion_pts", "score_surprise_pts", "score_ratingtrend_pts",
+    "score_roe_pts", "score_instown_pts", "score_currentratio_pts",
     "secscore", "secscore_confidence", "secscore_pe_pts", "secscore_hf_pts", "secscore_vol_pts",
     "secscore_epstrend_pts", "secscore_margin_pts", "secscore_growth_pts",
     "riskscore", "riskscore_confidence", "riskscore_beta_pts", "riskscore_range_pts", "riskscore_vol_pts",
@@ -64,15 +65,17 @@ def load_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 11:
+        if len(parts) != 14:
             continue
-        ticker, total, rating, upside, insider, short, tech, dispersion, surprise, rating_trend, confidence = parts
+        (ticker, total, rating, upside, insider, short, tech, dispersion, surprise,
+         rating_trend, roe, inst_own, current_ratio, confidence) = parts
         data[ticker] = {
             "score": total, "score_confidence": confidence,
             "score_rating_pts": rating, "score_upside_pts": upside,
             "score_insider_pts": insider, "score_short_pts": short, "score_tech_pts": tech,
             "score_dispersion_pts": dispersion, "score_surprise_pts": surprise,
             "score_ratingtrend_pts": rating_trend,
+            "score_roe_pts": roe, "score_instown_pts": inst_own, "score_currentratio_pts": current_ratio,
         }
     return data
 
@@ -141,7 +144,7 @@ def load_prices():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 21:
+        if len(parts) != 24:
             continue
         ticker, price = parts[0], parts[5]
         if price not in (None, "None", ""):

@@ -39,7 +39,7 @@ def load_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 11:
+        if len(parts) != 14:
             continue
         ticker, total, *_rest, confidence = parts
         try:
