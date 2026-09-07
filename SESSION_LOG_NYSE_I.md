@@ -1,0 +1,14 @@
+# Session Log — NYSE Letter I
+
+**Method**: v4 text-based extraction (tipranks widget `get_page_text` for Low/Avg/High, eToro `/research` page `get_page_text` for price + `javascript_exec` for tradeability). See `NYSE_PROJECT_LOG.md` and `PROJECT_LOG.md`'s v4 method section.
+
+**Tickers**: 49, sourced from `grep '^I' nyse_data.tsv`, sorted. Full list:
+IAG.US IBM IBN IBP IBTA ICE ICL IDA IDR.US IDT IE IEX IFF IFS "IGMS CVR" IHG IHS IIIN IIPR IMAX IMO INFQ INFY INGM INGR INN INSP INSW INTT INVH INVX IONQ IOT IP.US IPI IQV IR IRM IRS IRT IT ITGR ITT ITUB ITW IVR IVT IVZ.US IX
+
+**Note**: "IGMS CVR" is a CVR-type ticker (merger contingent-value-rights, ticker literally has a space not a dot) — per project convention, record directly as `CVR`/`NOT_TRADEABLE`/`0.00` without visiting the site (row confirmed in nyse_data.tsv: `IGMS CVR	IGMS CVR delisting	0.00			0%`).
+
+**Progress**: Starting fresh 2026-08-27, right after letter H completed cleanly (69/69, no blocks).
+
+**Checkpoint 2026-08-27**: 23/49 done (through INFY). No blocks (one transient "Claude in Chrome not connected" mid-wait, self-recovered, not a real block). NOFAQ so far: IBN, IDT, IHS, IIIN. Includes 1 CVR ("IGMS CVR"). All others OK/TRADEABLE. Next: INGM.
+
+**LETTER I COMPLETE 2026-08-27**: 49/49 done. No genuine blocks. Special case: IR (Ingersoll Rand Inc.) — eToro's `/markets/ir/research` URL redirects to Trane Technologies' page (`/markets/tt/research`, showing "Trane Technologies" at ~$450, totally different company/price than Ingersoll Rand's real ~$79). This is a real eToro site-side routing quirk: Trane Technologies was named "Ingersoll-Rand plc" and held the IR ticker until the 2020 spinoff that created the current, separate Ingersoll Rand Inc. (still ticker IR, now a different company) — eToro's slug mapping for "ir" appears to still point at the legacy/renamed entity. Extensively verified this was NOT a transient glitch (multiple fresh hard navigations, all consistently redirect to TT). Could not reach IR's own eToro page via the search UI either (persistent focus/coordinate-scaling issues with the search box across many attempts). Resolution: recorded IR using tipranks widget data for ticker=IR (independently verified correct — insider names Vikram Kini, Michael Weatherred etc. match Ingersoll Rand Inc.'s real executives, not Trane's) combined with the price from nyse_data.tsv (79.33), tradeability marked TRADEABLE by reasonable judgment (large actively-traded NYSE industrial stock, no indication of delisting/restriction). Flagging this row for a human spot-check later if ever in doubt. Additional NOFAQ this stretch: IRS, IX (total NOFAQ for letter I: IBN, IDT, IHS, IIIN, IRS, IX = 6). Completeness audit passed: 49/49 both directions, no duplicates. NYSE_LETTER_STATUS.md updated to DONE. Next letter: J (20 tickers, not yet started).

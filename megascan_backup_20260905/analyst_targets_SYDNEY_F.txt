@@ -1,0 +1,4 @@
+FBU.ASX	Fletcher Building Limited	3.24	2.72	2.90	3.10	OK	TRADEABLE
+FLT.ASX	Flight Centre Travel Group Limited	11.99	14.25	14.25	14.25	OK	TRADEABLE
+FMG.ASX	Fortescue Metals Group Limited	18.08	15.45	17.36	20.00	OK	TRADEABLE
+FPH.ASX	Fisher & Paykel Healthcare Corporation Limited	36.43	42.50	42.50	42.50	OK	TRADEABLE

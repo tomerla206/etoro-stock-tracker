@@ -1,0 +1,32 @@
+# Session Log — Paris Group A2 (ALFER.PA–ALODC.PA, 62 tickers)
+
+- 2026-08-28: Started fresh, immediately after A1 completed cleanly (62/62, 0 blocks, 0 mismatches). Same tab/login session carried over — login re-verified at A1 session start (AAPL: 315.14/315.25, Off-hours, Prices by NASDAQ, Trade disabled:false x2). Continuing on tab 1160640740.
+- Clean through: ALFER (Sergeferrari Group SA, 6.620, NOFAQ, TRADEABLE), ALFLE (Fleury Michon SA, 21.70, NOFAQ, TRADEABLE), ALFLO (Florentaise SA, 0.900, NOFAQ, TRADEABLE), ALFOR (Forsee Power SA, 0.2240, NOFAQ, TRADEABLE), ALFPC (Fountaine Pajot SA, 85.10, NOFAQ, TRADEABLE), ALFRE (Freelance.com SA, 2.700, NOFAQ, TRADEABLE), ALFUM (Fill Up Media SA, 5.92, NOFAQ, TRADEABLE), ALGAE (Fermentalg SA, 0.4555, NOFAQ, TRADEABLE), ALGEN (Genoway SA, 2.460, NOFAQ, TRADEABLE), ALGID (Egide SA, 0.8810, NOFAQ, TRADEABLE), ALGIL (Groupe Guillin SA, 21.00, NOFAQ, TRADEABLE), ALGIR (Signaux Girod SA, 16.35, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALHAF.PA** (next ticker after ALGIR.PA). 12/62 done, 0 blocks, 0 mismatches, all NOFAQ/TRADEABLE so far.
+- Clean through: ALHAF (Haffner Energy SA, 0.4720, NOFAQ, TRADEABLE), ALHEX (Hexaom SA, 26.30, NOFAQ, TRADEABLE), ALHF (HF Company SA, 4.030, NOFAQ, TRADEABLE), ALHG (Louis Hachette Group, 1.8010, NOFAQ, **NOT_TRADEABLE** — legit per-ticker status, both Trade buttons disabled, no lockout signs), ALHGR (Hoffmann Green Cement Technologies SAS, 4.015, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALHOP.PA** (next ticker after ALHGR.PA). 17/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALHOP (Hopscotch Groupe SA, 14.50, NOFAQ, TRADEABLE), ALHPI (Hopium SA, 0.0041, NOFAQ, TRADEABLE), ALHRG (Herige SA, 21.10, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALHRS.PA** (next ticker after ALHRG.PA). 20/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALHRS (Hydrogen-Refueling-Solutions SA, 1.234, NOFAQ, TRADEABLE), ALHUN (Hunyvers SA, 6.85, NOFAQ, TRADEABLE), ALHYP (Hipay Group SA, 5.02, NOFAQ, TRADEABLE), ALIBR (Calibre, 0.0004, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALICA.PA** (next ticker after ALIBR.PA). 24/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALICA (Icape Holding SA, 8.62, NOFAQ, TRADEABLE), ALIKO (Ikonisys SA, 1.480, NOFAQ, TRADEABLE), ALIMP (Implanet SA, 0.1858, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALINN.PA** (next ticker after ALIMP.PA). 27/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALINN (Innelec Multimedia SA, 2.650, NOFAQ, TRADEABLE), ALINS (Intrasense SA, 0.2830, NOFAQ, TRADEABLE), ALINV (Invibes Advertising NV, 1.870, NOFAQ, TRADEABLE), ALITL (IT Link SA, 16.80, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALJXR.PA** (next ticker after ALITL.PA). 31/62 done (halfway), 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALJXR (Archos SA, 0.2705, NOFAQ, TRADEABLE), ALKAL (Kalray SA, 5.8100, NOFAQ, TRADEABLE), ALKEY (Keyrus SA, 7.90, NOFAQ, TRADEABLE), ALKKO (Kko International SA, 0.0650, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALKLA.PA** (next ticker after ALKKO.PA). 35/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALKLA (Klarsen SA, 1.320, NOFAQ, TRADEABLE), ALKLH (Klea Holding, 0.1532, NOFAQ, TRADEABLE), ALLAN (Lanson BCC SA, 27.60, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALLDL.PA** (next ticker after ALLAN.PA). 38/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate).
+- Clean through: ALLDL (Groupe LDLC SA, 12.50, NOFAQ, TRADEABLE), ALLGO (Largo SA, 1.320, NOFAQ, TRADEABLE), ALLIX (Wallix Group SA, 22.200, NOFAQ, TRADEABLE), ALLOG (Logic Instrument SA, 1.900, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALMCE.PA** (next ticker after ALLOG.PA). 42/62 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (ALHG, legitimate). 20 tickers left in A2.
+- Clean through: ALMCE (Mon Courtier Energie SAS, 5.65, NOFAQ, TRADEABLE), ALMCP (Mcphy Energy SA, 0.1500, NOFAQ, **NOT_TRADEABLE** — legit per-ticker status), ALMDG (Mgi Digital Technology SA, 10.00, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALMDT.PA** (next ticker after ALMDG.PA). 45/62 done, 0 blocks, 0 mismatches, 2 NOT_TRADEABLE (ALHG, ALMCP, both legitimate). 17 tickers left in A2.
+- Clean through: ALMDT (Median Technologies SA, 4.450, NOFAQ, TRADEABLE), ALMIB (Amoeba SA, 0.6880, NOFAQ, TRADEABLE), ALMIN (Mint SA, 5.000, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALMKT.PA** (next ticker after ALMIN.PA). 48/62 done, 0 blocks, 0 mismatches, 2 NOT_TRADEABLE (legitimate). 14 tickers left in A2.
+- Clean through: ALMKT (Mauna Kea Technologies SA, 0.1560, NOFAQ, TRADEABLE), ALMLB (Miliboo SA, 1.600, NOFAQ, TRADEABLE), ALMOU (Moulinvest SA, 22.70, NOFAQ, TRADEABLE), ALMRB (MR Bricolage SA, 3.84, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALNEV.PA** (next ticker after ALMRB.PA). 52/62 done, 0 blocks, 0 mismatches, 2 NOT_TRADEABLE (legitimate). 10 tickers left in A2.
+- Clean through: ALNEV (Neovacs SA, 4001.0000, NOFAQ, **NOT_TRADEABLE** — legit, unusual price likely a reverse-split artifact, no lockout signs), ALNFL (Nfl Biosciences SAS, 0.920, NOFAQ, TRADEABLE), ALNN6 (Enensys Technologies SA, 1.165, NOFAQ, TRADEABLE), ALNOV (Novacyt SA, 0.4945, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALNRG.PA** (next ticker after ALNOV.PA). 56/62 done, 0 blocks, 0 mismatches, 3 NOT_TRADEABLE (all legitimate). 6 tickers left in A2.
+- Clean through: ALNRG (Energisme SA, 0.0038, NOFAQ, TRADEABLE), ALNSE (NSE SA, 48.40, NOFAQ, TRADEABLE), ALNTG (Netgem SA, 0.804, NOFAQ, TRADEABLE), ALNXT (Nextedia SA, 0.307, NOFAQ, TRADEABLE), ALO (Alstom SA, 16.665, 16.50/20.90/25.00, OK, TRADEABLE), ALODC (Omer Decugis & Cie SA, 8.560, NOFAQ, TRADEABLE).
+- **A2 COMPLETE: 62/62.** Completeness audit run (diff both directions against paris_data.tsv slice ALFER.PA-ALODC.PA, plus duplicate check) — 0 gaps, 0 duplicates, exact match. 0 blocks the entire session. 2 tickers had real analyst data (ALCGM from A1 doesn't apply here — for A2: ALO/Alstom SA, OK); everything else NOFAQ. 3 legitimate NOT_TRADEABLE (ALHG/Louis Hachette Group, ALMCP/Mcphy Energy SA, ALNEV/Neovacs SA — all confirmed genuine per-ticker status, no lockout signs on any). 0 MISMATCH.
+- Moving on to group A3 (ALOKW.PA-AYV.PA, 61 tickers) per coordinating-session instructions — see `SESSION_LOG_PARIS_A3.md`.

@@ -1,0 +1,8 @@
+CABA	Cabaletta Bio Inc	3.13	3.00	15.50	30.00	OK
+CAC	Camden National Corporation	56.67	55.00	56.50	58.00	OK
+CACC	Credit Acceptance	601.05	600.00	600.00	600.00	OK
+CAE	Cae Inc	24.91	20.15	31.18	34.54	OK
+CAI	Caris Life Sciences Inc	26.27	21.00	26.29	33.00	OK
+CAKE.US	The Cheesecake Factory Inc	113.33	60.00	90.38	110.00	OK
+CALM	Cal-Maine Foods, Inc	82.80	79.00	82.33	85.00	OK
+CAMT	Camtek Ltd	146.81	160.00	180.63	200.00	OK

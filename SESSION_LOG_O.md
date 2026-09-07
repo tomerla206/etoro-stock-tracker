@@ -1,0 +1,24 @@
+# Session Log — Letter O
+
+Starting fresh, 58 tickers. Login verified clean (AAPL check: Tomer Lalo Schwartz, green Trade, Prices by NASDAQ, 245.00/337.09/400.00).
+
+Sorted worklist: OABI, OBIO, OBT, OCFC, OCGN, OCSL, OCUL, ODD, ODFL, ODTX, OFIX, OFLX, OFS, OGI, OKTA, OKUR, OLED, OLLI, OLMA, OM.US, OMAB, OMCL, OMDA, OMER, ON, ONB, ONC, ONDS, ONEW, OPAL, OPCH, OPEN, OPENL, OPENW, OPENZ, OPK, OPRA, OPRT, OPRX, OPTX, ORBS, ORGN, ORGO, ORIC, ORKA, ORLY, OSBC, OSIS, OSPN, OSW, OTEX, OTLY, OTTR, OUST, OVLY, OXSQ, OZK, OZON
+
+(fake analyst_targets_O.txt from Gemini incident quarantined in gemini_accident_leftovers/, ignored per PROJECT_LOG.md)
+
+- Batch 1 (15/58): OABI-OLMA done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 3 NOFAQ (OBT, OFLX, OFS — all still TRADEABLE). No blocks. Resume at OM.US next.
+- Batch 2 (25/58): OM.US-ONEW done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 1 more NOFAQ (OM.US, ONEW — both still TRADEABLE). No blocks. Resume at OPAL next.
+- Batch 3 (36/58): OPAL-OPK done. 0 NEW, 0 MISMATCH, 3 NOT_TRADEABLE (OPENL, OPENW, OPENZ — Opendoor warrants, greyed Trade button regardless of market-open/closed state), NOFAQ count now 6 total (OBT, OFLX, OFS, OM.US, ONEW, plus OPENL/W/Z also NOFAQ = 9 NOFAQ total, 3 of those also NOT_TRADEABLE). No blocks yet.
+- **BLOCK HIT at OPRA (2026-08-24)**: navigated to OPRA research page, got the ordinary lockout signature exactly as described in PROJECT_LOG.md — "It looks like something went wrong" dialog + sidebar flipped to logged-out ("Have an account? / Sign in"). Stopped immediately per protocol, did NOT retry, did NOT attempt to log in. Last successfully completed ticker: OPK (36/58, verified by counting analyst_targets_O.txt rows directly). OPRA itself was NOT recorded (block occurred before data was read). Resume point for next session: OPRA (start of next batch) through OZON — 22 tickers remain: OPRA, OPRT, OPRX, OPTX, ORBS, ORGN, ORGO, ORIC, ORKA, ORLY, OSBC, OSIS, OSPN, OSW, OTEX, OTLY, OTTR, OUST, OVLY, OXSQ, OZK, OZON.
+- **Requires real user re-login before resuming** — do not attempt to log in as the agent, do not retry the block.
+- **Resumed 2026-08-24**: fresh login re-verified clean (AAPL: Tomer Lalo Schwartz, green Trade, Market Open, Prices by NASDAQ, 245.00/337.09/400.00). Diffed analyst_targets_O.txt (36 rows) against sorted nasdaq_data.tsv O-tickers (58 total) — confirmed real stopping point was OPK/36, matches prior log. Resumed at OPRA.
+- Batch 4 (49/58): OPRA-OSPN done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 3 more NOFAQ (OPTX, ORBS, ORGN — all still TRADEABLE), NOFAQ total now 12. No blocks. Resume at OSW next.
+- Batch 5 (55/58): OSW-OVLY done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 2 more NOFAQ (OTTR, OVLY — both still TRADEABLE), NOFAQ total now 14.
+- **BLOCK HIT at OXSQ (2026-08-24, second time this letter)**: navigated to OXSQ research page, got the ordinary lockout signature exactly as described in PROJECT_LOG.md — "It looks like something went wrong" dialog + sidebar flipped to logged-out ("Have an account? / Sign in" / "Sign up") + price label showing delayed prices. Stopped immediately per protocol, did NOT retry, did NOT attempt to log in. Last successfully completed ticker: OVLY (55/58, verified by counting analyst_targets_O.txt rows directly). OXSQ itself was NOT recorded (block occurred before data was read). Resume point for next session: OXSQ, OZK, OZON — 3 tickers remain.
+- **Requires real user re-login before resuming** — do not attempt to log in as the agent, do not retry the block.
+- **Resumed 2026-08-24 (final session)**: diffed analyst_targets_O.txt (55 rows, ending OVLY) against sorted nasdaq_data.tsv O-tickers — confirmed real stopping point matched the log exactly, no drift. Fresh login re-verified clean (AAPL: Tomer Lalo Schwartz, green Trade, Prices by NASDAQ, 245.00/337.09/400.00). Did the final 3 tickers directly (no sub-agent delegation, per instructions):
+  - OXSQ (Oxford Square Capital Corp): 1.38, no research data → NOFAQ, green Trade → TRADEABLE.
+  - OZK (Bank OZK): 49.34, Low 40.00 / Avg 52.00 / High 61.00 → OK, green Trade → TRADEABLE.
+  - OZON (Ozon Holdings PLC): 11.60, no research data → NOFAQ, Trade button greyed out → NOT_TRADEABLE.
+  - No blocks. No new/mismatched tickers.
+- **LETTER O COMPLETE — 58/58.** Final tallies (verified directly from analyst_targets_O.txt via awk): 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE (OPENL, OPENW, OPENZ — Opendoor warrants; OZON — greyed Trade button), 0 CVR, 15 NOFAQ (OBT, OFLX, OFS, OM.US, ONEW, OPENL, OPENW, OPENZ, OPTX, ORBS, ORGN, OTTR, OVLY, OXSQ, OZON — 4 of these also NOT_TRADEABLE, the rest still TRADEABLE despite no research data). Completeness audit run both directions against `nasdaq_data.tsv`: 58 rows in file, `comm -23`/`comm -13` on sorted suffix-stripped ticker lists both empty — no missing, no extra. Two ordinary lockouts total this letter (at OPRA and OXSQ), both cleared via genuine user re-login, no data lost either time.

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "H:\\u05e7\u05dc\u05d5\u05d3\\u05e7\u05dc\u05d5\u05d3 2 - Copy\portfolio_server.py", line 254, in <module>
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\T\AppData\Local\Programs\Python\Python311\Lib\socketserver.py", line 456, in __init__
+    self.server_bind()
+  File "C:\Users\T\AppData\Local\Programs\Python\Python311\Lib\socketserver.py", line 472, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted

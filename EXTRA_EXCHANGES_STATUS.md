@@ -1,0 +1,39 @@
+# Extra Exchanges Claim Board — v4 eToro Analysis-Tab Pass
+
+**Read `EXTRA_EXCHANGES_LOG.md` first.** Joins the back of the sequential queue (NYSE → Frankfurt → Paris → Sydney → Stockholm → Hong Kong → Oslo → Tokyo → Milan → this batch) — do not start until it's this project's turn and no other sibling agent is active.
+
+**Tracked at exchange level, not per-letter** (unlike the other sibling projects) — these are mostly small-to-medium exchanges (24-145 tickers) that don't need per-letter claim granularity. Work each exchange's full ticker list from its `*_data.tsv`, checkpointing progress in the exchange's own `SESSION_LOG_<EXCHANGE>.md` as you go (batch by batch, same pacing protocol as always) — if a session runs out of budget partway through an exchange, log the exact resume ticker there and update this row to `IN PROGRESS (X/Y done)`.
+
+## Claim table
+
+| Exchange | Tickers | Status | Claimed by | Output file | Notes |
+|---|---|---|---|---|---|
+| Zurich | 56 | DONE (56/56) | agent-2026-08-29 | `analyst_targets_ZURICH.txt` | `.ZU` suffix. Zero blocks. NOFAQ: CMBN, HBAN, LISP. |
+| Amsterdam | 95 | DONE (95/95) | agent-2026-08-29 | `analyst_targets_AMSTERDAM.txt` | `.NV` suffix. Completeness diff confirmed exact match, zero gaps/duplicates (caught and fixed 1 accidentally-skipped ticker, SHELL.NV, before declaring done). Zero blocks this session. |
+| Brussels | 83 | DONE (83/83) | agent-2026-08-29 | `analyst_targets_BRUSSELS.txt` | `.BR` suffix. Completeness audit confirmed exact match against `brussels_data.tsv`, zero gaps/duplicates. Extremely high NOFAQ rate (mostly small/mid-cap Belgian names, plus the recurring "ANALYST RATINGS without aggregate consensus" edge case, seen even on large caps like KBC, UCB, Umicore, Solvay). Only 1 NOT_TRADEABLE (WHATS.BR). Only 2 ordinary-lockout blocks all session (tickers 25 and 30), zero blocks after the second re-login. |
+| Helsinki | 94 | DONE (94/94) | agent-2026-08-29 | `analyst_targets_HELSINKI.txt` | `.HE` suffix. Completeness audit confirmed exact match against `helsinki_data.tsv`, zero gaps/duplicates. 100% NOFAQ across the whole exchange, most large caps via the ratings-without-consensus edge case. Only 2 NOT_TRADEABLE (EASOR.HE, LASTIK.HE). Zero blocks the entire exchange. |
+| Copenhagen | 78 | DONE (78/78) | agent-2026-08-29 | `analyst_targets_COPENHAGEN.txt` | `.CO` suffix. Completeness audit confirmed exact match, zero gaps/duplicates. 100% NOFAQ, only 1 NOT_TRADEABLE (BAVA.CO). Zero blocks the entire exchange. |
+| Lisbon | 24 | DONE (24/24) | agent-2026-08-29 | `analyst_targets_LISBON.txt` | mostly `.LS`, 3 legacy `.LSB` tickers. Completeness audit confirmed exact match, zero gaps/duplicates. 100% NOFAQ, zero NOT_TRADEABLE. Zero eToro blocks the entire exchange. |
+| Madrid | 51 | DONE (51/51) | agent-2026-08-29 | `analyst_targets_MADRID.txt` | `.MC` suffix. Completeness audit confirmed exact match against `madrid_data.tsv`, zero gaps/duplicates. Zero blocks the entire exchange. Genuine OK-status analyst coverage on many large caps (unlike most other exchanges this session, which were mostly NOFAQ). Only 1 NOT_TRADEABLE (IMC.MC). |
+| OTC Markets | 72 | DONE (72/72) | agent-2026-08-29 | `analyst_targets_OTC.txt` | no consistent suffix, use ticker as-is; many legitimate $0.00/near-zero prices for delisted/defunct names. Completeness audit confirmed exact match, zero gaps/duplicates. Zero blocks the entire exchange. |
+| Abu Dhabi | 29 | DONE (29/29) | agent-2026-08-29 | `analyst_targets_ABUDHABI.txt` | `.DH` suffix. Completeness audit confirmed exact match, zero gaps/duplicates. 100% NOFAQ (no tipranks coverage of ADX names). Only 1 NOT_TRADEABLE (PRESIGHT.DH). Zero blocks the entire exchange. |
+| Dubai | 29 | DONE (29/29) | agent-2026-08-29 | `analyst_targets_DUBAI.txt` | `.AE` suffix. Completeness audit confirmed exact match, zero gaps/duplicates. 100% NOFAQ (no tipranks coverage of DFM names). All 29 TRADEABLE, zero NOT_TRADEABLE. Zero blocks the entire exchange. |
+| London | 414 | **DONE (414/414)** | agent-2026-08-30 | `analyst_targets_LONDON.txt` | `.L` suffix, main LSE board (HSBC, Shell, BP, etc.) — largest exchange in this batch, completed across ~8 sessions. Completeness audit confirmed exact match against `london_data.tsv`, zero gaps/duplicates (one gap, MCB.L, was found and fixed post-completion). 225 OK / 189 NOFAQ / 15 NOT_TRADEABLE (mostly sanctioned Russian names: ROSNL.L, SBER.MOEX, SGGD.L, SVSTL.L, EVR.L, and a few genuinely no-eToro-page cases like IPF.L). ⚠️ Mid-session discovery: a false-NOFAQ bug was found and fixed — `get_page_text` on the eToro page intermittently failed to read the cross-origin TipRanks iframe (silent failure, no error), producing false NOFAQ even for names with real coverage (caught because RELX PLC being NOFAQ was implausible). Fixed by switching to the documented v3 method: navigate directly to `https://widgets.tipranks.com/content/etoro/etoro-widget.html?lang=en&ticker={TICKER}&theme=light` (public, unauthenticated, loads as its own top-level page) and read with plain `get_page_text` — reliable and far cheaper than the zoom+screenshot workaround used mid-session. Also found bare-ticker tipranks collision risk (short tickers like API/ASC/BA/BBY/BLND/BMY/BOOT/GRI/HAS/IAG/ICG/III/JD matched unrelated US-listed companies) — corrected by re-querying with `.L` suffix. Full details in `SESSION_LOG_LONDON.md`. |
+| London AIM | 145 | **DONE (145/145)** | agent-2026-08-30 | `analyst_targets_LONDONAIM.txt` | `.L` suffix, combined from AIM/AIM-Auction/Auction segments — distinct from London main board, 0 ticker overlap. Used v3/v4 widget-URL method (see SESSION_LOG_LONDONAIM.md). Hit one CAPTCHA block mid-session on ticker 142 (WJG.L) — "Slide right to secure your access" / "Automated (bot) activity" challenge, IP 46.121.145.129 — stopped per protocol, resumed cleanly after user power-cycled the router and login was re-verified. Final 4 tickers (WJG.L, WRKS.L, YU..L, ZIOC.L — all NOFAQ/TRADEABLE) completed with zero further blocks. Full completeness audit confirmed exact match against `london_aim_data.tsv`, zero gaps/duplicates. Note: SAA.L recorded with a likely TipRanks data anomaly (19500.00 target vs 146.50 price) — kept as-scraped. Note: YU..L has a literal double-dot ticker (Yu Group Plc), used exactly as in the tsv. |
+| Saudi Arabia | 1 | DONE (1/1) | agent-2026-08-29 | `analyst_targets_SAUDIARABIA.txt` | just `SAOC`, no suffix. NOFAQ, TRADEABLE. Completeness audit exact match. |
+| Chicago | 1 | DONE (1/1) | agent-2026-08-29 | `analyst_targets_CHICAGO.txt` | just `CBOE`, no suffix. OK 303.00/330.88/380.00, TRADEABLE. Completeness audit exact match. |
+
+Total: 1,172 tickers across 14 exchanges (London split into London main board + London AIM 2026-08-29, after the main board was found missing). **All 14 exchanges in this batch are now DONE — London AIM (145/145) completed 2026-08-30 was the last one.**
+
+## Procedure
+
+1. Confirm it's this project's turn in the sequential queue and no other sibling-project agent is active.
+2. Pick an exchange marked `NOT STARTED` (or resume one `IN PROGRESS`), claim/update it here, save before doing any real work.
+3. Rigorously verify eToro login before starting (per `EXTRA_EXCHANGES_LOG.md`).
+4. Work the exchange's tickers in `*_data.tsv` order, per the v4 method + mandatory human-paced protocol. Batch checkpoints go in `SESSION_LOG_<EXCHANGE>.md`.
+5. On any block: stop immediately, checkpoint cleanly, report back — never solve/bypass.
+6. Before declaring an exchange done: run the completeness audit (diff against its `*_data.tsv`, both directions).
+
+## Merging (do only when the user asks)
+
+Extend `generate_exchange_rows.py`'s `EXCHANGES` list with an entry per exchange here (e.g. `("zurich_data.tsv", "Zurich")`), regenerate, append to `all_rows.html`, re-run `merge_analyst_targets.py`, reassemble, republish — same process as every other exchange.

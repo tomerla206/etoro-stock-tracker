@@ -1,0 +1,26 @@
+# Session Log — NYSE Letter T1 (T.US through TLYS, 45 tickers)
+
+- 2026-08-27: Started immediately after completing S2 in the same session (login re-verified fresh at session start: AAPL 313.91/443.83 checks, Market Open, Prices by NASDAQ, Trade disabled:false x2 — carried forward, still working with no issues through all of S2's 48 tickers this session with no blocks).
+- Verified via `grep '^T' nyse_data.tsv | sort`: 91 tickers total, T.US through TYL. Split into T1 (T.US-TLYS, 45 tickers, rows 1-45) and T2 (TM-TYL, 46 tickers, rows 46-91), same pattern as prior M/P/S splits.
+- Next ticker to resume from: T.US.
+- Checkpoint after 7/45 tickers: T.US, TAC, TAK, TAL, TALO, TAP, TBBB. T.US and TAK bare-ticker fallback needed on tipranks widget (T.US returns NOFAQ but bare "T" works; TAK worked directly). No NOFAQ yet. No blocks. Batch pause taken.
+- Next ticker to resume from: TBI.
+- Checkpoint after 12/45 tickers: added TBI, TBN, TD, TDAY. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TDC.
+- Checkpoint after 18/45 tickers: added TDC, TDG, TDOC, TDS, TDW. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TDY.
+- Checkpoint after 22/45 tickers: added TDY, TE, TECK, TEL.US. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TELFY.
+- Checkpoint after 26/45 tickers: added TELFY, TEN.US, TEO, TEVA. 2 new NOFAQ (TELFY, TEN.US). No blocks. Batch pause taken.
+- Next ticker to resume from: TEX.
+- Checkpoint after 29/45 tickers: added TEX, TFC, TFII. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TFPM.
+- Checkpoint after 33/45 tickers: added TFPM, TFX, TG, TGLS. 1 new NOFAQ (TG). No blocks. Batch pause taken.
+- Next ticker to resume from: TGS.US.
+- Checkpoint after 36/45 tickers: added TGS.US, TGT, THC. 1 new NOFAQ (TGS.US). No blocks. Batch pause taken.
+- Next ticker to resume from: THG.
+- Checkpoint after 39/45 tickers: added THG, THO, TIC. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TIMB.
+- Checkpoint after 43/45 tickers: added TIMB, TJX, TK, TKC. 2 new NOFAQ (TK, TKC). TK bare ticker verified, no routing quirk. No blocks. 2 tickers left: TKO, TKR. Batch pause taken.
+- Next ticker to resume from: TKO.
+- Completed TKO, TKR, then completeness audit caught 2 accidentally-skipped tickers (TLK, TLYS — my initial split-list read missed them) — added both. **45/45 DONE.** Completeness audit passed: diffed nyse_data.tsv (T.US-TLYS, rows 1-45) against analyst_targets_NYSE_T1.txt both directions — 0 missing, 0 extra, 0 duplicates. Final counts: 7 NOFAQ (TELFY, TEN.US, TG, TGS.US, TK, TKC, TLK), 0 CVR. No blocks encountered this entire session. LETTER T1 COMPLETE.

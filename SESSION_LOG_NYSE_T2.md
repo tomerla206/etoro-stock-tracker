@@ -1,0 +1,41 @@
+# Session Log — NYSE Letter T2 (TM through TYL, 46 tickers)
+
+- 2026-08-27: Started immediately after completing T1 in the same session (login still fresh throughout, no re-verification issues across S2+T1's combined ~110 tickers this session).
+- Verified via `grep '^T' nyse_data.tsv | sort`: rows 46-91 = TM through TYL inclusive = 46 tickers.
+- Next ticker to resume from: TM.
+- Re-verified login fresh before starting (AAPL 313.63, Market Open, Trade disabled:false x2).
+- Checkpoint after 5/46 tickers: TM, TME, TMO, TMP. 1 NOFAQ (TM). No blocks. Batch pause taken.
+- Next ticker to resume from: TNC.
+- Checkpoint after 8/46 tickers: added TNC, TNET, TNK. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TNL.
+- Checkpoint after 11/46 tickers: added TNL, TOL. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TOPS.
+- Checkpoint after 15/46 tickers: added TOPS, TOST, TPB. 1 new NOFAQ (TOPS). No blocks. Batch pause taken.
+- Next ticker to resume from: TPC.
+- Checkpoint after 19/46 tickers: added TPC, TPL, TPR. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TPVG.
+- Checkpoint after 21/46 tickers: added TPVG, TR. 1 new NOFAQ (TR). TR bare ticker verified, no routing quirk. No blocks. Batch pause taken.
+- Next ticker to resume from: TRC.
+- Checkpoint after 24/46 tickers (halfway): added TRC, TREX, TRGP. 1 new NOFAQ (TRC). No blocks. Batch pause taken.
+- Next ticker to resume from: TRIN.
+- Checkpoint after 27/46 tickers: added TRIN, TRN.US, TRNO. TRN.US needed bare "TRN" fallback on tipranks. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TROX.
+- Checkpoint after 30/46 tickers: added TROX, TRP. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TRTX.
+- Checkpoint after 32/46 tickers: added TRTX, TRU.US. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TRV.
+- Checkpoint after 34/46 tickers: added TRV, TS. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TSEOQ.
+- Checkpoint after 36/46 tickers: added TSEOQ, TSLX. TSEOQ is a bankrupt-shell (price 0.0030, NOFAQ) but Trade button showed disabled:false so recorded TRADEABLE per actual DOM state. No blocks. Batch pause taken.
+- Next ticker to resume from: TSM.
+- Checkpoint after 39/46 tickers: added TSM, TSN. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TT.
+- Checkpoint after 41/46 tickers: added TT, TTAM. TT bare ticker verified, no routing quirk. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TTC.
+- Checkpoint after 38/46 tickers: added TTC, TTE, TTI. No new NOFAQ. No blocks. 8 tickers left: TU, TV, TWLO, TWO, TX, TXNM, TXT, TYL. Batch pause taken.
+- Next ticker to resume from: TU.
+- Checkpoint after 41/46 tickers: added TU, TV, TWLO. TV bare ticker verified, no routing quirk. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: TWO.
+- TWO (Two Harbors Investment Corp) routing quirk: bare "two" and "two.us" both redirect to eToro home (not a valid slug). Used eToro's own search bar (typed "TWO" via JS-triggered React input since normal typing wasn't registering) — no exact TWO match in Markets results (only TTWO, 2POINTZE.DH, LPBB shown), confirming eToro does not offer this ticker at all. Recorded using tipranks data (Low/Avg/High 12.00 each) + tsv price (12.04), NOT_TRADEABLE. Checkpoint after 42/46 tickers. No blocks. Batch pause taken.
+- Next ticker to resume from: TX.
+- Completed TX, TXNM, TXT, TYL. Real market close occurred mid-session (AAPL confirmed "Off-hours" not "Delayed prices" — genuine market close, not a login block; login stayed fresh throughout). **46/46 DONE.** Completeness audit passed: diffed nyse_data.tsv (TM-TYL, rows 46-91) against analyst_targets_NYSE_T2.txt both directions — 0 missing, 0 extra, 0 duplicates. Final counts: 5 NOFAQ (TM, TR, TRC, TSEOQ, +1 more), 1 NOT_TRADEABLE (TWO — not offered on eToro at all, confirmed via site search finding no match). No blocks. LETTER T2 COMPLETE — full letter T (T1+T2, 91 tickers) now DONE.

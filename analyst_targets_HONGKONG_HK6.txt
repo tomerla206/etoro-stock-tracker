@@ -1,0 +1,37 @@
+6198.HK	Qingdao Port International H	7.34				NOFAQ	TRADEABLE
+6618.HK	JD Health International Inc	37.06	80.00	80.00	80.00	OK	TRADEABLE
+669.HK	Techtronic Industries Co Ltd	133.40				NOFAQ	TRADEABLE
+6690.HK	Haier Smart Home Co Ltd	21.62	22.00	26.90	31.90	OK	TRADEABLE
+670.HK	China Eastern Airlines Corporation Limited	2.72				NOFAQ	TRADEABLE
+6806.HK	Shenwan Hongyuan Group Co Ltd	2.54				NOFAQ	TRADEABLE
+6818.HK	China Everbright Bank Company Limited	2.81				NOFAQ	TRADEABLE
+6936.HK	SF Holding Co Ltd	31.64	36.00	36.00	36.00	OK	TRADEABLE
+6969.HK	Smoore International Holdings Limited	9.83	7.60	12.83	16.88	OK	TRADEABLE
+6990.HK	Sichuan Kelun Biotech Biopharmaceutical Co Ltd	489.40	642.29	642.29	642.29	OK	TRADEABLE
+7489.HK	VOYAH Automobile Technology Co Ltd	2.68	3.40	5.93	11.01	OK	NOT_TRADEABLE
+778.HK	Fortune Real Estate Investment Trust	4.46				NOFAQ	TRADEABLE
+780.HK	Tongcheng Travel Holdings Lt	11.39				NOFAQ	TRADEABLE
+788.HK	China Tower Corp Ltd	9.12				NOFAQ	TRADEABLE
+823.HK	Link REIT	38.80				NOFAQ	TRADEABLE
+83.HK	Sino Land Co Ltd	10.58				NOFAQ	TRADEABLE
+836.HK	China Resources Power Holdings Company Limited	18.69				NOFAQ	TRADEABLE
+874.HK	Guangzhou Baiyunshan Pharmaceutical Holdings Co Ltd	13.61				NOFAQ	TRADEABLE
+960.HK	Longfor Group Holdings Ltd	6.02				NOFAQ	TRADEABLE
+9618.HK	JD.com Inc	110.40	194.00	194.00	194.00	OK	TRADEABLE
+9626.HK	Bilibili IncClass Z	121.40	162.00	203.19	251.16	OK	TRADEABLE
+9633.HK	Nongfu Spring Co Ltd	42.40	47.80	54.74	61.00	OK	TRADEABLE
+9658.HK	Super Hi International Holding Ltd	9.73				NOFAQ	NOT_TRADEABLE
+9660.HK	Horizon Robotics Inc	4.36	5.18	8.79	13.14	OK	TRADEABLE
+9696.HK	Tianqi Lithium Corp H	34.50	40.00	40.00	40.00	OK	TRADEABLE
+9863.HK	Zhejiang Leapmotor Technologies Ltd	37.78	70.00	70.00	70.00	OK	TRADEABLE
+9866.HK	NIO Inc Class A	29.50	37.17	48.74	58.00	OK	TRADEABLE
+9868.HK	XPeng Inc	43.40	70.00	72.85	75.70	OK	TRADEABLE
+9888.HK	Baidu Inc	95.90	163.00	163.00	163.00	OK	TRADEABLE
+9896.HK	Miniso Group Holding Ltd	18.85	35.30	35.30	35.30	OK	TRADEABLE
+9901.HK	New Oriental Education & Tec	46.20	49.96	55.80	66.94	OK	TRADEABLE
+991.HK	Datang Intl Power Gen Co H	2.65				NOFAQ	TRADEABLE
+9926.HK	Akeso Inc	101.20	138.42	143.71	149.00	OK	TRADEABLE
+9961.HK	Trip.com Group Limited	325.60	491.00	491.00	491.00	OK	TRADEABLE
+9988.HK	Alibaba Group Holding Ltd (Hong Kong)	110.10	184.00	184.00	184.00	OK	TRADEABLE
+9992.HK	Pop Mart International Group Limited	154.00	146.00	146.00	146.00	OK	TRADEABLE
+9999.HK	NetEase Inc	189.10	155.00	244.84	278.16	OK	TRADEABLE

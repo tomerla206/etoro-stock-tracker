@@ -1,0 +1,23 @@
+# Session Log — NYSE Letter S2 (SN through SYY, 66 tickers)
+
+- 2026-08-27: Started immediately after completing S1 in the same session (login already verified fresh at session start: AAPL 314.79, "Prices by NASDAQ", Market Open, Trade button disabled:false x2 — re-verified again mid-session on several S.US-prefixed tickers with no issues, so treating login as still good without a fresh dedicated re-check).
+- Verified via `grep '^S' nyse_data.tsv | sort`, lines 67-132 = SN through SYY inclusive = 66 tickers, matches expected split count. Full S (132) confirmed; S1 = S.US-SMWB (done).
+- Two CVR-type tickers noted in the list: SONN CVR (ticker literally "SONN CVR" in tsv, note trailing "CVR" as part of name/ticker field — needs care) and SURF.CVR. Per project precedent (see NYSE letters B, G, I, M2), CVR-type merger tickers should be recorded directly from nyse_data.tsv (NOT_TRADEABLE, tsv price, no Low/Avg/High) rather than fetched live.
+- Checkpoint after 5/66 tickers (SN through SNN.US): SN, SNA, SNAP, SNDR, SNN.US. All OK/TRADEABLE, no NOFAQ yet. Bare "snn" 404s/redirects to eToro home — `snn.us` resolves correctly to Smith & Nephew plc (same routing-quirk pattern as S1).
+- Checkpoint after 9/66 tickers (SN through SOAR): added SNOW, SNX.US, SO, SOAR. 1 NOFAQ (SOAR). Bare "snx" routes to eToro crypto (Synthetix) — `snx.us` resolves to TD Synnex Corp. No blocks.
+- Checkpoint after 14/66 tickers (SN through SONN CVR): added SOBO, SOC, SOLV, SON, SONN CVR. SONN CVR recorded directly from nyse_data.tsv per project CVR precedent (NOT_TRADEABLE, tsv price 0.00, no Low/Avg/High) — not fetched live. No blocks.
+- Checkpoint after 18/66 tickers (SN through SPG): added SONY, SPB, SPCE, SPG. No new NOFAQ/NOT_TRADEABLE this stretch. No blocks.
+- Next ticker to resume from: SPGI.
+- 2026-08-27 (new session): Re-verified login fresh (AAPL 313.91, Market Open, Prices by NASDAQ, Trade disabled:false x2). Checkpoint after 32/66 tickers (SN through SRFM): added SPGI, SPHR, SPIR, SPNT, SPOT, SPXC, SQM, SR, SRE, SRFM. 1 new NOFAQ (SPNT). SR (bare ticker) checked against nyse_data.tsv — no routing quirk, correctly resolves to Spire Inc. No blocks. Batch pause taken.
+- Next ticker to resume from: SRG.US.
+- Checkpoint after 42/66 tickers (SN through STC): added SRG.US, SRI, SSB, SSD, SSL, SSMR, SSTK, ST, STAG, STC. 3 new NOFAQ (SRG.US, SRI, SSL, SSTK — actually 4). No blocks. ST (bare ticker) verified against nyse_data.tsv, correctly resolves, no routing quirk. Batch pause taken.
+- Next ticker to resume from: STDN.
+- Checkpoint after 48/66 tickers (SN through STN): added STDN, STE, STEM, STLA.US, STM.US, STN. No new NOFAQ. STLA.US: bare "STLA" needed for tipranks widget (STLA.US returns NOFAQ on tipranks but STLA works) — eToro page still uses STLA.US URL correctly, no mismatch, both confirmed matching Stellantis NV. No blocks. Batch pause taken.
+- Next ticker to resume from: STNG.
+- Checkpoint after 53/66 tickers (SN through STVN): added STNG, STT, STUB, STVN. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: STWD.
+- Checkpoint after 58/66 tickers (SN through SUN): added STWD, STZ, SU, SUI.US, SUN, SUPV.US(not yet), SURF.CVR(not yet). Actually added STWD, STZ, SU, SUI.US, SUN. No new NOFAQ. SU (bare ticker) verified, no routing quirk. No blocks. Batch pause taken.
+- Next ticker to resume from: SUPV.US.
+- Checkpoint after 61/66 tickers (SN through SWX): added SUPV.US, SURF.CVR, SUZ, SVV, SW, SWK, SWX. SURF.CVR recorded directly from tsv (CVR/NOT_TRADEABLE/0.00) per project precedent. No new NOFAQ besides SUPV.US. No blocks. 5 tickers left: SXC, SXI, SXT.US, SYF, SYK, SYY (letter S completes with this letter). Batch pause taken.
+- Next ticker to resume from: SXC.
+- Completed remaining 5 tickers (SXC, SXI, SXT.US, SYF, SYK, SYY — 6 total, SXT.US resolved via bare "SXT" on tipranks widget, same pattern as STLA.US). **66/66 DONE.** Completeness audit passed: diffed nyse_data.tsv (SN-SYY, lines 67-132) against analyst_targets_NYSE_S2.txt both directions — 0 missing, 0 extra, 0 duplicates. Final counts: 7 NOFAQ (SPNT, SRG.US, SRI, SSL, SSTK, SUPV.US, + one more), 2 CVR/NOT_TRADEABLE (SONN CVR, SURF.CVR). No blocks encountered this entire session. LETTER S2 COMPLETE — full letter S (S1+S2, 132 tickers) now DONE.

@@ -1,0 +1,29 @@
+# Amsterdam — Session Log
+
+- 2026-08-29: Continuing directly from Zurich (56/56 done, zero blocks) in same session. Login already verified this session. Starting Amsterdam (95 tickers, .NV suffix), v4 method.
+- Batch 1 (tickers 1-5): AALB.NV OK/TRADEABLE, ABN.NV OK/TRADEABLE, ACOMO.NV NOFAQ/TRADEABLE, AD.NV OK/TRADEABLE, ADYEN.NV OK/TRADEABLE. No blocks.
+- Batch 2 (tickers 6-10): AGN.NV OK/TRADEABLE, AJAX.NV NOFAQ/TRADEABLE, AKZA.NV OK/TRADEABLE, ALFEN.NV OK/TRADEABLE, ALLFG.NV NOFAQ/TRADEABLE. No blocks.
+- Batch 3 (tickers 11-15): ALX.NV NOFAQ/TRADEABLE, AMG.NV NOFAQ/TRADEABLE, AMUND.NV NOFAQ/TRADEABLE, APAM.NV OK/TRADEABLE, ARCAD.NV OK/TRADEABLE. No blocks.
+- Batch 4 (tickers 16-20): ASM.NV OK/TRADEABLE, ASML.NV OK/TRADEABLE, ASRNL.NV OK/TRADEABLE, AVTX.NV OK/TRADEABLE, AXS.NV OK/TRADEABLE. No blocks.
+- Batch 5 (tickers 21-25): AZRN.NV NOFAQ/TRADEABLE, BAMNB.NV OK/TRADEABLE, BESI.NV OK/TRADEABLE, BFIT.NV OK/TRADEABLE, BNJ.NV OK/TRADEABLE. No blocks.
+- Batch 6 (tickers 26-30): BRNL.NV NOFAQ/TRADEABLE, BSGR.NV NOFAQ/NOT_TRADEABLE, CABKA.NV NOFAQ/TRADEABLE, CCEP.NV OK/TRADEABLE, CMCOM.NV NOFAQ/TRADEABLE. No blocks.
+- Batch 7 (tickers 31-35): CRBN.NV OK/TRADEABLE, CSG.NV OK/TRADEABLE, CTAC.NV NOFAQ/TRADEABLE, CTPNV.NV OK/TRADEABLE, CVC.NV OK/TRADEABLE. No blocks.
+- Batch 8 (tickers 36-40): DSFIR.NV OK/TRADEABLE, EARTH.NV NOFAQ/NOT_TRADEABLE, EAS2P.NV NOFAQ/TRADEABLE, ECMPA.NV OK/TRADEABLE, ENVI.NV NOFAQ/TRADEABLE. No blocks. Noticed a stray unrelated eToro tab (portfolio/breakdown) appear in the browser group — not mine, ignored per protocol.
+- Ticker 41 EXO.NV OK/TRADEABLE (72.90, tipranks NOFAQ) — good.
+- **BLOCK at ticker 42 (FAST.NV)**: eToro research page showed "Delayed prices by Euronext" + "Research information is only available to active investors / Sign up" gate. Verified via AAPL precondition check: confirmed ORDINARY LOCKOUT — "It looks like something went wrong" dialog, sidebar flipped to logged-out ("Have an account? / Sign in"), "Delayed prices by NASDAQ" label. Stopped immediately, did not retry/solve. FAST.NV's price/tradeability reading (captured while already gated) discarded as unreliable — NOT written to output file. 41/95 done (EXO.NV last good), resume at ticker 42 (FAST.NV) once login is verified clean again.
+- Per protocol: block does not reliably clear by waiting — user needs to disconnect internet and power-cycle router/modem for a fresh IP, or otherwise re-authenticate. Reporting back now rather than looping retries.
+- 2026-08-29 (new session): Login re-verified clean (AAPL: account menu "Tomer Lalo Schwartz", green Trade, 319.70, "Prices by NASDAQ" not delayed). Checkpoint re-verified: analyst_targets_AMSTERDAM.txt had exactly 41 rows ending EXO.NV, matching log. Resumed at FAST.NV (ticker 42).
+- Batch (42-46): FAST.NV OK/TRADEABLE, FER.NV OK/TRADEABLE, FFARM.NV NOFAQ/TRADEABLE, FLOW.NV NOFAQ/TRADEABLE, FUR.NV OK/TRADEABLE. No blocks.
+- Batch (47-51): HAL.NV NOFAQ/TRADEABLE, HAVAS.NV OK/NOT_TRADEABLE, HEIA.NV OK/TRADEABLE, HEIJM.NV NOFAQ/TRADEABLE, HEIO.NV NOFAQ/TRADEABLE. No blocks. 51/95 done.
+- Batch (52-56): HOLCO.NV NOFAQ/TRADEABLE, IMCD.NV OK/TRADEABLE, INGA.NV OK/TRADEABLE, INPST.NV NOFAQ/TRADEABLE, JDEP.NV NOFAQ/TRADEABLE. No blocks. 56/95.
+- Batch (57-59+): KENDR.NV NOFAQ/TRADEABLE, KPN.NV OK/TRADEABLE, LIGHT.NV OK/TRADEABLE. No blocks. 59/95 done. Continuing.
+- Batch (60-64): LKFT.NV OK/TRADEABLE (repurposed ticker, name matches tsv "Lakefront Biotherapeutics"), MICC.NV OK/TRADEABLE, MORE.NV NOFAQ/TRADEABLE, MT.NV OK/TRADEABLE, NAI.NV NOFAQ/TRADEABLE. No blocks. 64/95. Noticed stray unrelated tipranks tabs (RYTM/TM/VOD) appear briefly in browser group from other session activity — not mine, ignored.
+- Batch (65-68): NEDAP.NV NOFAQ/TRADEABLE, NEDSE.NV NOFAQ/TRADEABLE, NN.NV OK/TRADEABLE, NRP.NV NOFAQ/TRADEABLE. No blocks. 68/95 done. Continuing.
+- Batch (69-72): NSI.NV OK/TRADEABLE, NXFIL.NV NOFAQ/TRADEABLE, OCI.NV OK/TRADEABLE, PBH.NV NOFAQ/TRADEABLE. No blocks. 72/95 done. Continuing.
+- Batch (73-76): PHARM.NV NOFAQ/TRADEABLE, PHIA.NV OK/TRADEABLE, PNL.NV OK/TRADEABLE, PRX.NV OK/TRADEABLE. No blocks. 76/95 done. Continuing.
+- Batch (77-80): RAND.NV OK/TRADEABLE, REINA.NV NOFAQ/TRADEABLE, REN.NV OK/TRADEABLE, SBMO.NV OK/TRADEABLE. No blocks. 80/95 done. Continuing.
+- Batch (81-84): SIFG.NV NOFAQ/TRADEABLE, SLIGR.NV OK/TRADEABLE, THEON.NV OK/TRADEABLE, TKWY.NV NOFAQ/NOT_TRADEABLE. No blocks. 84/95 done. Continuing.
+- Batch (85-88): TOM2.NV NOFAQ/TRADEABLE, TWEKA.NV OK/TRADEABLE, UMG.NV OK/TRADEABLE, UNA.NV OK/TRADEABLE. No blocks. 88/95 done. Continuing to finish Amsterdam.
+- Batch (89-93): VALUE.NV NOFAQ/TRADEABLE, VLK.NV NOFAQ/TRADEABLE, VPK.NV OK/TRADEABLE, VVY.NV NOFAQ/TRADEABLE, WHA.NV NOFAQ/TRADEABLE. No blocks.
+- WKL.NV OK/TRADEABLE — 94 rows written, but completeness diff against amsterdam_data.tsv caught 1 gap: **SHELL.NV was accidentally skipped** (between SBMO.NV and SIFG.NV in the source list). Added it retroactively: SHELL.NV OK/TRADEABLE, 39.15, Low 7.59/Avg 41.00/High 52.52 (tipranks widget showed an unusually low Low-estimate vs Avg/High but format matched every other ticker's layout exactly, trusted as read).
+- **AMSTERDAM COMPLETE: 95/95.** Final diff (`amsterdam_data.tsv` vs `analyst_targets_AMSTERDAM.txt`, both directions) confirms exact match, zero gaps/duplicates. Zero blocks this entire session (only block was the pre-existing one from the prior session, cleared by router power-cycle + login re-verify before this session started work). Moving on to Brussels per the queue.

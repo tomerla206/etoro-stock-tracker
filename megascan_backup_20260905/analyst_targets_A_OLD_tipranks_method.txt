@@ -1,0 +1,136 @@
+AAPL	Apple Inc	309.35	245.00	336.63	400.00	OK
+ABNB	Airbnb, Inc.	187.3	125.00	178.54	210.00	OK
+ABCL	Abcellera Biologics, Inc.	11.32	9.00	17.17	30.00	OK
+AAL	American Airlines Group Inc	13.82	13.00	19.36	25.00	OK
+AAOI	Applied Optoelectronics Inc	124.82	109.00	163.40	220.00	OK
+AAON	Aaon Inc	79.44	125.00	130.00	135.00	OK
+ABAT	American Battery Technology Co.	2.57	5.00	6.00	7.00	OK
+ABEO	Abeona Therapeutics Inc	6.09	20.00	20.50	21.00	OK
+ABOS	Acumen Pharmaceuticals, Inc.	3.16	4.00	6.00	8.00	OK
+ABSI	Absci Corp.	7.56	10.00	13.38	17.00	OK
+ABTC	American Bitcoin Corp.	7.93	15.00	15.00	15.00	OK
+ABVX	Abivax SA Sponsored ADR	114.95	136.00	161.58	187.00	OK
+ACAD	ACADIA Pharmaceuticals Inc.	29.5	25.00	35.27	49.00	OK
+ACB	Aurora Cannabis (US)	3.94	2.90	4.10	5.81	OK
+ACDC	Profrac Holding Corp. Class A	4.83	4.50	4.63	4.75	OK
+ACET	Adicet Bio Inc	9.19	18.00	22.50	27.00	OK
+ACGL	Arch Capital Group Ltd	99.39	93.00	111.08	134.00	OK
+ACHC	Acadia Healthcare	27.82	14.50	32.25	40.00	OK
+ACIC	American Coastal Insurance	9.18	13.00	13.00	13.00	OK
+ACIW	ACI Worldwide, Inc.	51.86	66.00	66.00	66.00	OK
+ACLS	Axcelis Technologies	134.1	140.00	169.00	198.00	OK
+ACMR	Acm Research	79.41	100.00	129.75	164.00	OK
+ACRS	Aclaris Therapeutics	6.41	10.00	12.50	16.00	OK
+ACT	Enact Holdings	49.19	46.00	48.33	50.00	OK
+ACTG	Acacia Research Corp.	4.51	6.00	6.00	6.00	OK
+ADAM	Adamas Trust, Inc.	9.94	9.50	9.81	10.00	OK
+ADBE	Adobe Systems Incorporated	275.3	187.50	254.90	385.00	OK
+ADEA	Adeia	26.25	39.00	44.00	50.00	OK
+ADI	Analog Devices, Inc.	373.09	405.00	475.33	550.00	OK
+ADMA	ADMA Biologics Inc	9.84	12.00	17.00	21.00	OK
+ADP	Automatic Data Processing	280.81	225.00	285.08	322.00	OK
+ADPT	Adaptive Biotechnologies	25.99	21.00	25.07	28.00	OK
+ADSK	Autodesk Inc	253.825	260.00	303.05	369.00	OK
+ADTN	Adtran Inc	7.77	11.00	14.67	21.00	OK
+ADUS	Addus Homecare	120.81	96.00	127.43	145.00	OK
+ADV	Advantage Solutions	34.38	34.00	42.00	50.00	OK
+AEHR	Aehr Test	101.73	110.00	130.00	175.00	OK
+AEIS	Advanced Energy	285.83	370.00	430.82	535.00	OK
+AEP	American Electric Power Company, Inc.	120.94	129.00	140.64	154.00	OK
+AERT						NOFAQ
+AEVA	Aeva Technologies, Inc.	18.29	26.00	32.50	42.00	OK
+AFCG						NOFAQ
+AFRM	Affirm Holdings, Inc.	77.03	79.00	93.87	115.00	OK
+AFYA	Afya	14.33	21.00	21.00	21.00	OK
+AGEN	Agenus Inc.	5.98	14.00	19.50	25.00	OK
+AGIO	Agios Pharmaceuticals	33.09	31.00	41.33	55.00	OK
+AGMB	AgomAb Therapeutics NV ADR	13.25	17.00	28.50	35.00	OK
+AGMH						NOFAQ
+AGNC	AGNC Investment Corp.	10.89	10.00	11.13	12.00	OK
+AGNT						MISMATCH
+AGYS	Agilysys, Inc.	113.8	118.00	134.40	159.00	OK
+AHCO	AdaptHealth	5.63	8.00	10.00	13.00	OK
+AIFC						NOFAQ
+AIHS						NOFAQ
+AIOT	Powerfleet, Inc.	3.04	6.00	9.00	13.00	OK
+AIP	Arteris	23.89	38.00	41.00	50.00	OK
+AIRE						NOFAQ
+AIRS	Airsculpt Technologies, Inc.	2.74	6.00	6.00	6.00	OK
+AIXC						NOFAQ
+AKAM	Akamai Technologies	115.37	123.00	160.93	195.00	OK
+AKBA	Akebia Therapeutics	0.907	1.00	3.75	6.00	OK
+AKTS	Aktis Oncology, Inc.	24.07	33.00	35.67	40.00	OK
+ALAB	Astera Labs, Inc.	291.58	275.00	410.25	500.00	OK
+ALCO	Alico Inc	40.31	45.00	45.00	45.00	OK
+ALDX	Aldeyra Therapeutics	1.52	2.00	2.00	2.00	OK
+ALEC	Alector Inc	2.36	1.00	2.38	5.00	OK
+ALGM	Allegro Microsystems, Inc.	37.16	48.00	53.29	58.00	OK
+ALGN	Align Tech	162.55	188.00	213.44	240.00	OK
+ALGT	Allegiant Travel	81.85	105.00	133.58	165.00	OK
+ALHC	Alignment Healthcare, Inc.	13.16	16.00	21.86	28.00	OK
+ALKS	Alkermes plc	52.89	38.00	58.25	65.00	OK
+ALKT	Alkami Technology Inc	20.38	19.00	20.25	22.00	OK
+ALLO	Allogene Therapeutics Inc.	1.74	8.00	10.25	14.00	OK
+ALLT	Allot Ltd	7.48	10.50	13.38	17.00	OK
+ALMR	Alamar Biosciences, Inc	34.24	31.00	33.00	35.00	OK
+ALMS	Alumis Inc	24.17	25.00	41.33	55.00	OK
+ALNT	Allient Inc	95.84	65.00	103.33	125.00	OK
+ALNY	Alnylam Pharmaceuticals	271.77	230.00	366.63	550.00	OK
+ALRM	Alarm.com Holdings Inc.	57.51	60.00	70.00	85.00	OK
+ALRS	Alerus Financial Corporation	32.77	32.00	34.75	37.00	OK
+ALT	Altimmune	3.11	10.00	19.50	28.00	OK
+ALTO	Alto Ingredients, Inc.	4.38	8.00	9.00	10.00	OK
+ALVO	Alvotech	4.43	4.00	5.00	6.00	OK
+ALXO	Alx Oncology Holdings, Inc.	2.04	4.00	4.00	4.00	OK
+AMAL	Amalgamated Bank	48.76	53.00	53.50	54.00	OK
+AMAT	Applied Materials	492.32	585.00	692.40	900.00	OK
+AMBA	Ambarella	73.73	90.00	101.56	120.00	OK
+AMBR	Amber International Holding Lt						NOFAQ
+AMCI	AMC Robotics Corp						NOFAQ
+AMCX	AMC Networks Inc	12.39	9.00	9.75	11.00	OK
+AMD	Advanced Micro Devices, Inc.	473.25	465.00	647.42	1250.00	OK
+AMGN	Amgen Inc	376.04	230.00	394.73	460.00	OK
+AMKR	Amkor Technology	50.26	65.00	76.00	90.00	OK
+AMLX	Amylyx Pharmaceuticals Inc	38.66	23.00	42.75	55.00	OK
+AMPH	Amphastar Pharmaceuticals Inc	21.60	20.00	22.17	30.00	OK
+AMPL	Amplitude Inc Class A	13.29	10.00	13.45	18.00	OK
+AMSC	American Superconductor	30.01	54.00	56.33	60.00	OK
+AMSF	Amerisafe	26.01	32.00	32.00	32.00	OK
+AMTX	Aemetis Inc	2.07	28.00	28.00	28.00	OK
+AMZN	Amazon.Com, Inc.	258.63	250.00	334.00	400.00	OK
+ANAB	AnaptysBio	57.74	75.00	82.80	95.00	OK
+ANDE	The Andersons	77.71	85.00	93.75	110.00	OK
+ANGI	Angi Inc.	4.92	5.00	8.00	14.00	OK
+ANGO	Angiodynamics, Inc.	15.75	19.00	21.00	24.00	OK
+ANIK	Anika Therapeutics	21.78	21.00	21.00	21.00	OK
+ANIP	Ani Pharmaceuticals	75.35	90.00	110.83	121.00	OK
+ANNX	Annexon Biosciences, Inc.	5.07	3.00	14.00	27.00	OK
+ANTX	AN2 Therapeutics, Inc.	5.81	9.00	9.00	9.00	OK
+AONC	American Oncology Network Inc					NOFAQ
+AOSL	Alpha And Omega Semiconductor	26.39	34.00	43.75	58.00	OK
+APA	APA Corp.	43.39	31.00	42.57	50.00	OK
+APC	ARKO Petroleum Corp. Class A	20.83	22.00	22.00	22.00	OK
+APEI	American Public Education, Inc.	45.61	55.00	61.40	64.00	OK
+APGE	Apogee Therapeutics, Inc.	134.75	89.00	131.18	137.00	OK
+API	Agora, Inc.	4.36	6.80	6.80	6.80	OK
+APLD	Applied Digital Corporation	27.21	37.50	75.08	90.00	OK
+APLS.CVR	APLS Merger CVR	0.00				CVR
+APLT.CVR	APLT Merger CVR	0.00						CVR
+APMD	Apnimed, Inc.						NOFAQ
+APOG	Apogee Enterprises	41.60	40.00	40.00	40.00	OK
+APP	AppLovin Corp. Class A	305.77	325.00	528.24	790.00	OK
+APPF	AppFolio Inc.	224.40	200.00	230.13	260.00	OK
+APPN	Appian	38.30	26.00	32.40	40.00	OK
+APPS	Digital Turbine Inc.	10.87	7.50	14.75	18.00	OK
+AQST	Aquestive Therapeutics, Inc.	4.66	6.00	8.75	11.00	OK
+ARBE	Arbe Robotics Ltd.	0.715	1.25	1.25	1.25	OK
+ARCB	Arcbest	140.34	150.00	170.00	205.00	OK
+ARCC	Ares Capital	19.92	19.00	20.08	21.00	OK
+ARCT	Arcturus Therapeutics	13.45	9.00	19.80	27.00	OK
+ARDX	Ardelyx	3.89	9.00	13.63	18.00	OK
+ARGX	Argenx	1039.78	932.00	1143.90	1353.00	OK
+ARHS	Arhaus	9.385	9.00	10.88	13.00	OK
+ARKO	Arko Corp	4.75	7.00	7.00	7.00	OK
+AROW	Arrow Financial Corporation						NOFAQ
+ARQQ	Arqit Quantum Inc						NOFAQ
+ARQT	Arcutis Biotherapeutics Inc	25.08	34.00	36.57	40.00	OK

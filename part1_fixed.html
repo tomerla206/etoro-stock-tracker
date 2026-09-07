@@ -1,0 +1,2525 @@
+<meta charset="UTF-8">
+<title>World Markets Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1220;
+    --surface: #101a2c;
+    --surface-2: #16223a;
+    --border: #24334f;
+    --text: #e7ecf5;
+    --text-dim: #8b98b3;
+    --accent: #4fd1a5;
+    --accent-dim: #2a5f4d;
+    --analysis-bg: #1a1a3a;
+    --analysis-border: #35356b;
+    --analysis-label: #9b9bf0;
+    --analysis-low: #e8829a;
+    --analysis-high: #4fd1a5;
+    --analysis-low-strong: #ff5875;
+    --analysis-high-strong: #22e6a3;
+    --row-not-tradeable-bg: #3a1620;
+    --row-not-tradeable-border: #6b2635;
+    --row-nofaq-bg: #3a3316;
+    --row-nofaq-border: #6b5c26;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f6fa;
+      --surface: #ffffff;
+      --surface-2: #eef1f7;
+      --border: #dbe1ec;
+      --text: #101828;
+      --text-dim: #5c6a84;
+      --accent: #0f9d6b;
+      --accent-dim: #d5f0e4;
+      --analysis-bg: #f2f1fc;
+      --analysis-border: #d9d7f5;
+      --analysis-label: #6a5fd0;
+      --analysis-low: #c04868;
+      --analysis-high: #0f9d6b;
+      --analysis-low-strong: #a3283f;
+      --analysis-high-strong: #0b7a52;
+      --row-not-tradeable-bg: #fdecee;
+      --row-not-tradeable-border: #f3c1c9;
+      --row-nofaq-bg: #fdf6e3;
+      --row-nofaq-border: #eeddab;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface-2: #eef1f7;
+    --border: #dbe1ec;
+    --text: #101828;
+    --text-dim: #5c6a84;
+    --accent: #0f9d6b;
+    --accent-dim: #d5f0e4;
+    --analysis-bg: #f2f1fc;
+    --analysis-border: #d9d7f5;
+    --analysis-label: #6a5fd0;
+    --analysis-low: #c04868;
+    --analysis-high: #0f9d6b;
+    --analysis-low-strong: #a3283f;
+    --analysis-high-strong: #0b7a52;
+    --row-not-tradeable-bg: #fdecee;
+    --row-not-tradeable-border: #f3c1c9;
+    --row-nofaq-bg: #fdf6e3;
+    --row-nofaq-border: #eeddab;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 48px 4px 80px;
+    display: flex;
+    justify-content: center;
+  }
+
+  main {
+    width: 100%;
+    max-width: min(99vw, 3400px);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  /* Mirrors the table's horizontal scrollbar above the table too - with a
+     tall table, the real scrollbar sits at the very bottom of table-wrap and
+     is only reachable after scrolling all the way down past every row. This
+     thin bar stays right above the header and its scroll position is kept in
+     sync with .table-wrap by JS (part3.html), in both directions. */
+  .table-scroll-top {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .table-scroll-top::-webkit-scrollbar {
+    height: 9px;
+  }
+
+  .table-scroll-top::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .table-scroll-top::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 5px;
+  }
+
+  #tableScrollTopInner {
+    height: 1px;
+  }
+
+  /* Global density override - wins over every individual td.* rule below
+     (higher specificity via the #stockTable id) regardless of source order,
+     so this is the real default row height, not just an opt-in. The
+     "Compact rows" checkbox squeezes further on top of this via !important. */
+  #stockTable td,
+  #stockTable th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  #stockTable td {
+    font-size: 12.5px;
+    line-height: 1.25;
+  }
+
+  #stockTable .name {
+    font-size: 11.5px;
+  }
+
+  .table-wrap::-webkit-scrollbar {
+    height: 9px;
+  }
+
+  .table-wrap::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .table-wrap::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 5px;
+  }
+
+  .table-wrap::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
+  }
+
+  table.hide-cons .col-cons,
+  table.hide-rating .col-rating,
+  table.hide-div .col-div,
+  table.hide-target .col-target {
+    display: none;
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  .refresh-codes {
+    margin: 0 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface);
+    direction: rtl;
+  }
+
+  .refresh-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    direction: rtl;
+    text-align: right;
+  }
+
+  .refresh-row:last-child {
+    border-bottom: none;
+  }
+
+  .refresh-row:nth-child(even) {
+    background: var(--surface-2, #f7f7f9);
+  }
+
+  .refresh-codes code {
+    flex: 0 0 118px;
+    background: var(--surface-2, #f2f2f2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    align-self: flex-start;
+    white-space: nowrap;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  .refresh-row:nth-child(even) code {
+    background: var(--surface);
+  }
+
+  .refresh-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .refresh-desc {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-dim, #555);
+  }
+
+  .refresh-cols {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--accent);
+  }
+
+  .refresh-cols b {
+    font-weight: 700;
+  }
+
+  .req-badge {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 9px;
+    margin-inline-start: 8px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  .req-badge.req-script {
+    background: #12351f;
+    color: #6fd99a;
+  }
+
+  .req-badge.req-claude {
+    background: #3a2708;
+    color: #f0a85c;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .req-badge.req-script {
+      background: #d9f2e3;
+      color: #1b7a43;
+    }
+    :root:not([data-theme="dark"]) .req-badge.req-claude {
+      background: #fde7d0;
+      color: #a85a00;
+    }
+  }
+
+  :root[data-theme="light"] .req-badge.req-script {
+    background: #d9f2e3;
+    color: #1b7a43;
+  }
+
+  :root[data-theme="light"] .req-badge.req-claude {
+    background: #fde7d0;
+    color: #a85a00;
+  }
+
+  .ltr-num {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  .info-tip-bubble .ltr-num {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    background: var(--surface-2, #f2f2f2);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin: 3px 0;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .count {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    /* no overflow:hidden here — it would make the table itself the scroll/clip
+       reference instead of .table-wrap, which breaks position:sticky on the
+       frozen row-number/Market columns below. .table-wrap's own overflow-x:auto
+       + border-radius already clips the rounded corners. */
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 600;
+    background: var(--surface-2);
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  thead th.analysis-group {
+    text-align: center;
+    color: var(--analysis-label);
+    background: var(--analysis-bg);
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  thead th.analysis-col {
+    background: var(--analysis-bg);
+    border-bottom: 1px solid var(--analysis-border);
+  }
+
+  thead th.analysis-col:first-child {
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  thead th.num {
+    text-align: right;
+  }
+
+  tbody td {
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: baseline;
+  }
+
+  tbody td.price {
+    padding: 10px 8px;
+  }
+
+  .rownum-col {
+    text-align: right;
+    color: var(--text-dim);
+    width: 40px;
+  }
+
+  /* Freeze the row-number and Market (ticker+name) columns on horizontal scroll —
+     the table got much wider once the Yahoo columns doubled the analyst-target
+     section, so without this the stock names scroll out of view entirely. */
+  #stockTable th.rownum-col,
+  #stockTable td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    width: 40px;
+    background: var(--surface);
+  }
+
+  #stockTable th#sortName,
+  #stockTable td:nth-child(2) {
+    position: sticky;
+    left: 40px;
+    z-index: 3;
+    background: var(--surface);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  #stockTable thead th.rownum-col,
+  #stockTable thead th#sortName {
+    z-index: 4;
+  }
+
+  td.rownum {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    text-align: right;
+    color: var(--text-dim);
+    padding: 10px 6px 10px 10px;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: var(--surface-2);
+  }
+
+  tbody tr.row-not-tradeable td {
+    background: var(--row-not-tradeable-bg);
+  }
+
+  tbody tr.row-not-tradeable td.analysis-cell {
+    background: var(--row-not-tradeable-bg);
+  }
+
+  tbody tr.row-not-tradeable:hover td {
+    filter: brightness(1.12);
+  }
+
+  tbody tr.row-nofaq td {
+    background: var(--row-nofaq-bg);
+  }
+
+  tbody tr.row-nofaq td.analysis-cell {
+    background: var(--row-nofaq-bg);
+  }
+
+  tbody tr.row-nofaq:hover td {
+    filter: brightness(1.12);
+  }
+
+  .stock-link {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .stock-link:hover .ticker,
+  .stock-link:focus-visible .ticker {
+    color: var(--accent);
+  }
+
+  .stock-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+    border-radius: 4px;
+  }
+
+  .ticker {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .name {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  .pf-badge {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+    cursor: default;
+  }
+
+  .pf-badge.pf-held {
+    background: conic-gradient(var(--accent) 0deg 360deg);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.15) inset;
+  }
+
+  .pf-badge.pf-pending {
+    background: repeating-conic-gradient(#f5a623 0deg 90deg, transparent 90deg 180deg);
+  }
+
+  .tp-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    border-radius: 4px;
+    vertical-align: middle;
+    position: relative;
+    cursor: default;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+
+  .tp-badge::before {
+    content: "TP";
+  }
+
+  .tp-badge.tp-current {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .tp-badge.tp-above {
+    border-color: #e5534b;
+    color: #e5534b;
+  }
+
+  .tp-badge.tp-below {
+    border-color: #a855f7;
+    color: #a855f7;
+  }
+
+  .tp-badge.tp-nodata {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+  }
+
+  .tp-badge.tp-unset {
+    border-color: #f5c518;
+    color: #f5c518;
+  }
+
+  .tp-badge:hover .pf-tooltip {
+    display: block;
+  }
+
+  .pf-tooltip {
+    display: none;
+    /* position: fixed (not absolute) + JS-computed left/top/bottom on hover
+       (see the mouseenter handler in part3.html) — this is deliberate, not
+       an oversight. table-wrap's overflow-x:auto forces overflow-y to compute
+       as 'auto' too, and combined with the sticky ticker column, Chrome's
+       table paint/stacking model refused to let an absolutely-positioned
+       descendant of that <td> render above sibling rows (it had correct
+       layout/size but was invisible and unclickable). Fixed positioning
+       escapes the table's clipping/stacking entirely. */
+    position: fixed;
+    min-width: 260px;
+    background: var(--surface, #1b1f27);
+    border: 1px solid var(--border, #333);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    color: var(--text);
+    white-space: nowrap;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    text-align: left;
+  }
+
+  .pf-badge:hover .pf-tooltip {
+    display: block;
+  }
+
+  .pf-tooltip .pf-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--text-dim);
+  }
+
+  .pf-tooltip .pf-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .pf-tooltip .pf-row + .pf-row {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .pf-tooltip .pf-col-right {
+    text-align: right;
+  }
+
+  .pf-tooltip .pf-label {
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+  }
+
+  .pf-tooltip .pf-val {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .pf-tooltip .pf-val-big {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .pf-tooltip .pf-pl-pos { color: #3ecf7a; }
+  .pf-tooltip .pf-pl-neg { color: #e5534b; }
+
+  .pf-tp-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .pf-copy-btn, .pf-set-tp-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+
+  .pf-copy-btn.copied {
+    background: #3ecf7a;
+  }
+
+  .pf-open-link {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .pf-open-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .price {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  td.analysis-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+  }
+
+  td.analysis-cell:first-child {
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  td.analysis-low {
+    color: var(--analysis-low);
+  }
+
+  td.analysis-avg {
+    color: var(--text);
+    position: relative;
+  }
+
+  .ccy-tag {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-left: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* In compact mode this tag is the single biggest reason numeric columns stay
+     wide when viewing "All Exchanges" together - a non-USD row like
+     "83580.00CHF" forces every row's column width, including plain USD ones.
+     Shrinking it here (not removing it - the currency is still real info)
+     cuts a meaningful chunk of width off every analyst-target column. */
+  table.compact-mode .ccy-tag {
+    font-size: 7px !important;
+    margin-left: 1px !important;
+    letter-spacing: 0 !important;
+  }
+
+
+  .ccy-prefix {
+    color: inherit;
+    font-weight: inherit;
+  }
+
+  .scan-date {
+    display: block;
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-top: 1px;
+    white-space: nowrap;
+  }
+
+  td.analysis-high {
+    color: var(--analysis-high);
+  }
+
+  td.analysis-cell.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  td.pct-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  td.pct-cell.pct-pos {
+    color: var(--analysis-high);
+  }
+
+  td.pct-cell.pct-neg {
+    color: var(--analysis-low);
+  }
+
+  td.pct-cell.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .pct-basis-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .account-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .account-toggle-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .acct-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .acct-btn:first-of-type {
+    border-radius: 999px 0 0 999px;
+  }
+
+  .acct-btn:last-of-type {
+    border-radius: 0 999px 999px 0;
+    border-left: none;
+  }
+
+  .acct-btn.active {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .portfolio-summary-panel {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    padding: 12px 18px;
+    margin: -4px 0 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .ps-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ps-label {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .ps-val {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .ps-val.pct-pos { color: var(--accent); }
+  .ps-val.pct-neg { color: #e5534b; }
+  .ps-val.ps-warn { color: #f5c518; }
+
+  .ps-stat.ps-pending {
+    opacity: 0.6;
+  }
+
+  .ps-stat.ps-pending.has-pending {
+    opacity: 1;
+  }
+
+  .ps-stat.ps-pending.has-pending .ps-val {
+    color: #f5a623;
+  }
+
+  .scan-portfolio-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .scan-portfolio-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .scan-portfolio-status {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .scan-status-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .scan-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--bg);
+  }
+
+  .scan-status-name {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .scan-status-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    border-radius: 999px;
+    padding: 4px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .scan-status-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .scan-status-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .scan-status-row.is-running .scan-status-text {
+    color: var(--accent);
+  }
+
+  .scan-status-row.run-all-row {
+    border: 1px solid var(--accent-dim);
+    background: var(--accent-dim);
+  }
+
+  .run-all-btn {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .info-tip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-start: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--text-dim);
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 700;
+    font-family: system-ui, sans-serif;
+    text-transform: none;
+    cursor: help;
+    vertical-align: middle;
+  }
+
+  .info-tip .info-tip-bubble {
+    display: none;
+    position: absolute;
+    z-index: 60;
+    top: 140%;
+    right: 0;
+    width: 280px;
+    max-width: 70vw;
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    text-align: right;
+    direction: rtl;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+
+  .info-tip:hover .info-tip-bubble,
+  .info-tip:focus .info-tip-bubble {
+    display: block;
+  }
+
+  /* Longer explanations (with full worked examples) get a wider box instead
+     of forcing all their extra length into vertical scroll - less scrolling,
+     easier to read a multi-step example at a glance. */
+  .info-tip-bubble.wide {
+    width: 380px;
+    max-width: 85vw;
+  }
+
+  /* Default bubbles anchor right:0 and grow leftward - fine for headers deep
+     in the table, but the leftmost items on the page (like the Run All
+     Background row, which sits near screen x=0) would grow straight off the
+     left edge of the viewport. This flips the anchor so it grows rightward
+     instead, staying on-screen. */
+  .info-tip-bubble.open-right {
+    right: auto;
+    left: 0;
+  }
+
+  .pct-basis-toggle .pct-basis-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .pct-basis-buttons {
+    display: inline-flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+  }
+
+  .pct-basis-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .pct-basis-btn:hover {
+    color: var(--text);
+  }
+
+  .pct-basis-btn.active {
+    color: var(--bg);
+    background: var(--analysis-label);
+    font-weight: 600;
+  }
+
+  td.cons-cell,
+  td.div-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+    padding: 10px 10px;
+    color: var(--text);
+  }
+
+  td.cons-cell.empty,
+  td.div-cell.empty {
+    color: var(--text-dim);
+  }
+
+  td.rating-cell {
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 10px 10px;
+  }
+
+  td.rating-cell.rating-buy { color: var(--analysis-high); }
+  td.rating-cell.rating-sell { color: var(--analysis-low); }
+  td.rating-cell.rating-hold,
+  td.rating-cell.rating-none { color: var(--text-dim); }
+
+  footer {
+    margin-top: 22px;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  .search {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    padding: 11px 16px;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .search:focus {
+    border-color: var(--accent);
+  }
+
+  .search::placeholder {
+    color: var(--text-dim);
+  }
+
+  .no-results {
+    display: none;
+    text-align: center;
+    padding: 28px 18px;
+    color: var(--text-dim);
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .portfolio-summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+    padding: 16px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .summary-label {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .summary-val {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .summary-val.pct-pos { color: var(--analysis-high); }
+  .summary-val.pct-neg { color: var(--analysis-low); }
+
+  .summary-plus, .summary-eq {
+    font-size: 18px;
+    color: var(--text-dim);
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .price-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .price-range input {
+    width: 84px;
+    box-sizing: border-box;
+    padding: 11px 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .price-range input:focus {
+    border-color: var(--accent);
+  }
+
+  .price-range input::placeholder {
+    color: var(--text-dim);
+  }
+
+  .price-range span {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  thead th.sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  thead th.sortable:hover {
+    color: var(--text);
+  }
+
+  .sort-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    opacity: 0.35;
+    font-size: 10px;
+  }
+
+  thead th.sort-active .sort-arrow {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .sort-menu {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    min-width: 150px;
+    background: var(--surface, #1b1f27);
+    border: 1px solid var(--border, #333);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    flex-direction: column;
+  }
+
+  .sort-menu.open {
+    display: flex;
+  }
+
+  .sort-menu-item {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 13px;
+    text-align: left;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+
+  .sort-menu-item:hover {
+    background: var(--surface-2, rgba(255,255,255,0.06));
+  }
+
+  .sort-menu-item.active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .exchange-filters,
+  .status-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .status-pill {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px 7px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .status-pill:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .status-pill.active {
+    color: var(--text);
+    background: var(--surface-2);
+    border-color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .status-pill:not(.active) {
+    opacity: 0.5;
+  }
+
+  .status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dot-normal { background: var(--accent); }
+  .dot-nofaq { background: var(--row-nofaq-border); }
+  .dot-not-tradeable { background: var(--row-not-tradeable-border); }
+  .dot-upside-pos { background: var(--analysis-high); }
+  .dot-upside-neg { background: var(--analysis-low); }
+  .dot-upside-undefined { background: var(--text-dim); }
+
+  .allocation-box {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-left: 6px;
+    padding: 6px 6px 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+
+  .allocation-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .allocation-currency {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .allocation-box input {
+    width: 100px;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    outline: none;
+  }
+
+  .allocation-box input:focus {
+    border-color: var(--accent);
+  }
+
+  .allocation-summary {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--analysis-high);
+    white-space: nowrap;
+  }
+
+  td.alloc-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+    border-left: 1px solid var(--analysis-border);
+    color: var(--text);
+  }
+
+  td.alloc-cell.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  td.pl-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  td.pl-cell.pct-pos {
+    color: var(--analysis-high);
+  }
+
+  td.pl-cell.pct-neg {
+    color: var(--analysis-low);
+  }
+
+  td.pl-cell.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  td.pl-share-cell {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+    border-left: 1px solid var(--analysis-border);
+    color: var(--text);
+  }
+
+  td.pl-share-cell.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  th.col-myportfolio {
+    background: var(--analysis-bg);
+  }
+
+  td.my-units, td.my-avgopen, td.my-pl, td.my-plpct {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--analysis-bg);
+    padding: 10px 6px;
+    color: var(--text);
+  }
+
+  td.my-units {
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  td.my-units.empty, td.my-avgopen.empty, td.my-pl.empty, td.my-plpct.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  td.my-pl.pct-pos, td.my-plpct.pct-pos { color: var(--analysis-high); }
+  td.my-pl.pct-neg, td.my-plpct.pct-neg { color: var(--analysis-low); }
+
+  td.ins-cell.pct-pos { color: var(--analysis-high); }
+  td.ins-cell.pct-neg { color: var(--analysis-low); }
+
+  table.hide-insider .col-insider {
+    display: none;
+  }
+
+  td.score-cell {
+    font-weight: 700;
+  }
+  td.score-cell.score-high { color: var(--analysis-high); }
+  td.score-cell.score-mid { color: #b8860b; }
+  td.score-cell.score-low { color: var(--analysis-low); }
+
+  /* Small "X/5" mark next to the Score number itself: how many of the 5
+     signals behind it were real data vs. a neutral default for a missing
+     one. Deliberately subtle (superscript, muted) - it's context, not a
+     second score competing for attention. */
+  .score-conf {
+    font-size: 8px;
+    font-weight: 600;
+    margin-inline-start: 2px;
+    opacity: 0.85;
+  }
+  .score-conf.conf-high { color: var(--text-dim); }
+  .score-conf.conf-mid { color: #b8860b; }
+  .score-conf.conf-low { color: var(--analysis-low); }
+
+  table.hide-score .col-score {
+    display: none;
+  }
+
+  td.secscore-cell {
+    font-weight: 700;
+  }
+  td.secscore-cell.score-high { color: var(--analysis-high); }
+  td.secscore-cell.score-mid { color: #b8860b; }
+  td.secscore-cell.score-low { color: var(--analysis-low); }
+
+  table.hide-secscore .col-secscore {
+    display: none;
+  }
+
+  /* Deliberately blue/gray/orange, NOT green/red - this score measures
+     volatility/instability, not quality, so it must not visually imply
+     "high = bad" the way the other two scores' green/red does. */
+  td.riskscore-cell {
+    font-weight: 700;
+  }
+  td.riskscore-cell.risk-low { color: #3b82c4; }
+  td.riskscore-cell.risk-mid { color: var(--text-dim); }
+  td.riskscore-cell.risk-high { color: #d97b3f; }
+
+  table.hide-riskscore .col-riskscore {
+    display: none;
+  }
+
+  td.overallscore-cell {
+    font-weight: 700;
+  }
+  td.overallscore-cell.score-high { color: var(--analysis-high); }
+  td.overallscore-cell.score-mid { color: #b8860b; }
+  td.overallscore-cell.score-low { color: var(--analysis-low); }
+
+  table.hide-overallscore .col-overallscore {
+    display: none;
+  }
+
+  .score-change {
+    display: inline-block;
+    margin-inline-start: 3px;
+    font-size: 0.85em;
+    cursor: help;
+  }
+  .score-change-up { color: var(--analysis-high); }
+  .score-change-down { color: var(--analysis-low); }
+
+  .oscore-spark {
+    display: block;
+    height: 14px;
+    margin-top: 1px;
+  }
+  .oscore-spark svg { display: block; }
+
+  td.percentile-cell.score-high { color: var(--analysis-high); }
+  td.percentile-cell.score-mid { color: #b8860b; }
+  td.percentile-cell.score-low { color: var(--analysis-low); }
+
+  table.hide-percentile .col-percentile {
+    display: none;
+  }
+
+  /* Short Interest %, RSI, and P/E all use the same 5-step graded scale:
+     vgood/good = bullish or cheap (green, strongest to mildest), mid =
+     neutral, bad/vbad = bearish or expensive (red, mildest to strongest).
+     Short Interest's buckets match score_short_interest() in
+     compute_score.py exactly, so the color always matches the Score's
+     reasoning. RSI and P/E don't feed the Score (P/E deliberately never
+     did; RSI's contribution is really price-vs-MA, not RSI alone) so their
+     buckets are a separate, milder rule of thumb - shown for orientation,
+     not as a scored judgment. */
+  .grade-vgood { color: var(--analysis-high-strong); font-weight: 700; }
+  .grade-good { color: var(--analysis-high); }
+  .grade-mid { color: var(--text-dim); }
+  .grade-bad { color: #d97b3f; }
+  .grade-vbad { color: var(--analysis-low-strong); font-weight: 700; }
+
+  table.hide-short .col-short { display: none; }
+  table.hide-rsi .col-rsi { display: none; }
+  table.hide-pe .col-pe { display: none; }
+  table.hide-mcap .col-mcap { display: none; }
+  table.hide-hf .col-hf { display: none; }
+  table.hide-beta .col-beta { display: none; }
+  table.hide-vol .col-vol { display: none; }
+  table.hide-peg .col-peg { display: none; }
+  table.hide-r52 .col-r52 { display: none; }
+  table.hide-exchange td.exchange,
+  table.hide-exchange #sortExchange { display: none; }
+
+  table.hide-myportfolio .col-myportfolio {
+    display: none;
+  }
+
+  th.col-yahoo {
+    background: #1f2a3d;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) th.col-yahoo {
+      background: #eef3fb;
+    }
+  }
+  :root[data-theme="light"] th.col-yahoo {
+    background: #eef3fb;
+  }
+
+  td.yh-low, td.yh-avg, td.yh-high, td.yh-div {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    background: #1f2a3d;
+    padding: 10px 6px;
+    color: var(--text);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) td.yh-low,
+    :root:not([data-theme="dark"]) td.yh-avg,
+    :root:not([data-theme="dark"]) td.yh-high,
+    :root:not([data-theme="dark"]) td.yh-div {
+      background: #eef3fb;
+    }
+  }
+  :root[data-theme="light"] td.yh-low,
+  :root[data-theme="light"] td.yh-avg,
+  :root[data-theme="light"] td.yh-high,
+  :root[data-theme="light"] td.yh-div {
+    background: #eef3fb;
+  }
+
+  td.yh-low {
+    border-left: 1px solid var(--analysis-border);
+  }
+
+  td.yh-low.empty, td.yh-avg.empty, td.yh-high.empty, td.yh-div.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  table.hide-yahoo .col-yahoo {
+    display: none;
+  }
+
+  td.yh-pct, td.yh-alloc, td.yh-pl, td.yh-plshare {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    background: #1f2a3d;
+    padding: 10px 6px;
+    color: var(--text);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) td.yh-pct,
+    :root:not([data-theme="dark"]) td.yh-alloc,
+    :root:not([data-theme="dark"]) td.yh-pl,
+    :root:not([data-theme="dark"]) td.yh-plshare {
+      background: #eef3fb;
+    }
+  }
+  :root[data-theme="light"] td.yh-pct,
+  :root[data-theme="light"] td.yh-alloc,
+  :root[data-theme="light"] td.yh-pl,
+  :root[data-theme="light"] td.yh-plshare {
+    background: #eef3fb;
+  }
+
+  td.yh-pct.pct-pos, td.yh-pl.pct-pos { color: var(--analysis-high); }
+  td.yh-pct.pct-neg, td.yh-pl.pct-neg { color: var(--analysis-low); }
+
+  td.yh-pct.empty, td.yh-alloc.empty, td.yh-pl.empty, td.yh-plshare.empty {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  thead th.analysis-group.source-active,
+  thead th.analysis-col.source-active {
+    box-shadow: inset 0 -3px 0 var(--accent);
+  }
+
+  thead th.analysis-group.source-active {
+    color: var(--accent);
+  }
+
+  .upside-range-filter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .filter-accordion {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .filter-group {
+    flex: 0 0 auto;
+  }
+
+  .filter-group[open] {
+    flex: 1 1 100%;
+  }
+
+  .filter-group > summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    font-size: 12px;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .filter-group > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .filter-group > summary:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .filter-group[open] > summary {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  .filter-group > summary::after {
+    content: "\25BC";
+    font-size: 8px;
+    color: var(--text-dim);
+    transition: transform 0.15s;
+  }
+
+  .filter-group[open] > summary::after {
+    transform: rotate(180deg);
+  }
+
+  .filter-group-dot {
+    display: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .filter-group.filter-active > summary .filter-group-dot {
+    display: inline-block;
+  }
+
+  .filter-group-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .filter-group-body .upside-range-filter {
+    margin-bottom: 0;
+  }
+
+  .range-filter-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .range-inputs input[type="number"] {
+    width: 68px;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+  }
+
+  .range-inputs input[type="number"]:focus {
+    border-color: var(--accent);
+  }
+
+  .range-inputs span {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .range-max-hint {
+    margin-left: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .range-slider-track {
+    position: relative;
+    flex: 1 1 160px;
+    min-width: 140px;
+    height: 20px;
+  }
+
+  .range-slider-rail {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .range-slider-fill {
+    position: absolute;
+    top: 8px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .range-slider-track input[type="range"] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    width: 100%;
+    height: 8px;
+    margin: 0;
+    background: transparent;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .range-slider-track input[type="range"]::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .range-slider-track input[type="range"]::-moz-range-track {
+    background: transparent;
+    height: 8px;
+  }
+
+  .range-slider-track input[type="range"]::-webkit-slider-thumb {
+    pointer-events: auto;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: -3.5px;
+  }
+
+  .range-slider-track input[type="range"]::-moz-range-thumb {
+    pointer-events: auto;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  .exchange-pill {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+  }
+
+  .exchange-pill:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .exchange-pill.active {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .exchange {
+    padding: 10px 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .col-toggle {
+    position: relative;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  table.compact-mode td {
+    padding: 1px 3px !important;
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+  }
+
+  table.compact-mode th {
+    padding: 2px 3px !important;
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+    white-space: normal !important;
+    word-break: break-word;
+    max-width: 60px;
+  }
+
+  table.compact-mode th.analysis-group,
+  table.compact-mode th.rownum-col,
+  table.compact-mode #sortName,
+  table.compact-mode #sortExchange {
+    max-width: none;
+    white-space: nowrap !important;
+  }
+
+  /* These 3 columns are only ever populated when the user sets a $ allocation
+     (rare) - they show "-" almost always, so shrink them hard in compact mode
+     instead of letting their own (now-wrapped) header dictate width. */
+  table.compact-mode .col-target.alloc-cell,
+  table.compact-mode .col-target.pl-cell,
+  table.compact-mode .col-target.pl-share-cell,
+  table.compact-mode .yh-alloc,
+  table.compact-mode .yh-pl,
+  table.compact-mode .yh-plshare,
+  table.compact-mode #allocHeader,
+  table.compact-mode #plHeader,
+  table.compact-mode #plShareHeader,
+  table.compact-mode #yhAllocHeader,
+  table.compact-mode #yhPlHeader,
+  table.compact-mode #yhPlShareHeader {
+    max-width: 40px;
+    white-space: nowrap !important;
+  }
+
+  table.compact-mode .exchange {
+    padding: 1px 3px !important;
+    font-size: 8.5px !important;
+    max-width: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  table.compact-mode .stock-link {
+    display: flex !important;
+    align-items: baseline;
+    gap: 6px;
+    padding: 1px 4px !important;
+  }
+
+  table.compact-mode .ticker {
+    font-size: 11px !important;
+  }
+
+  table.compact-mode .name {
+    display: inline !important;
+    font-size: 9.5px !important;
+    margin-top: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 85px;
+  }
+
+  table.compact-mode .scan-date {
+    display: none;
+  }
+
+  table.compact-mode .info-tip {
+    width: 11px;
+    height: 11px;
+    font-size: 8px;
+  }
+
+  .col-toggle-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .col-toggle-btn:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .col-toggle-btn .chev {
+    font-size: 9px;
+    opacity: 0.6;
+  }
+
+  .col-toggle-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 5;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 190px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .col-toggle.open .col-toggle-menu {
+    display: block;
+  }
+
+  .col-toggle-menu label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .col-toggle-menu label:hover {
+    background: var(--surface-2);
+  }
+
+  .col-toggle-menu input {
+    accent-color: var(--accent);
+  }
+</style>
+
+<main>
+  <header>
+    <div>
+      <p class="eyebrow">eToro &middot; All Exchanges</p>
+      <div class="refresh-codes" title="בקש מקלוד להריץ את הריענונים האלה לפי השם">
+        <div class="refresh-row">
+          <code>MEGASCAN</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">ריענון כיסוי אנליסטים לכל 6,761 הטיקרים דרך TipRanks (ירוק↔צהוב), <span class="ltr-num">~50</span> דק׳, בלי סיכון חסימה.</span>
+            <span class="refresh-cols"><b>עמודות:</b> Low / Average / High + Consensus% + Rating (צד eToro/TipRanks)</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>SCAN RED</code><span class="req-badge req-claude">🧠 דורש קלוד חי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">אימות מחדש של רשימת "לא ניתן למסחר" מול eToro עצמו, בקצב איטי (<span class="ltr-num">25-30</span> שנ׳ לטיקר).</span>
+            <span class="refresh-cols"><b>עמודות:</b> סטטוס TRADEABLE / NOT TRADEABLE בלבד (לא נוגע במחירי יעד)</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>SCAN HOLDINGS</code><span class="req-badge req-claude">🧠 דורש קלוד חי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">סריקה חיה של החשבון האמיתי (Real+Virtual) מול eToro: פוזיציות חדשות / הזמנות שמולאו / נסגרו / ממתינות, ובסוף מריץ אוטומטית גם SCAN VALUES.</span>
+            <span class="refresh-cols"><b>עמודות:</b> Units / Avg Open / P&amp;L תחת "MY PORTFOLIO" (מעדכן מי בכלל מוחזק, לא נתוני שוק)</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>SCAN VALUES</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">ריענון מלא רק להחזקות הקיימות (כפתור "Scan Portfolio", אוטומטי לגמרי).</span>
+            <span class="refresh-cols"><b>עמודות:</b> Low/Avg/High + Consensus%/Rating (eToro/TipRanks) + Average + Dividend (Yahoo) + Insider $ &ndash; אך ורק לטיקרים המוחזקים</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>MEGASCAN YAHOO</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">ריענון Yahoo Finance לכל 6,761 הטיקרים (רק Average + דיבידנד &ndash; יאהו כבר לא מציג Low/High), אוטומטי לגמרי, בלי eToro בכלל.</span>
+            <span class="refresh-cols"><b>עמודות:</b> Average + Div Yield (צד Yahoo Finance)</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>SCAN ALL</code><span class="req-badge req-script">⚙️ חלק סקריפטים</span><span class="req-badge req-claude">🧠 חלק דורש קלוד חי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">מריץ MEGASCAN + MEGASCAN YAHOO + FUNDAMENTALS SCAN ברקע (מקבילי) ואז SCAN HOLDINGS (כולל SCAN VALUES); בכל הרצה נשאל אם לכלול גם SCAN RED (<span class="ltr-num">~2</span> שעות נוספות).</span>
+            <span class="refresh-cols"><b>עמודות:</b> כל העמודות באתר &ndash; שילוב של כל הסריקות למעלה</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>FUNDAMENTALS SCAN</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">ריענון Short Interest + Beta/PE + RSI/ממוצעים נעים לכל 6,761 הטיקרים (מ-Yahoo Finance, HTTP נטו, בלי דפדפן), ואז מחשב מחדש את עמודת ה-Score לכולם.</span>
+            <span class="refresh-cols"><b>עמודות:</b> Score (מחושב מ-5 מדדים, ראה טולטיפ בעמודה עצמה)</span>
+          </div>
+        </div>
+        <div class="refresh-row">
+          <code>INSIDER SCAN</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">פעילות קנייה/מכירה של מנהלים בשוק הפתוח (30 יום, מ-SEC EDGAR), רק לחברות אמריקאיות, <span class="ltr-num">~3</span> דק' לכל 6,761 (HTTP נטו, בלי דפדפן בכלל).</span>
+            <span class="refresh-cols"><b>עמודות:</b> Insider $ (30D) בלבד</span>
+          </div>
+        </div>
+      </div>
+      <h1>World Markets Tracker</h1>
+    </div>
+    <div class="count" id="count">Showing 1,823 of 1,823</div>
+  </header>
+
+  <input class="search" id="search" type="text" placeholder="Search ticker or company name&hellip;" autocomplete="off">
+
+  <div class="exchange-filters" id="exchangeFilters"></div>
+
+  <div class="status-filters" id="statusFilters">
+    <button type="button" class="status-pill active" data-status="normal"><span class="status-dot dot-normal"></span>Tradeable</button>
+    <button type="button" class="status-pill active" data-status="nofaq"><span class="status-dot dot-nofaq"></span>No Coverage</button>
+    <button type="button" class="status-pill active" data-status="not-tradeable"><span class="status-dot dot-not-tradeable"></span>Not Tradeable</button>
+  </div>
+
+  <div class="status-filters" id="portfolioFilters">
+    <button type="button" class="status-pill active" data-portfolio="all">All Stocks</button>
+    <button type="button" class="status-pill" data-portfolio="in"><span class="status-dot dot-normal"></span>In Portfolio</button>
+    <button type="button" class="status-pill" data-portfolio="out">Not in Portfolio</button>
+    <div class="account-toggle" id="sourceToggle">
+      <span class="account-toggle-label">Analysis Source</span>
+      <button type="button" class="acct-btn active" data-src="tr">TipRanks</button>
+      <button type="button" class="acct-btn" data-src="yh">Yahoo Finance</button>
+    </div>
+    <div class="account-toggle" id="accountToggle">
+      <span class="account-toggle-label">Account</span>
+      <button type="button" class="acct-btn active" data-acct="v">Virtual</button>
+      <button type="button" class="acct-btn" data-acct="r">Real</button>
+    </div>
+  </div>
+
+  <div class="scan-status-panel" id="scanStatusPanel">
+    <div class="scan-status-row run-all-row">
+      <span class="scan-status-name">Run All Background<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right wide">מפעיל בלחיצה אחת את 4 הסריקות שרצות עצמאית ברקע, בלי צורך בי (Claude) בכלל: <b>MEGASCAN</b> (כיסוי אנליסטים), <b>MEGASCAN YAHOO</b> (Yahoo Finance), <b>INSIDER SCAN</b> (פעילות מנהלים), <b>FUNDAMENTALS SCAN</b> (Short Interest/RSI/P-E/Market Cap + Score). כל אחת רצה כתהליך נפרד ומדווחת התקדמות בשורה שלה למטה, בדיוק כאילו לחצת על כל כפתור בנפרד.<br><br><b>לא כלול כאן:</b> SCAN VALUES (מריץ אוטומטית בסוף SCAN HOLDINGS), ו-SCAN HOLDINGS/SCAN RED שדורשים session חי שלי מול החשבון האמיתי שלך בעטורו — את אלו צריך לבקש ממני בצ'אט.</span></span></span>
+      <button type="button" class="scan-status-btn run-all-btn" id="runAllBackgroundBtn">&#8635; Run All</button>
+      <span class="scan-status-text"></span>
+    </div>
+    <div class="scan-status-row" data-scan="scan_values">
+      <span class="scan-status-name">Scan Values</span>
+      <button type="button" class="scan-status-btn" data-run="scan_values">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
+    <div class="scan-status-row" data-scan="megascan">
+      <span class="scan-status-name">MEGASCAN</span>
+      <button type="button" class="scan-status-btn" data-run="megascan">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
+    <div class="scan-status-row" data-scan="megascan_yahoo">
+      <span class="scan-status-name">MEGASCAN YAHOO</span>
+      <button type="button" class="scan-status-btn" data-run="megascan_yahoo">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
+    <div class="scan-status-row" data-scan="insider_scan">
+      <span class="scan-status-name">Insider Scan</span>
+      <button type="button" class="scan-status-btn" data-run="insider_scan">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
+    <div class="scan-status-row" data-scan="fundamentals_scan">
+      <span class="scan-status-name">Fundamentals Scan</span>
+      <button type="button" class="scan-status-btn" data-run="fundamentals_scan">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
+  </div>
+
+  <div class="portfolio-summary-panel" id="portfolioSummaryPanel">
+    <div class="ps-stat"><span class="ps-label">Invested</span><span class="ps-val" id="summaryInvested">&ndash;</span></div>
+    <div class="ps-stat"><span class="ps-label">P/L</span><span class="ps-val" id="summaryPL">&ndash;</span></div>
+    <div class="ps-stat"><span class="ps-label">Value</span><span class="ps-val" id="summaryValue">&ndash;</span></div>
+    <div class="ps-stat"><span class="ps-label">Positions</span><span class="ps-val" id="summaryHeldCount">&ndash;</span></div>
+    <div class="ps-stat"><span class="ps-label">No TP set</span><span class="ps-val ps-warn" id="summaryNoTpCount">&ndash;</span></div>
+    <div class="ps-stat ps-pending" id="summaryPendingWrap"><span class="ps-label">Pending Orders</span><span class="ps-val" id="summaryPendingCount">&ndash;</span></div>
+  </div>
+
+  <div class="status-filters" id="upsideFilters">
+    <button type="button" class="status-pill active" data-upside="pos"><span class="status-dot dot-upside-pos"></span>Upside Positive</button>
+    <button type="button" class="status-pill active" data-upside="neg"><span class="status-dot dot-upside-neg"></span>Upside Negative</button>
+    <button type="button" class="status-pill active" data-upside="undefined"><span class="status-dot dot-upside-undefined"></span>Upside Undefined</button>
+    <div class="allocation-box" id="allocationBox">
+      <span class="allocation-label">Total to invest</span>
+      <span class="allocation-currency">$</span>
+      <input type="number" id="allocationAmount" placeholder="10,000" min="0" step="0.01">
+      <span class="allocation-summary" id="allocationSummary"></span>
+    </div>
+  </div>
+
+  <div class="filter-accordion" id="filterAccordion">
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgUpside">
+      <summary><span class="filter-group-dot"></span>Upside %</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="upsideRangeFilter">
+          <span class="range-filter-label">Upside % range</span>
+          <div class="range-inputs">
+            <input type="number" id="upsideRangeMinInput" step="0.1" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="upsideRangeMaxInput" step="0.1">
+            <span class="range-max-hint" id="upsideRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="upsideRangeFill"></div>
+            <input type="range" id="upsideRangeMinSlider" step="0.1" value="0">
+            <input type="range" id="upsideRangeMaxSlider" step="0.1" value="0">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgRatio">
+      <summary><span class="filter-group-dot"></span>TP/Yahoo Ratio</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="ratioRangeFilter">
+          <span class="range-filter-label">TP/Yahoo Ratio range</span>
+          <div class="range-inputs">
+            <input type="number" id="ratioRangeMinInput" step="0.01" min="0" max="1" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="ratioRangeMaxInput" step="0.01" min="0" max="1" value="1">
+            <span class="range-max-hint" id="ratioRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="ratioRangeFill"></div>
+            <input type="range" id="ratioRangeMinSlider" step="0.01" min="0" max="1" value="0">
+            <input type="range" id="ratioRangeMaxSlider" step="0.01" min="0" max="1" value="1">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgScore">
+      <summary><span class="filter-group-dot"></span>Score</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="scoreRangeFilter">
+          <span class="range-filter-label">Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right">מסנן לפי טווח Score (1-10) וטווח רמת ביטחון (X/8) יחד. לדוגמה: Score מ-7 עד 10 <b>וגם</b> ביטחון מ-6 עד 8 מציג רק את המניות עם הציון הכי גבוה <b>שגם</b> הכי אמין — לא מספיק Score גבוה לבד, כי הוא יכול להיות מבוסס בעיקר על ניקוד ניטרלי.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="scoreRangeMinInput" step="0.1" min="0" max="10" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="scoreRangeMaxInput" step="0.1" min="0" max="10" value="10">
+            <span class="range-max-hint" id="scoreRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="scoreRangeFill"></div>
+            <input type="range" id="scoreRangeMinSlider" step="0.1" min="0" max="10" value="0">
+            <input type="range" id="scoreRangeMaxSlider" step="0.1" min="0" max="10" value="10">
+          </div>
+        </div>
+
+        <div class="upside-range-filter" id="confidenceRangeFilter">
+          <span class="range-filter-label">Score Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right">כמה מ-8 המדדים מאחורי ה-Score היו נתונים אמיתיים (לא ניקוד ניטרלי בגלל חוסר מידע). למשל מ-7 עד 8 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="confidenceRangeMinInput" step="1" min="0" max="8" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="confidenceRangeMaxInput" step="1" min="0" max="8" value="8">
+            <span class="range-max-hint" id="confidenceRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="confidenceRangeFill"></div>
+            <input type="range" id="confidenceRangeMinSlider" step="1" min="0" max="8" value="0">
+            <input type="range" id="confidenceRangeMaxSlider" step="1" min="0" max="8" value="8">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgSecScore">
+      <summary><span class="filter-group-dot"></span>Secondary Score</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="secScoreRangeFilter">
+          <span class="range-filter-label">Secondary Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Secondary Score (0-10) וטווח רמת ביטחון (X/6) יחד — אותו עיקרון בדיוק כמו מסנני ה-Score הראשי, רק על ה-Secondary Score (PEG/Hedge Funds/Volume/EPS Trend/Margin/Growth).</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="secScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="secScoreRangeMaxInput" step="0.1" min="0" max="10" value="10">
+            <span class="range-max-hint" id="secScoreRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="secScoreRangeFill"></div>
+            <input type="range" id="secScoreRangeMinSlider" step="0.1" min="0" max="10" value="0">
+            <input type="range" id="secScoreRangeMaxSlider" step="0.1" min="0" max="10" value="10">
+          </div>
+        </div>
+
+        <div class="upside-range-filter" id="secConfidenceRangeFilter">
+          <span class="range-filter-label">Secondary Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-6 המדדים מאחורי ה-Secondary Score היו נתונים אמיתיים. למשל 5-6 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="secConfidenceRangeMinInput" step="1" min="0" max="6" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="secConfidenceRangeMaxInput" step="1" min="0" max="6" value="6">
+            <span class="range-max-hint" id="secConfidenceRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="secConfidenceRangeFill"></div>
+            <input type="range" id="secConfidenceRangeMinSlider" step="1" min="0" max="6" value="0">
+            <input type="range" id="secConfidenceRangeMaxSlider" step="1" min="0" max="6" value="6">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgRiskScore">
+      <summary><span class="filter-group-dot"></span>Risk Score</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="riskScoreRangeFilter">
+          <span class="range-filter-label">Risk Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Risk Score (0-10) וטווח רמת ביטחון (X/5) יחד. זכרו: גבוה כאן = תנודתי יותר, <b>לא</b> "גרוע יותר" — זה לא ציר איכות.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="riskScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="riskScoreRangeMaxInput" step="0.1" min="0" max="10" value="10">
+            <span class="range-max-hint" id="riskScoreRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="riskScoreRangeFill"></div>
+            <input type="range" id="riskScoreRangeMinSlider" step="0.1" min="0" max="10" value="0">
+            <input type="range" id="riskScoreRangeMaxSlider" step="0.1" min="0" max="10" value="10">
+          </div>
+        </div>
+
+        <div class="upside-range-filter" id="riskConfidenceRangeFilter">
+          <span class="range-filter-label">Risk Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-5 המדדים מאחורי ה-Risk Score היו נתונים אמיתיים.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="riskConfidenceRangeMinInput" step="1" min="0" max="5" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="riskConfidenceRangeMaxInput" step="1" min="0" max="5" value="5">
+            <span class="range-max-hint" id="riskConfidenceRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="riskConfidenceRangeFill"></div>
+            <input type="range" id="riskConfidenceRangeMinSlider" step="1" min="0" max="5" value="0">
+            <input type="range" id="riskConfidenceRangeMaxSlider" step="1" min="0" max="5" value="5">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgOverallScore">
+      <summary><span class="filter-group-dot"></span>Overall Score</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="overallScoreRangeFilter">
+          <span class="range-filter-label">Overall Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Overall Score (0-10) וטווח רמת ביטחון (X/14) יחד — הבלנד המשוקלל של Score ו-Secondary Score (Risk Score לא נכלל, זה ציר תנודתיות נפרד).</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="overallScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="overallScoreRangeMaxInput" step="0.1" min="0" max="10" value="10">
+            <span class="range-max-hint" id="overallScoreRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="overallScoreRangeFill"></div>
+            <input type="range" id="overallScoreRangeMinSlider" step="0.1" min="0" max="10" value="0">
+            <input type="range" id="overallScoreRangeMaxSlider" step="0.1" min="0" max="10" value="10">
+          </div>
+        </div>
+
+        <div class="upside-range-filter" id="overallConfidenceRangeFilter">
+          <span class="range-filter-label">Overall Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">סכום רמות הביטחון של Score ו-Secondary Score יחד (עד 8+6=14).</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="overallConfidenceRangeMinInput" step="1" min="0" max="14" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="overallConfidenceRangeMaxInput" step="1" min="0" max="14" value="14">
+            <span class="range-max-hint" id="overallConfidenceRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="overallConfidenceRangeFill"></div>
+            <input type="range" id="overallConfidenceRangeMinSlider" step="1" min="0" max="14" value="0">
+            <input type="range" id="overallConfidenceRangeMaxSlider" step="1" min="0" max="14" value="14">
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="filters">
+    <div class="price-range">
+      <input type="number" id="priceMin" placeholder="Min $" min="0" step="0.01">
+      <span>&ndash;</span>
+      <input type="number" id="priceMax" placeholder="Max $" min="0" step="0.01">
+    </div>
+    <div class="pct-basis-toggle" id="pctBasisToggle">
+      <span class="pct-basis-label">Upside % vs.</span>
+      <div class="pct-basis-buttons">
+        <button type="button" class="pct-basis-btn" data-basis="low">Low</button>
+        <button type="button" class="pct-basis-btn active" data-basis="avg">Avg</button>
+        <button type="button" class="pct-basis-btn" data-basis="high">High</button>
+      </div>
+    </div>
+    <div class="col-toggle" id="colToggle">
+      <button type="button" class="col-toggle-btn" id="colToggleBtn">Columns<span class="chev">&#9660;</span></button>
+      <div class="col-toggle-menu">
+        <label><input type="checkbox" id="toggleExchange" checked> Exchange</label>
+        <label><input type="checkbox" id="toggleCons" checked> Consensus %</label>
+        <label><input type="checkbox" id="toggleRating" checked> Rating</label>
+        <label><input type="checkbox" id="toggleDiv" checked> Dividend Yield</label>
+        <label><input type="checkbox" id="toggleTarget" checked> Analyst Price Target</label>
+        <label><input type="checkbox" id="toggleYahoo" checked> Yahoo Finance Target</label>
+        <label><input type="checkbox" id="toggleMyPortfolio" checked> My Portfolio</label>
+        <label><input type="checkbox" id="toggleInsider" checked> Insider Activity</label>
+        <label><input type="checkbox" id="toggleShort" checked> Short Interest %</label>
+        <label><input type="checkbox" id="toggleRsi" checked> RSI (14)</label>
+        <label><input type="checkbox" id="togglePe" checked> P/E (TTM)</label>
+        <label><input type="checkbox" id="toggleMcap" checked> Market Cap</label>
+        <label><input type="checkbox" id="toggleHf" checked> Hedge Funds</label>
+        <label><input type="checkbox" id="toggleBeta" checked> Beta</label>
+        <label><input type="checkbox" id="toggleVol" checked> Volume Spike</label>
+        <label><input type="checkbox" id="togglePeg" checked> PEG</label>
+        <label><input type="checkbox" id="toggleR52" checked> 52W Range</label>
+        <label><input type="checkbox" id="toggleScore" checked> Score</label>
+        <label><input type="checkbox" id="toggleSecScore" checked> Secondary Score</label>
+        <label><input type="checkbox" id="toggleRiskScore" checked> Risk Score</label>
+        <label><input type="checkbox" id="toggleOverallScore" checked> Overall Score</label>
+        <label><input type="checkbox" id="togglePercentile" checked> Sector %ile</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-scroll-top" id="tableScrollTop"><div id="tableScrollTopInner"></div></div>
+
+  <div class="table-wrap">
+  <table id="stockTable" class="compact-mode">
+    <thead>
+      <tr>
+        <th rowspan="2" class="rownum-col">#</th>
+        <th rowspan="2" class="sortable sort-active" id="sortName" data-dir="asc">Market<span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="sortable" id="sortExchange" data-dir="asc">Exchange<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right"><b>מקור:</b> קבוע מהסריקה המקורית של רשימת המניות בכל בורסה — אף סריקה לא נוגעת בזה יותר (זה לא משתנה, מניה לא עוברת בורסה).</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable" id="sortPrice" data-dir="asc">Price<span class="info-tip" tabindex="0">i<span class="info-tip-bubble"><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות) — מחיר סגירה עדכני מ-Yahoo Finance.<br><br>עד 2026-09-06 עמודה זו הייתה סטטית לגמרי (מהסריקה המקורית של הבורסה, בלי שום רענון). תוקן: FUNDAMENTALS SCAN כבר שולף מחיר טרי לצורך החישוב הטכני (RSI/ממוצעים נעים), וכעת זה נכתב גם לכאן — בלי עלות רשת נוספת.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-cons" id="sortCons" data-dir="asc">Consensus %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">אחוז האנליסטים שמסכימים עם הדירוג הכולל (עמודת Rating) — אם הדירוג Buy זה % הממליצים קנייה, אם Hold זה % הממליצים החזקה, אם Sell זה % הממליצים מכירה.<br><br><b>לא תמיד = אחוז הקונים!</b> לדוגמה: ל-INTC יש 17% ממליצי קנייה, 77% ממליצי החזקה, 6% ממליצי מכירה. הרוב ממליץ "החזק", אז הדירוג הוא <b>Hold</b> — והמספר שמוצג כאן הוא <b>77%</b> (אחוז המסכימים עם ה-Hold), לא ה-17% של הקונים.<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="sortable col-rating" id="sortRating" data-dir="asc">Rating<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">הדירוג הכולל של האנליסטים (Strong Buy / Moderate Buy / Hold / Moderate Sell / Strong Sell), מאותו עמוד TipRanks כמו Consensus%.<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-div" id="sortDiv" data-dir="asc">Div. Yield<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">תשואת דיבידנד כפי שנרשמה בסריקה המקורית של הבורסה (צד eToro).<br><br><b>מקור:</b> הסריקה המקורית בלבד — <b>אף סריקה נוכחית לא מרעננת עמודה זו</b>. אם רוצים דיבידנד מעודכן, יש להסתכל על עמודת Div Yield בצד Yahoo Finance (מרוענן ע"י MEGASCAN YAHOO/SCAN VALUES).</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th colspan="7" class="analysis-group col-target" id="analysisGroupHeader">Analyst Price Target &middot; via eToro / TipRanks</th>
+        <th rowspan="2" class="num sortable col-yahoo" id="sortUpsideRatio" data-dir="desc">TP/Yahoo Ratio<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">בודק כמה TipRanks ו-Yahoo <b>מסכימים</b> על תחזית ה-Upside של המניה. לוקחים את שני אחוזי ה-Upside, ומחשבים <b>הקטן חלקי הגדול</b> (בערך מוחלט).<br><br>לדוגמה: אם TipRanks אומר Upside של <b>+20%</b> ו-Yahoo אומר <b>+16%</b> — היחס הוא 16/20 = <b>0.80</b> (הסכמה גבוהה).<br>אם TipRanks אומר <b>+30%</b> ו-Yahoo אומר <b>+3%</b> — היחס הוא 3/30 = <b>0.10</b> (הסכמה נמוכה, כדאי להיזהר).<br><br><b>1.0</b> = הסכמה מלאה. <b>קרוב ל-0</b> = חוסר הסכמה גדול, או שהם חלוקים לגמרי (אחד positive ואחד negative).<br><br><b>מקור:</b> לא נסרק בעצמו — <b>מחושב אוטומטית בדפדפן</b> מתוך Upside% של TipRanks ו-Yahoo, שתיהן כבר בטבלה. מתעדכן ממילא ברגע שאחת מהן מתעדכנת.</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th colspan="8" class="analysis-group col-yahoo" id="yahooGroupHeader">Analyst Price Target &middot; via Yahoo Finance</th>
+        <th colspan="4" class="analysis-group col-myportfolio" id="myPortfolioGroupHeader">My Portfolio (Virtual)</th>
+        <th rowspan="2" class="num sortable col-insider" id="sortInsider" data-dir="desc">Insider $ (30d)<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">פעילות Insider ב-30 הימים האחרונים (מקור: SEC EDGAR Form 4): נטו $ נקנה/נמכר ע״י מנהלים/דירקטורים <b>בשוק הפתוח בלבד</b> (לא כולל הענקות מניות/מימוש אופציות/מתנות). <b>ירוק</b>=קנייה נטו, <b>אדום</b>=מכירה נטו. קיים רק לחברות אמריקאיות שמדווחות ל-SEC — חברות זרות פטורות מדיווח זה, ולכן יופיע "–"<br><br><b>מקור:</b> INSIDER SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-short" id="sortShort" data-dir="asc">Short Interest %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>אחוז ה-Float שנמכר בחסר (Short)</b>, ממקור Yahoo Finance. אלו משקיעים שלוו מניות ומכרו אותן, מהמרים על <b>ירידת</b> המחיר כדי לקנות בזול ולהחזיר את ההלוואה ברווח.<br><br><b>דוגמה אמיתית:</b> ל-AAPL יש כרגע <b>0.80%</b> Short — כמעט אין ספקנות בשוק כלפיה.<br><br><b>אחוז גבוה</b> (מעל 10-20%) = הרבה "דובים" נגד המניה. אבל זו חרב פיפיות: אם המניה עולה בכל זאת, הדובים נאלצים לקנות בחזרה כדי לסגור פוזיציה — וזה דוחף את המחיר עוד יותר למעלה (<b>Short Squeeze</b>, בדיוק מה שקרה ל-GameStop ב-2021 עם Short Interest מעל 100% מה-Float).<br><b>אחוז נמוך</b> (מתחת ל-2%) = מעט התנגדות/ספקנות כלפי המניה.<br><br><b>צבע בעמודה:</b> ירוק חזק (&lt;2%) → ירוק (2-5%) → אפור ניטרלי (5-10%) → כתום (10-20%) → אדום חזק (20%+) — בדיוק אותם טווחים שמשמשים לניקוד ב-Score.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)<br><br><b>איך זה עובד בפועל (דוגמה מקצה לקצה):</b><br>קרן פנסיה מחזיקה 1,000,000 מניות של "טכנולוגיקס" ($100 למניה), לטווח ארוך. היא מרשה לברוקר שלה להשאיל מניות תמורת ריבית — הכנסה פסיבית, בלי לוותר על כלום (עדיין מרוויחה אם המחיר עולה, מקבלת פיצוי גם על דיבידנד).<br><br>קרן גידור ("דני") לווה 10,000 מניות ומוכרת אותן מיד ב-$100 = מקבלת $1,000,000 במזומן.<br><b>אם המניה יורדת</b> ל-$70: דני קונה בחזרה ב-$700,000, מחזיר את המניות, <b>מרוויח $300,000</b>.<br><b>אם המניה עולה</b> ל-$150: דני חייב לקנות בחזרה ב-$1,500,000, <b>מפסיד $500,000</b> — ובלי תקרה, ככל שהמחיר ממשיך לעלות.<br><br><b>עכשיו תדמייני 200 קרנות גידור</b> עשו את אותו הדבר = 2,000,000 מניות מתוך 10,000,000 בשוק נמכרו בחסר = <b>20% Short Interest</b>. דוח רווחים טוב מקפיץ את המחיר ל-$130 — כל 200 הקרנות ממהרות לקנות בחזרה כדי לעצור את ההפסד, מה שדוחף את המחיר עוד יותר (ל-$150, אז $180...) כי הקונים בפועל הם בעצם המוכרים-בחסר הנואשים לסגור, לא משקיעים רגילים. זה ה-<b>Short Squeeze</b>.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-rsi" id="sortRsi" data-dir="asc">RSI (14)<span class="info-tip" tabindex="0">i<span class="info-tip-bubble"><b>Relative Strength Index</b> — מדד טכני (0-100) שמודד אם המניה "נקנתה יותר מדי" או "נמכרה יותר מדי" ב-14 הימים האחרונים, מבוסס על יחס העליות לירידות היומיות.<br><br><b>דוגמה אמיתית:</b> ל-MSFT יש כרגע <b>59.4</b> — טווח ניטרלי, בלי איתות קיצוני.<br><br><b>מעל 70</b> (למשל 85) = Overbought — עלתה חזק מדי לאחרונה, סטטיסטית יש סיכוי גבוה יותר לתיקון כלפי מטה.<br><b>מתחת ל-30</b> (למשל 18) = Oversold — נמכרה בפאניקה, סטטיסטית יש סיכוי גבוה יותר לניתור כלפי מעלה.<br><br>זה <b>לא תחזית ודאית</b> — רק מדד מומנטום קצר-טווח, המניה יכולה גם להישאר "קיצונית" זמן רב.<br><br><b>צבע בעמודה:</b> ירוק חזק (≤20, Oversold קיצוני) → ירוק (21-30) → אפור ניטרלי (30-70) → כתום (71-80) → אדום חזק (80+, Overbought קיצוני).<br><br><b>מקור:</b> FUNDAMENTALS SCAN (מחושב מנתוני מחיר של Yahoo, כל 6,761 המניות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-pe" id="sortPe" data-dir="asc">P/E (TTM)<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מכפיל רווח</b> (Price/Earnings, 12 חודשים אחרונים) — כמה שנות רווח נוכחי צריך "כדי להחזיר" את מחיר המניה.<br><br><b>שלב 1 — קודם מחשבים "רווח למניה" (EPS)</b><br>לוקחים את הרווח הנקי השנתי של כל החברה, ומחלקים במספר המניות הקיימות.<br><br><u>חברה א' (יציבה, בנק)</u>:<br>רווח נקי שנתי: $50,000,000<br>מספר מניות: 10,000,000<br><div class="ltr-num">50,000,000 ÷ 10,000,000 = 5</div>EPS יוצא <b>$5</b><br><br><u>חברה ב' (טכנולוגיה, צומחת)</u>:<br>רווח נקי שנתי: $100,000,000<br>מספר מניות: 20,000,000<br><div class="ltr-num">100,000,000 ÷ 20,000,000 = 5</div>EPS יוצא <b>גם $5</b> — זהה לחברה א', למרות שהחברה גדולה פי 2 בכל מדד!<br><br><b>שלב 2 — עכשיו ממשיכים ל-P/E</b><br>P/E = מחיר המניה חלקי EPS.<br><br><u>מניה א'</u> נסחרת ב-$50:<br><div class="ltr-num">50 ÷ 5 = 10</div><u>מניה ב'</u> נסחרת ב-$200 (פי 4 יותר, למרות EPS זהה!):<br><div class="ltr-num">200 ÷ 5 = 40</div><br><b>למה מישהו משלם פי 4 יותר על אותו רווח בדיוק?</b><br>כי הוא לא קונה את הרווח של השנה — הוא קונה את הרווח שהוא <b>מצפה</b> שיגיע בעוד כמה שנים, כשחברה ב' תגדל. משקיעים ב-P/E של 40 "מהמרים" על עתיד; משקיעים ב-P/E של 10 מקבלים בדיוק את מה שרואים, בלי הימור.<br><br><b>הסיכון:</b> אם חברה ב' באמת תגדל כמו שציפו — שילמת מחיר הוגן על העתיד. אם היא תאכזב — שילמת $200 על משהו ששווה בעצם $50, וההפסד הרבה יותר כואב מאשר בחברה א' שאף אחד ממילא לא ציפה ממנה להרבה.<br><br><b>למה השוואה בין סקטורים מטעה:</b> בנק, נדל"ן וטכנולוגיה נסחרים באופן טבעי ב-P/E שונה כענף שלם, בגלל קצבי צמיחה שונים — לא כי אחד "יקר" והשני "זול". ההשוואה ההגיונית היא רק בין חברות <b>באותו סקטור</b>.<br><br><b>דוגמה אמיתית מהאתר:</b> AMZN עם P/E של <b>20.8</b> מול GOOG עם <b>16.8</b> — GOOG "זולה" יותר ביחס לרווחים שלה כרגע, לא בהכרח שהיא השקעה טובה יותר.<br><br><b>אין ערך "טוב" אוניברסלי</b>, ולכן העמודה <b>לא מנוקדת ב-Score</b>.<br><br><b>צבע בעמודה:</b> כלל-אצבע גס בלבד (לא קשור ל-Score) — ירוק חזק (מתחת ל-10) → ירוק (10-15) → אפור ניטרלי (15-25, וגם P/E שלילי) → כתום (25-40) → אדום חזק (מעל 40). זכרו: מכפיל גבוה בטכנולוגיה יכול להיות הגיוני לגמרי.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-beta" id="sortBeta" data-dir="asc">Beta<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">מודד <b>כמה המניה תנודתית ביחס לשוק הכללי</b> (S&amp;P 500), ממקור Yahoo Finance.<br><br><b>Beta = 1.0</b> — המניה זזה בערך באותו קצב כמו השוק (השוק +10% → המניה בערך +10%).<br><b>Beta &gt; 1.0</b> (למשל 1.5) — תנודתית <b>יותר</b> מהשוק: השוק +10% → אולי +15%, אבל גם השוק -10% → אולי -15%. סיכון וגם פוטנציאל רווח גדולים יותר.<br><b>Beta &lt; 1.0</b> (למשל 0.5) — תנודתית <b>פחות</b> מהשוק: השוק +10%/-10% → המניה זזה רק כ-5%. יציבה יותר, תנודות פחות חדות.<br><b>Beta שלילי</b> (נדיר) — המניה זזה בכיוון <b>הפוך</b> מהשוק.<br><br><b>דוגמאות טיפוסיות:</b> חברות טכנולוגיה צומחות (כמו טסלה) נוטות ל-Beta גבוה (~1.5-2.5). חברות יציבות (כמו Coca-Cola) נוטות ל-Beta נמוך (~0.5-0.7).<br><br>אין "טוב" או "רע" אוניברסלי — תלוי בסבילות שלך לסיכון, ולכן <b>לא מנוקד ב-Score</b>, מוצג כמידע גולמי בלבד.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-vol" id="sortVol" data-dir="desc">Volume Spike<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">מציג <b>פי כמה</b> נפח המסחר של היום גדול מהממוצע של 30 הימים האחרונים.<br><br><b>1.0x</b> = נפח רגיל, כרגיל. <b>2.3x</b> = נפח היום גדול פי 2.3 מהממוצע — נפח חריג.<br><br><b>למה זה חשוב:</b> נפח חריג בדרך כלל אומר שמשהו משמעותי קרה (חדשות, דוח כספים, שחקן גדול נכנס/יצא) ולרוב מקדים או מלווה תזוזת מחיר משמעותית.<br><br><b>נפח לבד אין לו כיוון</b> — ספייק יכול ללוות גם עלייה וגם ירידה. הצבע לכן משלב את הספייק <b>עם כיוון המחיר</b> באותו יום:<br><b>ירוק</b> = ספייק + מחיר עלה חזק (אישוש חיובי, קונים אמיתיים)<br><b>אדום</b> = ספייק + מחיר ירד חזק (אישוש שלילי, מכירת פאניקה)<br><b>אפור</b> = אין ספייק, או שיש ספייק אבל בלי כיוון מחיר ברור<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-peg" id="sortPeg" data-dir="asc">PEG<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>PEG = P/E חלקי קצב הצמיחה השנתי הצפוי (באחוזים).</b> זו גרסה "הוגנת יותר" של P/E — מנרמלת לפי צמיחה, כך שהשוואה בין חברות בקצבי צמיחה שונים הופכת הוגנת.<br><br><b>דוגמה:</b><br>חברה א' (בנק יציב): P/E=10, צומחת 2% בשנה<br><div class="ltr-num">10 ÷ 2 = 5.0</div>חברה ב' (טכנולוגיה): P/E=40 (פי 4!), צומחת 40% בשנה<br><div class="ltr-num">40 ÷ 40 = 1.0</div><b>למרות שה-P/E של חברה ב׳ גבוה פי 4</b>, ה-PEG שלה נמוך יותר (1.0 מול 5.0) — כי ברגע שמנרמלים לפי צמיחה, מתברר שחברה א׳ היא בעצם ה"יקרה" יחסית לצמיחה האפסית שלה.<br><br><b>כלל אצבע:</b> מתחת ל-1.0 = אולי "זולה" יחסית לצמיחה, מעל 1.0 = אולי "יקרה" יחסית לצמיחה, בערך 1.0 = "הוגן".<br><br>בניגוד ל-P/E הגולמי, PEG <b>כן נכנס ל-Secondary Score</b> (עדיף על P/E כשהוא זמין).<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th rowspan="2" class="num sortable col-r52" id="sortR52" data-dir="desc">52W Range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">מראה <b>איפה המחיר הנוכחי נמצא</b> בטווח בין השפל לשיא של 52 השבועות האחרונים, באחוזים.<br><br><b>0%</b> = המחיר בדיוק בשפל השנתי.<br><b>100%</b> = המחיר בדיוק בשיא השנתי.<br><b>50%</b> = באמצע הטווח.<br><br><b>דוגמה:</b> אם השפל השנתי הוא $200 והשיא הוא $400, ומחיר המניה כרגע $350:<br><div class="ltr-num">(350-200) ÷ (400-200) × 100 = 75%</div>המניה נמצאת ב-75% מהטווח — קרוב לשיא.<br><br><b>למה אין כאן צבע:</b> קרוב לשיא יכול להעיד על מומנטום חיובי חזק (טוב) <b>או</b> על מניה ש"כבר רצה יותר מדי" (מסוכן) — תלוי לגמרי באסטרטגיה שלך, אין כיוון אוניברסלי. לכן זה <b>לא מנוקד</b> באף Score, מוצג כמידע גולמי בלבד.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-mcap" id="sortMcap" data-dir="desc">Market Cap<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">שווי השוק הכולל של החברה (מחיר מניה × מספר מניות), ממקור Yahoo Finance.<br><br><b>למה זה כאן:</b> משמש בעיקר כדי "לנרמל" את עמודת ה-Insider $ — מכירת מנהלים של $1.8M נראית זהה על הנייר בין חברה ענקית לחברה קטנה, אבל ביחס לשווי השוק שלהן זה סיפור אחר לגמרי (ראו טולטיפ עמודת Score).<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-hf" id="sortHf" data-dir="desc">Hedge Funds<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">פעילות קרנות הגידור הגדולות ביותר המחזיקות במניה (למשל וורן באפט/ברקשייר), מהרבעון האחרון — מוצג כ-<b>A/R/N</b> (Added/Reduced/No change).<br><br><b>איך לקרוא את המספרים:</b> A = כמה קרנות <b>הוסיפו</b> לאחזקה שלהן, R = כמה <b>הפחיתו</b>, N = כמה <b>לא שינו כלום</b>. הסכום של השלושה הוא בדרך כלל 3 (מספר הקרנות הגדולות שמוצגות כברירת מחדל) — יכול להיות פחות אם למניה יש פחות מ-3 קרנות מוכרות שמחזיקות בה.<br><br><b>דוגמה אמיתית (AAPL, "1A/1R/1N"):</b> מתוך 3 הקרנות הגדולות שמחזיקות ב-AAPL — קרן אחת הוסיפה למניה, קרן אחת הפחיתה, קרן אחת לא שינתה כלום. סה"כ תמיד 3.<br><br><b>איך לפרש:</b><br>"3A/0R/0N" = כל 3 הקרנות הוסיפו — סימן חיובי מובהק (<b>ירוק</b>)<br>"0A/3R/0N" = כל 3 הקרנות הפחיתו — סימן שלילי (<b>אדום</b>)<br>"1A/1R/1N" = מעורב, בלי הטיה ברורה (<b>אפור</b>)<br><br><b>מגבלה חשובה:</b> זה רק ה-3 המחזיקים הגדולים ביותר שמוצגים כברירת מחדל בעמוד המקור, לא כל הקרנות שמחזיקות במניה — מדגם קטן, לא סטטיסטי. לכן זה <b>לא מנוקד ב-Score</b>, מוצג כמידע גולמי בלבד.<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-score" id="sortScore" data-dir="desc">Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון מורכב 1-10</b>, סכום של 8 מדדים (0-2 נק' כל אחד, מנורמל לסקאלת 0-10):<br><br><b>1. דירוג אנליסטים</b> — Strong Buy=2, Hold=1, Strong Sell=0<br><b>2. Upside%</b> — פער בין המחיר הנוכחי ליעד הממוצע<br><b>3. Insider</b> — מנורמל לפי שווי שוק (לא סכום דולרי גולמי): קנייה משמעותית (מעל 0.1% משווי השוק)=2, מכירה משמעותית=0.3, מכירה זניחה (כמו $1.8M ב-AAPL ששווה $4.67 טריליון)=1 (כמעט ולא משפיע)<br><b>4. Short Interest</b> — אחוז נמוך מהפלואט=2, גבוה=0<br><b>5. טכני</b> — RSI14 + מחיר מול ממוצע נע 50/200 יום<br><b>6. הסכמת אנליסטים (Dispersion)</b> — פער בין יעד נמוך לגבוה יחסית ליעד הממוצע: פער צר (מתחת ל-20%)=2 (אנליסטים מסכימים), פער ענק (מעל 100%)=0 (ניחוש פרוע)<br><b>7. הפתעת רווחים</b> — ממוצע אחוז חריגה מהתחזית ב-4 הרבעונים האחרונים (Yahoo earningsHistory): חריגה חיובית עקבית מעל 10%=2, החטאות עקביות מתחת ל-10%=0<br><b>8. מגמת דירוג (Rating Trend)</b> — שינוי בדירוג הממוצע של האנליסטים ב-3 החודשים האחרונים (Yahoo recommendationTrend): שדרוגים נטו=2, הורדות דירוג נטו=0 — תופס מומנטום שדירוג סטטי לבד לא מראה (Hold יכול להיות אחרי שדרוג מ-Sell או אחרי הורדה מ-Buy, ונראה זהה)<br><br><b>למה נורמול לפי שווי שוק (Insider):</b> מכירת $1.8M ע"י מנהל ב-AAPL ($4.67T שווי שוק) היא 0.00004% משווי השוק — רעש סטטיסטי לחלוטין. אותה מכירה בדיוק בחברה ששווה $50M היא 3.6% משווי השוק — איתות מאוד משמעותי. בלי הנרמול הזה, שתי החברות היו מקבלות בדיוק אותו ניקוד למרות שהמשמעות שונה לגמרי.<br><br>סימן חסר נתונים בכל מדד מקבל ניקוד ניטרלי (1) במקום להוריד את הציון. זהו היגיון שקוף שנבחר ידנית, <b>לא מודל סטטיסטי</b> — כלי עזר להשוואה מהירה, לא המלצת השקעה.<br><br><b>המספר הקטן ליד הציון (למשל "8/8")</b> הוא <b>אינדיקטור ביטחון</b>: כמה מ-8 המדדים היו נתונים אמיתיים, לעומת כמה קיבלו ניקוד ניטרלי בגלל חוסר מידע. Score של 7.0 עם "8/8" הרבה יותר אמין מ-Score של 7.0 עם "3/8" (שם רוב הציון בעצם "ניחוש ניטרלי", לא מידע אמיתי) — תמיד כדאי להסתכל על שניהם ביחד, לא רק על המספר הגדול.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, אבל מבוסס על נתונים מ-3 סריקות שונות: דירוג (MEGASCAN), Insider (INSIDER SCAN), השאר (FUNDAMENTALS SCAN עצמו). מתעדכן בכל פעם ש-FUNDAMENTALS SCAN רץ.</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-secscore" id="sortSecScore" data-dir="desc">Secondary Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שני, נפרד לגמרי מה-Score הראשי</b> — בנוי מ-6 מדדים "חלשים יותר" שבמכוון לא נכנסו ל-Score הראשי, כי לכל אחד מהם יש בעיה שמונעת ניקוד אמין לבד:<br><br><b>1. PEG</b> (או P/E אם אין PEG) — עד 2 נק', זול/יקר יחסית לצמיחה<br><b>2. Hedge Funds</b> — עד 2 נק', רוב הוסיפו=2, רוב הפחיתו=0<br><b>3. Volume Spike</b> — עד 2 נק', ספייק+עלייה=2, ספייק+ירידה=0<br><b>4. EPS Trend</b> — עד 2 נק', האם אנליסטים העלו או הורידו את תחזית הרווח לרבעון הנוכחי ב-90 הימים האחרונים (Yahoo earningsTrend): העלאה חדה=2, הורדה חדה=0 — אינדיקטור מקדים שלרוב זז לפני שה-Rating עצמו מתעדכן<br><b>5. שולי רווח (Profit Margin)</b> — עד 2 נק', אחוז הרווח הנקי מההכנסות: מעל 20%=2, הפסד עמוק=0<br><b>6. צמיחת הכנסות (Revenue Growth)</b> — עד 2 נק', שינוי הכנסות שנתי: מעל 20%=2, ירידה חדה=0<br><br>סה"כ (0-12) מוכפל ב-10/12 כדי להתאים לאותו סקאלה של 0-10 כמו ה-Score הראשי.<br><br><b>למה זה נפרד מה-Score הראשי:</b> חיבור מדדים "פחות אמינים" לתוך ה-Score החזק היה מטשטש את המשמעות שלו — Score של 7.5 היה נראה אותו דבר בין אם הוא מבוסס בעיקר על Rating/Insider חזקים, לבין אם הוא "נצבע" ע"י ניחושים חלשים יותר. שני ציונים נפרדים = כל אחד נשאר ברור במשמעות שלו.<br><br><b>המספר הקטן ליד הציון ("X/6")</b> הוא אינדיקטור ביטחון, אותו עיקרון כמו ב-Score הראשי — כמה מ-6 המדדים היו נתונים אמיתיים.<br><br>זה <b>היגיון חלש יותר מה-Score הראשי במכוון</b> — כלי עזר משני, לא המלצת השקעה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מבוסס על MEGASCAN (Hedge Funds) + FUNDAMENTALS SCAN עצמו (PEG/Volume/EPS Trend/Margin/Growth)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-riskscore" id="sortRiskScore" data-dir="desc">Risk Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שלישי, שונה בסוג מהשניים האחרים</b> — Score ו-Secondary Score מודדים "איכות" (חיובי מול שלילי). זה מודד <b>תנודתיות/חוסר יציבות</b> (רגוע מול פרוע) — ציר <b>שונה לגמרי</b>, שאין בו "טוב" או "רע" אוניברסלי, רק פרופיל סיכון שונה.<br><br><b>למה זה קיים:</b> 5 המדדים הבאים כל אחד בנפרד <b>אין להם כיוון</b> (לא ניתן לומר "טוב" או "רע") — לכן אף אחד מהם לא יכול היה להיכנס ל-Score או ל-Secondary Score. אבל כולם <b>חולקים נושא משותף</b> (תנודתיות/סיכון), אז אפשר לחבר אותם לציר שלישי שימושי, גם אם הוא לא "איכות".<br><br><b>1. Beta</b> — עד 2 נק': |Beta| רחוק מ-1 (תנודתי מהשוק) = ניקוד גבוה<br><b>2. מרחק מאמצע הטווח השנתי</b> — עד 2 נק': קרוב לשיא <b>או</b> לשפל השנתי (שני הקצוות!) = ניקוד גבוה, לא רק קרוב לשפל<br><b>3. עוצמת Volume Spike</b> — עד 2 נק': כאן רק <b>העוצמה</b> של הספייק קובעת, לא הכיוון (בניגוד לעמודת Volume Spike עצמה)<br><b>4. Debt/Equity</b> — עד 2 נק': יחס חוב להון גבוה = חברה ממונפת יותר, שברירית יותר תחת לחץ, ללא קשר אם המניה נראית זולה או יקרה<br><b>5. Days-to-Cover</b> — עד 2 נק': כמה ימי מסחר ממוצעים יידרשו כדי לסגור את כל הפוזיציות השורט (short interest חלקי נפח מסחר יומי ממוצע) — ערך גבוה = פוטנציאל ל"סקוויז" שיזיז את המחיר בחדות בכל כיוון אם השורטיסטים ייאלצו לקנות בחזרה<br><br>סה"כ (0-10) — 5 מדדים כפול 2 נק' מקסימום כל אחד, כבר על סקאלת 0-10 ישירות ללא צורך בהכפלה.<br><br><b>איך לקרוא את הצבע:</b> <span style="color:#3b82c4">כחול</span> = רגועה/יציבה, אפור = ממוצעת, <span style="color:#d97b3f">כתום</span> = תנודתית/פרועה — <b>לא ירוק/אדום במכוון</b>, כדי לא לרמז ש"תנודתי" = "רע". תנודתיות גבוהה יכולה להתאים למי שרוצה סיכוי לרווח גדול, ונמוכה למי שרוצה יציבות.<br><br><b>המספר הקטן ("X/5")</b> — אינדיקטור ביטחון, אותו עיקרון כמו שני הציונים האחרים.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN (Beta/52W Range/Volume/Debt-Equity/Short Ratio, כולם נשלפים מ-Yahoo Finance)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-overallscore" id="sortOverallScore" data-dir="desc">Overall Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מספר אחד שמשלב את Score ו-Secondary Score</b> — לנוחות מי שרוצה מספר בודד להשוואה מהירה, במקום להסתכל על שני ציונים בנפרד.<br><br><b>נוסחה:</b> Score &times; 0.7 + Secondary Score &times; 0.3<br><br><b>למה המשקלים האלה:</b> Score בנוי מ-8 מדדים שכוללים עובדות "קשות יותר" (דירוג אנליסטים, Insider $, Short Interest), בעוד Secondary Score בנוי במכוון מ-6 מדדים "חלשים יותר" (PEG, מדגם קטן של Hedge Funds, Volume Spike, EPS Trend, שולי רווח, צמיחה) — לכן הוא מקבל משקל נמוך יותר בבלנד, לא נעלם, אבל גם לא שווה-ערך.<br><br><b>למה Risk Score לא נכנס לחישוב בכלל:</b> Risk Score מודד תנודתיות (רגוע מול פרוע), לא איכות (טוב מול רע) — ציר שונה לגמרי. לחבר אותו לתוך ציון "איכות" היה הופך את המספר לחסר משמעות: מניה תנודתית לא "טובה יותר" ולא "גרועה יותר" רק בגלל התנודתיות שלה. Risk Score נשאר עמודה נפרדה בכוונה.<br><br>אם לטיקר יש רק אחד מהשניים (Score או Secondary Score), הוא משמש לבד (במקום להתייחס לחסר כ-0).<br><br><b>המספר הקטן ("X/14")</b> — סכום פשוט של רמות הביטחון של שני הציונים המקוריים (עד 8+6=14), לא מדידה עצמאית חדשה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, ישירות מ-score.tsv ו-secondary_score.tsv (ללא נתונים חדשים משלו).<br><br><b>חץ קטן (▲/▼)</b> ליד הציון מופיע רק כשהיה שינוי משמעותי (1.0+ נק') מהסריקה היומית הקודמת — רחפו מעליו לפרטים. <b>גרף זעיר</b> מתחת לציון מציג את ה-14 הימים האחרונים של Overall Score (יתמלא בהדרגה ככל שיצטבר יותר היסטוריה יומית).</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-percentile" id="sortPercentile" data-dir="desc">Sector %ile<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>דירוג יחסי לסקטור</b> — כמה אחוז מהחברות באותו סקטור ה-Overall Score של הטיקר הזה משיג או עולה עליהן. Overall Score של 7 יכול להיות ממוצע בטכנולוגיה (סקטור עם ציונים גבוהים בממוצע) אבל מצוין בשירותים ציבוריים — המספר הגולמי לבד לא מראה את זה.<br><br><b>לדוגמה:</b> 78% אומר שהטיקר הזה טוב יותר (או שווה) מ-78% מהחברות באותו סקטור.<br><br><b>מוצג רק לסקטורים עם 5+ חברות</b> — עם פחות מזה, "אחוזון" כמעט חסר משמעות (חברה אחת יכולה להזיז אותו מ-0 ל-100 לבד).<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מדרג את Overall Score מול טיקרים אחרים באותו סקטור (Yahoo assetProfile).</span></span><span class="sort-arrow">&#9660;</span></th>
+      </tr>
+      <tr>
+        <th class="num sortable analysis-col col-target" id="sortLow" data-dir="asc">Low<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הנמוך ביותר מבין האנליסטים (TipRanks/eToro).<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-target" id="sortAvg" data-dir="asc">Average<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הממוצע של כל האנליסטים (TipRanks/eToro) — זה המספר שמשמש לחישוב Upside% ולציון ה-Score.<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-target" id="sortHigh" data-dir="asc">High<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הגבוה ביותר מבין האנליסטים (TipRanks/eToro).<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-target" id="sortPct" data-dir="desc">Upside %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">הפער באחוזים בין המחיר הנוכחי ליעד הממוצע (Average).<br><br><b>מקור:</b> לא נסרק בעצמו — <b>מחושב אוטומטית בדפדפן</b> מ-Price ו-Average שכבר בטבלה.</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th class="num sortable analysis-col col-target" id="allocHeader" data-dir="asc" title="Suggested $">Sugg.$<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">סכום הקצאה מוצע להשקעה, לפי טווח $ שהוגדר למעלה (Min $/Max $).<br><br><b>מקור:</b> לא נסרק בכלל — <b>מחושב בדפדפן</b> מתוך שדות Min $/Max $ שאת ממלאת, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-target" id="plHeader" data-dir="asc" title="P/L">P/L<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">רווח/הפסד משוער על סכום ה-Sugg.$, אם המניה תגיע ליעד הממוצע.<br><br><b>מקור:</b> מחושב בדפדפן בלבד, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-target" id="plShareHeader" data-dir="asc" title="% of Profit">%Prof.<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">אחוז הרווח הפוטנציאלי מתוך ה-Sugg.$.<br><br><b>מקור:</b> מחושב בדפדפן בלבד, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="sortYhLow" data-dir="asc">Low<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד מחיר נמוך, צד Yahoo Finance.<br><br><b>מקור:</b> רק מסריקות ישנות ספציפיות-לבורסה (מהסבב הראשוני) — <b>MEGASCAN YAHOO לא מביא את זה בכלל</b> (Yahoo כבר לא מציג טווח Low/High, רק ממוצע). לרוב המניות זה יישאר "–".</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="sortYhAvg" data-dir="asc">Average<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הממוצע לפי Yahoo Finance ("1y Target Est").<br><br><b>מקור:</b> MEGASCAN YAHOO (כל 6,761) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="sortYhHigh" data-dir="asc">High<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד מחיר גבוה, צד Yahoo Finance.<br><br><b>מקור:</b> רק מסריקות ישנות ספציפיות-לבורסה (מהסבב הראשוני) — <b>MEGASCAN YAHOO לא מביא את זה בכלל</b> (Yahoo כבר לא מציג טווח Low/High, רק ממוצע). לרוב המניות זה יישאר "–".</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="sortYhDiv" data-dir="desc">Div Yield<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">תשואת דיבידנד לפי Yahoo Finance — זו העמודה שכן מתעדכנת (בניגוד ל-Div. Yield שליד Rating, שאף פעם לא מתעדכנת).<br><br><b>מקור:</b> MEGASCAN YAHOO (כל 6,761) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="sortYhPct" data-dir="desc">Upside %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">הפער באחוזים בין המחיר הנוכחי ליעד הממוצע של Yahoo.<br><br><b>מקור:</b> לא נסרק בעצמו — <b>מחושב אוטומטית בדפדפן</b> מ-Price ו-Average (Yahoo) שכבר בטבלה.</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="yhAllocHeader" data-dir="asc" title="Suggested $">Sugg.$<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">סכום הקצאה מוצע להשקעה (לפי Yahoo), מטווח ה-$ שהוגדר למעלה.<br><br><b>מקור:</b> מחושב בדפדפן בלבד, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="yhPlHeader" data-dir="asc" title="P/L">P/L<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">רווח/הפסד משוער (לפי Yahoo), אם המניה תגיע ליעד הממוצע.<br><br><b>מקור:</b> מחושב בדפדפן בלבד, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-yahoo" id="yhPlShareHeader" data-dir="asc" title="% of Profit">%Prof.<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">אחוז הרווח הפוטנציאלי (לפי Yahoo).<br><br><b>מקור:</b> מחושב בדפדפן בלבד, לא מגיע מאף סריקה.</span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-myportfolio" id="sortMyUnits" data-dir="asc">Units<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמות היחידות (מניות) המוחזקות בפועל בחשבון עטורו.<br><br><b>מקור:</b> SCAN HOLDINGS <span class="req-badge req-claude" style="margin-inline-start:4px">🧠 דורש קלוד חי</span></span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-myportfolio" id="sortMyAvg" data-dir="asc">Avg Open<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מחיר פתיחה ממוצע של הפוזיציה.<br><br><b>מקור:</b> SCAN HOLDINGS <span class="req-badge req-claude" style="margin-inline-start:4px">🧠 דורש קלוד חי</span></span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-myportfolio" id="sortMyPl" data-dir="asc">P/L<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">רווח/הפסד נוכחי בפועל על הפוזיציה, לפי המחיר הנוכחי מול מחיר הפתיחה הממוצע.<br><br><b>מקור:</b> SCAN HOLDINGS <span class="req-badge req-claude" style="margin-inline-start:4px">🧠 דורש קלוד חי</span></span></span><span class="sort-arrow">&#9650;</span></th>
+        <th class="num sortable analysis-col col-myportfolio" id="sortMyPlpct" data-dir="asc">P/L %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">אותו רווח/הפסד, באחוזים.<br><br><b>מקור:</b> SCAN HOLDINGS <span class="req-badge req-claude" style="margin-inline-start:4px">🧠 דורש קלוד חי</span></span></span><span class="sort-arrow">&#9650;</span></th>
+      </tr>
+    </thead>
+    <tbody id="rows">

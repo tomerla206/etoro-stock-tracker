@@ -1,0 +1,6 @@
+EDIT	Editas Medicine Inc	3.11	4.00	7.60	15.00	OK
+EH	Ehang Holdings Ltd	5.51	4.40	7.18	11.10	OK
+EEFT	Euronet Worldwide	70.07	75.00	86.80	94.00	OK
+EFSC	Enterprise Financial Services Corp.	63.67	68.00	70.67	72.00	OK
+EGAN	eGain	7.26			NOFAQ
+EGBN	Eagle Bancorp	28.24	27.00	28.50	30.00	OK

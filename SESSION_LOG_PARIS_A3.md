@@ -1,0 +1,43 @@
+# Session Log — Paris Group A3 (ALOKW.PA–AYV.PA, 61 tickers)
+
+- 2026-08-28: Started fresh, immediately after A2 completed cleanly (62/62, 0 blocks, 0 mismatches). Same tab/login session carried over from A1/A2 — login re-verified at A1 session start (AAPL: 315.14/315.25, Off-hours, Prices by NASDAQ, Trade disabled:false x2). Continuing on tab 1160640740.
+- Clean through: ALOKW (Groupe Okwind SA, 0.2650, NOFAQ, TRADEABLE), ALOPM (Oncodesign Precision Medicine Opm SA, 0.281, NOFAQ, TRADEABLE), ALORA (Altheora SA, 0.4140, NOFAQ, TRADEABLE), ALORD (Ordissimo SA, 0.410, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALPAS.PA** (next ticker after ALORD.PA). 4/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALPAS (Passat SA, 4.80, NOFAQ, TRADEABLE), ALPAU (Paulic Meunerie SA, 1.225, NOFAQ, TRADEABLE), ALPDX (Piscines Desjoyaux SA, 11.30, NOFAQ, TRADEABLE), ALPJT (Poujoulat SA, 5.86, NOFAQ, TRADEABLE), ALPM (Precia SA, 25.80, NOFAQ, TRADEABLE), ALPRG (Prologue SA, 0.3330, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALPUL.PA** (next ticker after ALPRG.PA). 10/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALPUL (Pullup Entertainment SA, 8.16, NOFAQ, TRADEABLE), ALPVL (Plastiques du Val de Loire SA, 2.300, NOFAQ, TRADEABLE), ALPWG (Prodways Group SA, 0.6300, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALQWA.PA** (next ticker after ALPWG.PA). 13/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALQWA (Qwamplify SA, 1.520, NOFAQ, TRADEABLE), ALRIB (Riber SA, 8.850, NOFAQ, TRADEABLE), ALRPD (Rapid Nutrition PLC, 3.3200, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALSEN.PA** (next ticker after ALRPD.PA). 16/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALSEN/Sensorion SA (0.274, 1.00/1.00/1.00, OK, TRADEABLE), ALSGD (Spineguard SA, 0.0957, NOFAQ, TRADEABLE), ALSMA (SMAIO SA, 7.560, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALSOG.PA** (next ticker after ALSMA.PA). 19/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALSOG (Sogeclair SA, 30.10, NOFAQ, TRADEABLE), ALSPT (Spartoo SA, 0.239, NOFAQ, TRADEABLE), ALSPW (Spineway SA, 0.1294, NOFAQ, TRADEABLE), ALSTI (Stif France SAS, 47.74, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALSTW.PA** (next ticker after ALSTI.PA). 23/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALSTW (Streamwide SA, 80.00, NOFAQ, TRADEABLE), ALTA (Altarea SCA, 95.80, NOFAQ, TRADEABLE), ALTAO (Aton SA, 0.0166, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALTD.PA** (next ticker after ALTAO.PA). 26/61 done, 0 blocks, 0 mismatches.
+- Clean through: ALTD (Tonner Drones SA, 0.0290, NOFAQ, **NOT_TRADEABLE** — legit, no lockout signs), ALTHO (Metavisio SA, 0.0010, NOFAQ, TRADEABLE), ALTHX (THX Pharma SACA, 4.145, NOFAQ, TRADEABLE). Note: eToro started showing "Market Open" instead of "Market Closed" around this point in the session (time-of-day transition, Euronext Paris) — not a lockout signal, no sidebar/gate changes seen.
+- **Resume point if interrupted: ALTME.PA** (next ticker after ALTHX.PA). 29/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate).
+- Clean through: ALTME (TME Pharma NV, 0.1316, NOFAQ, TRADEABLE), ALTOO (Toosla SA, 0.0008, NOFAQ, TRADEABLE), ALTOU (Touax..., 3.930, NOFAQ, TRADEABLE — "Market Closed" resumed after briefly showing "Market Open" on a few tickers, likely just a CFD quote artifact, no real lockout signs anywhere).
+- **Resume point if interrupted: ALTPC.PA** (next ticker after ALTOU.PA). 32/61 done (over halfway), 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate).
+- Clean through: ALTPC (Societe Marseillaise du Tunnel Prado Carenage SA, 26.90, NOFAQ, TRADEABLE), ALTUV (Bio-UV Group SA, 1.330, NOFAQ, TRADEABLE), ALU10 (U10 Corp SA, 1.190, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALUNI.PA** (next ticker after ALU10.PA). 35/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate).
+- Clean through: ALUNI (Unify Group, 1.722, NOFAQ, TRADEABLE), ALUPG (Upergy, 1.740, NOFAQ, TRADEABLE), ALVAL (Valbiotis SA, 0.804, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALVAP.PA** (next ticker after ALVAL.PA). 38/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 23 tickers left in A3.
+- Clean through: ALVAP (Kumulus Vape SA, 2.76, NOFAQ, TRADEABLE), ALVDM (Voyageurs du Monde SA, 179.00, NOFAQ, TRADEABLE), ALVGO (Vogo SA, 1.720, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALVIO.PA** (next ticker after ALVGO.PA). 41/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 20 tickers left in A3.
+- Clean through: ALVIO (Valerio Therapeutics SA, 0.7750, NOFAQ, TRADEABLE), ALVU (Vente-Unique.Com SA, 16.85, NOFAQ, TRADEABLE), ALWEC (We. Connect SA, 24.70, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALWF.PA** (next ticker after ALWEC.PA). 44/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 17 tickers left in A3.
+- Clean through: ALWF (Winfarm SA, 3.830, NOFAQ, TRADEABLE), ALWIN (Winamp Group, 0.3605, NOFAQ, TRADEABLE), ALWTR (Watera SACA, 1.260, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ALXIL.PA** (next ticker after ALWTR.PA). 47/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 14 tickers left in A3.
+- Clean through: ALXIL (Xilam Animation SA, 4.860, NOFAQ, TRADEABLE), AM/Dassault Aviation SA (288.40, 300.00/351.67/420.00, OK, TRADEABLE). ALXIL.PA is the last AL-prefixed ticker in A3; from here tickers are AM/AMUN/ANTIN/ARAMI/ARG/ASY/ATE/ATEME/ATO/AUB/AURE/AVT/AYV (single-letter/non-AL prefixes) through the end of A3.
+- **Resume point if interrupted: AMUN.PA** (next ticker after AM.PA). 49/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 12 tickers left in A3.
+- Clean through: AMUN/Amundi SA (95.25, 78.00/91.88/103.00, OK, TRADEABLE), ANTIN/Antin Infrastructure Partners SAS (8.86, 10.10/10.10/10.10, OK, TRADEABLE).
+- **Resume point if interrupted: ARAMI.PA** (next ticker after ANTIN.PA). 51/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 10 tickers left in A3.
+- Clean through: ARAMI (Aramis Group SAS, 3.880, NOFAQ, TRADEABLE), ARG/Argan SA (73.70, 76.00/77.50/79.00, OK, TRADEABLE), ASY (Assystem SA, 44.80, NOFAQ, TRADEABLE).
+- **Resume point if interrupted: ATE.PA** (next ticker after ASY.PA). 54/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 7 tickers left in A3.
+- Clean through: ATE/Alten SA (76.95, 135.00/135.00/135.00, OK, TRADEABLE), ATEME (Ateme SA, 12.550, NOFAQ, TRADEABLE), ATO/Atos Group (28.8800, 43.00/43.00/43.00, OK, TRADEABLE).
+- **Resume point if interrupted: AUB.PA** (next ticker after ATO.PA). 57/61 done, 0 blocks, 0 mismatches, 1 NOT_TRADEABLE (legitimate). 4 tickers left in A3.
+- Clean through: AUB/Aubay SA (56.30, 66.00/66.00/66.00, OK, TRADEABLE), AURE (Aurea SA, 5.80, NOFAQ, TRADEABLE), AVT (Avenir Telecom SA, 0.0900, NOFAQ, TRADEABLE), AYV/Ayvens SA (10.990, 11.30/12.57/13.40, OK, TRADEABLE).
+- **A3 COMPLETE: 61/61.** Completeness audit run (diff both directions against paris_data.tsv slice ALOKW.PA-AYV.PA, plus duplicate check) — 0 gaps, 0 duplicates, exact match. 0 blocks the entire session. 7 tickers had real analyst data (ALSEN, ALCGM-from-A1 doesn't apply, ALCOX-from-A1 doesn't apply — for A3: ALSEN/Sensorion SA, AM/Dassault Aviation SA, AMUN/Amundi SA, ANTIN/Antin Infrastructure Partners SAS, ARG/Argan SA, ATE/Alten SA, ATO/Atos Group, AUB/Aubay SA, AYV/Ayvens SA — 9 total OK); everything else NOFAQ. 1 legitimate NOT_TRADEABLE (ALTD/Tonner Drones SA). 0 MISMATCH.
+- **This also completes the entire Paris group-A super-group (A1+A2+A3 = 184 tickers, AB.PA through AYV.PA), all done cleanly.**
+- Moving on to group B (15 tickers) per coordinating-session instructions — see `SESSION_LOG_PARIS_B.md`.

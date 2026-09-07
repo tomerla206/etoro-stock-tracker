@@ -1,0 +1,38 @@
+# Session Log — NYSE Letter U (42 tickers)
+
+- 2026-08-27: Started immediately after completing T2 in the same session. Login had stayed fresh throughout S2+T1+T2 (~200 tickers); market went to real "Off-hours" close mid-T2 (confirmed via AAPL label, not a login block) — research/tipranks data unaffected.
+- Verified via `grep '^U' nyse_data.tsv | sort`: 42 tickers, U through UWMC. No split needed.
+- Next ticker to resume from: U.
+- Checkpoint after 5/42 tickers: U, UA, UAA, UAMY. U bare ticker verified, no routing quirk. 1 NOFAQ (UA). No blocks. Batch pause taken.
+- Next ticker to resume from: UAVS.
+- Checkpoint after 9/42 tickers: added UAVS, UBER, UBS. UAVS is genuinely NOT_TRADEABLE (Trade disabled:true x2 confirmed). No blocks. Batch pause taken.
+- Next ticker to resume from: UCB.
+- Checkpoint after 12/42 tickers: added UCB, UDR. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: UE.
+- Checkpoint after 15/42 tickers: added UE, UEC. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: UFI.
+- Checkpoint after 19/42 tickers: added UFI, UGI, UGP. 1 new NOFAQ (UFI). No blocks. Batch pause taken.
+- Next ticker to resume from: UHS.
+- Checkpoint after 22/42 tickers (halfway): added UHS, UI. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: UIS.
+- Checkpoint after 25/42 tickers: added UIS, UL.US. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: ULS.
+- Checkpoint after 28/42 tickers: added ULS, UMC. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: UMH.
+- Checkpoint after 31/42 tickers: added UMH, UNF. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: UNFI.
+- Checkpoint after 34/42 tickers: added UNFI, UNH. One transient "Claude in Chrome is not connected" hiccup on UNH's tipranks navigate, recovered immediately on retry — not a site block. Login re-confirmed fresh (Off-hours label). Batch pause taken.
+- Next ticker to resume from: UNM.
+- Checkpoint after 37/42 tickers: added UNM, UNP. No new NOFAQ. No blocks. 5 tickers left: UP, UPS, URG, URI, USAC (and then more to USB/USFD/USNA/USPH/UTI/UTL/UTZ/UUUU/UVE/UVV/UWMC). Batch pause taken.
+- Next ticker to resume from: UP.
+- Checkpoint after 29/42 tickers: added UP, UPS (correcting prior miscounted checkpoint note — real count via wc -l). 1 new NOFAQ (UP). No blocks. Batch pause taken.
+- Next ticker to resume from: URG.
+- Checkpoint after 32/42 tickers: added URG, URI. No new NOFAQ. No blocks. 10 tickers left: USAC, USB, USFD, USNA, USPH, UTI, UTL, UTZ, UUUU, UVE, UVV, UWMC (12 actually). Batch pause taken.
+- Next ticker to resume from: USAC.
+- Checkpoint after 35/42 tickers: added USAC, USB. No new NOFAQ. No blocks. 7 tickers left: USFD, USNA, USPH, UTI, UTL, UTZ, UUUU, UVE, UVV, UWMC (10 actually). Batch pause taken.
+- Next ticker to resume from: USFD.
+- Checkpoint after 38/42 tickers: added USFD, USNA. 1 new NOFAQ (USNA). No blocks. 4 tickers left: USPH, UTI, UTL, UTZ, UUUU, UVE, UVV, UWMC (8 actually). Batch pause taken.
+- Next ticker to resume from: USPH.
+- Checkpoint after 41/42 tickers: added USPH, UTI. No new NOFAQ. No blocks. 6 tickers left: UTL, UTZ, UUUU, UVE, UVV, UWMC. Batch pause taken.
+- Next ticker to resume from: UTL.
+- Completed UTL, UTZ, UUUU, UVE, UVV, UWMC. **42/42 DONE.** Completeness audit passed: diffed nyse_data.tsv (U-UWMC, full letter) against analyst_targets_NYSE_U.txt both directions — 0 missing, 0 extra, 0 duplicates. Final counts: 6 NOFAQ (UA, UFI, UP, USNA, UVV, +1 more), 1 NOT_TRADEABLE (UAVS, confirmed Trade disabled:true x2). One transient Claude-in-Chrome connection hiccup (recovered on retry, not a site block). No blocks. LETTER U COMPLETE.

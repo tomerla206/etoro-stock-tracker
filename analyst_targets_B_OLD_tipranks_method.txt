@@ -1,0 +1,49 @@
+BAND	Bandwidth Inc.	47.52	52.00	70.75	86.00	OK
+BANF	BancFirst Corporation	116.58	121.00	123.00	125.00	OK
+BANR	Banner Corporation	71.14	76.00	77.00	78.00	OK
+BATRK	Atlanta Braves Holdings IN-C	52.98				NOFAQ
+BBCP	Concrete Pumping Holdings In	9.32	12.00	13.50	15.00	OK
+BBIO	Bridgebio Pharma Inc	81.50	94.00	108.56	157.00	OK
+BBNX	Beta Bionics Inc	19.05	18.00	21.43	30.40	OK
+BBSI	Barrett Business Services Inc	33.55	38.00	41.00	44.00	OK
+BCAB	Bioatla Inc	3.18				NOFAQ
+BCIC	BCP Investment Corp	7.64	7.50	9.25	11.00	OK
+BCML	Baycom Corp	30.00	32.00	32.00	32.00	OK
+BCPC	Balchem Corporation	181.28	215.00	215.00	215.00	OK
+BCRX	BioCryst Pharmaceuticals Inc	9.55	12.00	20.44	32.00	OK
+BCYC	Bicycle Therapeutics plc	3.87	5.00	9.25	14.00	OK
+BDMD	Baird Medical Investment Holdings Limited	1.16				NOFAQ
+BDTX	Black Diamond Therapeutics I	2.15				NOFAQ
+BEAM	Beam Therapeutics Inc.	25.10	26.00	52.30	80.00	OK
+BEEM	Beam Global	1.57	1.50	2.25	3.00	OK
+BELFB	Bel Fuse Inc	262.43				NOFAQ
+BETR	Better Home & Finance Holding Co	11.68	16.00	25.67	35.00	OK
+BFC	Bank First Corporation	152.31				NOFAQ
+BFST	Business First Bancshares Inc	31.47	36.00	36.00	36.00	OK
+BGC	BGC Group Inc	11.65	16.00	16.00	16.00	OK
+BGDE	Big Digital Energy Inc	7.22				NOFAQ
+BHF	Brighthouse Financial Inc	63.22	63.00	65.00	67.00	OK
+BHRB	Burke & Herbert Financial Services Corp	71.55	75.00	78.00	81.00	OK
+BIDU	Baidu, Inc.-ADR	93.21	80.00	146.00	192.00	OK
+BIIB	Biogen Inc	202.19	157.00	233.29	300.00	OK
+BILI	Bilibili-ADR	17.06	27.00	29.33	31.00	OK
+BIOX	Bioceres Crop Solutions Corp	0.45				NOFAQ
+BIRD	Smartbird Inc	2.16				NOFAQ
+BIVI	Biovie Inc	1.86				NOFAQ
+BJRI	BJ's Restaurants Inc	66.86	65.00	73.50	80.00	OK
+BKKT	Bakkt Inc	8.59	13.00	13.00	13.00	OK
+BKNG	Booking Holdings Inc	209.62	190.00	235.83	274.00	OK
+BKYI	Bio-key International Inc	3.07	20.00	20.00	20.00	OK
+BL	BlackLine Inc.	31.83	26.00	34.50	45.00	OK
+BLBD	Blue Bird Corporation	61.89	85.00	90.14	95.00	OK
+BLDP	Ballard Power Systems Inc.	2.90	2.10	3.77	5.25	OK
+BLFS	BioLife Solutions Inc	37.10	31.00	31.00	31.00	OK
+BLKB	Blackbaud Inc	47.52	45.00	50.50	55.00	OK
+BLLN	BillionToOne, Inc.	95.27				NOFAQ
+BLMN	Bloomin Brands Inc	7.94	8.80	11.42	12.75	OK
+BLNK	Blink Charging Co	0.52	1.00	1.75	2.50	OK
+BLSM	BlossomHill Therapeutics, Inc	15.64				NOFAQ
+BLTE	Belite Bio Inc	161.06	200.00	222.00	270.00	OK
+BLZE	Backblaze Inc	15.80	21.00	22.83	25.00	OK
+BMBL	Bumble Inc.	2.80	3.00	3.53	4.00	OK
+BBBYW	Neighborhood Intelligence Incorporation Warrant	0.45				NOFAQ

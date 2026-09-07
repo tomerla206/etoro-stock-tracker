@@ -1,0 +1,35 @@
+# OTC Markets — Session Log
+
+- 2026-08-29: Continuing directly from Madrid (51/51 done, zero blocks) in same session. Login already verified this session. Starting OTC Markets (72 tickers, no consistent suffix, use ticker as-is, many legitimate $0.00 prices for delisted/defunct names), v4 method.
+- Batch (tickers 1-5): ABBNY OK 90.00/90.00/90.00 NOT_TRADEABLE, AMLIF NOFAQ NOT_TRADEABLE, ARVLF NOFAQ NOT_TRADEABLE (price 0.0002), ASAIY OK 9.00/9.00/9.00 NOT_TRADEABLE, ATHXQ NOFAQ NOT_TRADEABLE (price 0.0000, legitimate defunct name). No blocks. 5/72 done. Resume at ticker 6, ATROB.
+- Batch (tickers 6-9): ATROB NOFAQ NOT_TRADEABLE, AXICY NOFAQ NOT_TRADEABLE, BIGGQ NOFAQ NOT_TRADEABLE (price 0.0702), BTMCQ NOFAQ TRADEABLE (price 0.0200). No blocks. 9/72 done. Resume at ticker 10, CAJPY.
+- Batch (tickers 10-12): CAJPY NOFAQ NOT_TRADEABLE, CNDA NOFAQ NOT_TRADEABLE, CNTM OK 24.00/24.00/24.00 NOT_TRADEABLE. No blocks. 12/72 done. Resume at ticker 13, DIDIY.
+- Batch (tickers 13-15): DIDIY OK 4.50/4.50/4.50 NOT_TRADEABLE, DMKPQ NOFAQ NOT_TRADEABLE (price 0.0000), DMNIF NOFAQ NOT_TRADEABLE (price 0.0000). No blocks. 15/72 done. Resume at ticker 16, EGRX.
+- Batch (tickers 16-17): EGRX NOFAQ NOT_TRADEABLE, EVCO NOFAQ NOT_TRADEABLE. No blocks. 17/72 done. Resume at ticker 18, EVFM.
+- Batch (tickers 18-19): EVFM NOFAQ NOT_TRADEABLE (price 0.0075), FRCB NOFAQ NOT_TRADEABLE (price 0.0020). No blocks. 19/72 done. Resume at ticker 20, FTCHQ.
+- Batch (tickers 20-21): FTCHQ NOFAQ NOT_TRADEABLE (price 0.0000), GDST NOFAQ NOT_TRADEABLE. No blocks. 21/72 done. Resume at ticker 22, GLFE.
+- Batch (tickers 22-23): GLFE NOFAQ NOT_TRADEABLE, GOEVQ NOFAQ NOT_TRADEABLE (price 0.0040). No blocks. 23/72 done. Resume at ticker 24, HTGMQ.
+- Batch (tickers 24-25): HTGMQ NOFAQ NOT_TRADEABLE (price 0.0001), HTZWW NOFAQ NOT_TRADEABLE (price 0.99, Prices by eToro not NASDAQ/OTC). No blocks. 25/72 done. Resume at ticker 26, IDEXQ.
+- Batch (tickers 26-27): IDEXQ NOFAQ NOT_TRADEABLE (price 0.0008), IVCAF NOFAQ TRADEABLE. No blocks. 27/72 done. Resume at ticker 28, IVCBF.
+- Batch (tickers 28-29): IVCBF NOFAQ NOT_TRADEABLE, JTKWY NOFAQ NOT_TRADEABLE. No blocks. 29/72 done. Resume at ticker 30, LEVGQ.
+- Batch (tickers 30-31): LEVGQ NOFAQ NOT_TRADEABLE (price 0.0334), LILMF NOFAQ NOT_TRADEABLE (price 0.0001). No blocks. 31/72 done. Resume at ticker 32, LOGC.
+- Batch (tickers 32-33): LOGC NOFAQ NOT_TRADEABLE, LUNA.US NOFAQ NOT_TRADEABLE. No blocks. 33/72 done. Resume at ticker 34, LUXHQ.
+- Batch (tickers 34-35): LUXHQ NOFAQ NOT_TRADEABLE (price 0.0000), MARK NOFAQ NOT_TRADEABLE (price 0.0000). No blocks. 35/72 done, halfway. Resume at ticker 36, MAXNQ.
+- Batch (tickers 36-37): MAXNQ NOFAQ TRADEABLE (price 0.0001), MBRFY NOFAQ NOT_TRADEABLE. No blocks. 37/72 done. Resume at ticker 38, MDRX.
+- Batch (tickers 38-39): MDRX NOFAQ NOT_TRADEABLE, MFLTY NOFAQ NOT_TRADEABLE (price 0.0001). No blocks. 39/72 done. Resume at ticker 40, MOND.
+- Batch (tickers 40-41): MOND NOFAQ NOT_TRADEABLE (price 0.0001), MTBLY NOFAQ NOT_TRADEABLE. No blocks. 41/72 done. Resume at ticker 42, MTPLF.
+- Batch (tickers 42-43): MTPLF OK 2.80/2.80/2.80 NOT_TRADEABLE, NKGN NOFAQ NOT_TRADEABLE (price 0.0021). No blocks. 43/72 done. Resume at ticker 44, NTDOY.
+- Batch (tickers 44-45): NTDOY NOFAQ TRADEABLE, ORANY NOFAQ NOT_TRADEABLE. No blocks. 45/72 done. Resume at ticker 46, PITEF.
+- Batch (tickers 46-47): PITEF NOFAQ NOT_TRADEABLE (price 0.0001), QTTOY NOFAQ NOT_TRADEABLE (price 0.0003). No blocks. 47/72 done. Resume at ticker 48, REEAF.US.
+- Batch (tickers 48-49): REEAF.US NOFAQ TRADEABLE, RVPH NOFAQ TRADEABLE. No blocks. 49/72 done. Resume at ticker 50, SBNY.
+- Batch (tickers 50-51): SBNY NOFAQ NOT_TRADEABLE (price 0.2000), SCPX NOFAQ NOT_TRADEABLE (price 0.0010). No blocks. 51/72 done. Resume at ticker 52, SDCCQ.
+- Batch (tickers 52-53): SDCCQ NOFAQ NOT_TRADEABLE (price 0.0130), SDZNY NOFAQ NOT_TRADEABLE. No blocks. 53/72 done. Resume at ticker 54, SFGYY.
+- Batch (tickers 54-55): SFGYY NOFAQ NOT_TRADEABLE, SGMOQ NOFAQ TRADEABLE. No blocks. 55/72 done. Resume at ticker 56, SICP.
+- Batch (tickers 56-57): SICP NOFAQ NOT_TRADEABLE, SLAMF NOFAQ NOT_TRADEABLE. No blocks. 57/72 done. Resume at ticker 58, SLNAF.
+- Batch (tickers 58-59): SLNAF NOFAQ NOT_TRADEABLE (price 0.0048), SMNR NOFAQ NOT_TRADEABLE. No blocks. 59/72 done, 13 tickers remain. Resume at ticker 60, SNBRQ.
+- Batch (tickers 60-61): SNBRQ NOFAQ TRADEABLE (price 0.0228), SNFI NOFAQ NOT_TRADEABLE. No blocks. 61/72 done, 11 remain. Resume at ticker 62, SRNE.
+- Batch (tickers 62-63): SRNE NOFAQ NOT_TRADEABLE (price 0.0700), SUNWQ NOFAQ NOT_TRADEABLE (price 0.000001). No blocks. 63/72 done, 9 remain. Resume at ticker 64, SYRS.
+- Batch (tickers 64-65): SYRS NOFAQ NOT_TRADEABLE (price 0.0241), TBLT NOFAQ NOT_TRADEABLE (price 0.0110). No blocks. 65/72 done, 7 remain. Resume at ticker 66, TRVN.
+- Batch (tickers 66-67): TRVN NOFAQ NOT_TRADEABLE (price 0.0010), TSPH NOFAQ NOT_TRADEABLE. No blocks. 67/72 done, 5 remain. Resume at ticker 68, VISL.
+- Batch (tickers 68-69): VISL NOFAQ NOT_TRADEABLE, WCPRF OK 12.94/14.02/14.38 NOT_TRADEABLE. No blocks. 69/72 done, 3 remain. Resume at ticker 70, XELA.
+- Batch (tickers 70-72, FINAL): XELA NOFAQ NOT_TRADEABLE, ZOMDF NOFAQ NOT_TRADEABLE, ZPTA NOFAQ NOT_TRADEABLE. No blocks. **72/72 done — OTC MARKETS COMPLETE.** Completeness audit: `diff <(cut -f1 otc_data.tsv | sort) <(cut -f1 analyst_targets_OTC.txt | sort)` — exact match, zero gaps/duplicates. Zero blocks the entire exchange. Predominantly NOFAQ with many legitimate near-zero prices (delisted/defunct/bankrupt names like ARVLF, ATHXQ, FTCHQ, HTGMQ, SUNWQ). A handful of OK-status names (ABBNY, ASAIY, CNTM, DIDIY, MTPLF, WCPRF). Most tickers NOT_TRADEABLE; only a few TRADEABLE (BTMCQ, IVCAF, MAXNQ, NTDOY, REEAF.US, RVPH, SGMOQ, SNBRQ).

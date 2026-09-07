@@ -1,0 +1,96 @@
+===== Daily scan started: Sat 09/05/2026 17:00:00.93 ===== 
+Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+Loaded 6356 tickers to scan
+Applying changes to analyst_targets_*.txt files...
+Re-running merge_analyst_targets.py...
+Reassembling nasdaq-stocks.html...
+MEGASCAN complete.
+===== Daily scan finished: Sat 09/05/2026 18:03:59.02 ===== 
+===== Daily scan started: Sun 09/06/2026  2:00:01.64 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5786 rows tagged (out of 5786 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2747 rows tagged (out of 2747 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: 5517 rows tagged (out of 5517 scanned tickers).
+[merge_score.py] Score merged: 4318 rows tagged (out of 4318 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 5648 rows tagged (out of 5648 scored tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 33 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Loaded 6356 tickers to scan
+Applying changes to analyst_targets_*.txt files...
+Writing consensus_ratings.txt ...
+Writing hedge_fund_activity.tsv ...
+Rebuilding site (build_site.py runs every merge script + reassembles)...
+MEGASCAN complete.
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5861 rows tagged (out of 5861 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2747 rows tagged (out of 2747 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: 5517 rows tagged (out of 5517 scanned tickers).
+[merge_score.py] Score merged: 4318 rows tagged (out of 4318 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 5648 rows tagged (out of 5648 scored tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 33 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Loaded 6356 tickers total, 5241 already done from a previous checkpoint, 1115 left to scan
+Writing yahoo_targets_0_MEGASCAN.txt and yahoo_dividends_MEGASCAN.txt ...
+Rebuilding site (build_site.py runs every merge script + reassembles)...
+MEGASCAN YAHOO complete. 1020 tickers still have no data at all out of 6356 - re-run the script to pick those up if that number is > 0.
+===== Daily scan finished: Sun 09/06/2026  3:11:40.30 ===== 
+===== Daily scan started: Sun 09/06/2026 17:00:01.82 ===== 
+===== Daily scan started: Mon 09/07/2026 11:10:32.64 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5861 rows tagged (out of 5861 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4296 rows tagged (out of 4296 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2748 rows tagged (out of 2748 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: 6183 rows tagged (out of 6183 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6189 rows tagged (out of 6189 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6183 rows tagged (out of 6183 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6214 rows tagged (out of 6214 scored tickers, 4 with a meaningful change, 6214 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Loaded 6356 tickers to scan
+Applying changes to analyst_targets_*.txt files...
+Writing consensus_ratings.txt ...
+Writing hedge_fund_activity.tsv ...
+Rebuilding site (build_site.py runs every merge script + reassembles)...
+MEGASCAN complete.
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5940 rows tagged (out of 5940 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4296 rows tagged (out of 4296 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2748 rows tagged (out of 2748 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: 6183 rows tagged (out of 6183 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6189 rows tagged (out of 6189 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6183 rows tagged (out of 6183 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6214 rows tagged (out of 6214 scored tickers, 4 with a meaningful change, 6214 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Loaded 6356 tickers total, 5336 already done from a previous checkpoint, 1020 left to scan
+Writing yahoo_targets_0_MEGASCAN.txt and yahoo_dividends_MEGASCAN.txt ...
+Rebuilding site (build_site.py runs every merge script + reassembles)...
+MEGASCAN YAHOO complete. 915 tickers still have no data at all out of 6356 - re-run the script to pick those up if that number is > 0.
+===== Daily scan finished: Mon 09/07/2026 12:29:40.02 ===== 

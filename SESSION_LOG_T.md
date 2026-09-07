@@ -1,0 +1,29 @@
+# Session Log — Letter T (TARS–TZOO, 91 tickers)
+
+- 2026-08-25: Started fresh via v4 text-based method (see PROJECT_LOG.md). Verified via `grep '^T' nasdaq_data.tsv | sort` = 91 tickers, matches expected count.
+- One CVR ticker identified directly from nasdaq_data.tsv: TECX.CVR (Tectonic Therapeutic Inc Merger CVR), Price=0.00 → will record as CVR/NOT_TRADEABLE/0.00.
+- Special suffix tickers noted: TCOM.CH, TEM.US, TOP.US, TREE.US, TSLA.24-7 (24/7 synthetic variant like S2's SPCX.24-7).
+- Reusing same browser tabs/login session verified during S1/S2 work.
+- Batch 1 done (TARS-TCMD, 11 tickers): TARS, TASK, TBBK, TBCH, TBLA, TBPH, TCBI, TCBK, TCMD. 11/91 done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 0 NOFAQ so far.
+- Batch 2 done (TCOM.CH-TCX, 4 more tickers): TCOM.CH, TCPC, TCRX, TCX(NOFAQ). 15/91 done. 0 NEW, 0 MISMATCH, 0 NOT_TRADEABLE, 1 NOFAQ.
+- Batch 3 done (TDUP-TELA, 7 more tickers): TDUP, TEAD, TEAM, TECH, TECX, TECX.CVR(direct), TELA. 22/91 done. 0 NEW, 0 MISMATCH, 1 NOT_TRADEABLE (TECX.CVR), 1 CVR, 1 NOFAQ.
+- Batch 4 done (TEM.US-TGTX, 6 more tickers): TEM.US, TENB, TER, TFIN, TFSL, TGTX. 28/91 done. 0 NEW, 0 MISMATCH, 1 NOT_TRADEABLE, 1 CVR, 1 NOFAQ.
+- Batch 5 done (THFF-THRY, 4 more tickers): THFF, THRD(NOFAQ/NOT_TRADEABLE), THRM, THRY. 32/91 done. 0 NEW, 0 MISMATCH, 2 NOT_TRADEABLE, 1 CVR, 2 NOFAQ.
+- Batch 6 done (TIGO-TITN, 5 more tickers): TIGO, TIGR, TILE, TIPT(NOFAQ), TITN. 37/91 done. 0 NEW, 0 MISMATCH, 2 NOT_TRADEABLE, 1 CVR, 3 NOFAQ.
+- Batch 7 done (TKVA-TLS, 4 more tickers): TKVA(NOFAQ/NOT_TRADEABLE), TLN, TLRY, TLS. 41/91 done. 0 NEW, 0 MISMATCH, 3 NOT_TRADEABLE, 1 CVR, 4 NOFAQ.
+- Batch 8 done (TMC-TMDX, 4 more tickers): TMC, TMCI, TMCR(NOFAQ), TMDX. 45/91 done, exactly HALFWAY.
+- Batch 9 done (TMUS-TONX, 5 more tickers): TMUS, TNDM, TNGX, TNYA, TONX(NOFAQ). 50/91 done. 0 NEW, 0 MISMATCH, 3 NOT_TRADEABLE, 1 CVR, 6 NOFAQ.
+- Batch 10 done (TOON-TPG, 5 more tickers): TOON(NOFAQ), TOP.US(NOFAQ), TORO(NOFAQ), TOWN, TPG. 55/91 done. 0 NEW, 0 MISMATCH, 3 NOT_TRADEABLE, 1 CVR, 9 NOFAQ.
+- Batch 11 done (TPST-TRDA, 3 more tickers): TPST(NOFAQ), TRAX(NOT_TRADEABLE, real data), TRDA. 58/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 10 NOFAQ.
+- Batch 12 done (TREE.US-TRIP, 3 more tickers): TREE.US, TRI, TRIP. 61/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 10 NOFAQ.
+- Batch 13 done (TRMB-TRNS, 3 more tickers): TRMB, TRMK, TRNS. 64/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 10 NOFAQ.
+- Batch 14 done (TRON-TRUP, 5 more tickers): TRON(NOFAQ), TROW, TRS, TRST(NOFAQ), TRUP. 69/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 12 NOFAQ.
+- Batch 15 done (TRVG-TSBK, 3 more tickers): TRVG, TRVI, TSBK(NOFAQ). 72/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 13 NOFAQ.
+- Batch 16 done (TSCO-TSHA, 3 more tickers): TSCO, TSEM, TSHA. 75/91 done. 0 NEW, 0 MISMATCH, 4 NOT_TRADEABLE, 1 CVR, 13 NOFAQ.
+- Batch 17 done (TSLA-TSSI, 3 more tickers): TSLA, TSLA.24-7 (24/7 CFD variant, reused TSLA's tipranks Low/Avg/High, but unlike SPCX.24-7 this one is NOT_TRADEABLE per Trade button disabled), TSSI. 78/91 done. 0 NEW, 0 MISMATCH, 5 NOT_TRADEABLE, 1 CVR, 13 NOFAQ.
+- Batch 18 done (TTAN-TTEC, 3 more tickers): TTAN, TTD, TTEC(NOFAQ). 81/91 done. 0 NEW, 0 MISMATCH, 5 NOT_TRADEABLE, 1 CVR, 14 NOFAQ.
+- Batch 19 done (TTEK-TTWO, 3 more tickers): TTEK, TTMI, TTWO. 84/91 done. 0 NEW, 0 MISMATCH, 5 NOT_TRADEABLE, 1 CVR, 14 NOFAQ.
+- Batch 20 done (TVRD-TW, 3 more tickers): TVRD, TVTX, TW. 87/91 done.
+- Final batch (TWST-TZOO, 6 more tickers): TWST, TXG, TXN, TXRH, TYRA, TZOO. 91/91 DONE.
+- Completeness audit (both directions vs nasdaq_data.tsv slice TARS-TZOO): clean, exact 91/91 match, 0 gaps.
+- FINAL TOTALS: 91/91 tickers, 0 NEW, 0 MISMATCH, 5 NOT_TRADEABLE (TECX.CVR, THRD, TKVA, TRAX, TSLA.24-7), 1 CVR (TECX.CVR), 14 NOFAQ. No blocks this session. Special cases: TCOM.CH/TEM.US/TOP.US/TREE.US kept .CH/.US suffix per method; TSLA.24-7 (24/7 CFD variant) reused TSLA's tipranks Low/Avg/High since same underlying stock, NOT_TRADEABLE unlike the earlier SPCX.24-7 case in S2 (which was tradeable) — both real, not fabricated, just genuinely different Trade-button states. LETTER T COMPLETE.

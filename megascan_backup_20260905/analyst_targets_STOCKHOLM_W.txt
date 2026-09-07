@@ -1,0 +1,2 @@
+WALLb.ST	Wallenstam AB	40.08				NOFAQ	TRADEABLE
+WIHL.ST	Wihlborgs Fastigheter AB	78.95	79.00	79.00	79.00	OK	TRADEABLE

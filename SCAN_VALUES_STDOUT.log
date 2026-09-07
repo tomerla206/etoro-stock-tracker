@@ -1,0 +1,8 @@
+Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+Yahoo dividends merged: 5480 rows tagged (out of 5480 scraped tickers).
+Yahoo Finance targets merged: 6618 rows tagged (out of 6619 scraped tickers).
+Consensus/Rating merged: 4294 rows tagged (out of 4294 scraped tickers).
+Insider activity merged: 90 rows tagged (out of 90 scraped tickers).
+Running insider scan (SEC EDGAR) for held tickers...
+SCAN VALUES complete: 57 TipRanks updated, 57 consensus refreshed, 59 Yahoo targets, 25 tickers with insider activity

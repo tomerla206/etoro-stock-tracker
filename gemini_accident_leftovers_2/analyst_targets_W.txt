@@ -1,0 +1,50 @@
+WABC	Westamerica Bancorporation	58.35				NOFAQ	NOT_TRADEABLE
+WAFD	WaFd Inc	36.65				NOFAQ	NOT_TRADEABLE
+WALD	Waldencast plc	1.35				NOFAQ	NOT_TRADEABLE
+WASH	Washington Trust Bancorp Inc	39.37				NOFAQ	NOT_TRADEABLE
+WATT	Energous Corp	12.32				NOFAQ	NOT_TRADEABLE
+WAY	Waystar Holding Corp	24.84				NOFAQ	NOT_TRADEABLE
+WB	Weibo Corp-ADR	7.19				NOFAQ	NOT_TRADEABLE
+WBA US CVR	WBA US merger CVR	0.00				NOFAQ	TRADEABLE
+WBD	Warner Bros Discovery Inc	28.23				NOFAQ	NOT_TRADEABLE
+WBTN	WEBTOON Entertainment Inc	8.37				NOFAQ	NOT_TRADEABLE
+WDAY	Workday Inc A	197.32				NOFAQ	NOT_TRADEABLE
+WDC	Western Digital Corporation	469.05				NOFAQ	NOT_TRADEABLE
+WDFC	WD-40 Company	211.92				NOFAQ	NOT_TRADEABLE
+WEN	Wendy's	8.81				NOFAQ	NOT_TRADEABLE
+WERN	Werner Enterprises Inc.	38.05				NOFAQ	NOT_TRADEABLE
+WEST	Westrock Coffee Company	8.29				NOFAQ	NOT_TRADEABLE
+WEYS	Weyco Group Inc	44.90				NOFAQ	NOT_TRADEABLE
+WFRD	Weatherford International plc	91.24				NOFAQ	NOT_TRADEABLE
+WGS	GeneDx Holdings Corp	82.55				NOFAQ	NOT_TRADEABLE
+WHF	Whitehorse Finance Inc	7.02				NOFAQ	NOT_TRADEABLE
+WHWK	Whitehawk Therapeutics Inc	4.83				NOFAQ	NOT_TRADEABLE
+WIMI	WIMI Hologram Cloud In	1.33				NOFAQ	NOT_TRADEABLE
+WINA	Winmark Corporation	342.89				NOFAQ	NOT_TRADEABLE
+WING	Wingstop Inc	113.63				NOFAQ	NOT_TRADEABLE
+WIX	Wix.com Ltd	82.39				NOFAQ	NOT_TRADEABLE
+WKHS	Workhorse Group Inc	3.15				NOFAQ	NOT_TRADEABLE
+WLDN	Willdan Group Inc	85.58				NOFAQ	NOT_TRADEABLE
+WLDS	Wearable Devices Ltd	2.53				NOFAQ	NOT_TRADEABLE
+WLFC	Willis Lease Finance Corp	54.18				NOFAQ	NOT_TRADEABLE
+WLTH	Wealthfront Corporation	9.16				NOFAQ	NOT_TRADEABLE
+WMG	Warner Music Group Corp	27.10				NOFAQ	NOT_TRADEABLE
+WMT	Walmart Inc.	103.84				NOFAQ	NOT_TRADEABLE
+WOOF	Petco Health & Wellness Company Inc	2.85				NOFAQ	NOT_TRADEABLE
+WRD	WeRide Inc	6.07				NOFAQ	NOT_TRADEABLE
+WRLD	World Acceptance Corporation	183.94				NOFAQ	NOT_TRADEABLE
+WSBC	Wesbanco Inc	40.88				NOFAQ	NOT_TRADEABLE
+WSBF	Waterstone Financial Inc	21.04				NOFAQ	NOT_TRADEABLE
+WSC	WillScot Mobile Mini Holdings Corp.	22.00				NOFAQ	NOT_TRADEABLE
+WSE	Wise Group Plc	12.52				NOFAQ	NOT_TRADEABLE
+WSFS	WSFS Financial Corporation	79.90				NOFAQ	NOT_TRADEABLE
+WSHP	WeShop Holdings Ltd	4.63				NOFAQ	NOT_TRADEABLE
+WT	WisdomTree Investments Inc	22.65				NOFAQ	NOT_TRADEABLE
+WTFC	Wintrust Financial Corporation	152.61				NOFAQ	NOT_TRADEABLE
+WTW	Willis Towers Watson Public Limited Company	341.15				NOFAQ	NOT_TRADEABLE
+WULF	Terawulf Inc	16.45				NOFAQ	NOT_TRADEABLE
+WVE	Wave Life Sciences Inc	5.25				NOFAQ	NOT_TRADEABLE
+WW	Weight Watchers International Inc.	15.00				NOFAQ	NOT_TRADEABLE
+WWD	Woodward Inc.	342.20				NOFAQ	NOT_TRADEABLE
+WYFI	WhiteFiber Inc	21.16				NOFAQ	NOT_TRADEABLE
+WYNN	Wynn Resorts Ltd	99.60				NOFAQ	NOT_TRADEABLE

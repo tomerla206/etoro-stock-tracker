@@ -1,0 +1,1756 @@
+    </tbody>
+  </table>
+  </div>
+  <div class="no-results" id="noResults">No matches.</div>
+
+  <div class="portfolio-summary-bar" id="portfolioSummaryBar">
+    <div class="summary-item"><span class="summary-label">Total Invested</span><span class="summary-val" id="summaryInvested">–</span></div>
+    <div class="summary-plus">+</div>
+    <div class="summary-item"><span class="summary-label">Profit/Loss</span><span class="summary-val" id="summaryPL">–</span></div>
+    <div class="summary-eq">=</div>
+    <div class="summary-item"><span class="summary-label">Portfolio Value</span><span class="summary-val" id="summaryValue">–</span></div>
+  </div>
+
+  <footer>Snapshot from your eToro account &middot; 1,823 of 1,825 listed collected, market closed (Saturday) at capture time</footer>
+</main>
+
+<script>
+  const search = document.getElementById('search');
+  const priceMin = document.getElementById('priceMin');
+  const priceMax = document.getElementById('priceMax');
+  const sortName = document.getElementById('sortName');
+  const sortExchange = document.getElementById('sortExchange');
+  const sortPrice = document.getElementById('sortPrice');
+  const sortCons = document.getElementById('sortCons');
+  const sortRating = document.getElementById('sortRating');
+  const sortDiv = document.getElementById('sortDiv');
+  const sortLow = document.getElementById('sortLow');
+  const sortAvg = document.getElementById('sortAvg');
+  const sortHigh = document.getElementById('sortHigh');
+  const sortYhLow = document.getElementById('sortYhLow');
+  const sortYhAvg = document.getElementById('sortYhAvg');
+  const sortYhHigh = document.getElementById('sortYhHigh');
+  const sortYhDiv = document.getElementById('sortYhDiv');
+  const sortYhPct = document.getElementById('sortYhPct');
+  const sortPct = document.getElementById('sortPct');
+  const sortUpsideRatio = document.getElementById('sortUpsideRatio');
+  const sortInsider = document.getElementById('sortInsider');
+  const sortShort = document.getElementById('sortShort');
+  const sortRsi = document.getElementById('sortRsi');
+  const sortPe = document.getElementById('sortPe');
+  const sortMcap = document.getElementById('sortMcap');
+  const sortHf = document.getElementById('sortHf');
+  const sortBeta = document.getElementById('sortBeta');
+  const sortVol = document.getElementById('sortVol');
+  const sortPeg = document.getElementById('sortPeg');
+  const sortR52 = document.getElementById('sortR52');
+  const sortSecScore = document.getElementById('sortSecScore');
+  const sortRiskScore = document.getElementById('sortRiskScore');
+  const sortOverallScore = document.getElementById('sortOverallScore');
+  const sortPercentile = document.getElementById('sortPercentile');
+  const sortScore = document.getElementById('sortScore');
+  const pctBasisToggle = document.getElementById('pctBasisToggle');
+  const exchangeFilters = document.getElementById('exchangeFilters');
+  const statusFilters = document.getElementById('statusFilters');
+  const portfolioFilters = document.getElementById('portfolioFilters');
+  const upsideFilters = document.getElementById('upsideFilters');
+  const allocationBox = document.getElementById('allocationBox');
+  const allocationAmount = document.getElementById('allocationAmount');
+  const allocationSummary = document.getElementById('allocationSummary');
+  const upsideRangeMinSlider = document.getElementById('upsideRangeMinSlider');
+  const upsideRangeMaxSlider = document.getElementById('upsideRangeMaxSlider');
+  const upsideRangeMinInput = document.getElementById('upsideRangeMinInput');
+  const upsideRangeMaxInput = document.getElementById('upsideRangeMaxInput');
+  const upsideRangeFill = document.getElementById('upsideRangeFill');
+  const upsideRangeMaxHint = document.getElementById('upsideRangeMaxHint');
+  const ratioRangeMinSlider = document.getElementById('ratioRangeMinSlider');
+  const ratioRangeMaxSlider = document.getElementById('ratioRangeMaxSlider');
+  const ratioRangeMinInput = document.getElementById('ratioRangeMinInput');
+  const ratioRangeMaxInput = document.getElementById('ratioRangeMaxInput');
+  const ratioRangeFill = document.getElementById('ratioRangeFill');
+  const ratioRangeMaxHint = document.getElementById('ratioRangeMaxHint');
+  const scoreRangeMinSlider = document.getElementById('scoreRangeMinSlider');
+  const scoreRangeMaxSlider = document.getElementById('scoreRangeMaxSlider');
+  const scoreRangeMinInput = document.getElementById('scoreRangeMinInput');
+  const scoreRangeMaxInput = document.getElementById('scoreRangeMaxInput');
+  const scoreRangeFill = document.getElementById('scoreRangeFill');
+  const scoreRangeMaxHint = document.getElementById('scoreRangeMaxHint');
+  const confidenceRangeMinSlider = document.getElementById('confidenceRangeMinSlider');
+  const confidenceRangeMaxSlider = document.getElementById('confidenceRangeMaxSlider');
+  const confidenceRangeMinInput = document.getElementById('confidenceRangeMinInput');
+  const confidenceRangeMaxInput = document.getElementById('confidenceRangeMaxInput');
+  const confidenceRangeFill = document.getElementById('confidenceRangeFill');
+  const confidenceRangeMaxHint = document.getElementById('confidenceRangeMaxHint');
+  const secScoreRangeMinSlider = document.getElementById('secScoreRangeMinSlider');
+  const secScoreRangeMaxSlider = document.getElementById('secScoreRangeMaxSlider');
+  const secScoreRangeMinInput = document.getElementById('secScoreRangeMinInput');
+  const secScoreRangeMaxInput = document.getElementById('secScoreRangeMaxInput');
+  const secScoreRangeFill = document.getElementById('secScoreRangeFill');
+  const secScoreRangeMaxHint = document.getElementById('secScoreRangeMaxHint');
+  const secConfidenceRangeMinSlider = document.getElementById('secConfidenceRangeMinSlider');
+  const secConfidenceRangeMaxSlider = document.getElementById('secConfidenceRangeMaxSlider');
+  const secConfidenceRangeMinInput = document.getElementById('secConfidenceRangeMinInput');
+  const secConfidenceRangeMaxInput = document.getElementById('secConfidenceRangeMaxInput');
+  const secConfidenceRangeFill = document.getElementById('secConfidenceRangeFill');
+  const secConfidenceRangeMaxHint = document.getElementById('secConfidenceRangeMaxHint');
+  const riskScoreRangeMinSlider = document.getElementById('riskScoreRangeMinSlider');
+  const riskScoreRangeMaxSlider = document.getElementById('riskScoreRangeMaxSlider');
+  const riskScoreRangeMinInput = document.getElementById('riskScoreRangeMinInput');
+  const riskScoreRangeMaxInput = document.getElementById('riskScoreRangeMaxInput');
+  const riskScoreRangeFill = document.getElementById('riskScoreRangeFill');
+  const riskScoreRangeMaxHint = document.getElementById('riskScoreRangeMaxHint');
+  const riskConfidenceRangeMinSlider = document.getElementById('riskConfidenceRangeMinSlider');
+  const riskConfidenceRangeMaxSlider = document.getElementById('riskConfidenceRangeMaxSlider');
+  const riskConfidenceRangeMinInput = document.getElementById('riskConfidenceRangeMinInput');
+  const riskConfidenceRangeMaxInput = document.getElementById('riskConfidenceRangeMaxInput');
+  const riskConfidenceRangeFill = document.getElementById('riskConfidenceRangeFill');
+  const riskConfidenceRangeMaxHint = document.getElementById('riskConfidenceRangeMaxHint');
+  const overallScoreRangeMinSlider = document.getElementById('overallScoreRangeMinSlider');
+  const overallScoreRangeMaxSlider = document.getElementById('overallScoreRangeMaxSlider');
+  const overallScoreRangeMinInput = document.getElementById('overallScoreRangeMinInput');
+  const overallScoreRangeMaxInput = document.getElementById('overallScoreRangeMaxInput');
+  const overallScoreRangeFill = document.getElementById('overallScoreRangeFill');
+  const overallScoreRangeMaxHint = document.getElementById('overallScoreRangeMaxHint');
+  const overallConfidenceRangeMinSlider = document.getElementById('overallConfidenceRangeMinSlider');
+  const overallConfidenceRangeMaxSlider = document.getElementById('overallConfidenceRangeMaxSlider');
+  const overallConfidenceRangeMinInput = document.getElementById('overallConfidenceRangeMinInput');
+  const overallConfidenceRangeMaxInput = document.getElementById('overallConfidenceRangeMaxInput');
+  const overallConfidenceRangeFill = document.getElementById('overallConfidenceRangeFill');
+  const overallConfidenceRangeMaxHint = document.getElementById('overallConfidenceRangeMaxHint');
+  const tbody = document.getElementById('rows');
+  const rows = Array.from(document.querySelectorAll('#rows tr'));
+
+  function renderSparklines() {
+    // Draws a tiny inline SVG trend line into each row's .oscore-spark
+    // placeholder from its data-overallscore-history attribute (comma-
+    // separated Overall Score values, oldest first, written by
+    // merge_overall_score.py from score_history.tsv). Runs once on load -
+    // the history doesn't change with sorting/filtering, only with the next
+    // day's scan, so there's no need to re-draw on every applyFilters() call.
+    rows.forEach(row => {
+      const holder = row.querySelector('.oscore-spark');
+      const raw = row.dataset.overallscoreHistory;
+      if (!holder || !raw) return;
+      const values = raw.split(',').map(Number).filter(v => !isNaN(v));
+      if (values.length < 2) return;  // one point alone isn't a trend line yet
+      const w = 40, h = 14;
+      const min = Math.min(...values), max = Math.max(...values);
+      const range = max - min || 1;
+      const points = values.map((v, i) => {
+        const x = (i / (values.length - 1)) * w;
+        const y = h - ((v - min) / range) * h;
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(' ');
+      const trendColor = values[values.length - 1] >= values[0] ? 'var(--analysis-high)' : 'var(--analysis-low)';
+      holder.innerHTML = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${points}" fill="none" stroke="${trendColor}" stroke-width="1.5"/></svg>`;
+    });
+  }
+  renderSparklines();
+
+  function fmtMoney(v) {
+    const n = parseFloat(v);
+    if (isNaN(n)) return '–';
+    return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function pf(row, acct, field) { return row.dataset['pf' + acct.toUpperCase() + cap(field)]; }
+  // GBX (London pence) quotes are 1/100 of the account-currency price eToro
+  // reports Open/Avg in for these rows — divide before doing $ math with them.
+  function gbxDivisor(row) { return row.dataset.currency === 'GBX' ? 100 : 1; }
+
+  rows.forEach(row => {
+    row.querySelectorAll('.pf-badge').forEach(badge => {
+      const acct = badge.dataset.acct;
+      const status = pf(row, acct, 'status');
+      const tooltip = document.createElement('div');
+      tooltip.className = 'pf-tooltip';
+      if (status === 'HELD') {
+        const pl = parseFloat(pf(row, acct, 'pl'));
+        const plCls = !isNaN(pl) && pl < 0 ? 'pf-pl-neg' : 'pf-pl-pos';
+        const units = parseFloat(pf(row, acct, 'units'));
+        const avgOpen = parseFloat(pf(row, acct, 'avg')) / gbxDivisor(row);
+        const invested = !isNaN(units) && !isNaN(avgOpen) ? units * avgOpen : NaN;
+        const unitsStr = !isNaN(units) ? units.toLocaleString(undefined, {maximumFractionDigits: 4}) : '–';
+        tooltip.innerHTML =
+          `<div class="pf-title">MY INVESTMENT (${acct === 'v' ? 'Virtual' : 'Real'}) · ${row.dataset.ticker || ''}</div>` +
+          `<div class="pf-row">` +
+            `<div><div class="pf-label">Invested</div><div class="pf-val">${fmtMoney(invested)}</div></div>` +
+            `<div class="pf-col-right"><div class="pf-label">Units @ Price</div><div class="pf-val">${unitsStr}<br>@${fmtMoney(avgOpen)}</div></div>` +
+          `</div>` +
+          `<div class="pf-row">` +
+            `<div><div class="pf-val-big ${plCls}">${fmtMoney(pf(row, acct, 'pl'))}</div><div class="pf-label">P/L (${pf(row, acct, 'plpct')}%)</div></div>` +
+            `<div class="pf-col-right"><div class="pf-val-big">${fmtMoney(pf(row, acct, 'netvalue'))}</div><div class="pf-label">Value</div></div>` +
+          `</div>`;
+      } else if (status === 'PENDING') {
+        tooltip.innerHTML =
+          `<div class="pf-title">Pending Order (${acct === 'v' ? 'Virtual' : 'Real'}) · ${row.dataset.ticker || ''}</div>` +
+          `<div class="pf-row">` +
+            `<div><div class="pf-label">Invested</div><div class="pf-val-big">${fmtMoney(pf(row, acct, 'netvalue'))}</div></div>` +
+          `</div>` +
+          `<div class="pf-label" style="margin-top:10px;">Not yet executed (market closed)</div>`;
+      }
+      badge.appendChild(tooltip);
+    });
+  });
+
+  rows.forEach(row => {
+    row.querySelectorAll('.tp-badge').forEach(tpBadge => buildTpTooltip(row, tpBadge, tpBadge.dataset.acct));
+  });
+
+  function buildTpTooltip(row, tpBadge, acct) {
+    const tp = parseFloat(pf(row, acct, 'tp'));
+    const avg = parseFloat(row.dataset.avg);
+    const tpIsSet = !isNaN(tp);
+
+    const STALE_SCAN_DAYS = 3;
+    const scandate = row.dataset.scandate;
+    let scanAgeDays = null;
+    if (scandate) {
+      const parsed = new Date(scandate.replace(' ', 'T') + ':00Z');
+      if (!isNaN(parsed.getTime())) {
+        scanAgeDays = (Date.now() - parsed.getTime()) / 86400000;
+      }
+    }
+    const scanIsStale = scanAgeDays === null || scanAgeDays > STALE_SCAN_DAYS;
+    const scanLine = scandate
+      ? `Last analyst scan: ${scandate}${scanIsStale ? ' (stale, over ' + STALE_SCAN_DAYS + 'd old)' : ''}`
+      : 'Last analyst scan: unknown (stale)';
+    const ticker = row.dataset.ticker || '';
+
+    let statusLine, statusCls, canCopy;
+    if (!tpIsSet) {
+      statusCls = 'tp-unset';
+      canCopy = !isNaN(avg) && avg > 0;
+      statusLine = canCopy ? 'No TP set yet' : 'No TP set, and no current Avg Target to suggest (No Coverage)';
+    } else if (!isNaN(avg) && avg > 0) {
+      const diffPct = ((tp - avg) / avg) * 100;
+      const withinRange = Math.abs(diffPct) <= 5;
+      statusCls = withinRange ? 'tp-current' : (diffPct > 0 ? 'tp-above' : 'tp-below');
+      canCopy = !withinRange;
+      statusLine = withinRange
+        ? `Matches current Avg Target (${fmtMoney(avg)})`
+        : `${diffPct > 0 ? 'Above' : 'Below'} current Avg Target (${fmtMoney(avg)}) by ${Math.abs(diffPct).toFixed(1)}%`;
+    } else {
+      statusCls = 'tp-nodata';
+      canCopy = false;
+      statusLine = 'No current Avg Target to compare (No Coverage)';
+    }
+    tpBadge.classList.add(statusCls);
+    const tooltip = document.createElement('div');
+    tooltip.className = 'pf-tooltip';
+    tooltip.innerHTML =
+      `<div class="pf-title">Take Profit · ${ticker}</div>` +
+      (tpIsSet ? `<div class="pf-row"><div><div class="pf-label">Your TP</div><div class="pf-val-big">${fmtMoney(tp)}</div></div></div>` : '') +
+      `<div class="pf-label" style="margin-top:10px;">${statusLine}</div>` +
+      `<div class="pf-label" style="margin-top:4px;">${scanLine}</div>` +
+      `<div class="pf-tp-actions">` +
+      (canCopy
+        ? `<button type="button" class="pf-copy-btn" data-copy-value="${avg.toFixed(4)}" data-ticker="${ticker}">Copy ${fmtMoney(avg)} &amp; Open on eToro &rarr;</button>`
+        : `<button type="button" class="pf-set-tp-btn" data-ticker="${ticker}">${tpIsSet ? 'View/Edit TP on eToro' : 'Set TP on eToro'} &rarr;</button>`) +
+      `</div>`;
+    tpBadge.appendChild(tooltip);
+
+    const copyBtn = tooltip.querySelector('.pf-copy-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = copyBtn.dataset.copyValue;
+        const tk = copyBtn.dataset.ticker;
+        navigator.clipboard.writeText(val).then(() => {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = 'Copied! Opening...';
+          copyBtn.classList.add('copied');
+          setTimeout(() => { copyBtn.textContent = original; copyBtn.classList.remove('copied'); }, 1500);
+        }).catch(() => {
+          copyBtn.textContent = 'Copy failed';
+        });
+        window.open(`https://www.etoro.com/portfolio/breakdown/${encodeURIComponent(tk)}`, '_blank', 'noopener');
+      });
+    }
+    const setTpBtn = tooltip.querySelector('.pf-set-tp-btn');
+    if (setTpBtn) {
+      setTpBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.open(`https://www.etoro.com/portfolio/breakdown/${encodeURIComponent(setTpBtn.dataset.ticker)}`, '_blank', 'noopener');
+      });
+    }
+  }
+
+  let currentAccount = 'v';
+  function applyAccountVisibility() {
+    document.querySelectorAll('.pf-badge[data-acct], .tp-badge[data-acct]').forEach(el => {
+      el.style.display = el.dataset.acct === currentAccount ? '' : 'none';
+    });
+  }
+  applyAccountVisibility();
+
+  const myPortfolioGroupHeader = document.getElementById('myPortfolioGroupHeader');
+  const summaryInvested = document.getElementById('summaryInvested');
+  const summaryPL = document.getElementById('summaryPL');
+  const summaryValue = document.getElementById('summaryValue');
+  const summaryHeldCount = document.getElementById('summaryHeldCount');
+  const summaryNoTpCount = document.getElementById('summaryNoTpCount');
+  const summaryPendingWrap = document.getElementById('summaryPendingWrap');
+  const summaryPendingCount = document.getElementById('summaryPendingCount');
+
+  function updateMyPortfolioColumns() {
+    let totalInvested = 0, totalPL = 0, totalValue = 0, anyHeld = false;
+    let heldCount = 0, noTpCount = 0, pendingCount = 0, pendingInvested = 0;
+    rows.forEach(row => {
+      const status = pf(row, currentAccount, 'status');
+      if (status === 'PENDING') {
+        pendingCount++;
+        const inv = parseFloat(pf(row, currentAccount, 'netvalue'));
+        if (!isNaN(inv)) pendingInvested += inv;
+      }
+      const unitsCell = row.querySelector('.my-units');
+      const avgCell = row.querySelector('.my-avgopen');
+      const plCell = row.querySelector('.my-pl');
+      const plpctCell = row.querySelector('.my-plpct');
+      if (status !== 'HELD') {
+        unitsCell.textContent = '–'; unitsCell.classList.add('empty');
+        avgCell.textContent = '–'; avgCell.classList.add('empty');
+        plCell.textContent = '–'; plCell.classList.add('empty'); plCell.classList.remove('pct-pos','pct-neg');
+        plpctCell.textContent = '–'; plpctCell.classList.add('empty'); plpctCell.classList.remove('pct-pos','pct-neg');
+        return;
+      }
+      anyHeld = true;
+      heldCount++;
+      const tpVal = pf(row, currentAccount, 'tp');
+      if (tpVal === undefined || tpVal === '' || isNaN(parseFloat(tpVal))) noTpCount++;
+      const units = parseFloat(pf(row, currentAccount, 'units'));
+      const avgOpen = parseFloat(pf(row, currentAccount, 'avg')) / gbxDivisor(row);
+      const pl = parseFloat(pf(row, currentAccount, 'pl'));
+      const plpct = parseFloat(pf(row, currentAccount, 'plpct'));
+      const netvalue = parseFloat(pf(row, currentAccount, 'netvalue'));
+      unitsCell.textContent = !isNaN(units) ? units.toLocaleString(undefined, {maximumFractionDigits: 4}) : '–';
+      unitsCell.classList.remove('empty');
+      avgCell.textContent = fmtMoney(avgOpen);
+      avgCell.classList.remove('empty');
+      plCell.textContent = fmtMoney(pl);
+      plCell.classList.remove('empty');
+      plCell.classList.toggle('pct-pos', pl >= 0);
+      plCell.classList.toggle('pct-neg', pl < 0);
+      plpctCell.textContent = !isNaN(plpct) ? (plpct >= 0 ? '+' : '') + plpct.toFixed(2) + '%' : '–';
+      plpctCell.classList.remove('empty');
+      plpctCell.classList.toggle('pct-pos', plpct >= 0);
+      plpctCell.classList.toggle('pct-neg', plpct < 0);
+      if (!isNaN(units) && !isNaN(avgOpen)) totalInvested += units * avgOpen;
+      if (!isNaN(pl)) totalPL += pl;
+      if (!isNaN(netvalue)) totalValue += netvalue;
+    });
+    if (myPortfolioGroupHeader) {
+      myPortfolioGroupHeader.textContent = 'My Portfolio (' + (currentAccount === 'v' ? 'Virtual' : 'Real') + ')';
+    }
+    if (summaryInvested) {
+      if (anyHeld) {
+        summaryInvested.textContent = fmtMoney(totalInvested);
+        summaryPL.textContent = fmtMoney(totalPL);
+        summaryPL.classList.toggle('pct-pos', totalPL >= 0);
+        summaryPL.classList.toggle('pct-neg', totalPL < 0);
+        summaryValue.textContent = fmtMoney(totalValue);
+      } else {
+        summaryInvested.textContent = '–';
+        summaryPL.textContent = '–';
+        summaryValue.textContent = '–';
+      }
+      summaryHeldCount.textContent = heldCount;
+      summaryNoTpCount.textContent = noTpCount;
+      if (pendingCount > 0) {
+        summaryPendingCount.textContent = pendingCount + ' (' + fmtMoney(pendingInvested) + ')';
+        summaryPendingWrap.classList.add('has-pending');
+      } else {
+        summaryPendingCount.textContent = '0';
+        summaryPendingWrap.classList.remove('has-pending');
+      }
+    }
+  }
+  updateMyPortfolioColumns();
+
+  const TOOLTIP_HEIGHT_ESTIMATE = 220;
+  let tooltipHideTimer = null;
+
+  function positionTooltip(tooltip, badge) {
+    const badgeRect = badge.getBoundingClientRect();
+    const tw = tooltip.offsetWidth || 260;
+    let left = badgeRect.left;
+    const maxLeft = window.innerWidth - tw - 8;
+    if (left > maxLeft) left = Math.max(8, maxLeft);
+    tooltip.style.left = left + 'px';
+    const showAbove = badgeRect.bottom + TOOLTIP_HEIGHT_ESTIMATE > window.innerHeight;
+    if (showAbove) {
+      tooltip.style.bottom = (window.innerHeight - badgeRect.top + 4) + 'px';
+      tooltip.style.top = '';
+    } else {
+      tooltip.style.top = (badgeRect.bottom + 4) + 'px';
+      tooltip.style.bottom = '';
+    }
+  }
+
+  // Reparented to <body> while shown (not just position:fixed) — a table cell with
+  // position:sticky (the frozen ticker/row-number columns) establishes its own
+  // stacking context, so a fixed-position descendant is still painted as part of
+  // that cell's context and loses the paint-order tie-break to later rows' sticky
+  // columns (same z-index, later in DOM). Moving the node out to <body> escapes
+  // that entirely. CSS :hover no longer drives visibility once reparented (the
+  // tooltip stops being a descendant of the badge), so display is JS-managed here,
+  // with a short hide delay so moving the pointer from badge to tooltip doesn't
+  // close it in the gap between them.
+  document.querySelectorAll('.pf-badge, .tp-badge').forEach(badge => {
+    const tooltip = badge.querySelector('.pf-tooltip');
+    if (!tooltip) return;
+    const showTooltip = () => {
+      clearTimeout(tooltipHideTimer);
+      if (tooltip.parentElement !== document.body) {
+        tooltip._homeBadge = badge;
+        document.body.appendChild(tooltip);
+      }
+      positionTooltip(tooltip, badge);
+      tooltip.style.display = 'block';
+    };
+    const scheduleHide = () => {
+      clearTimeout(tooltipHideTimer);
+      tooltipHideTimer = setTimeout(() => {
+        tooltip.style.display = 'none';
+        if (tooltip._homeBadge) tooltip._homeBadge.appendChild(tooltip);
+      }, 150);
+    };
+    badge.addEventListener('mouseenter', showTooltip);
+    badge.addEventListener('mouseleave', scheduleHide);
+    tooltip.addEventListener('mouseenter', () => clearTimeout(tooltipHideTimer));
+    tooltip.addEventListener('mouseleave', scheduleHide);
+  });
+
+  const accountToggle = document.getElementById('accountToggle');
+  if (accountToggle) {
+    accountToggle.addEventListener('click', (e) => {
+      const btn = e.target.closest('.acct-btn');
+      if (!btn) return;
+      currentAccount = btn.dataset.acct;
+      accountToggle.querySelectorAll('.acct-btn').forEach(b => b.classList.toggle('active', b === btn));
+      applyAccountVisibility();
+      updateMyPortfolioColumns();
+      applyFilters();
+    });
+  }
+
+  const scanStatusPanel = document.getElementById('scanStatusPanel');
+  if (scanStatusPanel) {
+    const justFinished = new Set(); // names that were running last poll, to know when to offer a reload
+    const wasRunning = {};
+
+    function fmtAgo(unixSec) {
+      const s = Date.now() / 1000 - unixSec;
+      if (s < 60) return 'just now';
+      if (s < 3600) return Math.round(s / 60) + 'm ago';
+      if (s < 86400) return Math.round(s / 3600) + 'h ago';
+      return Math.round(s / 86400) + 'd ago';
+    }
+
+    function renderRow(name, info) {
+      const row = scanStatusPanel.querySelector(`[data-scan="${name}"]`);
+      if (!row) return;
+      const btn = row.querySelector('.scan-status-btn');
+      const text = row.querySelector('.scan-status-text');
+      row.classList.toggle('is-running', !!info.running);
+      if (info.running) {
+        btn.disabled = true;
+        btn.textContent = 'Running…';
+        if (info.total) {
+          const pct = Math.round((info.done / info.total) * 100);
+          text.textContent = `${info.done}/${info.total} (${pct}%)` + (info.eta_min != null ? `, ETA ${info.eta_min.toFixed(0)}m` : '');
+        } else {
+          text.textContent = 'running…';
+        }
+        wasRunning[name] = true;
+      } else {
+        btn.disabled = false;
+        btn.textContent = '↻ Run';
+        if (wasRunning[name]) {
+          justFinished.add(name);
+          wasRunning[name] = false;
+        }
+        text.textContent = info.last_completed ? `last: ${fmtAgo(info.last_completed)}` : 'never run';
+      }
+    }
+
+    async function pollStatus() {
+      try {
+        const res = await fetch('/status');
+        const data = await res.json();
+        Object.keys(data).forEach(name => renderRow(name, data[name]));
+        if (justFinished.has('scan_values')) {
+          justFinished.delete('scan_values');
+          location.reload();
+        }
+      } catch (err) {
+        scanStatusPanel.querySelectorAll('.scan-status-text').forEach(t => t.textContent = 'server offline');
+      }
+    }
+
+    scanStatusPanel.querySelectorAll('[data-run]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const name = btn.dataset.run;
+        btn.disabled = true;
+        btn.textContent = 'Starting…';
+        try {
+          await fetch('/run/' + name, { method: 'POST' });
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = '↻ Run';
+        }
+        pollStatus();
+      });
+    });
+
+    const runAllBackgroundBtn = document.getElementById('runAllBackgroundBtn');
+    if (runAllBackgroundBtn) {
+      runAllBackgroundBtn.addEventListener('click', async () => {
+        runAllBackgroundBtn.disabled = true;
+        runAllBackgroundBtn.textContent = 'Starting…';
+        const names = ['megascan', 'megascan_yahoo', 'insider_scan', 'fundamentals_scan'];
+        try {
+          await Promise.all(names.map(n => fetch('/run/' + n, { method: 'POST' })));
+        } catch (err) {
+          // individual scans that are already running just no-op server-side -
+          // a partial failure here still means the others were started fine
+        }
+        runAllBackgroundBtn.disabled = false;
+        runAllBackgroundBtn.textContent = '↻ Run All';
+        pollStatus();
+      });
+    }
+
+    pollStatus();
+    setInterval(pollStatus, 10000);
+  }
+
+  rows.forEach(row => {
+    const scandate = row.dataset.scandate;
+    if (!scandate) return;
+    const avgCell = row.querySelector('.analysis-avg');
+    if (!avgCell) return;
+    const span = document.createElement('span');
+    span.className = 'scan-date';
+    span.textContent = scandate;
+    avgCell.appendChild(span);
+  });
+  function applyCurrencyLabels() {
+    function tag(cell, ccy) {
+      if (!cell || cell.classList.contains('empty') || cell.querySelector('.ccy-tag') || cell.querySelector('.ccy-prefix')) return;
+      if (ccy === 'USD') {
+        const span = document.createElement('span');
+        span.className = 'ccy-prefix';
+        span.textContent = '$';
+        cell.insertBefore(span, cell.firstChild);
+      } else {
+        const span = document.createElement('span');
+        span.className = 'ccy-tag';
+        span.textContent = ccy;
+        cell.appendChild(span);
+      }
+    }
+    rows.forEach(row => {
+      const ccy = row.dataset.currency || 'USD';
+      tag(row.querySelector('.price'), ccy);
+      // the analyst target (Low/Avg/High) can be in a different currency than the
+      // price itself, e.g. London-listed names whose TipRanks coverage is USD-based
+      // ADR data while the price is still the LSE quote in GBX — see
+      // TARGET_CURRENCY_OVERRIDE in add_currency_labels.py
+      const targetCcy = row.dataset.targetCurrency || ccy;
+      tag(row.querySelector('.analysis-low'), targetCcy);
+      tag(row.querySelector('.analysis-avg'), targetCcy);
+      tag(row.querySelector('.analysis-high'), targetCcy);
+      const yhCcy = row.dataset.yhCurrency || 'USD';
+      tag(row.querySelector('.yh-low'), yhCcy);
+      tag(row.querySelector('.yh-avg'), yhCcy);
+      tag(row.querySelector('.yh-high'), yhCcy);
+    });
+  }
+
+  const noResults = document.getElementById('noResults');
+  const count = document.getElementById('count');
+  const total = rows.length;
+
+  let sortKey = 'name';
+  let sortDir = 'asc';
+  let activeExchange = 'all';
+  let portfolioMode = 'all';
+
+  let autoHidYahoo = false;
+  portfolioFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.status-pill');
+    if (!btn) return;
+    portfolioMode = btn.dataset.portfolio;
+    portfolioFilters.querySelectorAll('.status-pill').forEach(b => b.classList.toggle('active', b === btn));
+    // Viewing "In Portfolio" only makes the table very wide (TipRanks + Yahoo +
+    // My Portfolio columns all at once) — auto-hide the Yahoo section so the
+    // portfolio columns are visible without horizontal scrolling. Only do this
+    // if the user hasn't already hidden/shown it manually, and restore it when
+    // leaving "In Portfolio" (only if we're the ones who hid it).
+    const toggleYahoo = document.getElementById('toggleYahoo');
+    if (portfolioMode === 'in' && toggleYahoo.checked) {
+      toggleYahoo.checked = false;
+      stockTable.classList.add('hide-yahoo');
+      autoHidYahoo = true;
+    } else if (portfolioMode !== 'in' && autoHidYahoo) {
+      toggleYahoo.checked = true;
+      stockTable.classList.remove('hide-yahoo');
+      autoHidYahoo = false;
+    }
+    applyFilters();
+  });
+
+  function matchesPortfolio(row) {
+    const status = pf(row, currentAccount, 'status');
+    const inPortfolio = status === 'HELD' || status === 'PENDING';
+    if (portfolioMode === 'in') return inPortfolio;
+    if (portfolioMode === 'out') return !inPortfolio;
+    return true;
+  }
+  const activeStatuses = new Set(['normal', 'nofaq', 'not-tradeable']);
+
+  function rowStatus(row) {
+    if (row.classList.contains('row-not-tradeable')) return 'not-tradeable';
+    if (row.classList.contains('row-nofaq')) return 'nofaq';
+    return 'normal';
+  }
+
+  const activeUpside = new Set(['pos', 'neg', 'undefined']);
+  function rowUpside(row) {
+    const p = parseFloat(row.dataset.pct);
+    if (isNaN(p)) return 'undefined';
+    return p >= 0 ? 'pos' : 'neg';
+  }
+
+  upsideFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.status-pill');
+    if (!btn) return;
+    const key = btn.dataset.upside;
+    if (activeUpside.has(key)) {
+      activeUpside.delete(key);
+      btn.classList.remove('active');
+    } else {
+      activeUpside.add(key);
+      btn.classList.add('active');
+    }
+    applyFilters();
+  });
+
+  function computeAllocationForSource(source, sel) {
+    const positiveOnly = activeUpside.size === 1 && activeUpside.has('pos');
+    const amount = parseFloat(allocationAmount.value);
+    let sumPct = 0;
+    if (positiveOnly && !isNaN(amount) && amount > 0) {
+      rows.forEach(row => {
+        if (row.style.display === 'none') return;
+        const p = computePctFor(row, source);
+        if (p !== null && p > 0) sumPct += p;
+      });
+    }
+
+    let totalPL = 0;
+    const plValues = new Map();
+    rows.forEach(row => {
+      const allocCell = row.querySelector(sel.alloc);
+      const plCell = row.querySelector(sel.pl);
+      const p = computePctFor(row, source);
+      const eligible = positiveOnly && row.style.display !== 'none' && !isNaN(amount) && amount > 0 && sumPct > 0 && p !== null && p > 0;
+      if (!eligible) {
+        allocCell.textContent = '–';
+        allocCell.classList.add('empty');
+        plCell.textContent = '–';
+        plCell.classList.add('empty');
+        plCell.classList.remove('pct-pos', 'pct-neg');
+        row.dataset[sel.allocKey] = '';
+        row.dataset[sel.plKey] = '';
+      } else {
+        const share = (p / sumPct) * amount;
+        allocCell.textContent = '$' + share.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        allocCell.classList.remove('empty');
+        const pl = share * (p / 100);
+        totalPL += pl;
+        plValues.set(row, pl);
+        plCell.textContent = (pl >= 0 ? '+' : '') + '$' + pl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        plCell.classList.remove('empty');
+        plCell.classList.toggle('pct-pos', pl >= 0);
+        plCell.classList.toggle('pct-neg', pl < 0);
+        row.dataset[sel.allocKey] = share.toFixed(4);
+        row.dataset[sel.plKey] = pl.toFixed(4);
+      }
+    });
+
+    rows.forEach(row => {
+      const shareCell = row.querySelector(sel.share);
+      if (plValues.has(row) && totalPL > 0) {
+        const sharePct = (plValues.get(row) / totalPL) * 100;
+        shareCell.textContent = sharePct.toFixed(1) + '%';
+        shareCell.classList.remove('empty');
+        row.dataset[sel.shareKey] = sharePct.toFixed(4);
+      } else {
+        shareCell.textContent = '–';
+        shareCell.classList.add('empty');
+        row.dataset[sel.shareKey] = '';
+      }
+    });
+
+    return { positiveOnly, amount, sumPct, totalPL };
+  }
+
+  function updateAllocation() {
+    const etResult = computeAllocationForSource('tr', {
+      alloc: '.alloc-cell', pl: '.pl-cell', share: '.pl-share-cell',
+      allocKey: 'allocShare', plKey: 'allocPl', shareKey: 'allocPlShare',
+    });
+    const yhResult = computeAllocationForSource('yh', {
+      alloc: '.yh-alloc', pl: '.yh-pl', share: '.yh-plshare',
+      allocKey: 'yhAllocShare', plKey: 'yhAllocPl', shareKey: 'yhAllocPlShare',
+    });
+
+    allocationBox.style.display = etResult.positiveOnly ? 'flex' : 'none';
+    const active = currentSource === 'yh' ? yhResult : etResult;
+    if (active.positiveOnly && !isNaN(active.amount) && active.amount > 0 && active.sumPct > 0) {
+      const returnPct = (active.totalPL / active.amount) * 100;
+      allocationSummary.textContent = `Expected profit (${currentSource === 'yh' ? 'Yahoo Finance' : 'eToro / TipRanks'}): +$${active.totalPL.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (+${returnPct.toFixed(1)}%)`;
+    } else {
+      allocationSummary.textContent = '';
+    }
+  }
+
+  allocationAmount.addEventListener('input', updateAllocation);
+
+  statusFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.status-pill');
+    if (!btn) return;
+    const status = btn.dataset.status;
+    if (activeStatuses.has(status)) {
+      activeStatuses.delete(status);
+      btn.classList.remove('active');
+    } else {
+      activeStatuses.add(status);
+      btn.classList.add('active');
+    }
+    applyFilters();
+  });
+
+  const exchanges = [...new Set(rows.map(r => r.dataset.exchange))].sort();
+  function renderExchangePills() {
+    const pills = ['all', ...exchanges];
+    exchangeFilters.innerHTML = pills.map(ex => {
+      const label = ex === 'all' ? 'All Exchanges' : ex;
+      const activeCls = ex === activeExchange ? ' active' : '';
+      return `<button type="button" class="exchange-pill${activeCls}" data-exchange="${ex}">${label}</button>`;
+    }).join('');
+  }
+  renderExchangePills();
+
+  exchangeFilters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.exchange-pill');
+    if (!btn) return;
+    activeExchange = btn.dataset.exchange;
+    renderExchangePills();
+    applyFilters();
+  });
+
+  let pctBasis = 'avg';
+  let currentSource = 'tr';
+  function srcValFor(row, field, source) {
+    return source === 'yh' ? row.dataset['yh' + cap(field)] : row.dataset[field];
+  }
+  function srcVal(row, field) {
+    return srcValFor(row, field, currentSource);
+  }
+  function computePctFor(row, source) {
+    const price = parseFloat(row.dataset.price);
+    const target = parseFloat(srcValFor(row, pctBasis, source));
+    if (isNaN(price) || isNaN(target) || price <= 0) return null;
+    return (target - price) / price * 100;
+  }
+  function computePct(row) {
+    return computePctFor(row, currentSource);
+  }
+
+  // dataset.pct (toggle-driven) is used only internally, to decide which source's
+  // sign classifies a row for the Upside filter pills / range slider / allocation box.
+  function updatePctColumn() {
+    rows.forEach(row => {
+      const pct = computePct(row);
+      row.dataset.pct = pct === null ? '' : pct.toFixed(4);
+    });
+  }
+
+  // The two visible Upside % columns (eToro's own, Yahoo's own) always show their own
+  // source's number, regardless of the Analysis Source toggle.
+  function updateComputedPctColumns() {
+    rows.forEach(row => {
+      const etPct = computePctFor(row, 'tr');
+      const etCell = row.querySelector('.pct-cell');
+      if (etPct === null) {
+        etCell.textContent = '–'; etCell.classList.add('empty'); etCell.classList.remove('pct-pos', 'pct-neg');
+        row.dataset.etPct = '';
+      } else {
+        etCell.textContent = (etPct >= 0 ? '+' : '') + etPct.toFixed(1) + '%';
+        etCell.classList.remove('empty');
+        etCell.classList.toggle('pct-pos', etPct >= 0);
+        etCell.classList.toggle('pct-neg', etPct < 0);
+        row.dataset.etPct = etPct.toFixed(4);
+      }
+
+      const yhPct = computePctFor(row, 'yh');
+      const yhCell = row.querySelector('.yh-pct');
+      if (yhPct === null) {
+        yhCell.textContent = '–'; yhCell.classList.add('empty'); yhCell.classList.remove('pct-pos', 'pct-neg');
+        row.dataset.yhPct = '';
+      } else {
+        yhCell.textContent = (yhPct >= 0 ? '+' : '') + yhPct.toFixed(1) + '%';
+        yhCell.classList.remove('empty');
+        yhCell.classList.toggle('pct-pos', yhPct >= 0);
+        yhCell.classList.toggle('pct-neg', yhPct < 0);
+        row.dataset.yhPct = yhPct.toFixed(4);
+      }
+
+      // TP/Yahoo upside ratio: how closely the two sources agree, normalized to
+      // 1.0 (perfect agreement) down toward 0 (large disagreement or opposite signs).
+      const ratioCell = row.querySelector('.ratio-cell');
+      if (ratioCell) {
+        if (etPct === null || yhPct === null) {
+          ratioCell.textContent = '–'; ratioCell.classList.add('empty'); ratioCell.classList.remove('pct-pos', 'pct-neg');
+          row.dataset.upsideRatio = '';
+        } else {
+          const absEt = Math.abs(etPct), absYh = Math.abs(yhPct);
+          let ratio;
+          if ((etPct < 0) !== (yhPct < 0) && etPct !== 0 && yhPct !== 0) {
+            ratio = 0; // opposite signs = full disagreement
+          } else if (absEt === 0 && absYh === 0) {
+            ratio = 1;
+          } else {
+            ratio = Math.min(absEt, absYh) / Math.max(absEt, absYh);
+          }
+          ratioCell.textContent = ratio.toFixed(2);
+          ratioCell.classList.remove('empty');
+          ratioCell.classList.toggle('pct-pos', ratio >= 0.7);
+          ratioCell.classList.toggle('pct-neg', ratio < 0.4);
+          row.dataset.upsideRatio = ratio.toFixed(4);
+        }
+      }
+    });
+  }
+
+  function updateYahooColumns() {
+    rows.forEach(row => {
+      ['low', 'avg', 'high', 'div'].forEach(field => {
+        const cell = row.querySelector('.yh-' + field);
+        if (!cell) return;
+        const val = row.dataset['yh' + cap(field)];
+        if (val) {
+          cell.textContent = field === 'div' ? val + '%' : val;
+          cell.classList.remove('empty');
+        } else {
+          cell.textContent = '–';
+          cell.classList.add('empty');
+        }
+      });
+    });
+  }
+
+  function updateInsiderColumn() {
+    rows.forEach(row => {
+      const cell = row.querySelector('.ins-cell');
+      if (!cell) return;
+      const net = row.dataset.insNet;
+      if (net === undefined || net === '') {
+        cell.textContent = '–';
+        cell.classList.add('empty');
+        cell.classList.remove('pct-pos', 'pct-neg');
+        return;
+      }
+      const n = parseFloat(net);
+      const buyCount = row.dataset.insBuycount || '0';
+      const sellCount = row.dataset.insSellcount || '0';
+      const abs = Math.abs(n);
+      const fmt = abs >= 1e6 ? (n/1e6).toFixed(1) + 'M' : abs >= 1e3 ? (n/1e3).toFixed(0) + 'K' : n.toFixed(0);
+      cell.textContent = (n >= 0 ? '+$' : '-$') + fmt.replace('-', '') + ` (${buyCount}B/${sellCount}S)`;
+      cell.classList.remove('empty');
+      cell.classList.toggle('pct-pos', n > 0);
+      cell.classList.toggle('pct-neg', n < 0);
+    });
+  }
+
+  const analysisGroupHeader = document.getElementById('analysisGroupHeader');
+  const yahooGroupHeader = document.getElementById('yahooGroupHeader');
+  function updateSourceHighlight() {
+    const trActive = currentSource !== 'yh';
+    analysisGroupHeader.classList.toggle('source-active', trActive);
+    yahooGroupHeader.classList.toggle('source-active', !trActive);
+    [sortLow, sortAvg, sortHigh, sortPct, sortAlloc, sortAllocPl, sortAllocPlShare]
+      .forEach(th => th.classList.toggle('source-active', trActive));
+    [sortYhLow, sortYhAvg, sortYhHigh, sortYhDiv, sortYhPct, sortYhAlloc, sortYhAllocPl, sortYhAllocPlShare]
+      .forEach(th => th.classList.toggle('source-active', !trActive));
+  }
+
+  const sourceToggle = document.getElementById('sourceToggle');
+  if (sourceToggle) {
+    sourceToggle.addEventListener('click', (e) => {
+      const btn = e.target.closest('.acct-btn');
+      if (!btn) return;
+      currentSource = btn.dataset.src;
+      sourceToggle.querySelectorAll('.acct-btn').forEach(b => b.classList.toggle('active', b === btn));
+      updateSourceHighlight();
+      updatePctColumn();
+      resetUpsideRangeToFull();
+      applyFilters();
+    });
+  }
+
+  pctBasisToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = e.target.closest('.pct-basis-btn');
+    if (!btn) return;
+    pctBasis = btn.dataset.basis;
+    pctBasisToggle.querySelectorAll('.pct-basis-btn').forEach(b => b.classList.toggle('active', b === btn));
+    updateComputedPctColumns();
+    updatePctColumn();
+    resetUpsideRangeToFull();
+    if (['etPct', 'yhPct'].includes(sortKey)) applySort();
+    applyFilters();
+  });
+
+  let upsideRangeDynamicMin = 0;
+  let upsideRangeDynamicMax = 0;
+
+  function computeUpsideDynamicRange() {
+    let min = 0, max = 0;
+    rows.forEach(row => {
+      const p = parseFloat(row.dataset.pct);
+      if (isNaN(p)) return;
+      if (p < min) min = p;
+      if (p > max) max = p;
+    });
+    return { min: Math.floor(min), max: Math.ceil(max) };
+  }
+
+  function updateUpsideRangeFillBar() {
+    const span = (upsideRangeDynamicMax - upsideRangeDynamicMin) || 1;
+    const minV = +upsideRangeMinSlider.value;
+    const maxV = +upsideRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, ((minV - upsideRangeDynamicMin) / span) * 100));
+    const rightPct = Math.max(0, Math.min(100, ((maxV - upsideRangeDynamicMin) / span) * 100));
+    upsideRangeFill.style.left = leftPct + '%';
+    upsideRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+
+  function resetUpsideRangeToFull() {
+    const range = computeUpsideDynamicRange();
+    upsideRangeDynamicMin = range.min;
+    upsideRangeDynamicMax = range.max;
+    upsideRangeMinSlider.min = upsideRangeDynamicMin;
+    upsideRangeMinSlider.max = upsideRangeDynamicMax;
+    upsideRangeMaxSlider.min = upsideRangeDynamicMin;
+    upsideRangeMaxSlider.max = upsideRangeDynamicMax;
+    upsideRangeMinSlider.value = upsideRangeDynamicMin;
+    upsideRangeMaxSlider.value = upsideRangeDynamicMax;
+    upsideRangeMinInput.value = upsideRangeDynamicMin;
+    upsideRangeMaxInput.value = upsideRangeDynamicMax;
+    upsideRangeMaxHint.textContent = `(range: ${upsideRangeDynamicMin}% to ${upsideRangeDynamicMax}%)`;
+    updateUpsideRangeFillBar();
+  }
+
+  function upsideInRange(row) {
+    const p = parseFloat(row.dataset.pct);
+    if (isNaN(p)) return true;
+    const min = upsideRangeMinInput.value === '' ? upsideRangeDynamicMin : parseFloat(upsideRangeMinInput.value);
+    const max = upsideRangeMaxInput.value === '' ? upsideRangeDynamicMax : parseFloat(upsideRangeMaxInput.value);
+    return p >= min && p <= max;
+  }
+
+  upsideRangeMinSlider.addEventListener('input', () => {
+    if (+upsideRangeMinSlider.value > +upsideRangeMaxSlider.value) upsideRangeMinSlider.value = upsideRangeMaxSlider.value;
+    upsideRangeMinInput.value = upsideRangeMinSlider.value;
+    updateUpsideRangeFillBar();
+    applyFilters();
+  });
+  upsideRangeMaxSlider.addEventListener('input', () => {
+    if (+upsideRangeMaxSlider.value < +upsideRangeMinSlider.value) upsideRangeMaxSlider.value = upsideRangeMinSlider.value;
+    upsideRangeMaxInput.value = upsideRangeMaxSlider.value;
+    updateUpsideRangeFillBar();
+    applyFilters();
+  });
+  upsideRangeMinInput.addEventListener('input', () => {
+    const v = upsideRangeMinInput.value === '' ? upsideRangeDynamicMin : +upsideRangeMinInput.value;
+    upsideRangeMinSlider.value = Math.min(v, +upsideRangeMaxSlider.value);
+    updateUpsideRangeFillBar();
+    applyFilters();
+  });
+  upsideRangeMaxInput.addEventListener('input', () => {
+    const v = upsideRangeMaxInput.value === '' ? upsideRangeDynamicMax : +upsideRangeMaxInput.value;
+    upsideRangeMaxSlider.value = Math.max(v, +upsideRangeMinSlider.value);
+    updateUpsideRangeFillBar();
+    applyFilters();
+  });
+
+  function updateRatioRangeFillBar() {
+    const minV = +ratioRangeMinSlider.value;
+    const maxV = +ratioRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 100));
+    const rightPct = Math.max(0, Math.min(100, maxV * 100));
+    ratioRangeFill.style.left = leftPct + '%';
+    ratioRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  ratioRangeMaxHint.textContent = '(range: 0.00 to 1.00)';
+  updateRatioRangeFillBar();
+
+  function ratioInRange(row) {
+    const p = parseFloat(row.dataset.upsideRatio);
+    if (isNaN(p)) return true;
+    const min = ratioRangeMinInput.value === '' ? 0 : parseFloat(ratioRangeMinInput.value);
+    const max = ratioRangeMaxInput.value === '' ? 1 : parseFloat(ratioRangeMaxInput.value);
+    return p >= min && p <= max;
+  }
+
+  ratioRangeMinSlider.addEventListener('input', () => {
+    if (+ratioRangeMinSlider.value > +ratioRangeMaxSlider.value) ratioRangeMinSlider.value = ratioRangeMaxSlider.value;
+    ratioRangeMinInput.value = ratioRangeMinSlider.value;
+    updateRatioRangeFillBar();
+    applyFilters();
+  });
+  ratioRangeMaxSlider.addEventListener('input', () => {
+    if (+ratioRangeMaxSlider.value < +ratioRangeMinSlider.value) ratioRangeMaxSlider.value = ratioRangeMinSlider.value;
+    ratioRangeMaxInput.value = ratioRangeMaxSlider.value;
+    updateRatioRangeFillBar();
+    applyFilters();
+  });
+  ratioRangeMinInput.addEventListener('input', () => {
+    const v = ratioRangeMinInput.value === '' ? 0 : +ratioRangeMinInput.value;
+    ratioRangeMinSlider.value = Math.min(v, +ratioRangeMaxSlider.value);
+    updateRatioRangeFillBar();
+    applyFilters();
+  });
+  ratioRangeMaxInput.addEventListener('input', () => {
+    const v = ratioRangeMaxInput.value === '' ? 1 : +ratioRangeMaxInput.value;
+    ratioRangeMaxSlider.value = Math.max(v, +ratioRangeMinSlider.value);
+    updateRatioRangeFillBar();
+    applyFilters();
+  });
+
+  function updateScoreRangeFillBar() {
+    const minV = +scoreRangeMinSlider.value;
+    const maxV = +scoreRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 10));
+    const rightPct = Math.max(0, Math.min(100, maxV * 10));
+    scoreRangeFill.style.left = leftPct + '%';
+    scoreRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  scoreRangeMaxHint.textContent = '(range: 0 to 10)';
+  updateScoreRangeFillBar();
+
+  function scoreInRange(row) {
+    const min = scoreRangeMinInput.value === '' ? 0 : parseFloat(scoreRangeMinInput.value);
+    const max = scoreRangeMaxInput.value === '' ? 10 : parseFloat(scoreRangeMaxInput.value);
+    const s = parseFloat(row.dataset.score);
+    // Unlike ratioInRange/upsideInRange, a missing Score does NOT pass through:
+    // this filter's whole purpose is "only show stocks meeting a quality bar",
+    // and a stock with no Score at all (no analyst coverage) can't meet one.
+    if (isNaN(s)) return min <= 0 && max >= 10;  // only passes if the filter is still at its full default range
+    return s >= min && s <= max;
+  }
+
+  scoreRangeMinSlider.addEventListener('input', () => {
+    if (+scoreRangeMinSlider.value > +scoreRangeMaxSlider.value) scoreRangeMinSlider.value = scoreRangeMaxSlider.value;
+    scoreRangeMinInput.value = scoreRangeMinSlider.value;
+    updateScoreRangeFillBar();
+    applyFilters();
+  });
+  scoreRangeMaxSlider.addEventListener('input', () => {
+    if (+scoreRangeMaxSlider.value < +scoreRangeMinSlider.value) scoreRangeMaxSlider.value = scoreRangeMinSlider.value;
+    scoreRangeMaxInput.value = scoreRangeMaxSlider.value;
+    updateScoreRangeFillBar();
+    applyFilters();
+  });
+  scoreRangeMinInput.addEventListener('input', () => {
+    const v = scoreRangeMinInput.value === '' ? 0 : +scoreRangeMinInput.value;
+    scoreRangeMinSlider.value = Math.min(v, +scoreRangeMaxSlider.value);
+    updateScoreRangeFillBar();
+    applyFilters();
+  });
+  scoreRangeMaxInput.addEventListener('input', () => {
+    const v = scoreRangeMaxInput.value === '' ? 10 : +scoreRangeMaxInput.value;
+    scoreRangeMaxSlider.value = Math.max(v, +scoreRangeMinSlider.value);
+    updateScoreRangeFillBar();
+    applyFilters();
+  });
+
+  function updateConfidenceRangeFillBar() {
+    const minV = +confidenceRangeMinSlider.value;
+    const maxV = +confidenceRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 100 / 8));
+    const rightPct = Math.max(0, Math.min(100, maxV * 100 / 8));
+    confidenceRangeFill.style.left = leftPct + '%';
+    confidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  confidenceRangeMaxHint.textContent = '(range: 0 to 8)';
+  updateConfidenceRangeFillBar();
+
+  function confidenceInRange(row) {
+    const min = confidenceRangeMinInput.value === '' ? 0 : parseFloat(confidenceRangeMinInput.value);
+    const max = confidenceRangeMaxInput.value === '' ? 8 : parseFloat(confidenceRangeMaxInput.value);
+    const c = parseFloat(row.dataset.scoreConfidence);
+    if (isNaN(c)) return min <= 0 && max >= 8;  // only passes if the filter is still at its full default range
+    return c >= min && c <= max;
+  }
+
+  confidenceRangeMinSlider.addEventListener('input', () => {
+    if (+confidenceRangeMinSlider.value > +confidenceRangeMaxSlider.value) confidenceRangeMinSlider.value = confidenceRangeMaxSlider.value;
+    confidenceRangeMinInput.value = confidenceRangeMinSlider.value;
+    updateConfidenceRangeFillBar();
+    applyFilters();
+  });
+  confidenceRangeMaxSlider.addEventListener('input', () => {
+    if (+confidenceRangeMaxSlider.value < +confidenceRangeMinSlider.value) confidenceRangeMaxSlider.value = confidenceRangeMinSlider.value;
+    confidenceRangeMaxInput.value = confidenceRangeMaxSlider.value;
+    updateConfidenceRangeFillBar();
+    applyFilters();
+  });
+  confidenceRangeMinInput.addEventListener('input', () => {
+    const v = confidenceRangeMinInput.value === '' ? 0 : +confidenceRangeMinInput.value;
+    confidenceRangeMinSlider.value = Math.min(v, +confidenceRangeMaxSlider.value);
+    updateConfidenceRangeFillBar();
+    applyFilters();
+  });
+  confidenceRangeMaxInput.addEventListener('input', () => {
+    const v = confidenceRangeMaxInput.value === '' ? 8 : +confidenceRangeMaxInput.value;
+    confidenceRangeMaxSlider.value = Math.max(v, +confidenceRangeMinSlider.value);
+    updateConfidenceRangeFillBar();
+    applyFilters();
+  });
+
+  function updateSecScoreRangeFillBar() {
+    const minV = +secScoreRangeMinSlider.value;
+    const maxV = +secScoreRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 10));
+    const rightPct = Math.max(0, Math.min(100, maxV * 10));
+    secScoreRangeFill.style.left = leftPct + '%';
+    secScoreRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  secScoreRangeMaxHint.textContent = '(range: 0 to 10)';
+  updateSecScoreRangeFillBar();
+
+  function secScoreInRange(row) {
+    const min = secScoreRangeMinInput.value === '' ? 0 : parseFloat(secScoreRangeMinInput.value);
+    const max = secScoreRangeMaxInput.value === '' ? 10 : parseFloat(secScoreRangeMaxInput.value);
+    const s = parseFloat(row.dataset.secscore);
+    if (isNaN(s)) return min <= 0 && max >= 10;
+    return s >= min && s <= max;
+  }
+
+  secScoreRangeMinSlider.addEventListener('input', () => {
+    if (+secScoreRangeMinSlider.value > +secScoreRangeMaxSlider.value) secScoreRangeMinSlider.value = secScoreRangeMaxSlider.value;
+    secScoreRangeMinInput.value = secScoreRangeMinSlider.value;
+    updateSecScoreRangeFillBar();
+    applyFilters();
+  });
+  secScoreRangeMaxSlider.addEventListener('input', () => {
+    if (+secScoreRangeMaxSlider.value < +secScoreRangeMinSlider.value) secScoreRangeMaxSlider.value = secScoreRangeMinSlider.value;
+    secScoreRangeMaxInput.value = secScoreRangeMaxSlider.value;
+    updateSecScoreRangeFillBar();
+    applyFilters();
+  });
+  secScoreRangeMinInput.addEventListener('input', () => {
+    const v = secScoreRangeMinInput.value === '' ? 0 : +secScoreRangeMinInput.value;
+    secScoreRangeMinSlider.value = Math.min(v, +secScoreRangeMaxSlider.value);
+    updateSecScoreRangeFillBar();
+    applyFilters();
+  });
+  secScoreRangeMaxInput.addEventListener('input', () => {
+    const v = secScoreRangeMaxInput.value === '' ? 10 : +secScoreRangeMaxInput.value;
+    secScoreRangeMaxSlider.value = Math.max(v, +secScoreRangeMinSlider.value);
+    updateSecScoreRangeFillBar();
+    applyFilters();
+  });
+
+  function updateSecConfidenceRangeFillBar() {
+    const minV = +secConfidenceRangeMinSlider.value;
+    const maxV = +secConfidenceRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, (minV / 6) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 6) * 100));
+    secConfidenceRangeFill.style.left = leftPct + '%';
+    secConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  secConfidenceRangeMaxHint.textContent = '(range: 0 to 6)';
+  updateSecConfidenceRangeFillBar();
+
+  function secConfidenceInRange(row) {
+    const min = secConfidenceRangeMinInput.value === '' ? 0 : parseFloat(secConfidenceRangeMinInput.value);
+    const max = secConfidenceRangeMaxInput.value === '' ? 6 : parseFloat(secConfidenceRangeMaxInput.value);
+    const c = parseFloat(row.dataset.secscoreConfidence);
+    if (isNaN(c)) return min <= 0 && max >= 6;
+    return c >= min && c <= max;
+  }
+
+  secConfidenceRangeMinSlider.addEventListener('input', () => {
+    if (+secConfidenceRangeMinSlider.value > +secConfidenceRangeMaxSlider.value) secConfidenceRangeMinSlider.value = secConfidenceRangeMaxSlider.value;
+    secConfidenceRangeMinInput.value = secConfidenceRangeMinSlider.value;
+    updateSecConfidenceRangeFillBar();
+    applyFilters();
+  });
+  secConfidenceRangeMaxSlider.addEventListener('input', () => {
+    if (+secConfidenceRangeMaxSlider.value < +secConfidenceRangeMinSlider.value) secConfidenceRangeMaxSlider.value = secConfidenceRangeMinSlider.value;
+    secConfidenceRangeMaxInput.value = secConfidenceRangeMaxSlider.value;
+    updateSecConfidenceRangeFillBar();
+    applyFilters();
+  });
+  secConfidenceRangeMinInput.addEventListener('input', () => {
+    const v = secConfidenceRangeMinInput.value === '' ? 0 : +secConfidenceRangeMinInput.value;
+    secConfidenceRangeMinSlider.value = Math.min(v, +secConfidenceRangeMaxSlider.value);
+    updateSecConfidenceRangeFillBar();
+    applyFilters();
+  });
+  secConfidenceRangeMaxInput.addEventListener('input', () => {
+    const v = secConfidenceRangeMaxInput.value === '' ? 6 : +secConfidenceRangeMaxInput.value;
+    secConfidenceRangeMaxSlider.value = Math.max(v, +secConfidenceRangeMinSlider.value);
+    updateSecConfidenceRangeFillBar();
+    applyFilters();
+  });
+
+  function updateRiskScoreRangeFillBar() {
+    const minV = +riskScoreRangeMinSlider.value;
+    const maxV = +riskScoreRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 10));
+    const rightPct = Math.max(0, Math.min(100, maxV * 10));
+    riskScoreRangeFill.style.left = leftPct + '%';
+    riskScoreRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  riskScoreRangeMaxHint.textContent = '(range: 0 to 10)';
+  updateRiskScoreRangeFillBar();
+
+  function riskScoreInRange(row) {
+    const min = riskScoreRangeMinInput.value === '' ? 0 : parseFloat(riskScoreRangeMinInput.value);
+    const max = riskScoreRangeMaxInput.value === '' ? 10 : parseFloat(riskScoreRangeMaxInput.value);
+    const s = parseFloat(row.dataset.riskscore);
+    if (isNaN(s)) return min <= 0 && max >= 10;
+    return s >= min && s <= max;
+  }
+
+  riskScoreRangeMinSlider.addEventListener('input', () => {
+    if (+riskScoreRangeMinSlider.value > +riskScoreRangeMaxSlider.value) riskScoreRangeMinSlider.value = riskScoreRangeMaxSlider.value;
+    riskScoreRangeMinInput.value = riskScoreRangeMinSlider.value;
+    updateRiskScoreRangeFillBar();
+    applyFilters();
+  });
+  riskScoreRangeMaxSlider.addEventListener('input', () => {
+    if (+riskScoreRangeMaxSlider.value < +riskScoreRangeMinSlider.value) riskScoreRangeMaxSlider.value = riskScoreRangeMinSlider.value;
+    riskScoreRangeMaxInput.value = riskScoreRangeMaxSlider.value;
+    updateRiskScoreRangeFillBar();
+    applyFilters();
+  });
+  riskScoreRangeMinInput.addEventListener('input', () => {
+    const v = riskScoreRangeMinInput.value === '' ? 0 : +riskScoreRangeMinInput.value;
+    riskScoreRangeMinSlider.value = Math.min(v, +riskScoreRangeMaxSlider.value);
+    updateRiskScoreRangeFillBar();
+    applyFilters();
+  });
+  riskScoreRangeMaxInput.addEventListener('input', () => {
+    const v = riskScoreRangeMaxInput.value === '' ? 10 : +riskScoreRangeMaxInput.value;
+    riskScoreRangeMaxSlider.value = Math.max(v, +riskScoreRangeMinSlider.value);
+    updateRiskScoreRangeFillBar();
+    applyFilters();
+  });
+
+  function updateRiskConfidenceRangeFillBar() {
+    const minV = +riskConfidenceRangeMinSlider.value;
+    const maxV = +riskConfidenceRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, (minV / 5) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 5) * 100));
+    riskConfidenceRangeFill.style.left = leftPct + '%';
+    riskConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  riskConfidenceRangeMaxHint.textContent = '(range: 0 to 5)';
+  updateRiskConfidenceRangeFillBar();
+
+  function riskConfidenceInRange(row) {
+    const min = riskConfidenceRangeMinInput.value === '' ? 0 : parseFloat(riskConfidenceRangeMinInput.value);
+    const max = riskConfidenceRangeMaxInput.value === '' ? 5 : parseFloat(riskConfidenceRangeMaxInput.value);
+    const c = parseFloat(row.dataset.riskscoreConfidence);
+    if (isNaN(c)) return min <= 0 && max >= 5;
+    return c >= min && c <= max;
+  }
+
+  riskConfidenceRangeMinSlider.addEventListener('input', () => {
+    if (+riskConfidenceRangeMinSlider.value > +riskConfidenceRangeMaxSlider.value) riskConfidenceRangeMinSlider.value = riskConfidenceRangeMaxSlider.value;
+    riskConfidenceRangeMinInput.value = riskConfidenceRangeMinSlider.value;
+    updateRiskConfidenceRangeFillBar();
+    applyFilters();
+  });
+  riskConfidenceRangeMaxSlider.addEventListener('input', () => {
+    if (+riskConfidenceRangeMaxSlider.value < +riskConfidenceRangeMinSlider.value) riskConfidenceRangeMaxSlider.value = riskConfidenceRangeMinSlider.value;
+    riskConfidenceRangeMaxInput.value = riskConfidenceRangeMaxSlider.value;
+    updateRiskConfidenceRangeFillBar();
+    applyFilters();
+  });
+  riskConfidenceRangeMinInput.addEventListener('input', () => {
+    const v = riskConfidenceRangeMinInput.value === '' ? 0 : +riskConfidenceRangeMinInput.value;
+    riskConfidenceRangeMinSlider.value = Math.min(v, +riskConfidenceRangeMaxSlider.value);
+    updateRiskConfidenceRangeFillBar();
+    applyFilters();
+  });
+  riskConfidenceRangeMaxInput.addEventListener('input', () => {
+    const v = riskConfidenceRangeMaxInput.value === '' ? 5 : +riskConfidenceRangeMaxInput.value;
+    riskConfidenceRangeMaxSlider.value = Math.max(v, +riskConfidenceRangeMinSlider.value);
+    updateRiskConfidenceRangeFillBar();
+    applyFilters();
+  });
+
+  function updateOverallScoreRangeFillBar() {
+    const minV = +overallScoreRangeMinSlider.value;
+    const maxV = +overallScoreRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 10));
+    const rightPct = Math.max(0, Math.min(100, maxV * 10));
+    overallScoreRangeFill.style.left = leftPct + '%';
+    overallScoreRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  overallScoreRangeMaxHint.textContent = '(range: 0 to 10)';
+  updateOverallScoreRangeFillBar();
+
+  function overallScoreInRange(row) {
+    const min = overallScoreRangeMinInput.value === '' ? 0 : parseFloat(overallScoreRangeMinInput.value);
+    const max = overallScoreRangeMaxInput.value === '' ? 10 : parseFloat(overallScoreRangeMaxInput.value);
+    const s = parseFloat(row.dataset.overallscore);
+    if (isNaN(s)) return min <= 0 && max >= 10;
+    return s >= min && s <= max;
+  }
+
+  overallScoreRangeMinSlider.addEventListener('input', () => {
+    if (+overallScoreRangeMinSlider.value > +overallScoreRangeMaxSlider.value) overallScoreRangeMinSlider.value = overallScoreRangeMaxSlider.value;
+    overallScoreRangeMinInput.value = overallScoreRangeMinSlider.value;
+    updateOverallScoreRangeFillBar();
+    applyFilters();
+  });
+  overallScoreRangeMaxSlider.addEventListener('input', () => {
+    if (+overallScoreRangeMaxSlider.value < +overallScoreRangeMinSlider.value) overallScoreRangeMaxSlider.value = overallScoreRangeMinSlider.value;
+    overallScoreRangeMaxInput.value = overallScoreRangeMaxSlider.value;
+    updateOverallScoreRangeFillBar();
+    applyFilters();
+  });
+  overallScoreRangeMinInput.addEventListener('input', () => {
+    const v = overallScoreRangeMinInput.value === '' ? 0 : +overallScoreRangeMinInput.value;
+    overallScoreRangeMinSlider.value = Math.min(v, +overallScoreRangeMaxSlider.value);
+    updateOverallScoreRangeFillBar();
+    applyFilters();
+  });
+  overallScoreRangeMaxInput.addEventListener('input', () => {
+    const v = overallScoreRangeMaxInput.value === '' ? 10 : +overallScoreRangeMaxInput.value;
+    overallScoreRangeMaxSlider.value = Math.max(v, +overallScoreRangeMinSlider.value);
+    updateOverallScoreRangeFillBar();
+    applyFilters();
+  });
+
+  function updateOverallConfidenceRangeFillBar() {
+    const minV = +overallConfidenceRangeMinSlider.value;
+    const maxV = +overallConfidenceRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, (minV / 14) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 14) * 100));
+    overallConfidenceRangeFill.style.left = leftPct + '%';
+    overallConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  overallConfidenceRangeMaxHint.textContent = '(range: 0 to 14)';
+  updateOverallConfidenceRangeFillBar();
+
+  function overallConfidenceInRange(row) {
+    const min = overallConfidenceRangeMinInput.value === '' ? 0 : parseFloat(overallConfidenceRangeMinInput.value);
+    const max = overallConfidenceRangeMaxInput.value === '' ? 14 : parseFloat(overallConfidenceRangeMaxInput.value);
+    const c = parseFloat(row.dataset.overallscoreConfidence);
+    if (isNaN(c)) return min <= 0 && max >= 14;
+    return c >= min && c <= max;
+  }
+
+  overallConfidenceRangeMinSlider.addEventListener('input', () => {
+    if (+overallConfidenceRangeMinSlider.value > +overallConfidenceRangeMaxSlider.value) overallConfidenceRangeMinSlider.value = overallConfidenceRangeMaxSlider.value;
+    overallConfidenceRangeMinInput.value = overallConfidenceRangeMinSlider.value;
+    updateOverallConfidenceRangeFillBar();
+    applyFilters();
+  });
+  overallConfidenceRangeMaxSlider.addEventListener('input', () => {
+    if (+overallConfidenceRangeMaxSlider.value < +overallConfidenceRangeMinSlider.value) overallConfidenceRangeMaxSlider.value = overallConfidenceRangeMinSlider.value;
+    overallConfidenceRangeMaxInput.value = overallConfidenceRangeMaxSlider.value;
+    updateOverallConfidenceRangeFillBar();
+    applyFilters();
+  });
+  overallConfidenceRangeMinInput.addEventListener('input', () => {
+    const v = overallConfidenceRangeMinInput.value === '' ? 0 : +overallConfidenceRangeMinInput.value;
+    overallConfidenceRangeMinSlider.value = Math.min(v, +overallConfidenceRangeMaxSlider.value);
+    updateOverallConfidenceRangeFillBar();
+    applyFilters();
+  });
+  overallConfidenceRangeMaxInput.addEventListener('input', () => {
+    const v = overallConfidenceRangeMaxInput.value === '' ? 14 : +overallConfidenceRangeMaxInput.value;
+    overallConfidenceRangeMaxSlider.value = Math.max(v, +overallConfidenceRangeMinSlider.value);
+    updateOverallConfidenceRangeFillBar();
+    applyFilters();
+  });
+
+  function renumberRows() {
+    let n = 0;
+    rows.forEach(row => {
+      if (row.style.display !== 'none') {
+        n++;
+        row.querySelector('.rownum').textContent = n;
+      }
+    });
+  }
+
+  function isRangeActive(minInput, maxInput, defaultMin, defaultMax) {
+    const min = minInput.value === '' ? defaultMin : parseFloat(minInput.value);
+    const max = maxInput.value === '' ? defaultMax : parseFloat(maxInput.value);
+    return Math.abs(min - defaultMin) > 1e-9 || Math.abs(max - defaultMax) > 1e-9;
+  }
+
+  function updateFilterGroupDots() {
+    // Lights up a small dot on a collapsed filter-group's header when that
+    // group's range differs from its full default range, so a filter that's
+    // quietly narrowing the table stays visible even while its bar is hidden.
+    document.getElementById('fgUpside').classList.toggle('filter-active',
+      isRangeActive(upsideRangeMinInput, upsideRangeMaxInput, upsideRangeDynamicMin, upsideRangeDynamicMax));
+    document.getElementById('fgRatio').classList.toggle('filter-active',
+      isRangeActive(ratioRangeMinInput, ratioRangeMaxInput, 0, 1));
+    document.getElementById('fgScore').classList.toggle('filter-active',
+      isRangeActive(scoreRangeMinInput, scoreRangeMaxInput, 0, 10) ||
+      isRangeActive(confidenceRangeMinInput, confidenceRangeMaxInput, 0, 8));
+    document.getElementById('fgSecScore').classList.toggle('filter-active',
+      isRangeActive(secScoreRangeMinInput, secScoreRangeMaxInput, 0, 10) ||
+      isRangeActive(secConfidenceRangeMinInput, secConfidenceRangeMaxInput, 0, 6));
+    document.getElementById('fgRiskScore').classList.toggle('filter-active',
+      isRangeActive(riskScoreRangeMinInput, riskScoreRangeMaxInput, 0, 10) ||
+      isRangeActive(riskConfidenceRangeMinInput, riskConfidenceRangeMaxInput, 0, 5));
+    document.getElementById('fgOverallScore').classList.toggle('filter-active',
+      isRangeActive(overallScoreRangeMinInput, overallScoreRangeMaxInput, 0, 10) ||
+      isRangeActive(overallConfidenceRangeMinInput, overallConfidenceRangeMaxInput, 0, 14));
+  }
+
+  function applyFilters() {
+    updateFilterGroupDots();
+    const q = search.value.trim().toLowerCase();
+    const min = parseFloat(priceMin.value);
+    const max = parseFloat(priceMax.value);
+    let shown = 0;
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const price = parseFloat(row.dataset.price);
+      let match = text.includes(q);
+      if (match && activeExchange !== 'all') match = row.dataset.exchange === activeExchange;
+      if (match && !isNaN(min)) match = price >= min;
+      if (match && !isNaN(max)) match = price <= max;
+      if (match) match = activeStatuses.has(rowStatus(row));
+      if (match) match = activeUpside.has(rowUpside(row));
+      if (match) match = upsideInRange(row);
+      if (match) match = ratioInRange(row);
+      if (match) match = scoreInRange(row);
+      if (match) match = confidenceInRange(row);
+      if (match) match = secScoreInRange(row);
+      if (match) match = secConfidenceInRange(row);
+      if (match) match = riskScoreInRange(row);
+      if (match) match = riskConfidenceInRange(row);
+      if (match) match = overallScoreInRange(row);
+      if (match) match = overallConfidenceInRange(row);
+      if (match) match = matchesPortfolio(row);
+      row.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    noResults.style.display = shown === 0 ? 'block' : 'none';
+    count.textContent = `Showing ${shown.toLocaleString()} of ${total.toLocaleString()}`;
+    renumberRows();
+    updateAllocation();
+  }
+
+  const numericKeys = [
+    'price', 'cons', 'div', 'low', 'avg', 'high', 'yhLow', 'yhAvg', 'yhHigh', 'yhDiv',
+    'etPct', 'yhPct', 'upsideRatio', 'insNet', 'allocShare', 'allocPl', 'allocPlShare',
+    'yhAllocShare', 'yhAllocPl', 'yhAllocPlShare', 'score', 'short', 'rsi', 'pe', 'mcap', 'hfNet', 'beta', 'vol', 'peg', 'r52', 'secscore', 'riskscore', 'overallscore', 'percentile',
+  ];
+  const myPortfolioKeys = { myUnits: 'units', myAvg: 'avg', myPl: 'pl', myPlpct: 'plpct' };
+  function applySort() {
+    rows.sort((a, b) => {
+      let cmp;
+      if (sortKey in myPortfolioKeys) {
+        const field = myPortfolioKeys[sortKey];
+        const av = parseFloat(pf(a, currentAccount, field));
+        const bv = parseFloat(pf(b, currentAccount, field));
+        const aNa = isNaN(av), bNa = isNaN(bv);
+        if (aNa && bNa) cmp = 0;
+        else if (aNa) return 1;
+        else if (bNa) return -1;
+        else cmp = av - bv;
+      } else if (numericKeys.includes(sortKey)) {
+        const av = parseFloat(a.dataset[sortKey]);
+        const bv = parseFloat(b.dataset[sortKey]);
+        const aNa = isNaN(av), bNa = isNaN(bv);
+        if (aNa && bNa) cmp = 0;
+        else if (aNa) return 1;
+        else if (bNa) return -1;
+        else cmp = av - bv;
+      } else if (sortKey === 'exchange') {
+        cmp = a.dataset.exchange.localeCompare(b.dataset.exchange) || a.dataset.ticker.localeCompare(b.dataset.ticker);
+      } else if (sortKey === 'rating') {
+        cmp = a.dataset.rating.localeCompare(b.dataset.rating) || a.dataset.ticker.localeCompare(b.dataset.ticker);
+      } else {
+        cmp = a.dataset.ticker.localeCompare(b.dataset.ticker);
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+    rows.forEach(row => tbody.appendChild(row));
+    renumberRows();
+  }
+
+  const sortAlloc = document.getElementById('allocHeader');
+  const sortAllocPl = document.getElementById('plHeader');
+  const sortAllocPlShare = document.getElementById('plShareHeader');
+  const sortYhAlloc = document.getElementById('yhAllocHeader');
+  const sortYhAllocPl = document.getElementById('yhPlHeader');
+  const sortYhAllocPlShare = document.getElementById('yhPlShareHeader');
+  const sortMyUnits = document.getElementById('sortMyUnits');
+  const sortMyAvg = document.getElementById('sortMyAvg');
+  const sortMyPl = document.getElementById('sortMyPl');
+  const sortMyPlpct = document.getElementById('sortMyPlpct');
+  const sortThs = {
+    name: sortName, exchange: sortExchange, price: sortPrice, cons: sortCons, rating: sortRating, div: sortDiv,
+    low: sortLow, avg: sortAvg, high: sortHigh, etPct: sortPct, upsideRatio: sortUpsideRatio, insNet: sortInsider,
+    allocShare: sortAlloc, allocPl: sortAllocPl, allocPlShare: sortAllocPlShare,
+    yhLow: sortYhLow, yhAvg: sortYhAvg, yhHigh: sortYhHigh, yhDiv: sortYhDiv, yhPct: sortYhPct,
+    yhAllocShare: sortYhAlloc, yhAllocPl: sortYhAllocPl, yhAllocPlShare: sortYhAllocPlShare,
+    myUnits: sortMyUnits, myAvg: sortMyAvg, myPl: sortMyPl, myPlpct: sortMyPlpct,
+    score: sortScore, short: sortShort, rsi: sortRsi, pe: sortPe, mcap: sortMcap, hfNet: sortHf, beta: sortBeta, vol: sortVol, peg: sortPeg, r52: sortR52, secscore: sortSecScore, riskscore: sortRiskScore, overallscore: sortOverallScore, percentile: sortPercentile,
+  };
+  function setSort(key, dir) {
+    if (dir) {
+      sortKey = key;
+      sortDir = dir;
+    } else if (sortKey === key) {
+      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortKey = key;
+      sortDir = 'asc';
+    }
+    Object.values(sortThs).forEach(th => th.classList.remove('sort-active'));
+    const activeTh = sortThs[key];
+    activeTh.classList.add('sort-active');
+    activeTh.querySelector('.sort-arrow').innerHTML = sortDir === 'asc' ? '&#9650;' : '&#9660;';
+    applySort();
+  }
+
+  function isNumericSortKey(key) {
+    return (key in myPortfolioKeys) || numericKeys.includes(key);
+  }
+
+  let sortMenuEl = null;
+  function ensureSortMenu() {
+    if (sortMenuEl) return sortMenuEl;
+    sortMenuEl = document.createElement('div');
+    sortMenuEl.className = 'sort-menu';
+    document.body.appendChild(sortMenuEl);
+    document.addEventListener('click', (e) => {
+      if (!sortMenuEl.contains(e.target) && !e.target.closest('.sort-trigger')) {
+        sortMenuEl.classList.remove('open');
+      }
+    });
+    window.addEventListener('scroll', () => sortMenuEl.classList.remove('open'), true);
+    return sortMenuEl;
+  }
+
+  function openSortMenu(key, th) {
+    const menu = ensureSortMenu();
+    const numeric = isNumericSortKey(key);
+    const opts = numeric
+      ? [['asc', 'Min → Max'], ['desc', 'Max → Min']]
+      : [['asc', 'A → Z'], ['desc', 'Z → A']];
+    menu.innerHTML = opts.map(([dir, label]) =>
+      `<button type="button" class="sort-menu-item${sortKey === key && sortDir === dir ? ' active' : ''}" data-dir="${dir}">${label}</button>`
+    ).join('');
+    menu.querySelectorAll('.sort-menu-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setSort(key, btn.dataset.dir);
+        menu.classList.remove('open');
+      });
+    });
+    const rect = th.getBoundingClientRect();
+    menu.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 180)) + 'px';
+    menu.style.top = (rect.bottom + 4) + 'px';
+    menu.classList.add('open');
+  }
+
+  function attachHeaderSort(th, key) {
+    th.classList.add('sort-trigger');
+    th.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openSortMenu(key, th);
+    });
+  }
+
+  const colToggle = document.getElementById('colToggle');
+  const colToggleBtn = document.getElementById('colToggleBtn');
+  const stockTable = document.getElementById('stockTable');
+  const colChecks = {
+    exchange: document.getElementById('toggleExchange'),
+    cons: document.getElementById('toggleCons'),
+    rating: document.getElementById('toggleRating'),
+    div: document.getElementById('toggleDiv'),
+    target: document.getElementById('toggleTarget'),
+    yahoo: document.getElementById('toggleYahoo'),
+    myportfolio: document.getElementById('toggleMyPortfolio'),
+    insider: document.getElementById('toggleInsider'),
+    short: document.getElementById('toggleShort'),
+    rsi: document.getElementById('toggleRsi'),
+    pe: document.getElementById('togglePe'),
+    mcap: document.getElementById('toggleMcap'),
+    hf: document.getElementById('toggleHf'),
+    beta: document.getElementById('toggleBeta'),
+    vol: document.getElementById('toggleVol'),
+    peg: document.getElementById('togglePeg'),
+    r52: document.getElementById('toggleR52'),
+    score: document.getElementById('toggleScore'),
+    secscore: document.getElementById('toggleSecScore'),
+    riskscore: document.getElementById('toggleRiskScore'),
+    overallscore: document.getElementById('toggleOverallScore'),
+    percentile: document.getElementById('togglePercentile'),
+  };
+  colToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    colToggle.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!colToggle.contains(e.target)) colToggle.classList.remove('open');
+  });
+  Object.entries(colChecks).forEach(([key, input]) => {
+    input.addEventListener('change', () => {
+      stockTable.classList.toggle('hide-' + key, !input.checked);
+    });
+  });
+
+  attachHeaderSort(sortName, 'name');
+  attachHeaderSort(sortExchange, 'exchange');
+  attachHeaderSort(sortPrice, 'price');
+  attachHeaderSort(sortCons, 'cons');
+  attachHeaderSort(sortRating, 'rating');
+  attachHeaderSort(sortDiv, 'div');
+  attachHeaderSort(sortLow, 'low');
+  attachHeaderSort(sortAvg, 'avg');
+  attachHeaderSort(sortHigh, 'high');
+  attachHeaderSort(sortPct, 'etPct');
+  attachHeaderSort(sortUpsideRatio, 'upsideRatio');
+  attachHeaderSort(sortInsider, 'insNet');
+  attachHeaderSort(sortShort, 'short');
+  attachHeaderSort(sortRsi, 'rsi');
+  attachHeaderSort(sortPe, 'pe');
+  attachHeaderSort(sortMcap, 'mcap');
+  attachHeaderSort(sortHf, 'hfNet');
+  attachHeaderSort(sortBeta, 'beta');
+  attachHeaderSort(sortVol, 'vol');
+  attachHeaderSort(sortPeg, 'peg');
+  attachHeaderSort(sortR52, 'r52');
+  attachHeaderSort(sortSecScore, 'secscore');
+  attachHeaderSort(sortRiskScore, 'riskscore');
+  attachHeaderSort(sortOverallScore, 'overallscore');
+  attachHeaderSort(sortPercentile, 'percentile');
+  attachHeaderSort(sortScore, 'score');
+  attachHeaderSort(sortAlloc, 'allocShare');
+  attachHeaderSort(sortAllocPl, 'allocPl');
+  attachHeaderSort(sortAllocPlShare, 'allocPlShare');
+  attachHeaderSort(sortYhLow, 'yhLow');
+  attachHeaderSort(sortYhAvg, 'yhAvg');
+  attachHeaderSort(sortYhHigh, 'yhHigh');
+  attachHeaderSort(sortYhDiv, 'yhDiv');
+  attachHeaderSort(sortYhPct, 'yhPct');
+  attachHeaderSort(sortYhAlloc, 'yhAllocShare');
+  attachHeaderSort(sortYhAllocPl, 'yhAllocPl');
+  attachHeaderSort(sortYhAllocPlShare, 'yhAllocPlShare');
+  attachHeaderSort(sortMyUnits, 'myUnits');
+  attachHeaderSort(sortMyAvg, 'myAvg');
+  attachHeaderSort(sortMyPl, 'myPl');
+  attachHeaderSort(sortMyPlpct, 'myPlpct');
+  search.addEventListener('input', applyFilters);
+  priceMin.addEventListener('input', applyFilters);
+  priceMax.addEventListener('input', applyFilters);
+
+  updateYahooColumns();
+  updateInsiderColumn();
+  applyCurrencyLabels();
+  updateSourceHighlight();
+  updateComputedPctColumns();
+  updatePctColumn();
+  resetUpsideRangeToFull();
+  applyFilters();
+
+  // Mirror scrollbar above the table (see .table-scroll-top CSS comment) -
+  // its inner div is stretched to match the table's real scrollable width,
+  // and scrolling either bar drives the other.
+  const tableWrapEl = document.querySelector('.table-wrap');
+  const tableScrollTop = document.getElementById('tableScrollTop');
+  const tableScrollTopInner = document.getElementById('tableScrollTopInner');
+  if (tableWrapEl && tableScrollTop && tableScrollTopInner) {
+    let syncingScroll = false;
+    function syncMirrorWidth() {
+      tableScrollTopInner.style.width = stockTable.scrollWidth + 'px';
+    }
+    tableScrollTop.addEventListener('scroll', () => {
+      if (syncingScroll) return;
+      syncingScroll = true;
+      tableWrapEl.scrollLeft = tableScrollTop.scrollLeft;
+      syncingScroll = false;
+    });
+    tableWrapEl.addEventListener('scroll', () => {
+      if (syncingScroll) return;
+      syncingScroll = true;
+      tableScrollTop.scrollLeft = tableWrapEl.scrollLeft;
+      syncingScroll = false;
+    });
+    syncMirrorWidth();
+    new ResizeObserver(syncMirrorWidth).observe(stockTable);
+    window.addEventListener('resize', syncMirrorWidth);
+  }
+
+  // Info-tip bubbles used to be positioned with plain CSS (position:absolute,
+  // right:0) relative to their icon. That works fine for a header floating
+  // freely on the page, but inside .table-wrap (overflow-x:auto, which per
+  // the CSS spec forces overflow-y to compute as auto too) any bubble that
+  // would visually extend past table-wrap's own box gets clipped by IT, not
+  // just by the viewport - patching individual headers with an "open-right"
+  // class was fixing viewport-edge cases one at a time but never this one,
+  // since table-wrap's box can be narrower than the viewport regardless of
+  // scroll position. Fix: position every bubble with JS as position:fixed,
+  // computed fresh relative to the viewport each time it's about to show -
+  // this escapes every ancestor's overflow/clipping entirely, for any icon
+  // anywhere on the page, without needing a class per header.
+  function positionInfoTipBubble(tip) {
+    const bubble = tip.querySelector('.info-tip-bubble');
+    if (!bubble) return;
+    const margin = 8;
+    bubble.style.position = 'fixed';
+    bubble.style.top = '-9999px';
+    bubble.style.left = '0px';
+    bubble.style.right = 'auto';
+    bubble.style.display = 'block';
+    const iconRect = tip.getBoundingClientRect();
+    const bubbleRect = bubble.getBoundingClientRect();
+    let left = iconRect.right - bubbleRect.width;
+    if (left < margin) left = margin;
+    if (left + bubbleRect.width > window.innerWidth - margin) {
+      left = window.innerWidth - margin - bubbleRect.width;
+    }
+    let top = iconRect.bottom + 6;
+    if (top + bubbleRect.height > window.innerHeight - margin) {
+      top = iconRect.top - bubbleRect.height - 6;
+      if (top < margin) top = margin;
+    }
+    bubble.style.left = left + 'px';
+    bubble.style.top = top + 'px';
+    bubble.style.display = '';
+  }
+
+  document.addEventListener('mouseover', (e) => {
+    const tip = e.target.closest && e.target.closest('.info-tip');
+    if (tip) positionInfoTipBubble(tip);
+  });
+  document.addEventListener('focusin', (e) => {
+    const tip = e.target.closest && e.target.closest('.info-tip');
+    if (tip) positionInfoTipBubble(tip);
+  });
+</script>

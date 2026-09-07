@@ -1,0 +1,27 @@
+# Personal/portfolio data - real account holdings, never leave this machine.
+# (all_rows.html/nasdaq-stocks.html are also protected via the git clean
+# filter in .gitattributes - this is a second, independent layer for the
+# raw source files themselves.)
+portfolio_real.tsv
+portfolio_real_tp.tsv
+portfolio_virtual.tsv
+portfolio_tp.tsv
+
+# Real Chrome/Playwright profile directories used for the live eToro login
+# session (SCAN HOLDINGS/SCAN RED) - contain actual account cookies/session
+# tokens/autofill data. Must never be committed under any circumstances.
+.etoro_session/
+.etoro_user_session/
+
+# Local-only settings/state
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+.build_site.lock
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

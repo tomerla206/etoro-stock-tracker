@@ -1,0 +1,22 @@
+No fundamentals_data.tsv found or it's empty - run fundamentals_scan.py first.
+Computed Score for 4318 tickers -> score.tsv
+Computed Secondary Score for 5499 tickers -> secondary_score.tsv
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5786 rows tagged (out of 5786 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 15 rows tagged (out of 15 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 10 rows tagged (out of 10 scraped tickers).
+[merge_insider.py] Insider activity merged: 69 rows tagged (out of 69 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange) merged: 5517 rows tagged (out of 5517 scanned tickers).
+[merge_score.py] Score merged: 4318 rows tagged (out of 4318 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 5499 rows tagged (out of 5499 scored tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 33 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Loaded 6356 tickers
+Getting Yahoo crumb/cookie...
+FUNDAMENTALS SCAN complete: 5517 updated, 839 no data, 0 errors
+Refreshing Price and computing Score (raw data files only)...
+Rebuilding site (build_site.py runs every merge script + reassembles)...

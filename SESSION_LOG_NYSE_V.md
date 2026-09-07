@@ -1,0 +1,27 @@
+# Session Log — NYSE Letter V (44 tickers)
+
+- 2026-08-27: Started immediately after completing U in the same session. Login stayed fresh throughout the whole session (S2+T1+T2+U, ~240 tickers); market went to real "Off-hours"/"Market Closed" state partway through (confirmed via label, not a login block).
+- Verified via `grep '^V' nyse_data.tsv | sort`: 44 tickers, V through VZ. No split needed.
+- Next ticker to resume from: V.
+- Re-verified login fresh before starting (AAPL 314.00, Off-hours label, Trade disabled:false x2).
+- Checkpoint after 4/44 tickers: V, VAC, VAL.US. V bare ticker verified, no routing quirk. No new NOFAQ. No blocks. Batch pause taken.
+- Next ticker to resume from: VALE.
+- Completed VALE (5/44: V, VAC, VAL.US, VALE). 
+- **BLOCK ENCOUNTERED** while processing VEEV (6th ticker): eToro research page (https://www.etoro.com/markets/veev/research) rendered in a LOGGED-OUT state — top nav shows "Login / Sign up" instead of authenticated UI, price line reads "Delayed prices by NASDAQ" (not "Off-hours"/"Market Closed" as seen all session), and the "Trade" button is entirely absent, replaced by "Invest in VEEV" signup CTA. Re-checked reference ticker AAPL (https://www.etoro.com/markets/aapl/research) to confirm — same logged-out signature (Login/Sign up nav, "Delayed prices by NASDAQ", no Trade button). This confirms a genuine session logout/lockout block, not a market-close state.
+- STOPPED IMMEDIATELY per protocol. Did NOT retry, did not attempt re-login, did not bypass. No further tickers processed after VALE.
+- Next ticker to resume from: VEEV (needs full v4 method redo — tipranks widget data was already fetched for VEEV: Low 180.00, Avg 283.36, High 330.00, 15 analysts, Moderate Buy — but eToro price/tradeability was NOT obtained due to the block; will need re-fetching once a fresh session is available).
+- **SESSION HALTED ON BLOCK.** V is at 4/44 confirmed-written (V, VAC, VAL.US, VALE). Resume requires a fresh authenticated eToro session before continuing.
+- 2026-08-27 (new session): Re-verified login fresh via AAPL check (314.01, Off-hours label, Prices by NASDAQ, Trade enabled x2) before doing anything. VEEV redone completely fresh — tipranks data matched pre-block capture exactly (Low 180.00/Avg 283.36/High 330.00, 15 analysts, Moderate Buy); eToro price/tradeability fetched fresh (282.14, TRADEABLE, Off-hours) with NO block this time.
+- Continued cleanly through VET.US, VFC, VG, VGNT, VIA, VICI, VIK, VIPS, VIRT, VIST, VIV.US, VLGDF, VLN, VLO, VLRS — no blocks. Market transitioned from Off-hours to genuine "Market Closed" partway through (real state, confirmed via label on multiple tickers, not a login issue).
+- Routing quirks handled: VET (bare) routes to VeChain crypto coin on eToro — used VET.US suffix for eToro page (works), bare VET for tipranks (has data, matches Vermilion Energy). VIV.US has NOFAQ on tipranks but bare VIV has real data — verified company name match (Telefônica Brasil) via eToro page before using.
+- New NOT_TRADEABLE: VGNT (Versigent Ltd) — Trade button disabled true/true despite OK analyst data (has coverage but not tradeable on eToro). New NOFAQ: VLGDF (Valor Gold Corp, also NOT_TRADEABLE).
+- Checkpoint after 20/44 tickers total (16 done this session: VEEV through VLRS). No blocks encountered this session.
+- Next ticker to resume from: VLTO.
+- Continued through VLTO, VMC, VMI, VMRK, VNO, VNT, VOYA.US, VOYG, VPG, VRT, VRTS, VSH — no blocks. VMRK (Vivmark Residential) name-verified against eToro page before recording (unusual but real REIT ticker). VOYA.US NOFAQ on tipranks but bare VOYA has data — verified name match (Voya Financial Inc) via eToro page.
+- Checkpoint after 32/44 tickers total. No blocks this session.
+- Next ticker to resume from: VST.
+- Continued through VST, VSTS, VSXY, VTEX, VTMX, VTOL — no blocks. Date rolled over to 2026-08-28 mid-session, market went back to real "Off-hours" on VST (new trading day), no login issue.
+- Checkpoint after 38/44 tickers total. No blocks this session.
+- Next ticker to resume from: VTR.
+- Continued through VTR, VTS, VVV.US, VVX, VYX, VZ — no blocks. VVV.US NOFAQ on tipranks but bare VVV has data — verified name match (Valvoline Inc.) via eToro page before recording.
+- **LETTER V COMPLETE: 44/44 tickers.** Completeness audit passed (44/44 both directions vs nyse_data.tsv, no duplicates). No blocks in this whole session (the only block was pre-session, on VEEV, cleared by user re-login before this session started). Totals this session: 1 NOFAQ+NOT_TRADEABLE (VLGDF), 1 NOFAQ-with-data-but-NOT_TRADEABLE-anyway (VGNT — has analyst coverage but Trade button disabled), 0 CVR, 0 other blocks. Several routing quirks handled (VET/VET.US, VIV/VIV.US, VOYA/VOYA.US, VVV/VVV.US — bare ticker has tipranks data, .US suffix needed for eToro page; all name-verified against nyse_data.tsv/eToro displayed name before trusting).

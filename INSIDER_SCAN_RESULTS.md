@@ -1,0 +1,52 @@
+# INSIDER SCAN Results
+
+Tickers checked: 3267 (of 6356 total; 3089 have no US SEC filer)
+
+## Tickers with recent insider activity (47)
+
+### Top net buying
+- LILAK: net $14,397,953 (13 buys, 1 sells)
+- LILA: net $14,397,953 (13 buys, 1 sells)
+- ACDC: net $9,753,790 (10 buys, 0 sells)
+- ABTC: net $1,929,607 (2 buys, 0 sells)
+- LINE: net $1,814,193 (2 buys, 0 sells)
+- ABCL: net $1,545,680 (4 buys, 0 sells)
+- AFCG: net $54,651 (1 buys, 0 sells)
+- ADTN: net $50,000 (1 buys, 0 sells)
+- LIN: net $47,912 (1 buys, 0 sells)
+- KRNY: net $45,153 (1 buys, 0 sells)
+- AAON: net $34,924 (1 buys, 0 sells)
+- LNT: net $-7 (0 buys, 1 sells)
+- LCID: net $-4,800 (0 buys, 1 sells)
+- LOCO: net $-18,766 (0 buys, 2 sells)
+- LQDT: net $-29,508 (0 buys, 2 sells)
+- ABEO: net $-87,966 (0 buys, 1 sells)
+- KRT: net $-308,485 (0 buys, 2 sells)
+- LIVN: net $-339,480 (0 buys, 2 sells)
+- ACTG: net $-348,360 (0 buys, 4 sells)
+- KRRO: net $-353,847 (2 buys, 6 sells)
+
+### Top net selling
+- ABNB: net $-220,935,624 (0 buys, 63 sells)
+- LFST: net $-152,533,874 (0 buys, 7 sells)
+- LITE: net $-51,892,970 (0 buys, 49 sells)
+- ACT: net $-34,945,442 (0 buys, 2 sells)
+- LRCX: net $-27,918,670 (0 buys, 5 sells)
+- KIDS: net $-26,638,863 (0 buys, 16 sells)
+- LIFE: net $-22,014,873 (0 buys, 37 sells)
+- LAUR: net $-19,102,658 (0 buys, 3 sells)
+- ADPT: net $-19,091,215 (0 buys, 11 sells)
+- LASR: net $-17,209,647 (0 buys, 8 sells)
+- LQDA: net $-15,165,431 (0 buys, 7 sells)
+- LIF: net $-14,755,677 (0 buys, 7 sells)
+- LGND: net $-11,331,291 (0 buys, 2 sells)
+- AEIS: net $-8,379,842 (0 buys, 20 sells)
+- LNWO: net $-7,522,772 (0 buys, 7 sells)
+- AFRM: net $-6,086,351 (0 buys, 4 sells)
+- ACMR: net $-4,670,641 (0 buys, 6 sells)
+- ADP: net $-2,983,870 (0 buys, 4 sells)
+- LOB: net $-2,940,328 (0 buys, 10 sells)
+- AAPL: net $-1,788,965 (0 buys, 4 sells)
+
+## Errors (0)
+

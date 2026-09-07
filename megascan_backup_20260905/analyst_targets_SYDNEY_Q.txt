@@ -1,0 +1,2 @@
+QAN.ASX	Qantas Airways Limited	9.55	11.50	12.09	12.80	OK	TRADEABLE
+QBE.ASX	QBE Insurance Group Limited	21.95	27.20	27.25	27.30	OK	TRADEABLE
