@@ -1,10 +1,10 @@
 SOURCE: MEGASCAN_YAHOO_LOG.md
 # MEGASCAN YAHOO progress
 
-Done: 150 / 915
+Done: 200 / 915
 
-Elapsed: 3.2 min | Rate: 0.79/s | ETA: 16.1 min
+Elapsed: 4.1 min | Rate: 0.81/s | ETA: 14.7 min
 
 Updated: 0
-No data: 150
+No data: 200
 Errors: 0
