@@ -1,5 +1,5 @@
 """
-COMPUTE SECONDARY SCORE - a second, separate 0-10 score built from 11 "extra"
+COMPUTE SECONDARY SCORE - a second, separate 0-10 score built from 18 "extra"
 metrics that were each deliberately excluded from the main Score because none
 of them has a clean, universal bullish/bearish direction on its own (P/E is
 sector-dependent, Hedge Fund Activity's sample is only the ~3 default-shown
@@ -30,6 +30,29 @@ picture without displacing the main Score's more analyst/market-facing ones):
                            (forward P/E below trailing) or deteriorate
                            (forward P/E above trailing), from
                            fundamentals_data.tsv/Yahoo's defaultKeyStatistics
+  12. P/B (Price-to-Book) - cheap/expensive vs. net asset value, a value
+                           metric distinct from earnings-based P/E, from
+                           fundamentals_data.tsv/Yahoo's defaultKeyStatistics
+  13. EV/EBITDA           - valuation multiple that accounts for debt/cash on
+                           the balance sheet, fairer across different capital
+                           structures than P/E, from fundamentals_data.tsv/
+                           Yahoo's defaultKeyStatistics
+  14. EV/Revenue          - valuation multiple that still works when both
+                           earnings AND EBITDA are negative, from
+                           fundamentals_data.tsv/Yahoo's defaultKeyStatistics
+  15. Dividend Payout Ratio - % of earnings paid as dividends - a sweet-spot
+                           signal (too high risks a future dividend cut), from
+                           fundamentals_data.tsv/Yahoo's summaryDetail
+  16. EBITDA Margin        - profitability before financing/tax/D&A choices,
+                           from fundamentals_data.tsv/Yahoo's financialData
+  17. Cash-to-Market-Cap   - balance-sheet cash cushion already on hand
+                           (distinct from FCF Yield's ongoing generation
+                           rate), from fundamentals_data.tsv/Yahoo's
+                           financialData
+  18. OCF Margin           - operating cash flow / revenue, a cash-quality
+                           check distinct from FCF Yield (nets out capex) and
+                           Profit Margin (accounting, not cash), from
+                           fundamentals_data.tsv/Yahoo's financialData
 
 This is explicitly a WEAKER heuristic than the main Score - combining
 individually-shaky signals doesn't make them reliable, just averaged. It is
@@ -37,14 +60,16 @@ kept as a fully separate score (not blended into the main Score) so neither
 one's meaning gets diluted - see the Secondary Score column's own tooltip.
 
 Same design as the main Score: each signal is 0-2 points (missing data get a
-neutral 1.0 rather than being excluded), summed to 0-22 raw, then scaled to
-0-10 (raw * 10/22) so it reads on the same scale as the main Score. A
-Confidence count (X/11) is tracked the same way too.
+neutral 1.0 rather than being excluded), summed to 0-36 raw, then scaled to
+0-10 (raw * 10/36) so it reads on the same scale as the main Score. A
+Confidence count (X/18) is tracked the same way too.
 
 Run: python compute_secondary_score.py
 Result: secondary_score.tsv (TICKER, score, pe_pts, hf_pts, vol_pts, eps_trend_pts,
 margin_pts, growth_pts, gross_margin_pts, op_margin_pts, fcf_yield_pts,
-coverage_pts, fwd_pe_pts, confidence). A raw data file only - does NOT merge into
+coverage_pts, fwd_pe_pts, pb_pts, ev_ebitda_pts, ev_revenue_pts, payout_pts,
+ebitda_margin_pts, cash_mcap_pts, ocf_margin_pts, confidence). A raw data file
+only - does NOT merge into
 all_rows.html itself; the caller should call build_site.py once after all of a
 scan run's raw-data writes are done (see build_site.py's docstring for why
 merging is centralized there).
@@ -62,7 +87,7 @@ def load_fundamentals():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 32:
+        if len(parts) != 45:
             continue
 
         def f(v):
@@ -78,6 +103,10 @@ def load_fundamentals():
             "gross_margins": f(parts[26]), "operating_margins": f(parts[27]),
             "fcf_yield": f(parts[28]), "num_analyst_opinions": f(parts[30]),
             "forward_pe": f(parts[31]),
+            "price_to_book": f(parts[32]), "ev_to_ebitda": f(parts[33]),
+            "payout_ratio": f(parts[34]), "ev_to_revenue": f(parts[38]),
+            "ebitda_margins": f(parts[39]), "cash_to_mcap": f(parts[40]),
+            "ocf_margin": f(parts[41]),
         }
     return data
 
@@ -291,6 +320,139 @@ def score_forward_pe(pe, forward_pe):
     return 0.0
 
 
+def score_price_to_book(pb):
+    """Price / book value per share - classic value metric, cheap/expensive
+    rule of thumb like P/E but against net asset value instead of earnings.
+    Negative book value (more liabilities than assets) is graded neutral,
+    same reasoning as negative P/E - the ratio isn't meaningful there."""
+    if pb is None:
+        return None
+    if pb < 0:
+        return 1.0
+    if pb < 1.0:
+        return 2.0
+    if pb < 3.0:
+        return 1.5
+    if pb < 6.0:
+        return 1.0
+    if pb < 10.0:
+        return 0.5
+    return 0.0
+
+
+def score_ev_to_ebitda(ev_ebitda):
+    """Enterprise Value / EBITDA - a valuation multiple that (unlike P/E)
+    accounts for debt and cash on the balance sheet, so it's fairer when
+    comparing companies with very different capital structures. Negative
+    EBITDA (operating losses) is graded neutral - ratio not meaningful."""
+    if ev_ebitda is None:
+        return None
+    if ev_ebitda < 0:
+        return 1.0
+    if ev_ebitda < 8:
+        return 2.0
+    if ev_ebitda < 14:
+        return 1.5
+    if ev_ebitda < 20:
+        return 1.0
+    if ev_ebitda < 30:
+        return 0.5
+    return 0.0
+
+
+def score_ev_to_revenue(ev_revenue):
+    """Enterprise Value / Revenue - the valuation multiple that still works
+    when a company has negative earnings AND negative EBITDA (common for
+    early-stage growth companies where neither P/E nor EV/EBITDA apply)."""
+    if ev_revenue is None:
+        return None
+    if ev_revenue < 0:
+        return 1.0
+    if ev_revenue < 2:
+        return 2.0
+    if ev_revenue < 5:
+        return 1.5
+    if ev_revenue < 10:
+        return 1.0
+    if ev_revenue < 20:
+        return 0.5
+    return 0.0
+
+
+def score_payout_ratio(payout_ratio):
+    """% of earnings paid out as dividends. A SWEET SPOT, not "higher is
+    better": near 0 means no dividend (not necessarily bad, but nothing to
+    reward here), a moderate payout is sustainable, and a payout above 100%
+    means the company is paying out more than it earns - a dividend cut risk."""
+    if payout_ratio is None:
+        return None
+    pct = payout_ratio * 100
+    if pct <= 0:
+        return 1.0
+    if pct < 60:
+        return 2.0
+    if pct < 80:
+        return 1.5
+    if pct < 100:
+        return 1.0
+    return 0.0
+
+
+def score_ebitda_margin(ebitda_margins):
+    """Yahoo's raw value is a fraction. EBITDA margin sits between Gross and
+    Operating margin - profitability before the effect of financing/tax
+    decisions AND before depreciation/amortization choices."""
+    if ebitda_margins is None:
+        return None
+    pct = ebitda_margins * 100
+    if pct > 35:
+        return 2.0
+    if pct > 20:
+        return 1.5
+    if pct > 10:
+        return 1.0
+    if pct > 0:
+        return 0.5
+    return 0.0
+
+
+def score_cash_to_mcap(cash_to_mcap):
+    """Already a percentage (total cash / market cap * 100, computed in
+    fundamentals_scan.py). A balance-sheet cushion signal distinct from FCF
+    Yield - this is the stockpile already on hand, not the ongoing rate of
+    cash generation."""
+    if cash_to_mcap is None:
+        return None
+    if cash_to_mcap > 20:
+        return 2.0
+    if cash_to_mcap > 10:
+        return 1.5
+    if cash_to_mcap > 5:
+        return 1.0
+    if cash_to_mcap > 1:
+        return 0.5
+    return 0.0
+
+
+def score_ocf_margin(ocf_margin):
+    """Already a percentage (operating cash flow / revenue * 100, computed
+    in fundamentals_scan.py). A cash-quality check distinct from FCF Yield
+    (which nets out capex) and Profit Margin (accounting profit, not cash) -
+    catches a company reporting healthy profit that isn't actually
+    collecting the cash behind it."""
+    if ocf_margin is None:
+        return None
+    if ocf_margin > 25:
+        return 2.0
+    if ocf_margin > 15:
+        return 1.5
+    if ocf_margin > 5:
+        return 1.0
+    if ocf_margin > 0:
+        return 0.5
+    return 0.0
+
+
 def score_volume(volume_ratio, price_change_pct):
     if volume_ratio is None:
         return None
@@ -327,11 +489,20 @@ def main():
         fcf_yield_pts_raw = score_fcf_yield(fnd.get("fcf_yield"))
         coverage_pts_raw = score_analyst_coverage(fnd.get("num_analyst_opinions"))
         fwd_pe_pts_raw = score_forward_pe(fnd.get("pe"), fnd.get("forward_pe"))
+        pb_pts_raw = score_price_to_book(fnd.get("price_to_book"))
+        ev_ebitda_pts_raw = score_ev_to_ebitda(fnd.get("ev_to_ebitda"))
+        ev_revenue_pts_raw = score_ev_to_revenue(fnd.get("ev_to_revenue"))
+        payout_pts_raw = score_payout_ratio(fnd.get("payout_ratio"))
+        ebitda_margin_pts_raw = score_ebitda_margin(fnd.get("ebitda_margins"))
+        cash_mcap_pts_raw = score_cash_to_mcap(fnd.get("cash_to_mcap"))
+        ocf_margin_pts_raw = score_ocf_margin(fnd.get("ocf_margin"))
 
         confidence = sum(
             x is not None for x in
             (pe_pts_raw, hf_pts_raw, vol_pts_raw, eps_trend_pts_raw, margin_pts_raw, growth_pts_raw,
-             gross_margin_pts_raw, op_margin_pts_raw, fcf_yield_pts_raw, coverage_pts_raw, fwd_pe_pts_raw)
+             gross_margin_pts_raw, op_margin_pts_raw, fcf_yield_pts_raw, coverage_pts_raw, fwd_pe_pts_raw,
+             pb_pts_raw, ev_ebitda_pts_raw, ev_revenue_pts_raw, payout_pts_raw,
+             ebitda_margin_pts_raw, cash_mcap_pts_raw, ocf_margin_pts_raw)
         )
         if confidence == 0:
             continue  # nothing at all to go on for this ticker - skip rather than show an all-neutral 5.0
@@ -347,22 +518,37 @@ def main():
         fcf_yield_pts = fcf_yield_pts_raw if fcf_yield_pts_raw is not None else 1.0
         coverage_pts = coverage_pts_raw if coverage_pts_raw is not None else 1.0
         fwd_pe_pts = fwd_pe_pts_raw if fwd_pe_pts_raw is not None else 1.0
+        pb_pts = pb_pts_raw if pb_pts_raw is not None else 1.0
+        ev_ebitda_pts = ev_ebitda_pts_raw if ev_ebitda_pts_raw is not None else 1.0
+        ev_revenue_pts = ev_revenue_pts_raw if ev_revenue_pts_raw is not None else 1.0
+        payout_pts = payout_pts_raw if payout_pts_raw is not None else 1.0
+        ebitda_margin_pts = ebitda_margin_pts_raw if ebitda_margin_pts_raw is not None else 1.0
+        cash_mcap_pts = cash_mcap_pts_raw if cash_mcap_pts_raw is not None else 1.0
+        ocf_margin_pts = ocf_margin_pts_raw if ocf_margin_pts_raw is not None else 1.0
 
         raw_total = (pe_pts + hf_pts + vol_pts + eps_trend_pts + margin_pts + growth_pts
-                     + gross_margin_pts + op_margin_pts + fcf_yield_pts + coverage_pts + fwd_pe_pts)
-        total = raw_total * 10 / 22
+                     + gross_margin_pts + op_margin_pts + fcf_yield_pts + coverage_pts + fwd_pe_pts
+                     + pb_pts + ev_ebitda_pts + ev_revenue_pts + payout_pts
+                     + ebitda_margin_pts + cash_mcap_pts + ocf_margin_pts)
+        total = raw_total * 10 / 36
 
         rows.append((ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts,
-                     gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts, confidence))
+                     gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts,
+                     pb_pts, ev_ebitda_pts, ev_revenue_pts, payout_pts, ebitda_margin_pts,
+                     cash_mcap_pts, ocf_margin_pts, confidence))
 
     with open(ROOT / "secondary_score.tsv", "w", encoding="utf-8") as f:
         for (ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts,
-             gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts, confidence) in rows:
+             gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts,
+             pb_pts, ev_ebitda_pts, ev_revenue_pts, payout_pts, ebitda_margin_pts,
+             cash_mcap_pts, ocf_margin_pts, confidence) in rows:
             f.write(
                 f"{ticker}\t{total:.1f}\t{pe_pts:.1f}\t{hf_pts:.1f}\t{vol_pts:.1f}\t"
                 f"{eps_trend_pts:.1f}\t{margin_pts:.1f}\t{growth_pts:.1f}\t"
                 f"{gross_margin_pts:.1f}\t{op_margin_pts:.1f}\t{fcf_yield_pts:.1f}\t"
-                f"{coverage_pts:.1f}\t{fwd_pe_pts:.1f}\t{confidence}\n"
+                f"{coverage_pts:.1f}\t{fwd_pe_pts:.1f}\t{pb_pts:.1f}\t{ev_ebitda_pts:.1f}\t"
+                f"{ev_revenue_pts:.1f}\t{payout_pts:.1f}\t{ebitda_margin_pts:.1f}\t"
+                f"{cash_mcap_pts:.1f}\t{ocf_margin_pts:.1f}\t{confidence}\n"
             )
 
     print(f"Computed Secondary Score for {len(rows)} tickers -> secondary_score.tsv")

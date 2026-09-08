@@ -12,7 +12,7 @@ def load_fundamentals():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 32:
+                if len(parts) != 45:
                     continue
                 data[parts[0]] = {
                     "short_pct": parts[1], "beta": parts[2], "pe": parts[3], "rsi14": parts[4],
@@ -25,6 +25,13 @@ def load_fundamentals():
                     "gross_margins": parts[26], "operating_margins": parts[27],
                     "fcf_yield": parts[28], "held_pct_insiders": parts[29],
                     "num_analyst_opinions": parts[30], "forward_pe": parts[31],
+                    "price_to_book": parts[32], "ev_to_ebitda": parts[33],
+                    "payout_ratio": parts[34], "eps_growth_5y": parts[35],
+                    "relative_strength_52w": parts[36],
+                    "short_interest_trend_pct": parts[37], "ev_to_revenue": parts[38],
+                    "ebitda_margins": parts[39], "cash_to_mcap": parts[40],
+                    "ocf_margin": parts[41], "earnings_quarterly_growth": parts[42],
+                    "eps_growth_next_year": parts[43], "float_pct": parts[44],
                 }
     except FileNotFoundError:
         pass
@@ -281,6 +288,139 @@ def fwd_pe_class(pe, forward_pe):
     return "grade-vbad"
 
 
+def price_to_book_class(pb):
+    """Same buckets as score_price_to_book() in compute_secondary_score.py."""
+    v = float(pb)
+    if v < 0:
+        return "grade-mid"
+    if v < 1.0:
+        return "grade-vgood"
+    if v < 3.0:
+        return "grade-good"
+    if v < 6.0:
+        return "grade-mid"
+    if v < 10.0:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def ev_to_ebitda_class(v):
+    """Same buckets as score_ev_to_ebitda() in compute_secondary_score.py."""
+    v = float(v)
+    if v < 0:
+        return "grade-mid"
+    if v < 8:
+        return "grade-vgood"
+    if v < 14:
+        return "grade-good"
+    if v < 20:
+        return "grade-mid"
+    if v < 30:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def ev_to_revenue_class(v):
+    """Same buckets as score_ev_to_revenue() in compute_secondary_score.py."""
+    v = float(v)
+    if v < 0:
+        return "grade-mid"
+    if v < 2:
+        return "grade-vgood"
+    if v < 5:
+        return "grade-good"
+    if v < 10:
+        return "grade-mid"
+    if v < 20:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def payout_ratio_class(pct):
+    """Same SWEET-SPOT shape as score_payout_ratio() in compute_secondary_score.py."""
+    v = float(pct)
+    if v <= 0:
+        return "grade-mid"
+    if v < 60:
+        return "grade-vgood"
+    if v < 80:
+        return "grade-good"
+    if v < 100:
+        return "grade-mid"
+    return "grade-vbad"
+
+
+def ebitda_margin_class(pct):
+    """Same buckets as score_ebitda_margin() in compute_secondary_score.py."""
+    v = float(pct)
+    if v > 35:
+        return "grade-vgood"
+    if v > 20:
+        return "grade-good"
+    if v > 10:
+        return "grade-mid"
+    if v > 0:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def cash_to_mcap_class(pct):
+    """Same buckets as score_cash_to_mcap() in compute_secondary_score.py."""
+    v = float(pct)
+    if v > 20:
+        return "grade-vgood"
+    if v > 10:
+        return "grade-good"
+    if v > 5:
+        return "grade-mid"
+    if v > 1:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def ocf_margin_class(pct):
+    """Same buckets as score_ocf_margin() in compute_secondary_score.py."""
+    v = float(pct)
+    if v > 25:
+        return "grade-vgood"
+    if v > 15:
+        return "grade-good"
+    if v > 5:
+        return "grade-mid"
+    if v > 0:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def relative_strength_class(pct):
+    """Same buckets as score_relative_strength() in compute_score.py."""
+    v = float(pct)
+    if v > 20:
+        return "grade-vgood"
+    if v > 5:
+        return "grade-good"
+    if v > -5:
+        return "grade-mid"
+    if v > -20:
+        return "grade-bad"
+    return "grade-vbad"
+
+
+def growth_pct_class(pct):
+    """Same buckets as score_growth_pct() in compute_growth_score.py - shared
+    shape for all three Growth Score inputs (quarterly/next-year/5-year)."""
+    v = float(pct)
+    if v > 20:
+        return "grade-vgood"
+    if v > 10:
+        return "grade-good"
+    if v > 0:
+        return "grade-mid"
+    if v > -10:
+        return "grade-bad"
+    return "grade-vbad"
+
+
 def volume_class(ratio, price_change_pct):
     """Unlike Short/RSI/P-E, volume alone has no direction - a spike can
     accompany either a rally or a selloff. Only graded when there's an
@@ -327,6 +467,19 @@ def main():
         tr_open = re.sub(r'\s*data-fcfyield="[^"]*"', "", tr_open)
         tr_open = re.sub(r'\s*data-coverage="[^"]*"', "", tr_open)
         tr_open = re.sub(r'\s*data-fwdpe="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-pb="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-evebitda="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-evrevenue="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-payout="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-ebitdamargin="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-cashmcap="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-ocfmargin="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-relstrength="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-shortinttrend="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-floatpct="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-epsgrowth5y="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-epsgrowthnextyear="[^"]*"', "", tr_open)
+        tr_open = re.sub(r'\s*data-earningsqgrowth="[^"]*"', "", tr_open)
         d = data.get(ticker)
         if not d:
             return tr_open
@@ -350,6 +503,19 @@ def main():
         fcf_yield = fnum(d["fcf_yield"], 1) if d["fcf_yield"] not in (None, "None") else ""
         coverage = fnum(d["num_analyst_opinions"], 0) if d["num_analyst_opinions"] not in (None, "None") else ""
         forward_pe = fnum(d["forward_pe"], 1) if d["forward_pe"] not in (None, "None") else ""
+        price_to_book = fnum(d["price_to_book"], 2) if d["price_to_book"] not in (None, "None") else ""
+        ev_to_ebitda = fnum(d["ev_to_ebitda"], 1) if d["ev_to_ebitda"] not in (None, "None") else ""
+        ev_to_revenue = fnum(d["ev_to_revenue"], 1) if d["ev_to_revenue"] not in (None, "None") else ""
+        payout_ratio = fnum(float(d["payout_ratio"]) * 100, 1) if d["payout_ratio"] not in (None, "None") else ""
+        ebitda_margin = fnum(float(d["ebitda_margins"]) * 100, 1) if d["ebitda_margins"] not in (None, "None") else ""
+        cash_to_mcap = fnum(d["cash_to_mcap"], 1) if d["cash_to_mcap"] not in (None, "None") else ""
+        ocf_margin = fnum(d["ocf_margin"], 1) if d["ocf_margin"] not in (None, "None") else ""
+        relative_strength = fnum(d["relative_strength_52w"], 1) if d["relative_strength_52w"] not in (None, "None") else ""
+        short_int_trend = fnum(d["short_interest_trend_pct"], 1) if d["short_interest_trend_pct"] not in (None, "None") else ""
+        float_pct = fnum(d["float_pct"], 1) if d["float_pct"] not in (None, "None") else ""
+        eps_growth_5y = fnum(float(d["eps_growth_5y"]) * 100, 1) if d["eps_growth_5y"] not in (None, "None") else ""
+        eps_growth_next_year = fnum(float(d["eps_growth_next_year"]) * 100, 1) if d["eps_growth_next_year"] not in (None, "None") else ""
+        earnings_q_growth = fnum(float(d["earnings_quarterly_growth"]) * 100, 1) if d["earnings_quarterly_growth"] not in (None, "None") else ""
         attrs = (
             f' data-short="{esc(short_pct)}" data-rsi="{esc(rsi)}" data-pe="{esc(pe)}"'
             f' data-mcap="{esc(mcap_raw)}" data-beta="{esc(beta)}" data-vol="{esc(vol_ratio)}"'
@@ -358,6 +524,12 @@ def main():
             f' data-quickratio="{esc(quick_ratio)}" data-roa="{esc(roa)}" data-heldinsiders="{esc(held_insiders)}"'
             f' data-grossmargin="{esc(gross_margin)}" data-opmargin="{esc(op_margin)}"'
             f' data-fcfyield="{esc(fcf_yield)}" data-coverage="{esc(coverage)}" data-fwdpe="{esc(forward_pe)}"'
+            f' data-pb="{esc(price_to_book)}" data-evebitda="{esc(ev_to_ebitda)}" data-evrevenue="{esc(ev_to_revenue)}"'
+            f' data-payout="{esc(payout_ratio)}" data-ebitdamargin="{esc(ebitda_margin)}"'
+            f' data-cashmcap="{esc(cash_to_mcap)}" data-ocfmargin="{esc(ocf_margin)}"'
+            f' data-relstrength="{esc(relative_strength)}" data-shortinttrend="{esc(short_int_trend)}"'
+            f' data-floatpct="{esc(float_pct)}" data-epsgrowth5y="{esc(eps_growth_5y)}"'
+            f' data-epsgrowthnextyear="{esc(eps_growth_next_year)}" data-earningsqgrowth="{esc(earnings_q_growth)}"'
         )
         return tr_open[:-1] + attrs + ">"
 
@@ -525,6 +697,108 @@ def main():
                 f'<td class="fwdpe-cell col-fwdpe {cls}">{esc(forward_pe)}</td>',
                 full_tr, count=1,
             )
+        price_to_book = fnum(d["price_to_book"], 2) if d["price_to_book"] not in (None, "None") else None
+        if price_to_book is not None:
+            cls = price_to_book_class(price_to_book)
+            full_tr = re.sub(
+                r'<td class="pb-cell col-pb[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="pb-cell col-pb {cls}">{esc(price_to_book)}</td>',
+                full_tr, count=1,
+            )
+        ev_to_ebitda = fnum(d["ev_to_ebitda"], 1) if d["ev_to_ebitda"] not in (None, "None") else None
+        if ev_to_ebitda is not None:
+            cls = ev_to_ebitda_class(ev_to_ebitda)
+            full_tr = re.sub(
+                r'<td class="evebitda-cell col-evebitda[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="evebitda-cell col-evebitda {cls}">{esc(ev_to_ebitda)}</td>',
+                full_tr, count=1,
+            )
+        ev_to_revenue = fnum(d["ev_to_revenue"], 1) if d["ev_to_revenue"] not in (None, "None") else None
+        if ev_to_revenue is not None:
+            cls = ev_to_revenue_class(ev_to_revenue)
+            full_tr = re.sub(
+                r'<td class="evrevenue-cell col-evrevenue[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="evrevenue-cell col-evrevenue {cls}">{esc(ev_to_revenue)}</td>',
+                full_tr, count=1,
+            )
+        payout_ratio = fnum(float(d["payout_ratio"]) * 100, 1) if d["payout_ratio"] not in (None, "None") else None
+        if payout_ratio is not None:
+            cls = payout_ratio_class(payout_ratio)
+            full_tr = re.sub(
+                r'<td class="payout-cell col-payout[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="payout-cell col-payout {cls}">{esc(payout_ratio)}%</td>',
+                full_tr, count=1,
+            )
+        ebitda_margin = fnum(float(d["ebitda_margins"]) * 100, 1) if d["ebitda_margins"] not in (None, "None") else None
+        if ebitda_margin is not None:
+            cls = ebitda_margin_class(ebitda_margin)
+            full_tr = re.sub(
+                r'<td class="ebitdamargin-cell col-ebitdamargin[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="ebitdamargin-cell col-ebitdamargin {cls}">{esc(ebitda_margin)}%</td>',
+                full_tr, count=1,
+            )
+        cash_to_mcap = fnum(d["cash_to_mcap"], 1) if d["cash_to_mcap"] not in (None, "None") else None
+        if cash_to_mcap is not None:
+            cls = cash_to_mcap_class(cash_to_mcap)
+            full_tr = re.sub(
+                r'<td class="cashmcap-cell col-cashmcap[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="cashmcap-cell col-cashmcap {cls}">{esc(cash_to_mcap)}%</td>',
+                full_tr, count=1,
+            )
+        ocf_margin = fnum(d["ocf_margin"], 1) if d["ocf_margin"] not in (None, "None") else None
+        if ocf_margin is not None:
+            cls = ocf_margin_class(ocf_margin)
+            full_tr = re.sub(
+                r'<td class="ocfmargin-cell col-ocfmargin[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="ocfmargin-cell col-ocfmargin {cls}">{esc(ocf_margin)}%</td>',
+                full_tr, count=1,
+            )
+        relative_strength = fnum(d["relative_strength_52w"], 1) if d["relative_strength_52w"] not in (None, "None") else None
+        if relative_strength is not None:
+            cls = relative_strength_class(relative_strength)
+            full_tr = re.sub(
+                r'<td class="relstrength-cell col-relstrength[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="relstrength-cell col-relstrength {cls}">{esc(relative_strength)}%</td>',
+                full_tr, count=1,
+            )
+        short_int_trend = fnum(d["short_interest_trend_pct"], 1) if d["short_interest_trend_pct"] not in (None, "None") else None
+        if short_int_trend is not None:
+            full_tr = re.sub(
+                r'<td class="shortinttrend-cell col-shortinttrend[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="shortinttrend-cell col-shortinttrend">{esc(short_int_trend)}%</td>',
+                full_tr, count=1,
+            )
+        float_pct = fnum(d["float_pct"], 1) if d["float_pct"] not in (None, "None") else None
+        if float_pct is not None:
+            full_tr = re.sub(
+                r'<td class="floatpct-cell col-floatpct[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="floatpct-cell col-floatpct">{esc(float_pct)}%</td>',
+                full_tr, count=1,
+            )
+        eps_growth_5y = fnum(float(d["eps_growth_5y"]) * 100, 1) if d["eps_growth_5y"] not in (None, "None") else None
+        if eps_growth_5y is not None:
+            cls = growth_pct_class(eps_growth_5y)
+            full_tr = re.sub(
+                r'<td class="epsgrowth5y-cell col-epsgrowth5y[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="epsgrowth5y-cell col-epsgrowth5y {cls}">{esc(eps_growth_5y)}%</td>',
+                full_tr, count=1,
+            )
+        eps_growth_next_year = fnum(float(d["eps_growth_next_year"]) * 100, 1) if d["eps_growth_next_year"] not in (None, "None") else None
+        if eps_growth_next_year is not None:
+            cls = growth_pct_class(eps_growth_next_year)
+            full_tr = re.sub(
+                r'<td class="epsgrowthnextyear-cell col-epsgrowthnextyear[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="epsgrowthnextyear-cell col-epsgrowthnextyear {cls}">{esc(eps_growth_next_year)}%</td>',
+                full_tr, count=1,
+            )
+        earnings_q_growth = fnum(float(d["earnings_quarterly_growth"]) * 100, 1) if d["earnings_quarterly_growth"] not in (None, "None") else None
+        if earnings_q_growth is not None:
+            cls = growth_pct_class(earnings_q_growth)
+            full_tr = re.sub(
+                r'<td class="earningsqgrowth-cell col-earningsqgrowth[^"]*"[^>]*>[^<]*</td>',
+                f'<td class="earningsqgrowth-cell col-earningsqgrowth {cls}">{esc(earnings_q_growth)}%</td>',
+                full_tr, count=1,
+            )
         return full_tr
 
     html = re.sub(r'<tr data-ticker="([^"]+)"[^>]*>.*?</tr>', repl_cells, html)
@@ -533,7 +807,9 @@ def main():
         f.write(html)
 
     print(f"Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/"
-          f"QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE) "
+          f"QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/"
+          f"P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/"
+          f"ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) "
           f"merged: {matched} rows tagged (out of {len(data)} scanned tickers).")
 
 

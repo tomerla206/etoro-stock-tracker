@@ -154,7 +154,8 @@ def main():
     print("Refreshing Price and computing Score (raw data files only)...")
     for script in (
         "update_price.py", "compute_score.py", "compute_secondary_score.py",
-        "compute_risk_score.py", "compute_overall_score.py", "compute_score_percentile.py",
+        "compute_risk_score.py", "compute_growth_score.py", "compute_overall_score.py",
+        "compute_score_percentile.py",
     ):
         subprocess.run([sys.executable, script], cwd=ROOT, check=False)
 

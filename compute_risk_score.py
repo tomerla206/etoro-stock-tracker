@@ -3,7 +3,7 @@ COMPUTE RISK SCORE - a THIRD, separate 0-10 score, different in kind from
 Score and Secondary Score: those measure "quality" (bullish vs bearish).
 This measures "volatility/instability" (calm vs wild) - an axis where
 neither end is inherently good or bad, just a different risk profile. Built
-from 5 metrics that individually have no bullish/bearish direction (so none
+from 7 metrics that individually have no bullish/bearish direction (so none
 of them could ever join the main Score or Secondary Score), but DO share a
 common theme - see the column's own tooltip for the reasoning the user asked
 for directly ("can directionless things be combined into a score?").
@@ -26,17 +26,23 @@ for directly ("can directionless things be combined into a score?").
      (short squeeze)    needed to close all short positions - a high value
                         means a short squeeze could move the price sharply in
                         EITHER direction if shorts are forced to cover
+  6. Short Interest Trend - magnitude of change in shares short vs. a month
+     (magnitude only)     ago, regardless of direction - a rapidly RISING
+                        short interest means building tension either way
+  7. Float %           - how much of the share count is actually freely
+     (inverted)          tradeable - a SMALL float means the same buy/sell
+                        pressure moves the price much more, regardless of
+                        direction
 
 Same design as the other two scores: each signal 0-2 points (missing data
-gets neutral 1.0), summed to 0-10 raw (which already lands on the 0-10 scale
-directly, unlike Secondary Score's 0-8), with an X/5 confidence count. HIGHER
-= more volatile/unstable, not "worse" - read this score as a risk-tolerance
-filter, not a quality signal.
+gets neutral 1.0), summed to 0-14 raw, scaled to 0-10 (raw * 10/14), with an
+X/7 confidence count. HIGHER = more volatile/unstable, not "worse" - read
+this score as a risk-tolerance filter, not a quality signal.
 
 Run: python compute_risk_score.py
 Result: risk_score.tsv (TICKER, score, beta_pts, range_pts, vol_pts, debt_pts,
-dtc_pts, confidence). A raw data file only - does NOT merge into all_rows.html
-itself; the caller should call build_site.py once after all of a scan run's
+dtc_pts, short_trend_pts, float_pts, confidence). A raw data file only - does
+NOT merge into all_rows.html itself; the caller should call build_site.py once after all of a scan run's
 raw-data writes are done (see build_site.py's docstring for why merging is
 centralized there).
 """
@@ -53,7 +59,7 @@ def load_fundamentals():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 32:
+        if len(parts) != 45:
             continue
 
         def f(v):
@@ -65,6 +71,7 @@ def load_fundamentals():
         data[parts[0]] = {
             "beta": f(parts[2]), "range52_pos": f(parts[13]), "volume_ratio": f(parts[10]),
             "debt_to_equity": f(parts[14]), "short_ratio": f(parts[15]),
+            "short_interest_trend_pct": f(parts[37]), "float_pct": f(parts[44]),
         }
     return data
 
@@ -149,6 +156,42 @@ def score_days_to_cover_risk(short_ratio):
     return 2.0
 
 
+def score_short_interest_trend_risk(short_interest_trend_pct):
+    """Whether the raw short-share count grew or shrank vs. a month ago -
+    magnitude only, direction doesn't matter for instability (a rapidly
+    RISING short interest signals building tension either way: it could
+    presage a decline, or set up a short squeeze if the bet goes wrong)."""
+    if short_interest_trend_pct is None:
+        return None
+    v = abs(short_interest_trend_pct)
+    if v < 10:
+        return 0.0
+    if v < 25:
+        return 0.5
+    if v < 50:
+        return 1.0
+    if v < 100:
+        return 1.5
+    return 2.0
+
+
+def score_float_risk(float_pct):
+    """% of shares actually freely tradeable (not locked up by insiders/
+    restrictions). A SMALL float means the same dollar of buy/sell pressure
+    moves the price much more - more instability, regardless of direction."""
+    if float_pct is None:
+        return None
+    if float_pct > 80:
+        return 0.0
+    if float_pct > 60:
+        return 0.5
+    if float_pct > 40:
+        return 1.0
+    if float_pct > 20:
+        return 1.5
+    return 2.0
+
+
 def main():
     fundamentals = load_fundamentals()
 
@@ -159,9 +202,13 @@ def main():
         vol_pts_raw = score_volume_risk(fnd.get("volume_ratio"))
         debt_pts_raw = score_debt_risk(fnd.get("debt_to_equity"))
         dtc_pts_raw = score_days_to_cover_risk(fnd.get("short_ratio"))
+        short_trend_pts_raw = score_short_interest_trend_risk(fnd.get("short_interest_trend_pct"))
+        float_pts_raw = score_float_risk(fnd.get("float_pct"))
 
         confidence = sum(
-            x is not None for x in (beta_pts_raw, range_pts_raw, vol_pts_raw, debt_pts_raw, dtc_pts_raw)
+            x is not None for x in
+            (beta_pts_raw, range_pts_raw, vol_pts_raw, debt_pts_raw, dtc_pts_raw,
+             short_trend_pts_raw, float_pts_raw)
         )
         if confidence == 0:
             continue
@@ -171,17 +218,21 @@ def main():
         vol_pts = vol_pts_raw if vol_pts_raw is not None else 1.0
         debt_pts = debt_pts_raw if debt_pts_raw is not None else 1.0
         dtc_pts = dtc_pts_raw if dtc_pts_raw is not None else 1.0
+        short_trend_pts = short_trend_pts_raw if short_trend_pts_raw is not None else 1.0
+        float_pts = float_pts_raw if float_pts_raw is not None else 1.0
 
-        raw_total = beta_pts + range_pts + vol_pts + debt_pts + dtc_pts
-        total = raw_total  # 5 signals * max 2 = 10, already on the 0-10 scale
+        raw_total = beta_pts + range_pts + vol_pts + debt_pts + dtc_pts + short_trend_pts + float_pts
+        total = raw_total * 10 / 14  # 7 signals * max 2 = 14, scaled to the 0-10 scale
 
-        rows.append((ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts, confidence))
+        rows.append((ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts,
+                     short_trend_pts, float_pts, confidence))
 
     with open(ROOT / "risk_score.tsv", "w", encoding="utf-8") as f:
-        for ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts, confidence in rows:
+        for (ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts,
+             short_trend_pts, float_pts, confidence) in rows:
             f.write(
                 f"{ticker}\t{total:.1f}\t{beta_pts:.1f}\t{range_pts:.1f}\t{vol_pts:.1f}\t"
-                f"{debt_pts:.1f}\t{dtc_pts:.1f}\t{confidence}\n"
+                f"{debt_pts:.1f}\t{dtc_pts:.1f}\t{short_trend_pts:.1f}\t{float_pts:.1f}\t{confidence}\n"
             )
 
     print(f"Computed Risk Score for {len(rows)} tickers -> risk_score.tsv")

@@ -12,17 +12,22 @@ def load_secondary_score():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 14:
+                if len(parts) != 21:
                     continue
                 (ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts,
-                 gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts, confidence) = parts
+                 gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts,
+                 pb_pts, ev_ebitda_pts, ev_revenue_pts, payout_pts, ebitda_margin_pts,
+                 cash_mcap_pts, ocf_margin_pts, confidence) = parts
                 data[ticker] = {
                     "total": total, "pe_pts": pe_pts, "hf_pts": hf_pts,
                     "vol_pts": vol_pts, "eps_trend_pts": eps_trend_pts,
                     "margin_pts": margin_pts, "growth_pts": growth_pts,
                     "gross_margin_pts": gross_margin_pts, "op_margin_pts": op_margin_pts,
                     "fcf_yield_pts": fcf_yield_pts, "coverage_pts": coverage_pts,
-                    "fwd_pe_pts": fwd_pe_pts, "confidence": confidence,
+                    "fwd_pe_pts": fwd_pe_pts, "pb_pts": pb_pts, "ev_ebitda_pts": ev_ebitda_pts,
+                    "ev_revenue_pts": ev_revenue_pts, "payout_pts": payout_pts,
+                    "ebitda_margin_pts": ebitda_margin_pts, "cash_mcap_pts": cash_mcap_pts,
+                    "ocf_margin_pts": ocf_margin_pts, "confidence": confidence,
                 }
     except FileNotFoundError:
         pass
@@ -43,12 +48,12 @@ def score_class(total):
 
 
 def confidence_class(confidence):
-    # Thresholds scaled to the current 11-signal max (previously 6) at the
-    # same ~83%/50% cut points.
+    # Thresholds scaled to the current 18-signal max (previously 11, 6...)
+    # at the same ~83%/45% cut points.
     v = int(confidence)
-    if v >= 9:
+    if v >= 15:
         return "conf-high"
-    if v >= 5:
+    if v >= 8:
         return "conf-mid"
     return "conf-low"
 
@@ -82,6 +87,13 @@ def main():
             f' data-secscore-fcfyield="{esc(d["fcf_yield_pts"])}"'
             f' data-secscore-coverage="{esc(d["coverage_pts"])}"'
             f' data-secscore-fwdpe="{esc(d["fwd_pe_pts"])}"'
+            f' data-secscore-pb="{esc(d["pb_pts"])}"'
+            f' data-secscore-evebitda="{esc(d["ev_ebitda_pts"])}"'
+            f' data-secscore-evrevenue="{esc(d["ev_revenue_pts"])}"'
+            f' data-secscore-payout="{esc(d["payout_pts"])}"'
+            f' data-secscore-ebitdamargin="{esc(d["ebitda_margin_pts"])}"'
+            f' data-secscore-cashmcap="{esc(d["cash_mcap_pts"])}"'
+            f' data-secscore-ocfmargin="{esc(d["ocf_margin_pts"])}"'
             f' data-secscore-confidence="{esc(d["confidence"])}"'
         )
         return tr_open[:-1] + attrs + ">"
@@ -98,7 +110,7 @@ def main():
         conf_cls = confidence_class(d["confidence"])
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/11 מדדים עם נתונים אמיתיים">{d["confidence"]}/11</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/18 מדדים עם נתונים אמיתיים">{d["confidence"]}/18</sup>'
         )
         full_tr = re.sub(
             r'<td class="secscore-cell col-secscore[^"]*"[^>]*>[\s\S]*?</td>',

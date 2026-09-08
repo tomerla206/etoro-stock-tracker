@@ -1,5 +1,5 @@
 """
-COMPUTE SCORE - combines 14 independent signals into one 1-10 composite Score
+COMPUTE SCORE - combines 15 independent signals into one 1-10 composite Score
 per ticker:
 
   1. Analyst Rating      (Strong Buy .. Strong Sell, from consensus_ratings.txt)
@@ -32,8 +32,12 @@ per ticker:
   14. Held % Insiders    (% of shares held by company insiders - management
                           with real skin in the game, from
                           fundamentals_data.tsv/Yahoo's defaultKeyStatistics)
+  15. Relative Strength  (52-week price change vs. the S&P 500 over the same
+                          window - isolates stock-specific performance from
+                          the market's own move, from fundamentals_data.tsv/
+                          Yahoo's defaultKeyStatistics)
 
-Each signal is scored 0-2 points (2 = most bullish), summed (max 28) and
+Each signal is scored 0-2 points (2 = most bullish), summed (max 30) and
 scaled to 0-10. This is a transparent, hand-picked heuristic, not a
 statistically fitted model - the bucket thresholds below are the whole
 "methodology" and are deliberately simple so they can be explained in a
@@ -44,8 +48,8 @@ usable Score instead of dragging it to zero.
 Run: python compute_score.py
 Result: score.tsv (TICKER, score, rating_pts, upside_pts, insider_pts, short_pts,
 tech_pts, dispersion_pts, surprise_pts, rating_trend_pts, roe_pts, inst_own_pts,
-current_ratio_pts, quick_ratio_pts, roa_pts, held_insiders_pts, confidence). A
-raw data file only - does
+current_ratio_pts, quick_ratio_pts, roa_pts, held_insiders_pts,
+relative_strength_pts, confidence). A raw data file only - does
 NOT merge into all_rows.html itself, and does NOT call score_history.py itself
 either (that needs both this AND compute_secondary_score.py's output, so the
 caller runs it once after both - see score_history.py's own docstring). The
@@ -121,7 +125,7 @@ def load_fundamentals():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 32:
+        if len(parts) != 45:
             continue
         (ticker, short_pct, beta, pe, rsi14, price, ma50, ma200, market_cap, market_cap_fmt,
          volume_ratio, price_change_pct, peg, range52_pos,
@@ -129,7 +133,11 @@ def load_fundamentals():
          profit_margins, revenue_growth, rating_trend_delta,
          return_on_equity, current_ratio, institutional_ownership,
          quick_ratio, return_on_assets, gross_margins, operating_margins,
-         fcf_yield, held_pct_insiders, num_analyst_opinions, forward_pe) = parts
+         fcf_yield, held_pct_insiders, num_analyst_opinions, forward_pe,
+         price_to_book, ev_to_ebitda, payout_ratio, eps_growth_5y,
+         relative_strength_52w, short_interest_trend_pct, ev_to_revenue,
+         ebitda_margins, cash_to_mcap, ocf_margin, earnings_quarterly_growth,
+         eps_growth_next_year, float_pct) = parts
 
         def f(v):
             try:
@@ -149,6 +157,7 @@ def load_fundamentals():
             "gross_margins": f(gross_margins), "operating_margins": f(operating_margins),
             "fcf_yield": f(fcf_yield), "held_pct_insiders": f(held_pct_insiders),
             "num_analyst_opinions": f(num_analyst_opinions), "forward_pe": f(forward_pe),
+            "relative_strength_52w": f(relative_strength_52w),
         }
     return data
 
@@ -379,6 +388,25 @@ def score_held_insiders(held_pct_insiders):
     return 0.0
 
 
+def score_relative_strength(relative_strength_52w):
+    """The stock's own 52-week % change minus the S&P 500's over the same
+    window (already computed as percentage-point difference in
+    fundamentals_scan.py). "Up 15%" means very different things depending on
+    whether the market was up 5% (real outperformance) or up 25% (quietly
+    lagging) - this isolates the stock-specific component."""
+    if relative_strength_52w is None:
+        return 1.0
+    if relative_strength_52w > 20:
+        return 2.0
+    if relative_strength_52w > 5:
+        return 1.5
+    if relative_strength_52w > -5:
+        return 1.0
+    if relative_strength_52w > -20:
+        return 0.5
+    return 0.0
+
+
 def score_technicals(price, ma50, ma200, rsi14):
     if price is None and rsi14 is None:
         return 1.0
@@ -416,6 +444,7 @@ def main():
         quick_ratio = fnd.get("quick_ratio")
         return_on_assets = fnd.get("return_on_assets")
         held_pct_insiders = fnd.get("held_pct_insiders")
+        relative_strength_52w = fnd.get("relative_strength_52w")
 
         rating_pts = score_rating(rating)
         upside_pts = score_upside(price, avg_target)
@@ -431,6 +460,7 @@ def main():
         quick_ratio_pts = score_quick_ratio(quick_ratio)
         roa_pts = score_roa(return_on_assets)
         held_insiders_pts = score_held_insiders(held_pct_insiders)
+        relative_strength_pts = score_relative_strength(relative_strength_52w)
 
         # Confidence: how many of the 11 signals were REAL data vs. a neutral
         # default because the signal was missing. A 7.0 built from 11 real
@@ -452,25 +482,26 @@ def main():
             quick_ratio is not None,
             return_on_assets is not None,
             held_pct_insiders is not None,
+            relative_strength_52w is not None,
         ])
 
         raw_total = (rating_pts + upside_pts + insider_pts + short_pts + tech_pts
                      + dispersion_pts + surprise_pts + rating_trend_pts
                      + roe_pts + inst_own_pts + current_ratio_pts
-                     + quick_ratio_pts + roa_pts + held_insiders_pts)
-        total = raw_total * 10 / 28
+                     + quick_ratio_pts + roa_pts + held_insiders_pts + relative_strength_pts)
+        total = raw_total * 10 / 30
         rows.append((ticker, total, rating_pts, upside_pts, insider_pts, short_pts, tech_pts,
                      dispersion_pts, surprise_pts, rating_trend_pts,
                      roe_pts, inst_own_pts, current_ratio_pts,
-                     quick_ratio_pts, roa_pts, held_insiders_pts, confidence))
+                     quick_ratio_pts, roa_pts, held_insiders_pts, relative_strength_pts, confidence))
 
     with open(ROOT / "score.tsv", "w", encoding="utf-8") as f:
         for (ticker, total, r, u, i, s, t, disp, surp, rtrend, roe, iown, curr,
-             quickr, roa, heldins, confidence) in rows:
+             quickr, roa, heldins, relstr, confidence) in rows:
             f.write(
                 f"{ticker}\t{total:.1f}\t{r:.1f}\t{u:.1f}\t{i:.1f}\t{s:.1f}\t{t:.1f}\t"
                 f"{disp:.1f}\t{surp:.1f}\t{rtrend:.1f}\t{roe:.1f}\t{iown:.1f}\t{curr:.1f}\t"
-                f"{quickr:.1f}\t{roa:.1f}\t{heldins:.1f}\t{confidence}\n"
+                f"{quickr:.1f}\t{roa:.1f}\t{heldins:.1f}\t{relstr:.1f}\t{confidence}\n"
             )
 
     print(f"Computed Score for {len(rows)} tickers -> score.tsv")

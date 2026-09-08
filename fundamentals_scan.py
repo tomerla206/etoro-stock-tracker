@@ -26,7 +26,10 @@ Result:    FUNDAMENTALS_SCAN_RESULTS.md, fundamentals_data.tsv
            profitMargins, revenueGrowth, ratingTrendDelta, returnOnEquity,
            currentRatio, institutionalOwnership, quickRatio, returnOnAssets,
            grossMargins, operatingMargins, fcfYield, heldPctInsiders,
-           numAnalystOpinions, forwardPE)
+           numAnalystOpinions, forwardPE, priceToBook, evToEbitda, payoutRatio,
+           epsGrowth5y, relativeStrength52w, shortInterestTrendPct, evToRevenue,
+           ebitdaMargins, cashToMcap, ocfMargin, earningsQuarterlyGrowth,
+           epsGrowthNextYear, floatPct)
 
 Also resolves eToro-style exchange suffixes that don't match Yahoo's own
 convention (e.g. .ASX -> .AX, .HK's 5-digit codes -> 4-digit) before giving up
@@ -171,6 +174,11 @@ def scan_one(ticker, cookies, crumb, results, log_state):
         sector, industry = None, None
         quick_ratio, return_on_assets, gross_margins, operating_margins = None, None, None, None
         free_cash_flow, held_pct_insiders, num_analyst_opinions, forward_pe = None, None, None, None
+        price_to_book, ev_to_ebitda, payout_ratio, eps_growth_5y = None, None, None, None
+        change_52week, sandp_52week_change, shares_short, shares_short_prior = None, None, None, None
+        ev_to_revenue, ebitda_margins, total_cash, operating_cashflow = None, None, None, None
+        total_revenue, earnings_quarterly_growth, float_shares, shares_outstanding = None, None, None, None
+        eps_growth_next_year = None
         if qs.status_code == 200:
             result = qs.json().get("quoteSummary", {}).get("result")
             if result:
@@ -205,10 +213,32 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 operating_margins = (fd.get("operatingMargins") or {}).get("raw")
                 free_cash_flow = (fd.get("freeCashflow") or {}).get("raw")
                 num_analyst_opinions = (fd.get("numberOfAnalystOpinions") or {}).get("raw")
+                ev_to_revenue = (dks.get("enterpriseToRevenue") or {}).get("raw")
+                ebitda_margins = (fd.get("ebitdaMargins") or {}).get("raw")
+                total_cash = (fd.get("totalCash") or {}).get("raw")
+                operating_cashflow = (fd.get("operatingCashflow") or {}).get("raw")
+                total_revenue = (fd.get("totalRevenue") or {}).get("raw")
+                earnings_quarterly_growth = (dks.get("earningsQuarterlyGrowth") or {}).get("raw")
+                float_shares = (dks.get("floatShares") or {}).get("raw")
+                shares_outstanding = (dks.get("sharesOutstanding") or {}).get("raw")
                 held_pct_insiders = (dks.get("heldPercentInsiders") or {}).get("raw")
                 # forwardPE lives under defaultKeyStatistics on most tickers, but
                 # falls back to summaryDetail on some - same fallback pattern as beta.
                 forward_pe = (dks.get("forwardPE") or sd.get("forwardPE") or {}).get("raw")
+                price_to_book = (dks.get("priceToBook") or {}).get("raw")
+                ev_to_ebitda = (dks.get("enterpriseToEbitda") or {}).get("raw")
+                payout_ratio = (sd.get("payoutRatio") or {}).get("raw")
+                change_52week = (dks.get("52WeekChange") or {}).get("raw")
+                sandp_52week_change = (dks.get("SandP52WeekChange") or {}).get("raw")
+                shares_short = (dks.get("sharesShort") or {}).get("raw")
+                shares_short_prior = (dks.get("sharesShortPriorMonth") or {}).get("raw")
+
+                for t in (et.get("trend") or []):
+                    period = t.get("period")
+                    if period == "+5y":
+                        eps_growth_5y = (t.get("growth") or {}).get("raw")
+                    elif period == "+1y":
+                        eps_growth_next_year = (t.get("growth") or {}).get("raw")
 
                 surprises = [
                     (h.get("surprisePercent") or {}).get("raw")
@@ -285,6 +315,45 @@ def scan_one(ticker, cookies, crumb, results, log_state):
         if free_cash_flow is not None and market_cap:
             fcf_yield = free_cash_flow / market_cap * 100
 
+        # Relative strength (pct points) - the stock's own 52-week % change
+        # minus the S&P 500's over the same window, so "this stock is up 15%"
+        # reads very differently depending on whether the market as a whole
+        # was up 5% (real outperformance) or up 25% (actually lagging).
+        relative_strength_52w = None
+        if change_52week is not None and sandp_52week_change is not None:
+            relative_strength_52w = (change_52week - sandp_52week_change) * 100
+
+        # Short interest trend (%) - whether the raw short-share count grew or
+        # shrank vs. a month ago, distinct from the STATIC short-interest-%
+        # level already used elsewhere (a rising trend is a bearish-sentiment
+        # signal even if the absolute level is still low).
+        short_interest_trend_pct = None
+        if shares_short is not None and shares_short_prior:
+            short_interest_trend_pct = (shares_short - shares_short_prior) / shares_short_prior * 100
+
+        # Cash cushion (%) - total cash relative to market cap, a balance-sheet
+        # safety-margin signal distinct from FCF Yield (which measures ongoing
+        # generation, not the stockpile already on hand).
+        cash_to_mcap = None
+        if total_cash is not None and market_cap:
+            cash_to_mcap = total_cash / market_cap * 100
+
+        # Operating cash flow margin (%) - operating cash flow / revenue, a
+        # cash-quality check distinct from FCF Yield (which nets out capex)
+        # and from Profit Margin (which is accounting profit, not cash).
+        ocf_margin = None
+        if operating_cashflow is not None and total_revenue:
+            ocf_margin = operating_cashflow / total_revenue * 100
+
+        # Public float (%) - how much of the company's shares are actually
+        # freely tradeable vs. locked up (insiders/institutions/restricted).
+        # A small float means the same dollar of buying/selling pressure
+        # moves the price much more - a liquidity/volatility risk factor,
+        # not a quality signal.
+        float_pct = None
+        if float_shares is not None and shares_outstanding:
+            float_pct = float_shares / shares_outstanding * 100
+
         if short_pct is None and beta is None and pe is None and rsi14 is None and market_cap is None:
             results["no_data"].append(ticker)
         else:
@@ -305,6 +374,14 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 "gross_margins": gross_margins, "operating_margins": operating_margins,
                 "fcf_yield": fcf_yield, "held_pct_insiders": held_pct_insiders,
                 "num_analyst_opinions": num_analyst_opinions, "forward_pe": forward_pe,
+                "price_to_book": price_to_book, "ev_to_ebitda": ev_to_ebitda,
+                "payout_ratio": payout_ratio, "eps_growth_5y": eps_growth_5y,
+                "relative_strength_52w": relative_strength_52w,
+                "short_interest_trend_pct": short_interest_trend_pct,
+                "ev_to_revenue": ev_to_revenue, "ebitda_margins": ebitda_margins,
+                "cash_to_mcap": cash_to_mcap, "ocf_margin": ocf_margin,
+                "earnings_quarterly_growth": earnings_quarterly_growth,
+                "eps_growth_next_year": eps_growth_next_year, "float_pct": float_pct,
             }
             results["updated"].append(ticker)
     except Exception:
@@ -345,7 +422,12 @@ def write_data_file(results):
                 f"{d['return_on_equity']}\t{d['current_ratio']}\t{d['institutional_ownership']}\t"
                 f"{d['quick_ratio']}\t{d['return_on_assets']}\t{d['gross_margins']}\t"
                 f"{d['operating_margins']}\t{d['fcf_yield']}\t{d['held_pct_insiders']}\t"
-                f"{d['num_analyst_opinions']}\t{d['forward_pe']}\n"
+                f"{d['num_analyst_opinions']}\t{d['forward_pe']}\t"
+                f"{d['price_to_book']}\t{d['ev_to_ebitda']}\t{d['payout_ratio']}\t"
+                f"{d['eps_growth_5y']}\t{d['relative_strength_52w']}\t{d['short_interest_trend_pct']}\t"
+                f"{d['ev_to_revenue']}\t{d['ebitda_margins']}\t{d['cash_to_mcap']}\t"
+                f"{d['ocf_margin']}\t{d['earnings_quarterly_growth']}\t{d['eps_growth_next_year']}\t"
+                f"{d['float_pct']}\n"
             )
 
 
@@ -431,6 +513,7 @@ def main():
     subprocess.run([sys.executable, "compute_score.py"], cwd=ROOT, check=False)
     subprocess.run([sys.executable, "compute_secondary_score.py"], cwd=ROOT, check=False)
     subprocess.run([sys.executable, "compute_risk_score.py"], cwd=ROOT, check=False)
+    subprocess.run([sys.executable, "compute_growth_score.py"], cwd=ROOT, check=False)
     subprocess.run([sys.executable, "compute_overall_score.py"], cwd=ROOT, check=False)
     subprocess.run([sys.executable, "compute_score_percentile.py"], cwd=ROOT, check=False)
 

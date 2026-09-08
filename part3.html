@@ -59,6 +59,20 @@
   const sortFcfYield = document.getElementById('sortFcfYield');
   const sortCoverage = document.getElementById('sortCoverage');
   const sortFwdPe = document.getElementById('sortFwdPe');
+  const sortGrowthScore = document.getElementById('sortGrowthScore');
+  const sortRelStrength = document.getElementById('sortRelStrength');
+  const sortPb = document.getElementById('sortPb');
+  const sortEvEbitda = document.getElementById('sortEvEbitda');
+  const sortEvRevenue = document.getElementById('sortEvRevenue');
+  const sortPayout = document.getElementById('sortPayout');
+  const sortEbitdaMargin = document.getElementById('sortEbitdaMargin');
+  const sortCashMcap = document.getElementById('sortCashMcap');
+  const sortOcfMargin = document.getElementById('sortOcfMargin');
+  const sortShortIntTrend = document.getElementById('sortShortIntTrend');
+  const sortFloatPct = document.getElementById('sortFloatPct');
+  const sortEpsGrowth5y = document.getElementById('sortEpsGrowth5y');
+  const sortEpsGrowthNextYear = document.getElementById('sortEpsGrowthNextYear');
+  const sortEarningsQGrowth = document.getElementById('sortEarningsQGrowth');
   const sortScore = document.getElementById('sortScore');
   const pctBasisToggle = document.getElementById('pctBasisToggle');
   const exchangeFilters = document.getElementById('exchangeFilters');
@@ -116,6 +130,18 @@
   const riskConfidenceRangeMaxInput = document.getElementById('riskConfidenceRangeMaxInput');
   const riskConfidenceRangeFill = document.getElementById('riskConfidenceRangeFill');
   const riskConfidenceRangeMaxHint = document.getElementById('riskConfidenceRangeMaxHint');
+  const growthScoreRangeMinSlider = document.getElementById('growthScoreRangeMinSlider');
+  const growthScoreRangeMaxSlider = document.getElementById('growthScoreRangeMaxSlider');
+  const growthScoreRangeMinInput = document.getElementById('growthScoreRangeMinInput');
+  const growthScoreRangeMaxInput = document.getElementById('growthScoreRangeMaxInput');
+  const growthScoreRangeFill = document.getElementById('growthScoreRangeFill');
+  const growthScoreRangeMaxHint = document.getElementById('growthScoreRangeMaxHint');
+  const growthConfidenceRangeMinSlider = document.getElementById('growthConfidenceRangeMinSlider');
+  const growthConfidenceRangeMaxSlider = document.getElementById('growthConfidenceRangeMaxSlider');
+  const growthConfidenceRangeMinInput = document.getElementById('growthConfidenceRangeMinInput');
+  const growthConfidenceRangeMaxInput = document.getElementById('growthConfidenceRangeMaxInput');
+  const growthConfidenceRangeFill = document.getElementById('growthConfidenceRangeFill');
+  const growthConfidenceRangeMaxHint = document.getElementById('growthConfidenceRangeMaxHint');
   const overallScoreRangeMinSlider = document.getElementById('overallScoreRangeMinSlider');
   const overallScoreRangeMaxSlider = document.getElementById('overallScoreRangeMaxSlider');
   const overallScoreRangeMinInput = document.getElementById('overallScoreRangeMinInput');
@@ -1227,19 +1253,19 @@
   function updateConfidenceRangeFillBar() {
     const minV = +confidenceRangeMinSlider.value;
     const maxV = +confidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, minV * 100 / 14));
-    const rightPct = Math.max(0, Math.min(100, maxV * 100 / 14));
+    const leftPct = Math.max(0, Math.min(100, minV * 100 / 15));
+    const rightPct = Math.max(0, Math.min(100, maxV * 100 / 15));
     confidenceRangeFill.style.left = leftPct + '%';
     confidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  confidenceRangeMaxHint.textContent = '(range: 0 to 14)';
+  confidenceRangeMaxHint.textContent = '(range: 0 to 15)';
   updateConfidenceRangeFillBar();
 
   function confidenceInRange(row) {
     const min = confidenceRangeMinInput.value === '' ? 0 : parseFloat(confidenceRangeMinInput.value);
-    const max = confidenceRangeMaxInput.value === '' ? 14 : parseFloat(confidenceRangeMaxInput.value);
+    const max = confidenceRangeMaxInput.value === '' ? 15 : parseFloat(confidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.scoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 14;  // only passes if the filter is still at its full default range
+    if (isNaN(c)) return min <= 0 && max >= 15;  // only passes if the filter is still at its full default range
     return c >= min && c <= max;
   }
 
@@ -1262,7 +1288,7 @@
     applyFilters();
   });
   confidenceRangeMaxInput.addEventListener('input', () => {
-    const v = confidenceRangeMaxInput.value === '' ? 14 : +confidenceRangeMaxInput.value;
+    const v = confidenceRangeMaxInput.value === '' ? 15 : +confidenceRangeMaxInput.value;
     confidenceRangeMaxSlider.value = Math.max(v, +confidenceRangeMinSlider.value);
     updateConfidenceRangeFillBar();
     applyFilters();
@@ -1315,19 +1341,19 @@
   function updateSecConfidenceRangeFillBar() {
     const minV = +secConfidenceRangeMinSlider.value;
     const maxV = +secConfidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, (minV / 11) * 100));
-    const rightPct = Math.max(0, Math.min(100, (maxV / 11) * 100));
+    const leftPct = Math.max(0, Math.min(100, (minV / 18) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 18) * 100));
     secConfidenceRangeFill.style.left = leftPct + '%';
     secConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  secConfidenceRangeMaxHint.textContent = '(range: 0 to 11)';
+  secConfidenceRangeMaxHint.textContent = '(range: 0 to 18)';
   updateSecConfidenceRangeFillBar();
 
   function secConfidenceInRange(row) {
     const min = secConfidenceRangeMinInput.value === '' ? 0 : parseFloat(secConfidenceRangeMinInput.value);
-    const max = secConfidenceRangeMaxInput.value === '' ? 11 : parseFloat(secConfidenceRangeMaxInput.value);
+    const max = secConfidenceRangeMaxInput.value === '' ? 18 : parseFloat(secConfidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.secscoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 11;
+    if (isNaN(c)) return min <= 0 && max >= 18;
     return c >= min && c <= max;
   }
 
@@ -1350,7 +1376,7 @@
     applyFilters();
   });
   secConfidenceRangeMaxInput.addEventListener('input', () => {
-    const v = secConfidenceRangeMaxInput.value === '' ? 11 : +secConfidenceRangeMaxInput.value;
+    const v = secConfidenceRangeMaxInput.value === '' ? 18 : +secConfidenceRangeMaxInput.value;
     secConfidenceRangeMaxSlider.value = Math.max(v, +secConfidenceRangeMinSlider.value);
     updateSecConfidenceRangeFillBar();
     applyFilters();
@@ -1403,19 +1429,19 @@
   function updateRiskConfidenceRangeFillBar() {
     const minV = +riskConfidenceRangeMinSlider.value;
     const maxV = +riskConfidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, (minV / 5) * 100));
-    const rightPct = Math.max(0, Math.min(100, (maxV / 5) * 100));
+    const leftPct = Math.max(0, Math.min(100, (minV / 7) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 7) * 100));
     riskConfidenceRangeFill.style.left = leftPct + '%';
     riskConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  riskConfidenceRangeMaxHint.textContent = '(range: 0 to 5)';
+  riskConfidenceRangeMaxHint.textContent = '(range: 0 to 7)';
   updateRiskConfidenceRangeFillBar();
 
   function riskConfidenceInRange(row) {
     const min = riskConfidenceRangeMinInput.value === '' ? 0 : parseFloat(riskConfidenceRangeMinInput.value);
-    const max = riskConfidenceRangeMaxInput.value === '' ? 5 : parseFloat(riskConfidenceRangeMaxInput.value);
+    const max = riskConfidenceRangeMaxInput.value === '' ? 7 : parseFloat(riskConfidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.riskscoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 5;
+    if (isNaN(c)) return min <= 0 && max >= 7;
     return c >= min && c <= max;
   }
 
@@ -1438,9 +1464,97 @@
     applyFilters();
   });
   riskConfidenceRangeMaxInput.addEventListener('input', () => {
-    const v = riskConfidenceRangeMaxInput.value === '' ? 5 : +riskConfidenceRangeMaxInput.value;
+    const v = riskConfidenceRangeMaxInput.value === '' ? 7 : +riskConfidenceRangeMaxInput.value;
     riskConfidenceRangeMaxSlider.value = Math.max(v, +riskConfidenceRangeMinSlider.value);
     updateRiskConfidenceRangeFillBar();
+    applyFilters();
+  });
+
+  function updateGrowthScoreRangeFillBar() {
+    const minV = +growthScoreRangeMinSlider.value;
+    const maxV = +growthScoreRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, minV * 10));
+    const rightPct = Math.max(0, Math.min(100, maxV * 10));
+    growthScoreRangeFill.style.left = leftPct + '%';
+    growthScoreRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  growthScoreRangeMaxHint.textContent = '(range: 0 to 10)';
+  updateGrowthScoreRangeFillBar();
+
+  function growthScoreInRange(row) {
+    const min = growthScoreRangeMinInput.value === '' ? 0 : parseFloat(growthScoreRangeMinInput.value);
+    const max = growthScoreRangeMaxInput.value === '' ? 10 : parseFloat(growthScoreRangeMaxInput.value);
+    const s = parseFloat(row.dataset.growthscore);
+    if (isNaN(s)) return min <= 0 && max >= 10;
+    return s >= min && s <= max;
+  }
+
+  growthScoreRangeMinSlider.addEventListener('input', () => {
+    if (+growthScoreRangeMinSlider.value > +growthScoreRangeMaxSlider.value) growthScoreRangeMinSlider.value = growthScoreRangeMaxSlider.value;
+    growthScoreRangeMinInput.value = growthScoreRangeMinSlider.value;
+    updateGrowthScoreRangeFillBar();
+    applyFilters();
+  });
+  growthScoreRangeMaxSlider.addEventListener('input', () => {
+    if (+growthScoreRangeMaxSlider.value < +growthScoreRangeMinSlider.value) growthScoreRangeMaxSlider.value = growthScoreRangeMinSlider.value;
+    growthScoreRangeMaxInput.value = growthScoreRangeMaxSlider.value;
+    updateGrowthScoreRangeFillBar();
+    applyFilters();
+  });
+  growthScoreRangeMinInput.addEventListener('input', () => {
+    const v = growthScoreRangeMinInput.value === '' ? 0 : +growthScoreRangeMinInput.value;
+    growthScoreRangeMinSlider.value = Math.min(v, +growthScoreRangeMaxSlider.value);
+    updateGrowthScoreRangeFillBar();
+    applyFilters();
+  });
+  growthScoreRangeMaxInput.addEventListener('input', () => {
+    const v = growthScoreRangeMaxInput.value === '' ? 10 : +growthScoreRangeMaxInput.value;
+    growthScoreRangeMaxSlider.value = Math.max(v, +growthScoreRangeMinSlider.value);
+    updateGrowthScoreRangeFillBar();
+    applyFilters();
+  });
+
+  function updateGrowthConfidenceRangeFillBar() {
+    const minV = +growthConfidenceRangeMinSlider.value;
+    const maxV = +growthConfidenceRangeMaxSlider.value;
+    const leftPct = Math.max(0, Math.min(100, (minV / 3) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 3) * 100));
+    growthConfidenceRangeFill.style.left = leftPct + '%';
+    growthConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
+  }
+  growthConfidenceRangeMaxHint.textContent = '(range: 0 to 3)';
+  updateGrowthConfidenceRangeFillBar();
+
+  function growthConfidenceInRange(row) {
+    const min = growthConfidenceRangeMinInput.value === '' ? 0 : parseFloat(growthConfidenceRangeMinInput.value);
+    const max = growthConfidenceRangeMaxInput.value === '' ? 3 : parseFloat(growthConfidenceRangeMaxInput.value);
+    const c = parseFloat(row.dataset.growthscoreConfidence);
+    if (isNaN(c)) return min <= 0 && max >= 3;
+    return c >= min && c <= max;
+  }
+
+  growthConfidenceRangeMinSlider.addEventListener('input', () => {
+    if (+growthConfidenceRangeMinSlider.value > +growthConfidenceRangeMaxSlider.value) growthConfidenceRangeMinSlider.value = growthConfidenceRangeMaxSlider.value;
+    growthConfidenceRangeMinInput.value = growthConfidenceRangeMinSlider.value;
+    updateGrowthConfidenceRangeFillBar();
+    applyFilters();
+  });
+  growthConfidenceRangeMaxSlider.addEventListener('input', () => {
+    if (+growthConfidenceRangeMaxSlider.value < +growthConfidenceRangeMinSlider.value) growthConfidenceRangeMaxSlider.value = growthConfidenceRangeMinSlider.value;
+    growthConfidenceRangeMaxInput.value = growthConfidenceRangeMaxSlider.value;
+    updateGrowthConfidenceRangeFillBar();
+    applyFilters();
+  });
+  growthConfidenceRangeMinInput.addEventListener('input', () => {
+    const v = growthConfidenceRangeMinInput.value === '' ? 0 : +growthConfidenceRangeMinInput.value;
+    growthConfidenceRangeMinSlider.value = Math.min(v, +growthConfidenceRangeMaxSlider.value);
+    updateGrowthConfidenceRangeFillBar();
+    applyFilters();
+  });
+  growthConfidenceRangeMaxInput.addEventListener('input', () => {
+    const v = growthConfidenceRangeMaxInput.value === '' ? 3 : +growthConfidenceRangeMaxInput.value;
+    growthConfidenceRangeMaxSlider.value = Math.max(v, +growthConfidenceRangeMinSlider.value);
+    updateGrowthConfidenceRangeFillBar();
     applyFilters();
   });
 
@@ -1491,19 +1605,19 @@
   function updateOverallConfidenceRangeFillBar() {
     const minV = +overallConfidenceRangeMinSlider.value;
     const maxV = +overallConfidenceRangeMaxSlider.value;
-    const leftPct = Math.max(0, Math.min(100, (minV / 25) * 100));
-    const rightPct = Math.max(0, Math.min(100, (maxV / 25) * 100));
+    const leftPct = Math.max(0, Math.min(100, (minV / 33) * 100));
+    const rightPct = Math.max(0, Math.min(100, (maxV / 33) * 100));
     overallConfidenceRangeFill.style.left = leftPct + '%';
     overallConfidenceRangeFill.style.width = Math.max(0, rightPct - leftPct) + '%';
   }
-  overallConfidenceRangeMaxHint.textContent = '(range: 0 to 25)';
+  overallConfidenceRangeMaxHint.textContent = '(range: 0 to 33)';
   updateOverallConfidenceRangeFillBar();
 
   function overallConfidenceInRange(row) {
     const min = overallConfidenceRangeMinInput.value === '' ? 0 : parseFloat(overallConfidenceRangeMinInput.value);
-    const max = overallConfidenceRangeMaxInput.value === '' ? 25 : parseFloat(overallConfidenceRangeMaxInput.value);
+    const max = overallConfidenceRangeMaxInput.value === '' ? 33 : parseFloat(overallConfidenceRangeMaxInput.value);
     const c = parseFloat(row.dataset.overallscoreConfidence);
-    if (isNaN(c)) return min <= 0 && max >= 25;
+    if (isNaN(c)) return min <= 0 && max >= 33;
     return c >= min && c <= max;
   }
 
@@ -1526,7 +1640,7 @@
     applyFilters();
   });
   overallConfidenceRangeMaxInput.addEventListener('input', () => {
-    const v = overallConfidenceRangeMaxInput.value === '' ? 25 : +overallConfidenceRangeMaxInput.value;
+    const v = overallConfidenceRangeMaxInput.value === '' ? 33 : +overallConfidenceRangeMaxInput.value;
     overallConfidenceRangeMaxSlider.value = Math.max(v, +overallConfidenceRangeMinSlider.value);
     updateOverallConfidenceRangeFillBar();
     applyFilters();
@@ -1558,16 +1672,19 @@
       isRangeActive(ratioRangeMinInput, ratioRangeMaxInput, 0, 1));
     document.getElementById('fgScore').classList.toggle('filter-active',
       isRangeActive(scoreRangeMinInput, scoreRangeMaxInput, 0, 10) ||
-      isRangeActive(confidenceRangeMinInput, confidenceRangeMaxInput, 0, 14));
+      isRangeActive(confidenceRangeMinInput, confidenceRangeMaxInput, 0, 15));
     document.getElementById('fgSecScore').classList.toggle('filter-active',
       isRangeActive(secScoreRangeMinInput, secScoreRangeMaxInput, 0, 10) ||
-      isRangeActive(secConfidenceRangeMinInput, secConfidenceRangeMaxInput, 0, 11));
+      isRangeActive(secConfidenceRangeMinInput, secConfidenceRangeMaxInput, 0, 18));
     document.getElementById('fgRiskScore').classList.toggle('filter-active',
       isRangeActive(riskScoreRangeMinInput, riskScoreRangeMaxInput, 0, 10) ||
-      isRangeActive(riskConfidenceRangeMinInput, riskConfidenceRangeMaxInput, 0, 5));
+      isRangeActive(riskConfidenceRangeMinInput, riskConfidenceRangeMaxInput, 0, 7));
+    document.getElementById('fgGrowthScore').classList.toggle('filter-active',
+      isRangeActive(growthScoreRangeMinInput, growthScoreRangeMaxInput, 0, 10) ||
+      isRangeActive(growthConfidenceRangeMinInput, growthConfidenceRangeMaxInput, 0, 3));
     document.getElementById('fgOverallScore').classList.toggle('filter-active',
       isRangeActive(overallScoreRangeMinInput, overallScoreRangeMaxInput, 0, 10) ||
-      isRangeActive(overallConfidenceRangeMinInput, overallConfidenceRangeMaxInput, 0, 25));
+      isRangeActive(overallConfidenceRangeMinInput, overallConfidenceRangeMaxInput, 0, 33));
   }
 
   function getRowSearchText(row) {
@@ -1606,6 +1723,8 @@
       if (match) match = secConfidenceInRange(row);
       if (match) match = riskScoreInRange(row);
       if (match) match = riskConfidenceInRange(row);
+      if (match) match = growthScoreInRange(row);
+      if (match) match = growthConfidenceInRange(row);
       if (match) match = overallScoreInRange(row);
       if (match) match = overallConfidenceInRange(row);
       if (match) match = matchesPortfolio(row);
@@ -1623,6 +1742,9 @@
     'etPct', 'yhPct', 'upsideRatio', 'insNet', 'allocShare', 'allocPl', 'allocPlShare',
     'yhAllocShare', 'yhAllocPl', 'yhAllocPlShare', 'score', 'short', 'rsi', 'pe', 'mcap', 'hfNet', 'beta', 'vol', 'peg', 'r52', 'secscore', 'riskscore', 'overallscore', 'percentile', 'roe', 'instown', 'currentratio',
     'quickratio', 'roa', 'heldinsiders', 'grossmargin', 'opmargin', 'fcfyield', 'coverage', 'fwdpe',
+    'growthscore', 'relstrength', 'pb', 'evebitda', 'evrevenue', 'payout', 'ebitdamargin',
+    'cashmcap', 'ocfmargin', 'shortinttrend', 'floatpct', 'epsgrowth5y', 'epsgrowthnextyear',
+    'earningsqgrowth',
   ];
   const myPortfolioKeys = { myUnits: 'units', myAvg: 'avg', myPl: 'pl', myPlpct: 'plpct' };
   function applySort() {
@@ -1687,6 +1809,12 @@
     quickratio: sortQuickRatio, roa: sortRoa, heldinsiders: sortHeldInsiders,
     grossmargin: sortGrossMargin, opmargin: sortOpMargin, fcfyield: sortFcfYield,
     coverage: sortCoverage, fwdpe: sortFwdPe,
+    growthscore: sortGrowthScore, relstrength: sortRelStrength, pb: sortPb,
+    evebitda: sortEvEbitda, evrevenue: sortEvRevenue, payout: sortPayout,
+    ebitdamargin: sortEbitdaMargin, cashmcap: sortCashMcap, ocfmargin: sortOcfMargin,
+    shortinttrend: sortShortIntTrend, floatpct: sortFloatPct,
+    epsgrowth5y: sortEpsGrowth5y, epsgrowthnextyear: sortEpsGrowthNextYear,
+    earningsqgrowth: sortEarningsQGrowth,
   };
   function setSort(key, dir) {
     if (dir) {
@@ -1791,6 +1919,20 @@
     fcfyield: document.getElementById('toggleFcfYield'),
     coverage: document.getElementById('toggleCoverage'),
     fwdpe: document.getElementById('toggleFwdPe'),
+    growthscore: document.getElementById('toggleGrowthScore'),
+    relstrength: document.getElementById('toggleRelStrength'),
+    pb: document.getElementById('togglePb'),
+    evebitda: document.getElementById('toggleEvEbitda'),
+    evrevenue: document.getElementById('toggleEvRevenue'),
+    payout: document.getElementById('togglePayout'),
+    ebitdamargin: document.getElementById('toggleEbitdaMargin'),
+    cashmcap: document.getElementById('toggleCashMcap'),
+    ocfmargin: document.getElementById('toggleOcfMargin'),
+    shortinttrend: document.getElementById('toggleShortIntTrend'),
+    floatpct: document.getElementById('toggleFloatPct'),
+    epsgrowth5y: document.getElementById('toggleEpsGrowth5y'),
+    epsgrowthnextyear: document.getElementById('toggleEpsGrowthNextYear'),
+    earningsqgrowth: document.getElementById('toggleEarningsQGrowth'),
   };
   colToggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -1841,6 +1983,20 @@
   attachHeaderSort(sortFcfYield, 'fcfyield');
   attachHeaderSort(sortCoverage, 'coverage');
   attachHeaderSort(sortFwdPe, 'fwdpe');
+  attachHeaderSort(sortGrowthScore, 'growthscore');
+  attachHeaderSort(sortRelStrength, 'relstrength');
+  attachHeaderSort(sortPb, 'pb');
+  attachHeaderSort(sortEvEbitda, 'evebitda');
+  attachHeaderSort(sortEvRevenue, 'evrevenue');
+  attachHeaderSort(sortPayout, 'payout');
+  attachHeaderSort(sortEbitdaMargin, 'ebitdamargin');
+  attachHeaderSort(sortCashMcap, 'cashmcap');
+  attachHeaderSort(sortOcfMargin, 'ocfmargin');
+  attachHeaderSort(sortShortIntTrend, 'shortinttrend');
+  attachHeaderSort(sortFloatPct, 'floatpct');
+  attachHeaderSort(sortEpsGrowth5y, 'epsgrowth5y');
+  attachHeaderSort(sortEpsGrowthNextYear, 'epsgrowthnextyear');
+  attachHeaderSort(sortEarningsQGrowth, 'earningsqgrowth');
   attachHeaderSort(sortScore, 'score');
   attachHeaderSort(sortAlloc, 'allocShare');
   attachHeaderSort(sortAllocPl, 'allocPl');

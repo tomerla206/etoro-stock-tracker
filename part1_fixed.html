@@ -1712,6 +1712,62 @@
     display: none;
   }
 
+  table.hide-growthscore .col-growthscore {
+    display: none;
+  }
+
+  table.hide-relstrength .col-relstrength {
+    display: none;
+  }
+
+  table.hide-pb .col-pb {
+    display: none;
+  }
+
+  table.hide-evebitda .col-evebitda {
+    display: none;
+  }
+
+  table.hide-evrevenue .col-evrevenue {
+    display: none;
+  }
+
+  table.hide-payout .col-payout {
+    display: none;
+  }
+
+  table.hide-ebitdamargin .col-ebitdamargin {
+    display: none;
+  }
+
+  table.hide-cashmcap .col-cashmcap {
+    display: none;
+  }
+
+  table.hide-ocfmargin .col-ocfmargin {
+    display: none;
+  }
+
+  table.hide-shortinttrend .col-shortinttrend {
+    display: none;
+  }
+
+  table.hide-floatpct .col-floatpct {
+    display: none;
+  }
+
+  table.hide-epsgrowth5y .col-epsgrowth5y {
+    display: none;
+  }
+
+  table.hide-epsgrowthnextyear .col-epsgrowthnextyear {
+    display: none;
+  }
+
+  table.hide-earningsqgrowth .col-earningsqgrowth {
+    display: none;
+  }
+
   /* Short Interest %, RSI, and P/E all use the same 5-step graded scale:
      vgood/good = bullish or cheap (green, strongest to mildest), mid =
      neutral, bad/vbad = bearish or expensive (red, mildest to strongest).
@@ -2464,18 +2520,18 @@
         </div>
 
         <div class="upside-range-filter" id="confidenceRangeFilter">
-          <span class="range-filter-label">Score Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right">כמה מ-14 המדדים מאחורי ה-Score היו נתונים אמיתיים (לא ניקוד ניטרלי בגלל חוסר מידע). למשל מ-12 עד 14 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
+          <span class="range-filter-label">Score Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right">כמה מ-15 המדדים מאחורי ה-Score היו נתונים אמיתיים (לא ניקוד ניטרלי בגלל חוסר מידע). למשל מ-13 עד 15 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
           <div class="range-inputs">
-            <input type="number" id="confidenceRangeMinInput" step="1" min="0" max="14" value="0">
+            <input type="number" id="confidenceRangeMinInput" step="1" min="0" max="15" value="0">
             <span>&ndash;</span>
-            <input type="number" id="confidenceRangeMaxInput" step="1" min="0" max="14" value="14">
+            <input type="number" id="confidenceRangeMaxInput" step="1" min="0" max="15" value="15">
             <span class="range-max-hint" id="confidenceRangeMaxHint"></span>
           </div>
           <div class="range-slider-track">
             <div class="range-slider-rail"></div>
             <div class="range-slider-fill" id="confidenceRangeFill"></div>
-            <input type="range" id="confidenceRangeMinSlider" step="1" min="0" max="14" value="0">
-            <input type="range" id="confidenceRangeMaxSlider" step="1" min="0" max="14" value="14">
+            <input type="range" id="confidenceRangeMinSlider" step="1" min="0" max="15" value="0">
+            <input type="range" id="confidenceRangeMaxSlider" step="1" min="0" max="15" value="15">
           </div>
         </div>
       </div>
@@ -2485,7 +2541,7 @@
       <summary><span class="filter-group-dot"></span>Secondary Score</summary>
       <div class="filter-group-body">
         <div class="upside-range-filter" id="secScoreRangeFilter">
-          <span class="range-filter-label">Secondary Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Secondary Score (0-10) וטווח רמת ביטחון (X/11) יחד — אותו עיקרון בדיוק כמו מסנני ה-Score הראשי, רק על ה-Secondary Score (PEG/Hedge Funds/Volume/EPS Trend/Margin/Growth/Gross Margin/Op Margin/FCF Yield/Coverage/Forward P-E).</span></span></span>
+          <span class="range-filter-label">Secondary Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Secondary Score (0-10) וטווח רמת ביטחון (X/18) יחד — אותו עיקרון בדיוק כמו מסנני ה-Score הראשי, רק על ה-Secondary Score (18 מדדי ערך/רווחיות/תזרים חלשים יותר).</span></span></span>
           <div class="range-inputs">
             <input type="number" id="secScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
             <span>&ndash;</span>
@@ -2501,18 +2557,18 @@
         </div>
 
         <div class="upside-range-filter" id="secConfidenceRangeFilter">
-          <span class="range-filter-label">Secondary Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-11 המדדים מאחורי ה-Secondary Score היו נתונים אמיתיים. למשל 9-11 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
+          <span class="range-filter-label">Secondary Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-18 המדדים מאחורי ה-Secondary Score היו נתונים אמיתיים. למשל 15-18 מציג רק מניות שכמעט כל הנתונים שלהן ידועים.</span></span></span>
           <div class="range-inputs">
-            <input type="number" id="secConfidenceRangeMinInput" step="1" min="0" max="11" value="0">
+            <input type="number" id="secConfidenceRangeMinInput" step="1" min="0" max="18" value="0">
             <span>&ndash;</span>
-            <input type="number" id="secConfidenceRangeMaxInput" step="1" min="0" max="11" value="11">
+            <input type="number" id="secConfidenceRangeMaxInput" step="1" min="0" max="18" value="18">
             <span class="range-max-hint" id="secConfidenceRangeMaxHint"></span>
           </div>
           <div class="range-slider-track">
             <div class="range-slider-rail"></div>
             <div class="range-slider-fill" id="secConfidenceRangeFill"></div>
-            <input type="range" id="secConfidenceRangeMinSlider" step="1" min="0" max="11" value="0">
-            <input type="range" id="secConfidenceRangeMaxSlider" step="1" min="0" max="11" value="11">
+            <input type="range" id="secConfidenceRangeMinSlider" step="1" min="0" max="18" value="0">
+            <input type="range" id="secConfidenceRangeMaxSlider" step="1" min="0" max="18" value="18">
           </div>
         </div>
       </div>
@@ -2522,7 +2578,7 @@
       <summary><span class="filter-group-dot"></span>Risk Score</summary>
       <div class="filter-group-body">
         <div class="upside-range-filter" id="riskScoreRangeFilter">
-          <span class="range-filter-label">Risk Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Risk Score (0-10) וטווח רמת ביטחון (X/5) יחד. זכרו: גבוה כאן = תנודתי יותר, <b>לא</b> "גרוע יותר" — זה לא ציר איכות.</span></span></span>
+          <span class="range-filter-label">Risk Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Risk Score (0-10) וטווח רמת ביטחון (X/7) יחד. זכרו: גבוה כאן = תנודתי יותר, <b>לא</b> "גרוע יותר" — זה לא ציר איכות.</span></span></span>
           <div class="range-inputs">
             <input type="number" id="riskScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
             <span>&ndash;</span>
@@ -2538,18 +2594,55 @@
         </div>
 
         <div class="upside-range-filter" id="riskConfidenceRangeFilter">
-          <span class="range-filter-label">Risk Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-5 המדדים מאחורי ה-Risk Score היו נתונים אמיתיים.</span></span></span>
+          <span class="range-filter-label">Risk Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-7 המדדים מאחורי ה-Risk Score היו נתונים אמיתיים.</span></span></span>
           <div class="range-inputs">
-            <input type="number" id="riskConfidenceRangeMinInput" step="1" min="0" max="5" value="0">
+            <input type="number" id="riskConfidenceRangeMinInput" step="1" min="0" max="7" value="0">
             <span>&ndash;</span>
-            <input type="number" id="riskConfidenceRangeMaxInput" step="1" min="0" max="5" value="5">
+            <input type="number" id="riskConfidenceRangeMaxInput" step="1" min="0" max="7" value="7">
             <span class="range-max-hint" id="riskConfidenceRangeMaxHint"></span>
           </div>
           <div class="range-slider-track">
             <div class="range-slider-rail"></div>
             <div class="range-slider-fill" id="riskConfidenceRangeFill"></div>
-            <input type="range" id="riskConfidenceRangeMinSlider" step="1" min="0" max="5" value="0">
-            <input type="range" id="riskConfidenceRangeMaxSlider" step="1" min="0" max="5" value="5">
+            <input type="range" id="riskConfidenceRangeMinSlider" step="1" min="0" max="7" value="0">
+            <input type="range" id="riskConfidenceRangeMaxSlider" step="1" min="0" max="7" value="7">
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="filter-group" name="filterAccordionGroup" id="fgGrowthScore">
+      <summary><span class="filter-group-dot"></span>Growth Score</summary>
+      <div class="filter-group-body">
+        <div class="upside-range-filter" id="growthScoreRangeFilter">
+          <span class="range-filter-label">Growth Score range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מסנן לפי טווח Growth Score (0-10) וטווח רמת ביטחון (X/3) יחד — ציון רביעי נפרד שמודד קצב צמיחה צפוי (רבעוני/שנה קדימה/5 שנים), לא איכות ולא תנודתיות.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="growthScoreRangeMinInput" step="0.1" min="0" max="10" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="growthScoreRangeMaxInput" step="0.1" min="0" max="10" value="10">
+            <span class="range-max-hint" id="growthScoreRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="growthScoreRangeFill"></div>
+            <input type="range" id="growthScoreRangeMinSlider" step="0.1" min="0" max="10" value="0">
+            <input type="range" id="growthScoreRangeMaxSlider" step="0.1" min="0" max="10" value="10">
+          </div>
+        </div>
+
+        <div class="upside-range-filter" id="growthConfidenceRangeFilter">
+          <span class="range-filter-label">Growth Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">כמה מ-3 המדדים מאחורי ה-Growth Score היו נתונים אמיתיים.</span></span></span>
+          <div class="range-inputs">
+            <input type="number" id="growthConfidenceRangeMinInput" step="1" min="0" max="3" value="0">
+            <span>&ndash;</span>
+            <input type="number" id="growthConfidenceRangeMaxInput" step="1" min="0" max="3" value="3">
+            <span class="range-max-hint" id="growthConfidenceRangeMaxHint"></span>
+          </div>
+          <div class="range-slider-track">
+            <div class="range-slider-rail"></div>
+            <div class="range-slider-fill" id="growthConfidenceRangeFill"></div>
+            <input type="range" id="growthConfidenceRangeMinSlider" step="1" min="0" max="3" value="0">
+            <input type="range" id="growthConfidenceRangeMaxSlider" step="1" min="0" max="3" value="3">
           </div>
         </div>
       </div>
@@ -2575,18 +2668,18 @@
         </div>
 
         <div class="upside-range-filter" id="overallConfidenceRangeFilter">
-          <span class="range-filter-label">Overall Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">סכום רמות הביטחון של Score ו-Secondary Score יחד (עד 14+11=25).</span></span></span>
+          <span class="range-filter-label">Overall Confidence range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">סכום רמות הביטחון של Score ו-Secondary Score יחד (עד 15+18=33).</span></span></span>
           <div class="range-inputs">
-            <input type="number" id="overallConfidenceRangeMinInput" step="1" min="0" max="25" value="0">
+            <input type="number" id="overallConfidenceRangeMinInput" step="1" min="0" max="33" value="0">
             <span>&ndash;</span>
-            <input type="number" id="overallConfidenceRangeMaxInput" step="1" min="0" max="25" value="25">
+            <input type="number" id="overallConfidenceRangeMaxInput" step="1" min="0" max="33" value="33">
             <span class="range-max-hint" id="overallConfidenceRangeMaxHint"></span>
           </div>
           <div class="range-slider-track">
             <div class="range-slider-rail"></div>
             <div class="range-slider-fill" id="overallConfidenceRangeFill"></div>
-            <input type="range" id="overallConfidenceRangeMinSlider" step="1" min="0" max="25" value="0">
-            <input type="range" id="overallConfidenceRangeMaxSlider" step="1" min="0" max="25" value="25">
+            <input type="range" id="overallConfidenceRangeMinSlider" step="1" min="0" max="33" value="0">
+            <input type="range" id="overallConfidenceRangeMaxSlider" step="1" min="0" max="33" value="33">
           </div>
         </div>
       </div>
@@ -2644,6 +2737,20 @@
         <label><input type="checkbox" id="toggleFcfYield" checked> FCF Yield</label>
         <label><input type="checkbox" id="toggleCoverage" checked> Coverage</label>
         <label><input type="checkbox" id="toggleFwdPe" checked> Forward P/E</label>
+        <label><input type="checkbox" id="toggleGrowthScore" checked> Growth Score</label>
+        <label><input type="checkbox" id="toggleRelStrength" checked> Relative Strength</label>
+        <label><input type="checkbox" id="togglePb" checked> P/B</label>
+        <label><input type="checkbox" id="toggleEvEbitda" checked> EV/EBITDA</label>
+        <label><input type="checkbox" id="toggleEvRevenue" checked> EV/Revenue</label>
+        <label><input type="checkbox" id="togglePayout" checked> Payout Ratio</label>
+        <label><input type="checkbox" id="toggleEbitdaMargin" checked> EBITDA Margin</label>
+        <label><input type="checkbox" id="toggleCashMcap" checked> Cash/MCap</label>
+        <label><input type="checkbox" id="toggleOcfMargin" checked> OCF Margin</label>
+        <label><input type="checkbox" id="toggleShortIntTrend" checked> Short Int. Trend</label>
+        <label><input type="checkbox" id="toggleFloatPct" checked> Float %</label>
+        <label><input type="checkbox" id="toggleEpsGrowth5y" checked> EPS Growth 5Y</label>
+        <label><input type="checkbox" id="toggleEpsGrowthNextYear" checked> EPS Growth 1Y</label>
+        <label><input type="checkbox" id="toggleEarningsQGrowth" checked> Earnings Q Growth</label>
       </div>
     </div>
   </div>
@@ -2675,10 +2782,11 @@
         <th rowspan="2" class="num sortable col-r52" id="sortR52" data-dir="desc">52W Range<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">מראה <b>איפה המחיר הנוכחי נמצא</b> בטווח בין השפל לשיא של 52 השבועות האחרונים, באחוזים.<br><br><b>0%</b> = המחיר בדיוק בשפל השנתי.<br><b>100%</b> = המחיר בדיוק בשיא השנתי.<br><b>50%</b> = באמצע הטווח.<br><br><b>דוגמה:</b> אם השפל השנתי הוא $200 והשיא הוא $400, ומחיר המניה כרגע $350:<br><div class="ltr-num">(350-200) ÷ (400-200) × 100 = 75%</div>המניה נמצאת ב-75% מהטווח — קרוב לשיא.<br><br><b>למה אין כאן צבע:</b> קרוב לשיא יכול להעיד על מומנטום חיובי חזק (טוב) <b>או</b> על מניה ש"כבר רצה יותר מדי" (מסוכן) — תלוי לגמרי באסטרטגיה שלך, אין כיוון אוניברסלי. לכן זה <b>לא מנוקד</b> באף Score, מוצג כמידע גולמי בלבד.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-mcap" id="sortMcap" data-dir="desc">Market Cap<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">שווי השוק הכולל של החברה (מחיר מניה × מספר מניות), ממקור Yahoo Finance.<br><br><b>למה זה כאן:</b> משמש בעיקר כדי "לנרמל" את עמודת ה-Insider $ — מכירת מנהלים של $1.8M נראית זהה על הנייר בין חברה ענקית לחברה קטנה, אבל ביחס לשווי השוק שלהן זה סיפור אחר לגמרי (ראו טולטיפ עמודת Score).<br><br><b>מקור:</b> FUNDAMENTALS SCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-hf" id="sortHf" data-dir="desc">Hedge Funds<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide">פעילות קרנות הגידור הגדולות ביותר המחזיקות במניה (למשל וורן באפט/ברקשייר), מהרבעון האחרון — מוצג כ-<b>A/R/N</b> (Added/Reduced/No change).<br><br><b>איך לקרוא את המספרים:</b> A = כמה קרנות <b>הוסיפו</b> לאחזקה שלהן, R = כמה <b>הפחיתו</b>, N = כמה <b>לא שינו כלום</b>. הסכום של השלושה הוא בדרך כלל 3 (מספר הקרנות הגדולות שמוצגות כברירת מחדל) — יכול להיות פחות אם למניה יש פחות מ-3 קרנות מוכרות שמחזיקות בה.<br><br><b>דוגמה אמיתית (AAPL, "1A/1R/1N"):</b> מתוך 3 הקרנות הגדולות שמחזיקות ב-AAPL — קרן אחת הוסיפה למניה, קרן אחת הפחיתה, קרן אחת לא שינתה כלום. סה"כ תמיד 3.<br><br><b>איך לפרש:</b><br>"3A/0R/0N" = כל 3 הקרנות הוסיפו — סימן חיובי מובהק (<b>ירוק</b>)<br>"0A/3R/0N" = כל 3 הקרנות הפחיתו — סימן שלילי (<b>אדום</b>)<br>"1A/1R/1N" = מעורב, בלי הטיה ברורה (<b>אפור</b>)<br><br><b>מגבלה חשובה:</b> זה רק ה-3 המחזיקים הגדולים ביותר שמוצגים כברירת מחדל בעמוד המקור, לא כל הקרנות שמחזיקות במניה — מדגם קטן, לא סטטיסטי. לכן זה <b>לא מנוקד ב-Score</b>, מוצג כמידע גולמי בלבד.<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות)</span></span><span class="sort-arrow">&#9660;</span></th>
-        <th rowspan="2" class="num sortable col-score" id="sortScore" data-dir="desc">Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון מורכב 1-10</b>, סכום של 14 מדדים (0-2 נק' כל אחד, מנורמל לסקאלת 0-10):<br><br><b>1. דירוג אנליסטים</b> — Strong Buy=2, Hold=1, Strong Sell=0<br><b>2. Upside%</b> — פער בין המחיר הנוכחי ליעד הממוצע<br><b>3. Insider</b> — מנורמל לפי שווי שוק (לא סכום דולרי גולמי): קנייה משמעותית (מעל 0.1% משווי השוק)=2, מכירה משמעותית=0.3, מכירה זניחה (כמו $1.8M ב-AAPL ששווה $4.67 טריליון)=1 (כמעט ולא משפיע)<br><b>4. Short Interest</b> — אחוז נמוך מהפלואט=2, גבוה=0<br><b>5. טכני</b> — RSI14 + מחיר מול ממוצע נע 50/200 יום<br><b>6. הסכמת אנליסטים (Dispersion)</b> — פער בין יעד נמוך לגבוה יחסית ליעד הממוצע: פער צר (מתחת ל-20%)=2 (אנליסטים מסכימים), פער ענק (מעל 100%)=0 (ניחוש פרוע)<br><b>7. הפתעת רווחים</b> — ממוצע אחוז חריגה מהתחזית ב-4 הרבעונים האחרונים (Yahoo earningsHistory): חריגה חיובית עקבית מעל 10%=2, החטאות עקביות מתחת ל-10%=0<br><b>8. מגמת דירוג (Rating Trend)</b> — שינוי בדירוג הממוצע של האנליסטים ב-3 החודשים האחרונים (Yahoo recommendationTrend): שדרוגים נטו=2, הורדות דירוג נטו=0 — תופס מומנטום שדירוג סטטי לבד לא מראה (Hold יכול להיות אחרי שדרוג מ-Sell או אחרי הורדה מ-Buy, ונראה זהה)<br><b>9. ROE (תשואה על ההון)</b> — עד 2 נק': כמה טוב החברה הופכת הון עצמי לרווח נקי. מעל 25%=2, שלילי (מפסידה)=0<br><b>10. אחזקה מוסדית</b> — עד 2 נק': אחוז המניות המוחזק ע"י קרנות/מוסדות גדולים — "אמון חכם" גס במניה. מעל 70%=2, מתחת ל-10%=0<br><b>11. Current Ratio (נזילות)</b> — עד 2 נק', עם "טווח מתוק" ולא "כמה שיותר טוב": יחס בין נכסים שוטפים להתחייבויות שוטפות. מתחת ל-1.0 (בעיית נזילות)=0, בין 1.5-3.0 (בריא)=2, מעל 3.0 (יותר מדי מזומן חסר פעילות)=1<br><b>12. Quick Ratio (נזילות מחמירה)</b> — עד 2 נק', כמו Current Ratio בלי מלאי, בסקאלה נמוכה יותר: מתחת ל-0.5=0, 1.0-2.0=2 (בריא), מעל 2.0=1<br><b>13. ROA (תשואה על הנכסים)</b> — עד 2 נק': כמו ROE אבל ביחס לכלל הנכסים, לא רק ההון העצמי — לא מנופח ע"י מינוף. מעל 15%=2, שלילי=0<br><b>14. Held % Insiders (אחזקת מנהלים)</b> — עד 2 נק': אחוז המניות המוחזק ע"י ההנהלה עצמה (לא קרנות) — "עור בלהחלטה". מעל 20%=2, מתחת ל-1%=0<br><br><b>למה נורמול לפי שווי שוק (Insider):</b> מכירת $1.8M ע"י מנהל ב-AAPL ($4.67T שווי שוק) היא 0.00004% משווי השוק — רעש סטטיסטי לחלוטין. אותה מכירה בדיוק בחברה ששווה $50M היא 3.6% משווי השוק — איתות מאוד משמעותי. בלי הנרמול הזה, שתי החברות היו מקבלות בדיוק אותו ניקוד למרות שהמשמעות שונה לגמרי.<br><br>סימן חסר נתונים בכל מדד מקבל ניקוד ניטרלי (1) במקום להוריד את הציון. זהו היגיון שקוף שנבחר ידנית, <b>לא מודל סטטיסטי</b> — כלי עזר להשוואה מהירה, לא המלצת השקעה.<br><br><b>המספר הקטן ליד הציון (למשל "14/14")</b> הוא <b>אינדיקטור ביטחון</b>: כמה מ-14 המדדים היו נתונים אמיתיים, לעומת כמה קיבלו ניקוד ניטרלי בגלל חוסר מידע. Score של 7.0 עם "14/14" הרבה יותר אמין מ-Score של 7.0 עם "4/14" (שם רוב הציון בעצם "ניחוש ניטרלי", לא מידע אמיתי) — תמיד כדאי להסתכל על שניהם ביחד, לא רק על המספר הגדול.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, אבל מבוסס על נתונים מ-3 סריקות שונות: דירוג (MEGASCAN), Insider (INSIDER SCAN), השאר (FUNDAMENTALS SCAN עצמו). מתעדכן בכל פעם ש-FUNDAMENTALS SCAN רץ.</span></span><span class="sort-arrow">&#9660;</span></th>
-        <th rowspan="2" class="num sortable col-secscore" id="sortSecScore" data-dir="desc">Secondary Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שני, נפרד לגמרי מה-Score הראשי</b> — בנוי מ-11 מדדים "חלשים יותר" שבמכוון לא נכנסו ל-Score הראשי, כי לכל אחד מהם יש בעיה שמונעת ניקוד אמין לבד:<br><br><b>1. PEG</b> (או P/E אם אין PEG) — עד 2 נק', זול/יקר יחסית לצמיחה<br><b>2. Hedge Funds</b> — עד 2 נק', רוב הוסיפו=2, רוב הפחיתו=0<br><b>3. Volume Spike</b> — עד 2 נק', ספייק+עלייה=2, ספייק+ירידה=0<br><b>4. EPS Trend</b> — עד 2 נק', האם אנליסטים העלו או הורידו את תחזית הרווח לרבעון הנוכחי ב-90 הימים האחרונים (Yahoo earningsTrend): העלאה חדה=2, הורדה חדה=0 — אינדיקטור מקדים שלרוב זז לפני שה-Rating עצמו מתעדכן<br><b>5. שולי רווח נקי (Profit Margin)</b> — עד 2 נק', אחוז הרווח הנקי מההכנסות: מעל 20%=2, הפסד עמוק=0<br><b>6. צמיחת הכנסות (Revenue Growth)</b> — עד 2 נק', שינוי הכנסות שנתי: מעל 20%=2, ירידה חדה=0<br><b>7. שולי רווח גולמי (Gross Margin)</b> — עד 2 נק', כוח תמחור/יתרון תחרותי: מעל 50%=2, מתחת ל-10%=0<br><b>8. שולי רווח תפעולי (Operating Margin)</b> — עד 2 נק', יעילות תפעולית טהורה: מעל 25%=2, שלילי=0<br><b>9. FCF Yield</b> — עד 2 נק', תזרים מזומנים חופשי ביחס לשווי השוק — האם הרווח מלווה במזומן אמיתי: מעל 8%=2, שלילי (שורפת מזומן)=0<br><b>10. Analyst Coverage</b> — עד 2 נק', כמה אנליסטים מדרגים את המניה — בדיקת מהימנות לדירוג עצמו, לא כיוון: 20+=2, אין כיסוי=0<br><b>11. Forward P/E מול TTM</b> — עד 2 נק', האם השוק מצפה לשיפור או הרעה ברווחים: שיפור צפוי מעל 20%=2, הרעה מעל 20%=0<br><br>סה"כ (0-22) מוכפל ב-10/22 כדי להתאים לאותו סקאלה של 0-10 כמו ה-Score הראשי.<br><br><b>למה זה נפרד מה-Score הראשי:</b> חיבור מדדים "פחות אמינים" לתוך ה-Score החזק היה מטשטש את המשמעות שלו — Score של 7.5 היה נראה אותו דבר בין אם הוא מבוסס בעיקר על Rating/Insider חזקים, לבין אם הוא "נצבע" ע"י ניחושים חלשים יותר. שני ציונים נפרדים = כל אחד נשאר ברור במשמעות שלו.<br><br><b>המספר הקטן ליד הציון ("X/11")</b> הוא אינדיקטור ביטחון, אותו עיקרון כמו ב-Score הראשי — כמה מ-11 המדדים היו נתונים אמיתיים.<br><br>זה <b>היגיון חלש יותר מה-Score הראשי במכוון</b> — כלי עזר משני, לא המלצת השקעה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מבוסס על MEGASCAN (Hedge Funds) + FUNDAMENTALS SCAN עצמו (PEG/Volume/EPS Trend/Margin/Growth)</span></span><span class="sort-arrow">&#9660;</span></th>
-        <th rowspan="2" class="num sortable col-riskscore" id="sortRiskScore" data-dir="desc">Risk Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שלישי, שונה בסוג מהשניים האחרים</b> — Score ו-Secondary Score מודדים "איכות" (חיובי מול שלילי). זה מודד <b>תנודתיות/חוסר יציבות</b> (רגוע מול פרוע) — ציר <b>שונה לגמרי</b>, שאין בו "טוב" או "רע" אוניברסלי, רק פרופיל סיכון שונה.<br><br><b>למה זה קיים:</b> 5 המדדים הבאים כל אחד בנפרד <b>אין להם כיוון</b> (לא ניתן לומר "טוב" או "רע") — לכן אף אחד מהם לא יכול היה להיכנס ל-Score או ל-Secondary Score. אבל כולם <b>חולקים נושא משותף</b> (תנודתיות/סיכון), אז אפשר לחבר אותם לציר שלישי שימושי, גם אם הוא לא "איכות".<br><br><b>1. Beta</b> — עד 2 נק': |Beta| רחוק מ-1 (תנודתי מהשוק) = ניקוד גבוה<br><b>2. מרחק מאמצע הטווח השנתי</b> — עד 2 נק': קרוב לשיא <b>או</b> לשפל השנתי (שני הקצוות!) = ניקוד גבוה, לא רק קרוב לשפל<br><b>3. עוצמת Volume Spike</b> — עד 2 נק': כאן רק <b>העוצמה</b> של הספייק קובעת, לא הכיוון (בניגוד לעמודת Volume Spike עצמה)<br><b>4. Debt/Equity</b> — עד 2 נק': יחס חוב להון גבוה = חברה ממונפת יותר, שברירית יותר תחת לחץ, ללא קשר אם המניה נראית זולה או יקרה<br><b>5. Days-to-Cover</b> — עד 2 נק': כמה ימי מסחר ממוצעים יידרשו כדי לסגור את כל הפוזיציות השורט (short interest חלקי נפח מסחר יומי ממוצע) — ערך גבוה = פוטנציאל ל"סקוויז" שיזיז את המחיר בחדות בכל כיוון אם השורטיסטים ייאלצו לקנות בחזרה<br><br>סה"כ (0-10) — 5 מדדים כפול 2 נק' מקסימום כל אחד, כבר על סקאלת 0-10 ישירות ללא צורך בהכפלה.<br><br><b>איך לקרוא את הצבע:</b> <span style="color:#3b82c4">כחול</span> = רגועה/יציבה, אפור = ממוצעת, <span style="color:#d97b3f">כתום</span> = תנודתית/פרועה — <b>לא ירוק/אדום במכוון</b>, כדי לא לרמז ש"תנודתי" = "רע". תנודתיות גבוהה יכולה להתאים למי שרוצה סיכוי לרווח גדול, ונמוכה למי שרוצה יציבות.<br><br><b>המספר הקטן ("X/5")</b> — אינדיקטור ביטחון, אותו עיקרון כמו שני הציונים האחרים.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN (Beta/52W Range/Volume/Debt-Equity/Short Ratio, כולם נשלפים מ-Yahoo Finance)</span></span><span class="sort-arrow">&#9660;</span></th>
-        <th rowspan="2" class="num sortable col-overallscore" id="sortOverallScore" data-dir="desc">Overall Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מספר אחד שמשלב את Score ו-Secondary Score</b> — לנוחות מי שרוצה מספר בודד להשוואה מהירה, במקום להסתכל על שני ציונים בנפרד.<br><br><b>נוסחה:</b> Score &times; 0.7 + Secondary Score &times; 0.3<br><br><b>למה המשקלים האלה:</b> Score בנוי מ-14 מדדים שכוללים עובדות "קשות יותר" (דירוג אנליסטים, Insider $, Short Interest, ROE, אחזקה מוסדית), בעוד Secondary Score בנוי במכוון מ-11 מדדים "חלשים יותר" (PEG, מדגם קטן של Hedge Funds, Volume Spike, EPS Trend, שולי רווח, צמיחה, FCF Yield, Coverage) — לכן הוא מקבל משקל נמוך יותר בבלנד, לא נעלם, אבל גם לא שווה-ערך.<br><br><b>למה Risk Score לא נכנס לחישוב בכלל:</b> Risk Score מודד תנודתיות (רגוע מול פרוע), לא איכות (טוב מול רע) — ציר שונה לגמרי. לחבר אותו לתוך ציון "איכות" היה הופך את המספר לחסר משמעות: מניה תנודתית לא "טובה יותר" ולא "גרועה יותר" רק בגלל התנודתיות שלה. Risk Score נשאר עמודה נפרדה בכוונה.<br><br>אם לטיקר יש רק אחד מהשניים (Score או Secondary Score), הוא משמש לבד (במקום להתייחס לחסר כ-0).<br><br><b>המספר הקטן ("X/25")</b> — סכום פשוט של רמות הביטחון של שני הציונים המקוריים (עד 14+11=25), לא מדידה עצמאית חדשה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, ישירות מ-score.tsv ו-secondary_score.tsv (ללא נתונים חדשים משלו).<br><br><b>חץ קטן (▲/▼)</b> ליד הציון מופיע רק כשהיה שינוי משמעותי (1.0+ נק') מהסריקה היומית הקודמת — רחפו מעליו לפרטים. <b>גרף זעיר</b> מתחת לציון מציג את ה-14 הימים האחרונים של Overall Score (יתמלא בהדרגה ככל שיצטבר יותר היסטוריה יומית).</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-score" id="sortScore" data-dir="desc">Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון מורכב 1-10</b>, סכום של 15 מדדים (0-2 נק' כל אחד, מנורמל לסקאלת 0-10):<br><br><b>1. דירוג אנליסטים</b> — Strong Buy=2, Hold=1, Strong Sell=0<br><b>2. Upside%</b> — פער בין המחיר הנוכחי ליעד הממוצע<br><b>3. Insider</b> — מנורמל לפי שווי שוק (לא סכום דולרי גולמי): קנייה משמעותית (מעל 0.1% משווי השוק)=2, מכירה משמעותית=0.3, מכירה זניחה (כמו $1.8M ב-AAPL ששווה $4.67 טריליון)=1 (כמעט ולא משפיע)<br><b>4. Short Interest</b> — אחוז נמוך מהפלואט=2, גבוה=0<br><b>5. טכני</b> — RSI14 + מחיר מול ממוצע נע 50/200 יום<br><b>6. הסכמת אנליסטים (Dispersion)</b> — פער בין יעד נמוך לגבוה יחסית ליעד הממוצע: פער צר (מתחת ל-20%)=2 (אנליסטים מסכימים), פער ענק (מעל 100%)=0 (ניחוש פרוע)<br><b>7. הפתעת רווחים</b> — ממוצע אחוז חריגה מהתחזית ב-4 הרבעונים האחרונים (Yahoo earningsHistory): חריגה חיובית עקבית מעל 10%=2, החטאות עקביות מתחת ל-10%=0<br><b>8. מגמת דירוג (Rating Trend)</b> — שינוי בדירוג הממוצע של האנליסטים ב-3 החודשים האחרונים (Yahoo recommendationTrend): שדרוגים נטו=2, הורדות דירוג נטו=0 — תופס מומנטום שדירוג סטטי לבד לא מראה (Hold יכול להיות אחרי שדרוג מ-Sell או אחרי הורדה מ-Buy, ונראה זהה)<br><b>9. ROE (תשואה על ההון)</b> — עד 2 נק': כמה טוב החברה הופכת הון עצמי לרווח נקי. מעל 25%=2, שלילי (מפסידה)=0<br><b>10. אחזקה מוסדית</b> — עד 2 נק': אחוז המניות המוחזק ע"י קרנות/מוסדות גדולים — "אמון חכם" גס במניה. מעל 70%=2, מתחת ל-10%=0<br><b>11. Current Ratio (נזילות)</b> — עד 2 נק', עם "טווח מתוק" ולא "כמה שיותר טוב": יחס בין נכסים שוטפים להתחייבויות שוטפות. מתחת ל-1.0 (בעיית נזילות)=0, בין 1.5-3.0 (בריא)=2, מעל 3.0 (יותר מדי מזומן חסר פעילות)=1<br><b>12. Quick Ratio (נזילות מחמירה)</b> — עד 2 נק', כמו Current Ratio בלי מלאי, בסקאלה נמוכה יותר: מתחת ל-0.5=0, 1.0-2.0=2 (בריא), מעל 2.0=1<br><b>13. ROA (תשואה על הנכסים)</b> — עד 2 נק': כמו ROE אבל ביחס לכלל הנכסים, לא רק ההון העצמי — לא מנופח ע"י מינוף. מעל 15%=2, שלילי=0<br><b>14. Held % Insiders (אחזקת מנהלים)</b> — עד 2 נק': אחוז המניות המוחזק ע"י ההנהלה עצמה (לא קרנות) — "עור בלהחלטה". מעל 20%=2, מתחת ל-1%=0<br><b>15. Relative Strength (חוזק יחסי)</b> — עד 2 נק': שינוי המחיר ב-52 השבועות האחרונים בהשוואה ל-S&amp;P 500 באותה תקופה — מבודד את הביצועים הספציפיים של המניה מתנועת השוק הכללי. מעל 20%=2, מתחת ל-20%=0<br><br><b>למה נורמול לפי שווי שוק (Insider):</b> מכירת $1.8M ע"י מנהל ב-AAPL ($4.67T שווי שוק) היא 0.00004% משווי השוק — רעש סטטיסטי לחלוטין. אותה מכירה בדיוק בחברה ששווה $50M היא 3.6% משווי השוק — איתות מאוד משמעותי. בלי הנרמול הזה, שתי החברות היו מקבלות בדיוק אותו ניקוד למרות שהמשמעות שונה לגמרי.<br><br>סימן חסר נתונים בכל מדד מקבל ניקוד ניטרלי (1) במקום להוריד את הציון. זהו היגיון שקוף שנבחר ידנית, <b>לא מודל סטטיסטי</b> — כלי עזר להשוואה מהירה, לא המלצת השקעה.<br><br><b>המספר הקטן ליד הציון (למשל "15/15")</b> הוא <b>אינדיקטור ביטחון</b>: כמה מ-15 המדדים היו נתונים אמיתיים, לעומת כמה קיבלו ניקוד ניטרלי בגלל חוסר מידע. Score של 7.0 עם "15/15" הרבה יותר אמין מ-Score של 7.0 עם "4/15" (שם רוב הציון בעצם "ניחוש ניטרלי", לא מידע אמיתי) — תמיד כדאי להסתכל על שניהם ביחד, לא רק על המספר הגדול.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, אבל מבוסס על נתונים מ-3 סריקות שונות: דירוג (MEGASCAN), Insider (INSIDER SCAN), השאר (FUNDAMENTALS SCAN עצמו). מתעדכן בכל פעם ש-FUNDAMENTALS SCAN רץ.</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-secscore" id="sortSecScore" data-dir="desc">Secondary Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שני, נפרד לגמרי מה-Score הראשי</b> — בנוי מ-18 מדדים "חלשים יותר" שבמכוון לא נכנסו ל-Score הראשי, כי לכל אחד מהם יש בעיה שמונעת ניקוד אמין לבד:<br><br><b>1. PEG</b> (או P/E אם אין PEG) — עד 2 נק', זול/יקר יחסית לצמיחה<br><b>2. Hedge Funds</b> — עד 2 נק', רוב הוסיפו=2, רוב הפחיתו=0<br><b>3. Volume Spike</b> — עד 2 נק', ספייק+עלייה=2, ספייק+ירידה=0<br><b>4. EPS Trend</b> — עד 2 נק', האם אנליסטים העלו או הורידו את תחזית הרווח לרבעון הנוכחי ב-90 הימים האחרונים (Yahoo earningsTrend): העלאה חדה=2, הורדה חדה=0 — אינדיקטור מקדים שלרוב זז לפני שה-Rating עצמו מתעדכן<br><b>5. שולי רווח נקי (Profit Margin)</b> — עד 2 נק', אחוז הרווח הנקי מההכנסות: מעל 20%=2, הפסד עמוק=0<br><b>6. צמיחת הכנסות (Revenue Growth)</b> — עד 2 נק', שינוי הכנסות שנתי: מעל 20%=2, ירידה חדה=0<br><b>7. שולי רווח גולמי (Gross Margin)</b> — עד 2 נק', כוח תמחור/יתרון תחרותי: מעל 50%=2, מתחת ל-10%=0<br><b>8. שולי רווח תפעולי (Operating Margin)</b> — עד 2 נק', יעילות תפעולית טהורה: מעל 25%=2, שלילי=0<br><b>9. FCF Yield</b> — עד 2 נק', תזרים מזומנים חופשי ביחס לשווי השוק — האם הרווח מלווה במזומן אמיתי: מעל 8%=2, שלילי (שורפת מזומן)=0<br><b>10. Analyst Coverage</b> — עד 2 נק', כמה אנליסטים מדרגים את המניה — בדיקת מהימנות לדירוג עצמו, לא כיוון: 20+=2, אין כיסוי=0<br><b>11. Forward P/E מול TTM</b> — עד 2 נק', האם השוק מצפה לשיפור או הרעה ברווחים: שיפור צפוי מעל 20%=2, הרעה מעל 20%=0<br><b>12. P/B (Price-to-Book)</b> — עד 2 נק', זול/יקר יחסית לשווי הנכסי הנקי<br><b>13. EV/EBITDA</b> — עד 2 נק', מכפיל שווי שמנטרל הבדלי מבנה הון (חוב/מזומן)<br><b>14. EV/Revenue</b> — עד 2 נק', מכפיל שעובד גם כשגם הרווח וגם ה-EBITDA שליליים<br><b>15. יחס חלוקת דיבידנד (Payout Ratio)</b> — עד 2 נק', "טווח מתוק": יחס גבוה מדי מסכן קיצוץ דיבידנד עתידי<br><b>16. EBITDA Margin</b> — עד 2 נק', רווחיות לפני מימון/מס/פחת<br><b>17. מזומן ביחס לשווי שוק (Cash/MCap)</b> — עד 2 נק', "כרית ביטחון" במאזן, בנפרד מקצב הייצור השוטף (FCF Yield)<br><b>18. OCF Margin</b> — עד 2 נק', תזרים מזומנים תפעולי ביחס להכנסות — בדיקת איכות נפרדת מ-FCF Yield ומרווח נקי<br><br>סה"כ (0-36) מוכפל ב-10/36 כדי להתאים לאותו סקאלה של 0-10 כמו ה-Score הראשי.<br><br><b>למה זה נפרד מה-Score הראשי:</b> חיבור מדדים "פחות אמינים" לתוך ה-Score החזק היה מטשטש את המשמעות שלו — Score של 7.5 היה נראה אותו דבר בין אם הוא מבוסס בעיקר על Rating/Insider חזקים, לבין אם הוא "נצבע" ע"י ניחושים חלשים יותר. שני ציונים נפרדים = כל אחד נשאר ברור במשמעות שלו.<br><br><b>המספר הקטן ליד הציון ("X/18")</b> הוא אינדיקטור ביטחון, אותו עיקרון כמו ב-Score הראשי — כמה מ-18 המדדים היו נתונים אמיתיים.<br><br>זה <b>היגיון חלש יותר מה-Score הראשי במכוון</b> — כלי עזר משני, לא המלצת השקעה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מבוסס על MEGASCAN (Hedge Funds) + FUNDAMENTALS SCAN עצמו (PEG/Volume/EPS Trend/Margin/Growth)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-riskscore" id="sortRiskScore" data-dir="desc">Risk Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון שלישי, שונה בסוג מהשניים האחרים</b> — Score ו-Secondary Score מודדים "איכות" (חיובי מול שלילי). זה מודד <b>תנודתיות/חוסר יציבות</b> (רגוע מול פרוע) — ציר <b>שונה לגמרי</b>, שאין בו "טוב" או "רע" אוניברסלי, רק פרופיל סיכון שונה.<br><br><b>למה זה קיים:</b> 7 המדדים הבאים כל אחד בנפרד <b>אין להם כיוון</b> (לא ניתן לומר "טוב" או "רע") — לכן אף אחד מהם לא יכול היה להיכנס ל-Score או ל-Secondary Score. אבל כולם <b>חולקים נושא משותף</b> (תנודתיות/סיכון), אז אפשר לחבר אותם לציר שלישי שימושי, גם אם הוא לא "איכות".<br><br><b>1. Beta</b> — עד 2 נק': |Beta| רחוק מ-1 (תנודתי מהשוק) = ניקוד גבוה<br><b>2. מרחק מאמצע הטווח השנתי</b> — עד 2 נק': קרוב לשיא <b>או</b> לשפל השנתי (שני הקצוות!) = ניקוד גבוה, לא רק קרוב לשפל<br><b>3. עוצמת Volume Spike</b> — עד 2 נק': כאן רק <b>העוצמה</b> של הספייק קובעת, לא הכיוון (בניגוד לעמודת Volume Spike עצמה)<br><b>4. Debt/Equity</b> — עד 2 נק': יחס חוב להון גבוה = חברה ממונפת יותר, שברירית יותר תחת לחץ, ללא קשר אם המניה נראית זולה או יקרה<br><b>5. Days-to-Cover</b> — עד 2 נק': כמה ימי מסחר ממוצעים יידרשו כדי לסגור את כל הפוזיציות השורט (short interest חלקי נפח מסחר יומי ממוצע) — ערך גבוה = פוטנציאל ל"סקוויז" שיזיז את המחיר בחדות בכל כיוון אם השורטיסטים ייאלצו לקנות בחזרה<br><b>6. מגמת Short Interest</b> — עד 2 נק': גודל השינוי במניות בשורט לעומת חודש קודם, ללא כיוון — עלייה חדה = מתח גובר, בכל כיוון<br><b>7. Float %</b> — עד 2 נק' (הפוך): אחוז המניות הסחיר בפועל (לא נעול). float קטן = אותו לחץ קנייה/מכירה מזיז את המחיר הרבה יותר<br><br>סה"כ (0-14) מוכפל ב-10/14 כדי להתאים לסקאלת 0-10.<br><br><b>איך לקרוא את הצבע:</b> <span style="color:#3b82c4">כחול</span> = רגועה/יציבה, אפור = ממוצעת, <span style="color:#d97b3f">כתום</span> = תנודתית/פרועה — <b>לא ירוק/אדום במכוון</b>, כדי לא לרמז ש"תנודתי" = "רע". תנודתיות גבוהה יכולה להתאים למי שרוצה סיכוי לרווח גדול, ונמוכה למי שרוצה יציבות.<br><br><b>המספר הקטן ("X/7")</b> — אינדיקטור ביטחון, אותו עיקרון כמו שני הציונים האחרים.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN (Beta/52W Range/Volume/Debt-Equity/Short Ratio/Short Interest Trend/Float, כולם נשלפים מ-Yahoo Finance)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-growthscore" id="sortGrowthScore" data-dir="desc">Growth Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>ציון רביעי, נפרד לגמרי משלושת האחרים</b> — לא "האם המניה טובה" (Score/Secondary Score) ולא "כמה תנודתית" (Risk Score), אלא <b>"כמה מהר צפויה החברה לצמוח"</b>, לפי 3 טווחי זמן שונים:<br><br><b>1. צמיחת רווחים רבעונית</b> — עד 2 נק': הרבעון האחרון שדווח בפועל מול אותו רבעון אשתקד — היחיד מבין השלושה שהוא עובדה, לא תחזית<br><b>2. תחזית צמיחת EPS, שנה קדימה</b> — עד 2 נק': הערכת קונצנזוס אנליסטים לשנה הפיננסית הבאה<br><b>3. תחזית צמיחת EPS, 5 שנים</b> — עד 2 נק': טווח הזמן הארוך ביותר שיאהו מפרסמת (מנורמל שנתית)<br><br>סה"כ (0-6) מוכפל ב-10/6 כדי להתאים לסקאלת 0-10.<br><br><b>למה ציון נפרד ולא בתוך Score/Secondary Score:</b> כבר יש שני ציוני "איכות" וציון "תנודתיות" — לערבב מדדי צמיחה לתוכם היה מטשטש את המשמעות (ציון גבוה יכול להיות "זול ומוכח" או "צומח מהר אך לא מוכח" — שני מקרי השקעה שונים לגמרי, מעורבבים למספר אחד). ציון נפרד שומר את ההבחנה גלויה, באותה סיבה שבגללה Risk Score עצמו הופרד מההתחלה.<br><br><b>לא נכלל בחישוב Overall Score</b> — אותה סיבה בדיוק, ציר שונה, לא הצבעה על "איכות".<br><br><b>המספר הקטן ("X/3")</b> — אינדיקטור ביטחון, אותו עיקרון כמו שאר הציונים.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics/earningsTrend)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-overallscore" id="sortOverallScore" data-dir="desc">Overall Score<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מספר אחד שמשלב את Score ו-Secondary Score</b> — לנוחות מי שרוצה מספר בודד להשוואה מהירה, במקום להסתכל על שני ציונים בנפרד.<br><br><b>נוסחה:</b> Score &times; 0.7 + Secondary Score &times; 0.3<br><br><b>למה המשקלים האלה:</b> Score בנוי מ-15 מדדים שכוללים עובדות "קשות יותר" (דירוג אנליסטים, Insider $, Short Interest, ROE, אחזקה מוסדית), בעוד Secondary Score בנוי במכוון מ-18 מדדים "חלשים יותר" (PEG, מדגם קטן של Hedge Funds, Volume Spike, EPS Trend, שולי רווח, צמיחה, FCF Yield, Coverage, P/B, EV/EBITDA) — לכן הוא מקבל משקל נמוך יותר בבלנד, לא נעלם, אבל גם לא שווה-ערך.<br><br><b>למה Risk Score ו-Growth Score לא נכנסים לחישוב בכלל:</b> שניהם מודדים צירים שונים לגמרי מ"איכות" (תנודתיות וקצב צמיחה, בהתאמה) — לערבב אותם לתוך ציון "איכות" היה הופך את המספר לחסר משמעות. שניהם נשארים עמודות נפרדות בכוונה.<br><br>אם לטיקר יש רק אחד מ-Score/Secondary Score, הוא משמש לבד (במקום להתייחס לחסר כ-0).<br><br><b>המספר הקטן ("X/33")</b> — סכום פשוט של רמות הביטחון של שני הציונים המקוריים (עד 15+18=33), לא מדידה עצמאית חדשה.<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, ישירות מ-score.tsv ו-secondary_score.tsv (ללא נתונים חדשים משלו).<br><br><b>חץ קטן (▲/▼)</b> ליד הציון מופיע רק כשהיה שינוי משמעותי (1.0+ נק') מהסריקה היומית הקודמת — רחפו מעליו לפרטים. <b>גרף זעיר</b> מתחת לציון מציג את ה-14 הימים האחרונים של Overall Score (יתמלא בהדרגה ככל שיצטבר יותר היסטוריה יומית).</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-percentile" id="sortPercentile" data-dir="desc">Sector %ile<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>דירוג יחסי לסקטור</b> — כמה אחוז מהחברות באותו סקטור ה-Overall Score של הטיקר הזה משיג או עולה עליהן. Overall Score של 7 יכול להיות ממוצע בטכנולוגיה (סקטור עם ציונים גבוהים בממוצע) אבל מצוין בשירותים ציבוריים — המספר הגולמי לבד לא מראה את זה.<br><br><b>לדוגמה:</b> 78% אומר שהטיקר הזה טוב יותר (או שווה) מ-78% מהחברות באותו סקטור.<br><br><b>מוצג רק לסקטורים עם 5+ חברות</b> — עם פחות מזה, "אחוזון" כמעט חסר משמעות (חברה אחת יכולה להזיז אותו מ-0 ל-100 לבד).<br><br><b>מקור:</b> מחושב אוטומטית ע"י FUNDAMENTALS SCAN, מדרג את Overall Score מול טיקרים אחרים באותו סקטור (Yahoo assetProfile).</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-roe" id="sortRoe" data-dir="desc">ROE<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>Return on Equity (תשואה על ההון העצמי)</b> — כמה רווח נקי החברה מייצרת ביחס להון העצמי שלה. מודד עד כמה יעיל ההנהלה בהפיכת כסף של בעלי המניות לרווח.<br><br><b>דוגמה:</b> ROE של AAPL עומד על כ-149% (מנופח ע"י רכישות עצמיות שמקטינות את ההון העצמי) — יעילות קיצונית בהפקת רווח מההון.<br><br>ROE גבוה = חיובי. ROE שלילי = החברה מפסידה כסף.<br><br><b>נכנס ל-Score:</b> מעל 25%=2 נק', 15-25%=1.5, 5-15%=1, 0-5%=0.5, שלילי=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-instown" id="sortInstOwn" data-dir="desc">Inst. Own.<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>אחזקה מוסדית</b> — אחוז המניות המוחזק ע"י קרנות/בנקים/מוסדות פיננסיים גדולים (לא משקיעים פרטיים). נחשב אינדיקטור גס ל"אמון חכם" — מוסדות עושים מחקר מעמיק לפני שהם קונים.<br><br><b>דוגמה:</b> AAPL עומד על כ-66% אחזקה מוסדית — רוב המניה בידי גופים גדולים.<br><br><b>לא מדד מושלם:</b> אחזקה נמוכה לא בהכרח רעה (יכולה להעיד על מניה קטנה שעדיין לא התגלתה), ואחזקה גבוהה מאוד יכולה גם להעיד על "צפיפות" (פחות מקום לקונים חדשים).<br><br><b>נכנס ל-Score:</b> מעל 70%=2 נק', 50-70%=1.5, 30-50%=1, 10-30%=0.5, מתחת ל-10%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
@@ -2691,6 +2799,19 @@
         <th rowspan="2" class="num sortable col-fcfyield" id="sortFcfYield" data-dir="desc">FCF Yield<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>תשואת תזרים מזומנים חופשי</b> — תזרים מזומנים חופשי (Free Cash Flow) חלקי שווי השוק, באחוזים. בודק אם החברה מייצרת מזומן אמיתי, לא רק רווח חשבונאי (אפשר לדווח על רווח נאה בלי לייצר מזומן בפועל).<br><br><b>נכנס ל-Secondary Score:</b> מעל 8%=2 נק', 5-8%=1.5, 2-5%=1, 0-2%=0.5, שלילי (שורפת מזומן)=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData, מחושב כ-FCF/Market Cap)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-coverage" id="sortCoverage" data-dir="desc">Coverage<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מספר האנליסטים המדרגים את המניה</b> — לא מדד חיובי/שלילי בפני עצמו, אלא בדיקת מהימנות: דירוג "Strong Buy" שמבוסס על 25 אנליסטים מייצג הסכמה רחבה הרבה יותר מאותו דירוג שמבוסס על 2 בלבד.<br><br><b>נכנס ל-Secondary Score:</b> 20+=2 נק', 10-19=1.5, 5-9=1, 1-4=0.5, 0=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
         <th rowspan="2" class="num sortable col-fwdpe" id="sortFwdPe" data-dir="desc">Forward P/E<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מכפיל רווח צפוי (השנה הבאה)</b> — כמו P/E (TTM) אבל מבוסס על תחזית הרווח לשנה הקדימה, לא הרווח שכבר דווח. הציון לא מסתכל על המספר עצמו, אלא על ההשוואה ל-P/E (TTM): Forward P/E נמוך מה-TTM = השוק מצפה לצמיחת רווחים, גבוה יותר = מצפה להאטה.<br><br><b>נכנס ל-Secondary Score</b> (רק כששני המכפילים חיוביים): שיפור צפוי מעל 20%=2 נק', 5-20%=1.5, יציב (±5%)=1, הרעה 5-20%=0.5, הרעה מעל 20%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-relstrength" id="sortRelStrength" data-dir="desc">Rel. Strength<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>חוזק יחסי מול S&amp;P 500</b> — שינוי המחיר ב-52 השבועות האחרונים, פחות שינוי ה-S&amp;P 500 באותה תקופה (בנקודות אחוז). "עלתה 15%" נשמע שונה לגמרי אם השוק כולו עלה 5% (עודף ביצוע אמיתי) מול אם השוק עלה 25% (בפועל פיגור).<br><br><b>נכנס ל-Score:</b> מעל 20%=2 נק', מתחת ל-20%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-pb" id="sortPb" data-dir="desc">P/B<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>Price-to-Book</b> — מחיר המניה חלקי ההון העצמי למניה. מדד ערך קלאסי, זול/יקר יחסית לשווי הנכסי הנקי (לא לרווחים כמו P/E).<br><br><b>נכנס ל-Secondary Score:</b> מתחת ל-1=2 נק' (זול), 1-3=1.5, 3-6=1, 6-10=0.5, מעל 10=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-evebitda" id="sortEvEbitda" data-dir="desc">EV/EBITDA<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>Enterprise Value / EBITDA</b> — מכפיל שווי שמנטרל הבדלי מבנה הון (חוב/מזומן במאזן), בניגוד ל-P/E — הוגן יותר בהשוואה בין חברות ממונפות בצורה שונה.<br><br><b>נכנס ל-Secondary Score:</b> מתחת ל-8=2 נק', 8-14=1.5, 14-20=1, 20-30=0.5, מעל 30=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-evrevenue" id="sortEvRevenue" data-dir="desc">EV/Revenue<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>Enterprise Value / Revenue</b> — מכפיל השווי היחיד שעדיין עובד כשגם הרווח וגם ה-EBITDA שליליים (נפוץ בחברות צמיחה מוקדמות).<br><br><b>נכנס ל-Secondary Score:</b> מתחת ל-2=2 נק', 2-5=1.5, 5-10=1, 10-20=0.5, מעל 20=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-payout" id="sortPayout" data-dir="desc">Payout Ratio<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>יחס חלוקת דיבידנד</b> — איזה אחוז מהרווח מחולק כדיבידנד. "טווח מתוק": ללא דיבידנד זה לא רע, אבל יחס מעל 100% אומר שהחברה מחלקת יותר ממה שהיא מרוויחה — סיכון לקיצוץ דיבידנד עתידי.<br><br><b>נכנס ל-Secondary Score:</b> 0-60%=2 נק' (בר-קיימא), 60-80%=1.5, 80-100%=1, מעל 100%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo summaryDetail)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-ebitdamargin" id="sortEbitdaMargin" data-dir="desc">EBITDA Margin<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>שולי EBITDA</b> — רווחיות לפני השפעת מימון/מס והחלטות פחת/הפחתה. יושב בין Gross Margin ל-Op. Margin.<br><br><b>נכנס ל-Secondary Score:</b> מעל 35%=2 נק', 20-35%=1.5, 10-20%=1, 0-10%=0.5, שלילי=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-cashmcap" id="sortCashMcap" data-dir="desc">Cash/MCap<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מזומן ביחס לשווי שוק</b> — כמה מזומן יש כבר בקופה, יחסית לשווי החברה. "כרית ביטחון" במאזן, בנפרד מ-FCF Yield (שמודד קצב ייצור שוטף, לא מלאי קיים).<br><br><b>נכנס ל-Secondary Score:</b> מעל 20%=2 נק', 10-20%=1.5, 5-10%=1, 1-5%=0.5, מתחת ל-1%=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-ocfmargin" id="sortOcfMargin" data-dir="desc">OCF Margin<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>שולי תזרים מזומנים תפעולי</b> — תזרים מזומנים תפעולי חלקי הכנסות. בדיקת איכות מזומן נפרדת מ-FCF Yield (שמנכה השקעות הוניות) ומ-Profit Margin (רווח חשבונאי, לא מזומן).<br><br><b>נכנס ל-Secondary Score:</b> מעל 25%=2 נק', 15-25%=1.5, 5-15%=1, 0-5%=0.5, שלילי=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo financialData)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-shortinttrend" id="sortShortIntTrend" data-dir="desc">Short Int. Trend<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>מגמת ריבית שורטית</b> — האם כמות המניות בשורט גדלה או קטנה לעומת חודש קודם (אחוז שינוי). בניגוד לעמודת Short Interest (רמה סטטית), זו המגמה — עלייה חדה = מתח גובר, ללא קשר לכיוון.<br><br><b>נכנס ל-Risk Score</b> (עוצמה בלבד, ללא כיוון): שינוי מתחת ל-10%=0 נק', 10-25%=0.5, 25-50%=1, 50-100%=1.5, מעל 100%=2.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-floatpct" id="sortFloatPct" data-dir="desc">Float %<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>אחוז המניות הסחיר בפועל</b> — כמה מהמניות באמת סחירות בשוק (לא נעולות ע"י מנהלים/מגבלות). float קטן = אותו לחץ קנייה/מכירה מזיז את המחיר הרבה יותר.<br><br><b>נכנס ל-Risk Score</b> (הפוך — float קטן = סיכון גבוה יותר): מעל 80%=0 נק', 60-80%=0.5, 40-60%=1, 20-40%=1.5, מתחת ל-20%=2.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-epsgrowth5y" id="sortEpsGrowth5y" data-dir="desc">EPS Growth 5Y<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>תחזית צמיחת EPS, 5 שנים</b> — הערכת קונצנזוס אנליסטים לצמיחת רווח למניה שנתית ממוצעת ב-5 השנים הקרובות. טווח הזמן הארוך ביותר שיאהו מפרסמת.<br><br><b>נכנס ל-Growth Score:</b> מעל 20%=2 נק', 10-20%=1.5, 0-10%=1, שלילי עד 10%-=0.5, מתחת ל-10%-=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo earningsTrend)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-epsgrowthnextyear" id="sortEpsGrowthNextYear" data-dir="desc">EPS Growth 1Y<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>תחזית צמיחת EPS, שנה קדימה</b> — הערכת קונצנזוס אנליסטים לצמיחת רווח למניה בשנה הפיננסית הבאה. טווח זמן בינוני, בין EPS Trend (רבעון נוכחי) ל-5Y (ארוך טווח).<br><br><b>נכנס ל-Growth Score:</b> מעל 20%=2 נק', 10-20%=1.5, 0-10%=1, שלילי עד 10%-=0.5, מתחת ל-10%-=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo earningsTrend)</span></span><span class="sort-arrow">&#9660;</span></th>
+        <th rowspan="2" class="num sortable col-earningsqgrowth" id="sortEarningsQGrowth" data-dir="desc">Earnings Q Growth<span class="info-tip" tabindex="0">i<span class="info-tip-bubble wide"><b>צמיחת רווחים רבעונית</b> — הרבעון האחרון שדווח בפועל מול אותו רבעון אשתקד. היחיד מבין 3 מדדי הצמיחה שהוא עובדה מדווחת, לא תחזית אנליסטים.<br><br><b>נכנס ל-Growth Score:</b> מעל 20%=2 נק', 10-20%=1.5, 0-10%=1, שלילי עד 10%-=0.5, מתחת ל-10%-=0.<br><br><b>מקור:</b> FUNDAMENTALS SCAN (Yahoo defaultKeyStatistics)</span></span><span class="sort-arrow">&#9660;</span></th>
       </tr>
       <tr>
         <th class="num sortable analysis-col col-target" id="sortLow" data-dir="asc">Low<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">יעד המחיר הנמוך ביותר מבין האנליסטים (TipRanks/eToro).<br><br><b>מקור:</b> MEGASCAN (כל 6,761 המניות) או SCAN VALUES (רק מוחזקות)</span></span><span class="sort-arrow">&#9650;</span></th>

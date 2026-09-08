@@ -12,12 +12,14 @@ def load_risk_score():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 8:
+                if len(parts) != 10:
                     continue
-                ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts, confidence = parts
+                (ticker, total, beta_pts, range_pts, vol_pts, debt_pts, dtc_pts,
+                 short_trend_pts, float_pts, confidence) = parts
                 data[ticker] = {
                     "total": total, "beta_pts": beta_pts, "range_pts": range_pts,
                     "vol_pts": vol_pts, "debt_pts": debt_pts, "dtc_pts": dtc_pts,
+                    "short_trend_pts": short_trend_pts, "float_pts": float_pts,
                     "confidence": confidence,
                 }
     except FileNotFoundError:
@@ -42,10 +44,12 @@ def risk_class(total):
 
 
 def confidence_class(confidence):
+    # Thresholds scaled to the current 7-signal max (previously 5) at the
+    # same ~80%/40% cut points.
     v = int(confidence)
-    if v >= 4:
+    if v >= 6:
         return "conf-high"
-    if v >= 2:
+    if v >= 3:
         return "conf-mid"
     return "conf-low"
 
@@ -73,6 +77,8 @@ def main():
             f' data-riskscore-vol="{esc(d["vol_pts"])}"'
             f' data-riskscore-debt="{esc(d["debt_pts"])}"'
             f' data-riskscore-dtc="{esc(d["dtc_pts"])}"'
+            f' data-riskscore-shorttrend="{esc(d["short_trend_pts"])}"'
+            f' data-riskscore-float="{esc(d["float_pts"])}"'
             f' data-riskscore-confidence="{esc(d["confidence"])}"'
         )
         return tr_open[:-1] + attrs + ">"
@@ -89,7 +95,7 @@ def main():
         conf_cls = confidence_class(d["confidence"])
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/5 מדדים עם נתונים אמיתיים">{d["confidence"]}/5</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/7 מדדים עם נתונים אמיתיים">{d["confidence"]}/7</sup>'
         )
         full_tr = re.sub(
             r'<td class="riskscore-cell col-riskscore[^"]*"[^>]*>[\s\S]*?</td>',
@@ -103,7 +109,8 @@ def main():
     with open(ROWS_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"Risk Score merged: {matched} rows tagged (out of {len(data)} scored tickers).")
+    print(f"Risk Score merged: {matched} rows tagged (out of {len(data)} scored tickers, "
+          f"now includes Short Interest Trend + Float %%).")
 
 
 if __name__ == "__main__":

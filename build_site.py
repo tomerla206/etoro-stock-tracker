@@ -53,6 +53,7 @@ MERGE_SCRIPTS = [
     "merge_score.py",
     "merge_secondary_score.py",
     "merge_risk_score.py",
+    "merge_growth_score.py",
     "merge_overall_score.py",
     "merge_score_percentile.py",
     "merge_portfolio.py",
