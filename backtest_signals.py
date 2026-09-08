@@ -42,8 +42,15 @@ a failure of this script.
 Needs enough distinct daily snapshots to form pairs at the longest horizon
 tested (20) - with score_history.tsv freshly started, this will report
 "not enough history yet" and do nothing else until enough daily scans
-(local or cloud) have accumulated. Re-run anytime; it only reads
-score_history.tsv and never writes to it or any other score/site file.
+(local or cloud) have accumulated.
+
+Runs automatically at the end of every FUNDAMENTALS SCAN (both
+fundamentals_scan.py's own local chain and aggregate_scan_shards.py's
+cloud-parallel chain, right after score_history.py) - no manual step or
+reminder needed; BACKTEST_RESULTS.md just quietly keeps saying "not
+enough history yet" until one day it doesn't. Safe to also run by hand
+anytime; it only reads score_history.tsv and never writes to it or any
+other score/site file.
 
 Run: python backtest_signals.py
 Result: BACKTEST_RESULTS.md

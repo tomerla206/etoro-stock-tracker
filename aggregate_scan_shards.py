@@ -162,6 +162,9 @@ def main():
     print("Appending today's snapshot to score_history.tsv...")
     subprocess.run([sys.executable, "score_history.py"], cwd=ROOT, check=False)
 
+    print("Updating signal backtest (no-ops quietly until enough daily history accumulates)...")
+    subprocess.run([sys.executable, "backtest_signals.py"], cwd=ROOT, check=False)
+
     print("Checking for meaningful day-over-day Score changes...")
     subprocess.run([sys.executable, "compute_score_change.py"], cwd=ROOT, check=False)
 
