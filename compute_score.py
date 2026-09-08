@@ -1,5 +1,5 @@
 """
-COMPUTE SCORE - combines 11 independent signals into one 1-10 composite Score
+COMPUTE SCORE - combines 14 independent signals into one 1-10 composite Score
 per ticker:
 
   1. Analyst Rating      (Strong Buy .. Strong Sell, from consensus_ratings.txt)
@@ -23,8 +23,17 @@ per ticker:
   11. Current Ratio      (current assets / current liabilities - short-term
                           liquidity health, from fundamentals_data.tsv/Yahoo's
                           financialData)
+  12. Quick Ratio        (like Current Ratio but excludes inventory - a
+                          stricter near-term liquidity test, from
+                          fundamentals_data.tsv/Yahoo's financialData)
+  13. Return on Assets   (net income / total assets - profitability that,
+                          unlike ROE, isn't inflated by leverage/buybacks,
+                          from fundamentals_data.tsv/Yahoo's financialData)
+  14. Held % Insiders    (% of shares held by company insiders - management
+                          with real skin in the game, from
+                          fundamentals_data.tsv/Yahoo's defaultKeyStatistics)
 
-Each signal is scored 0-2 points (2 = most bullish), summed (max 22) and
+Each signal is scored 0-2 points (2 = most bullish), summed (max 28) and
 scaled to 0-10. This is a transparent, hand-picked heuristic, not a
 statistically fitted model - the bucket thresholds below are the whole
 "methodology" and are deliberately simple so they can be explained in a
@@ -35,7 +44,8 @@ usable Score instead of dragging it to zero.
 Run: python compute_score.py
 Result: score.tsv (TICKER, score, rating_pts, upside_pts, insider_pts, short_pts,
 tech_pts, dispersion_pts, surprise_pts, rating_trend_pts, roe_pts, inst_own_pts,
-current_ratio_pts, confidence). A raw data file only - does
+current_ratio_pts, quick_ratio_pts, roa_pts, held_insiders_pts, confidence). A
+raw data file only - does
 NOT merge into all_rows.html itself, and does NOT call score_history.py itself
 either (that needs both this AND compute_secondary_score.py's output, so the
 caller runs it once after both - see score_history.py's own docstring). The
@@ -111,13 +121,15 @@ def load_fundamentals():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 24:
+        if len(parts) != 32:
             continue
         (ticker, short_pct, beta, pe, rsi14, price, ma50, ma200, market_cap, market_cap_fmt,
          volume_ratio, price_change_pct, peg, range52_pos,
          debt_to_equity, short_ratio, earnings_surprise_avg, eps_trend_pct,
          profit_margins, revenue_growth, rating_trend_delta,
-         return_on_equity, current_ratio, institutional_ownership) = parts
+         return_on_equity, current_ratio, institutional_ownership,
+         quick_ratio, return_on_assets, gross_margins, operating_margins,
+         fcf_yield, held_pct_insiders, num_analyst_opinions, forward_pe) = parts
 
         def f(v):
             try:
@@ -133,6 +145,10 @@ def load_fundamentals():
             "rating_trend_delta": f(rating_trend_delta),
             "return_on_equity": f(return_on_equity), "current_ratio": f(current_ratio),
             "institutional_ownership": f(institutional_ownership),
+            "quick_ratio": f(quick_ratio), "return_on_assets": f(return_on_assets),
+            "gross_margins": f(gross_margins), "operating_margins": f(operating_margins),
+            "fcf_yield": f(fcf_yield), "held_pct_insiders": f(held_pct_insiders),
+            "num_analyst_opinions": f(num_analyst_opinions), "forward_pe": f(forward_pe),
         }
     return data
 
@@ -305,6 +321,64 @@ def score_current_ratio(current_ratio):
     return 1.0
 
 
+def score_quick_ratio(quick_ratio):
+    """(current assets - inventory) / current liabilities - stricter than
+    Current Ratio since it excludes inventory (which may not convert to cash
+    quickly). Naturally runs lower than Current Ratio, so the sweet-spot
+    thresholds are scaled down accordingly - same non-monotonic shape
+    (too low is a liquidity risk, too high just means idle cash)."""
+    if quick_ratio is None:
+        return 1.0
+    if quick_ratio < 0.5:
+        return 0.0
+    if quick_ratio < 1.0:
+        return 1.0
+    if quick_ratio <= 2.0:
+        return 2.0
+    return 1.0
+
+
+def score_roa(return_on_assets):
+    """Net income / total assets. Unlike ROE, not inflated by leverage or
+    buybacks shrinking the equity base - a company can have a sky-high ROE
+    from debt alone while ROA stays modest, so this is a cleaner read on how
+    efficiently the underlying assets generate profit. Runs much lower than
+    ROE (double-digit ROA is already very strong), so thresholds are scaled
+    down accordingly."""
+    if return_on_assets is None:
+        return 1.0
+    pct = return_on_assets * 100
+    if pct > 15:
+        return 2.0
+    if pct > 8:
+        return 1.5
+    if pct > 2:
+        return 1.0
+    if pct > 0:
+        return 0.5
+    return 0.0
+
+
+def score_held_insiders(held_pct_insiders):
+    """% of shares held by company insiders (management/board) - unlike
+    Institutional Ownership this isn't "smart money" following the stock,
+    it's the people running the company having real skin in the game.
+    Naturally much lower than institutional ownership (a handful of
+    executives vs. every fund combined), so thresholds are scaled down."""
+    if held_pct_insiders is None:
+        return 1.0
+    pct = held_pct_insiders * 100
+    if pct > 20:
+        return 2.0
+    if pct > 10:
+        return 1.5
+    if pct > 5:
+        return 1.0
+    if pct > 1:
+        return 0.5
+    return 0.0
+
+
 def score_technicals(price, ma50, ma200, rsi14):
     if price is None and rsi14 is None:
         return 1.0
@@ -339,6 +413,9 @@ def main():
         return_on_equity = fnd.get("return_on_equity")
         institutional_ownership = fnd.get("institutional_ownership")
         current_ratio = fnd.get("current_ratio")
+        quick_ratio = fnd.get("quick_ratio")
+        return_on_assets = fnd.get("return_on_assets")
+        held_pct_insiders = fnd.get("held_pct_insiders")
 
         rating_pts = score_rating(rating)
         upside_pts = score_upside(price, avg_target)
@@ -351,6 +428,9 @@ def main():
         roe_pts = score_roe(return_on_equity)
         inst_own_pts = score_institutional_ownership(institutional_ownership)
         current_ratio_pts = score_current_ratio(current_ratio)
+        quick_ratio_pts = score_quick_ratio(quick_ratio)
+        roa_pts = score_roa(return_on_assets)
+        held_insiders_pts = score_held_insiders(held_pct_insiders)
 
         # Confidence: how many of the 11 signals were REAL data vs. a neutral
         # default because the signal was missing. A 7.0 built from 11 real
@@ -369,21 +449,28 @@ def main():
             return_on_equity is not None,
             institutional_ownership is not None,
             current_ratio is not None,
+            quick_ratio is not None,
+            return_on_assets is not None,
+            held_pct_insiders is not None,
         ])
 
         raw_total = (rating_pts + upside_pts + insider_pts + short_pts + tech_pts
                      + dispersion_pts + surprise_pts + rating_trend_pts
-                     + roe_pts + inst_own_pts + current_ratio_pts)
-        total = raw_total * 10 / 22
+                     + roe_pts + inst_own_pts + current_ratio_pts
+                     + quick_ratio_pts + roa_pts + held_insiders_pts)
+        total = raw_total * 10 / 28
         rows.append((ticker, total, rating_pts, upside_pts, insider_pts, short_pts, tech_pts,
                      dispersion_pts, surprise_pts, rating_trend_pts,
-                     roe_pts, inst_own_pts, current_ratio_pts, confidence))
+                     roe_pts, inst_own_pts, current_ratio_pts,
+                     quick_ratio_pts, roa_pts, held_insiders_pts, confidence))
 
     with open(ROOT / "score.tsv", "w", encoding="utf-8") as f:
-        for ticker, total, r, u, i, s, t, disp, surp, rtrend, roe, iown, curr, confidence in rows:
+        for (ticker, total, r, u, i, s, t, disp, surp, rtrend, roe, iown, curr,
+             quickr, roa, heldins, confidence) in rows:
             f.write(
                 f"{ticker}\t{total:.1f}\t{r:.1f}\t{u:.1f}\t{i:.1f}\t{s:.1f}\t{t:.1f}\t"
-                f"{disp:.1f}\t{surp:.1f}\t{rtrend:.1f}\t{roe:.1f}\t{iown:.1f}\t{curr:.1f}\t{confidence}\n"
+                f"{disp:.1f}\t{surp:.1f}\t{rtrend:.1f}\t{roe:.1f}\t{iown:.1f}\t{curr:.1f}\t"
+                f"{quickr:.1f}\t{roa:.1f}\t{heldins:.1f}\t{confidence}\n"
             )
 
     print(f"Computed Score for {len(rows)} tickers -> score.tsv")

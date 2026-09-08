@@ -12,13 +12,17 @@ def load_secondary_score():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 9:
+                if len(parts) != 14:
                     continue
-                ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts, confidence = parts
+                (ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts,
+                 gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts, confidence) = parts
                 data[ticker] = {
                     "total": total, "pe_pts": pe_pts, "hf_pts": hf_pts,
                     "vol_pts": vol_pts, "eps_trend_pts": eps_trend_pts,
-                    "margin_pts": margin_pts, "growth_pts": growth_pts, "confidence": confidence,
+                    "margin_pts": margin_pts, "growth_pts": growth_pts,
+                    "gross_margin_pts": gross_margin_pts, "op_margin_pts": op_margin_pts,
+                    "fcf_yield_pts": fcf_yield_pts, "coverage_pts": coverage_pts,
+                    "fwd_pe_pts": fwd_pe_pts, "confidence": confidence,
                 }
     except FileNotFoundError:
         pass
@@ -39,10 +43,12 @@ def score_class(total):
 
 
 def confidence_class(confidence):
+    # Thresholds scaled to the current 11-signal max (previously 6) at the
+    # same ~83%/50% cut points.
     v = int(confidence)
-    if v >= 5:
+    if v >= 9:
         return "conf-high"
-    if v >= 3:
+    if v >= 5:
         return "conf-mid"
     return "conf-low"
 
@@ -71,6 +77,11 @@ def main():
             f' data-secscore-epstrend="{esc(d["eps_trend_pts"])}"'
             f' data-secscore-margin="{esc(d["margin_pts"])}"'
             f' data-secscore-growth="{esc(d["growth_pts"])}"'
+            f' data-secscore-grossmargin="{esc(d["gross_margin_pts"])}"'
+            f' data-secscore-opmargin="{esc(d["op_margin_pts"])}"'
+            f' data-secscore-fcfyield="{esc(d["fcf_yield_pts"])}"'
+            f' data-secscore-coverage="{esc(d["coverage_pts"])}"'
+            f' data-secscore-fwdpe="{esc(d["fwd_pe_pts"])}"'
             f' data-secscore-confidence="{esc(d["confidence"])}"'
         )
         return tr_open[:-1] + attrs + ">"
@@ -87,7 +98,7 @@ def main():
         conf_cls = confidence_class(d["confidence"])
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/6 מדדים עם נתונים אמיתיים">{d["confidence"]}/6</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/11 מדדים עם נתונים אמיתיים">{d["confidence"]}/11</sup>'
         )
         full_tr = re.sub(
             r'<td class="secscore-cell col-secscore[^"]*"[^>]*>[\s\S]*?</td>',

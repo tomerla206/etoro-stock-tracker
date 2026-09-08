@@ -92,10 +92,12 @@ def score_class(total):
 
 
 def confidence_class(confidence):
+    # Thresholds scaled to the current max of 25 (Score's 14 + Secondary
+    # Score's 11, previously 11+6=17) at the same ~70%/35% cut points.
     v = int(confidence)
-    if v >= 12:
+    if v >= 18:
         return "conf-high"
-    if v >= 6:
+    if v >= 9:
         return "conf-mid"
     return "conf-low"
 
@@ -150,7 +152,7 @@ def main():
 
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/17 מדדים עם נתונים אמיתיים (משוקלל משני הציונים)">{d["confidence"]}/17</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/25 מדדים עם נתונים אמיתיים (משוקלל משני הציונים)">{d["confidence"]}/25</sup>'
             f'{change_html}'
             f'<span class="oscore-spark" aria-hidden="true"></span>'
         )

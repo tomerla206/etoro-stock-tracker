@@ -23,7 +23,10 @@ Result:    FUNDAMENTALS_SCAN_RESULTS.md, fundamentals_data.tsv
            (TICKER, shortPctFloat, beta, trailingPE, rsi14, price, ma50, ma200,
            marketCap, marketCapFmt, volumeRatio, priceChangePct, peg, range52Pos,
            debtToEquity, shortRatio, earningsSurpriseAvg, epsTrendPct,
-           profitMargins, revenueGrowth, ratingTrendDelta)
+           profitMargins, revenueGrowth, ratingTrendDelta, returnOnEquity,
+           currentRatio, institutionalOwnership, quickRatio, returnOnAssets,
+           grossMargins, operatingMargins, fcfYield, heldPctInsiders,
+           numAnalystOpinions, forwardPE)
 
 Also resolves eToro-style exchange suffixes that don't match Yahoo's own
 convention (e.g. .ASX -> .AX, .HK's 5-digit codes -> 4-digit) before giving up
@@ -166,6 +169,8 @@ def scan_one(ticker, cookies, crumb, results, log_state):
         debt_to_equity, short_ratio, earnings_surprise_avg, eps_trend_pct = None, None, None, None
         profit_margins, revenue_growth, rating_trend_delta = None, None, None
         sector, industry = None, None
+        quick_ratio, return_on_assets, gross_margins, operating_margins = None, None, None, None
+        free_cash_flow, held_pct_insiders, num_analyst_opinions, forward_pe = None, None, None, None
         if qs.status_code == 200:
             result = qs.json().get("quoteSummary", {}).get("result")
             if result:
@@ -194,6 +199,16 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 return_on_equity = fd.get("returnOnEquity", {}).get("raw") if fd.get("returnOnEquity") else None
                 current_ratio = fd.get("currentRatio", {}).get("raw") if fd.get("currentRatio") else None
                 institutional_ownership = (dks.get("heldPercentInstitutions") or {}).get("raw")
+                quick_ratio = (fd.get("quickRatio") or {}).get("raw")
+                return_on_assets = (fd.get("returnOnAssets") or {}).get("raw")
+                gross_margins = (fd.get("grossMargins") or {}).get("raw")
+                operating_margins = (fd.get("operatingMargins") or {}).get("raw")
+                free_cash_flow = (fd.get("freeCashflow") or {}).get("raw")
+                num_analyst_opinions = (fd.get("numberOfAnalystOpinions") or {}).get("raw")
+                held_pct_insiders = (dks.get("heldPercentInsiders") or {}).get("raw")
+                # forwardPE lives under defaultKeyStatistics on most tickers, but
+                # falls back to summaryDetail on some - same fallback pattern as beta.
+                forward_pe = (dks.get("forwardPE") or sd.get("forwardPE") or {}).get("raw")
 
                 surprises = [
                     (h.get("surprisePercent") or {}).get("raw")
@@ -262,6 +277,14 @@ def scan_one(ticker, cookies, crumb, results, log_state):
         if ref_price is not None and week52_high is not None and week52_low is not None and week52_high > week52_low:
             range52_pos = (ref_price - week52_low) / (week52_high - week52_low) * 100
 
+        # FCF Yield (%) - free cash flow as a % of market cap, the standard
+        # way to compare cash generation across companies of different sizes
+        # (a raw FCF dollar figure alone isn't comparable between a $10B and
+        # a $500B company).
+        fcf_yield = None
+        if free_cash_flow is not None and market_cap:
+            fcf_yield = free_cash_flow / market_cap * 100
+
         if short_pct is None and beta is None and pe is None and rsi14 is None and market_cap is None:
             results["no_data"].append(ticker)
         else:
@@ -278,6 +301,10 @@ def scan_one(ticker, cookies, crumb, results, log_state):
                 "sector": sector, "industry": industry,
                 "return_on_equity": return_on_equity, "current_ratio": current_ratio,
                 "institutional_ownership": institutional_ownership,
+                "quick_ratio": quick_ratio, "return_on_assets": return_on_assets,
+                "gross_margins": gross_margins, "operating_margins": operating_margins,
+                "fcf_yield": fcf_yield, "held_pct_insiders": held_pct_insiders,
+                "num_analyst_opinions": num_analyst_opinions, "forward_pe": forward_pe,
             }
             results["updated"].append(ticker)
     except Exception:
@@ -315,7 +342,10 @@ def write_data_file(results):
                 f"{d['debt_to_equity']}\t{d['short_ratio']}\t"
                 f"{d['earnings_surprise_avg']}\t{d['eps_trend_pct']}\t"
                 f"{d['profit_margins']}\t{d['revenue_growth']}\t{d['rating_trend_delta']}\t"
-                f"{d['return_on_equity']}\t{d['current_ratio']}\t{d['institutional_ownership']}\n"
+                f"{d['return_on_equity']}\t{d['current_ratio']}\t{d['institutional_ownership']}\t"
+                f"{d['quick_ratio']}\t{d['return_on_assets']}\t{d['gross_margins']}\t"
+                f"{d['operating_margins']}\t{d['fcf_yield']}\t{d['held_pct_insiders']}\t"
+                f"{d['num_analyst_opinions']}\t{d['forward_pe']}\n"
             )
 
 

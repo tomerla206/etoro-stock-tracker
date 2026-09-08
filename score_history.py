@@ -31,8 +31,8 @@ component), add its columns to HISTORY_COLUMNS and the write loop below - the
 column list is the single source of truth for the file's shape.
 
 Result: score_history.tsv, columns per HISTORY_COLUMNS below - date, ticker,
-price, then Score's total/confidence/8 components, then Secondary Score's
-total/confidence/6 components, then Risk Score's total/confidence/5 components,
+price, then Score's total/confidence/14 components, then Secondary Score's
+total/confidence/11 components, then Risk Score's total/confidence/5 components,
 then Overall Score's total/confidence (no separate components - it's a blend
 of the two totals above, not an independent set of signals).
 """
@@ -49,8 +49,11 @@ HISTORY_COLUMNS = [
     "score_insider_pts", "score_short_pts", "score_tech_pts",
     "score_dispersion_pts", "score_surprise_pts", "score_ratingtrend_pts",
     "score_roe_pts", "score_instown_pts", "score_currentratio_pts",
+    "score_quickratio_pts", "score_roa_pts", "score_heldinsiders_pts",
     "secscore", "secscore_confidence", "secscore_pe_pts", "secscore_hf_pts", "secscore_vol_pts",
     "secscore_epstrend_pts", "secscore_margin_pts", "secscore_growth_pts",
+    "secscore_grossmargin_pts", "secscore_opmargin_pts", "secscore_fcfyield_pts",
+    "secscore_coverage_pts", "secscore_fwdpe_pts",
     "riskscore", "riskscore_confidence", "riskscore_beta_pts", "riskscore_range_pts", "riskscore_vol_pts",
     "riskscore_debt_pts", "riskscore_dtc_pts",
     "overallscore", "overallscore_confidence",
@@ -65,10 +68,11 @@ def load_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 14:
+        if len(parts) != 17:
             continue
         (ticker, total, rating, upside, insider, short, tech, dispersion, surprise,
-         rating_trend, roe, inst_own, current_ratio, confidence) = parts
+         rating_trend, roe, inst_own, current_ratio, quick_ratio, roa, held_insiders,
+         confidence) = parts
         data[ticker] = {
             "score": total, "score_confidence": confidence,
             "score_rating_pts": rating, "score_upside_pts": upside,
@@ -76,6 +80,8 @@ def load_score():
             "score_dispersion_pts": dispersion, "score_surprise_pts": surprise,
             "score_ratingtrend_pts": rating_trend,
             "score_roe_pts": roe, "score_instown_pts": inst_own, "score_currentratio_pts": current_ratio,
+            "score_quickratio_pts": quick_ratio, "score_roa_pts": roa,
+            "score_heldinsiders_pts": held_insiders,
         }
     return data
 
@@ -88,14 +94,18 @@ def load_secondary_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 9:
+        if len(parts) != 14:
             continue
-        ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts, confidence = parts
+        (ticker, total, pe_pts, hf_pts, vol_pts, eps_trend_pts, margin_pts, growth_pts,
+         gross_margin_pts, op_margin_pts, fcf_yield_pts, coverage_pts, fwd_pe_pts, confidence) = parts
         data[ticker] = {
             "secscore": total, "secscore_confidence": confidence,
             "secscore_pe_pts": pe_pts, "secscore_hf_pts": hf_pts, "secscore_vol_pts": vol_pts,
             "secscore_epstrend_pts": eps_trend_pts,
             "secscore_margin_pts": margin_pts, "secscore_growth_pts": growth_pts,
+            "secscore_grossmargin_pts": gross_margin_pts, "secscore_opmargin_pts": op_margin_pts,
+            "secscore_fcfyield_pts": fcf_yield_pts, "secscore_coverage_pts": coverage_pts,
+            "secscore_fwdpe_pts": fwd_pe_pts,
         }
     return data
 
@@ -144,7 +154,7 @@ def load_prices():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 24:
+        if len(parts) != 32:
             continue
         ticker, price = parts[0], parts[5]
         if price not in (None, "None", ""):

@@ -17,7 +17,7 @@ Run: python compute_overall_score.py (after both compute_score.py and
 compute_secondary_score.py have produced score.tsv/secondary_score.tsv)
 Result: overall_score.tsv (TICKER, overall, score_component, secscore_component,
 confidence). confidence is the SUM of both scores' own confidence counts
-(max 8+6=14), not a new independent measurement - it's inherited, not
+(max 14+11=25), not a new independent measurement - it's inherited, not
 recomputed. A raw data file only - does NOT merge into all_rows.html itself;
 the caller should call build_site.py once after all of a scan run's raw-data
 writes are done (see build_site.py's docstring for why merging is centralized
@@ -39,7 +39,7 @@ def load_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 14:
+        if len(parts) != 17:
             continue
         ticker, total, *_rest, confidence = parts
         try:
@@ -56,7 +56,7 @@ def load_secondary_score():
         return data
     for line in path.read_text(encoding="utf-8").splitlines():
         parts = line.split("\t")
-        if len(parts) != 9:
+        if len(parts) != 14:
             continue
         ticker, total, *_rest, confidence = parts
         try:

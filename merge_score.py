@@ -12,15 +12,17 @@ def load_score():
                 if not line.strip():
                     continue
                 parts = line.split("\t")
-                if len(parts) != 14:
+                if len(parts) != 17:
                     continue
                 (ticker, total, rating, upside, insider, short, tech, dispersion, surprise,
-                 rating_trend, roe, inst_own, current_ratio, confidence) = parts
+                 rating_trend, roe, inst_own, current_ratio, quick_ratio, roa, held_insiders,
+                 confidence) = parts
                 data[ticker] = {
                     "total": total, "rating": rating, "upside": upside,
                     "insider": insider, "short": short, "tech": tech,
                     "dispersion": dispersion, "surprise": surprise, "rating_trend": rating_trend,
                     "roe": roe, "inst_own": inst_own, "current_ratio": current_ratio,
+                    "quick_ratio": quick_ratio, "roa": roa, "held_insiders": held_insiders,
                     "confidence": confidence,
                 }
     except FileNotFoundError:
@@ -42,10 +44,13 @@ def score_class(total):
 
 
 def confidence_class(confidence):
+    # Thresholds scaled to the current 14-signal max (previously 11) at the
+    # same ~73%/45% cut points, so a ticker with the same proportion of real
+    # vs. defaulted signals keeps the same color after Score grew signals.
     v = int(confidence)
-    if v >= 8:
+    if v >= 10:
         return "conf-high"
-    if v >= 5:
+    if v >= 6:
         return "conf-mid"
     return "conf-low"
 
@@ -79,6 +84,9 @@ def main():
             f' data-score-roe="{esc(d["roe"])}"'
             f' data-score-instown="{esc(d["inst_own"])}"'
             f' data-score-currentratio="{esc(d["current_ratio"])}"'
+            f' data-score-quickratio="{esc(d["quick_ratio"])}"'
+            f' data-score-roa="{esc(d["roa"])}"'
+            f' data-score-heldinsiders="{esc(d["held_insiders"])}"'
             f' data-score-confidence="{esc(d["confidence"])}"'
         )
         return tr_open[:-1] + attrs + ">"
@@ -95,7 +103,7 @@ def main():
         conf_cls = confidence_class(d["confidence"])
         cell_html = (
             f'{esc(d["total"])}'
-            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/11 מדדים עם נתונים אמיתיים">{d["confidence"]}/11</sup>'
+            f'<sup class="score-conf {conf_cls}" title="{d["confidence"]}/14 מדדים עם נתונים אמיתיים">{d["confidence"]}/14</sup>'
         )
         # non-greedy [\s\S]*? (not [^<]*) so a re-run can match its own
         # previously-inserted <sup> markup instead of only ever matching once
