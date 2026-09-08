@@ -875,6 +875,80 @@
     color: #f5a623;
   }
 
+  /* Re-entry Watchlist panel - local-only (reads REENTRY_WATCHLIST.md,
+     gitignored, never exists on the public GitHub Pages site) so this
+     whole panel just stays hidden there - see reentryPanel's JS below. */
+  .reentry-panel {
+    margin: -4px 0 12px;
+    padding: 12px 18px;
+    background: rgba(125, 36, 71, 0.12);
+    border: 1px solid #7d2447;
+    border-radius: 10px;
+  }
+
+  .reentry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .reentry-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #b3336b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .reentry-subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .reentry-count {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .reentry-table-wrap {
+    overflow-x: auto;
+  }
+
+  table.reentry-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  table.reentry-table th {
+    text-align: left;
+    padding: 4px 10px;
+    color: var(--text-dim);
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.reentry-table td {
+    padding: 4px 10px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.reentry-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .reentry-empty {
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 4px 2px;
+  }
+
   .scan-portfolio-btn {
     font-family: "IBM Plex Sans", system-ui, sans-serif;
     font-size: 12px;
@@ -2442,6 +2516,19 @@
     <div class="ps-stat"><span class="ps-label">Positions</span><span class="ps-val" id="summaryHeldCount">&ndash;</span></div>
     <div class="ps-stat"><span class="ps-label">No TP set</span><span class="ps-val ps-warn" id="summaryNoTpCount">&ndash;</span></div>
     <div class="ps-stat ps-pending" id="summaryPendingWrap"><span class="ps-label">Pending Orders</span><span class="ps-val" id="summaryPendingCount">&ndash;</span></div>
+  </div>
+
+  <div class="reentry-panel" id="reentryPanel" style="display:none;">
+    <div class="reentry-header">
+      <span class="reentry-title">&#8635; Re-entry Watchlist<span class="reentry-subtitle">— מניות שיצאת מהן ברווח, שנראה שכדאי לבדוק כניסה מחדש (מקומי בלבד)</span></span>
+      <span class="reentry-count" id="reentryCount"></span>
+    </div>
+    <div class="reentry-table-wrap">
+      <table class="reentry-table" id="reentryTable">
+        <thead><tr id="reentryTableHead"></tr></thead>
+        <tbody id="reentryTableBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <div class="status-filters" id="upsideFilters">

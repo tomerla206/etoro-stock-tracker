@@ -2104,4 +2104,66 @@
     const tip = e.target.closest && e.target.closest('.info-tip');
     if (tip) positionInfoTipBubble(tip);
   });
+
+  // Re-entry Watchlist panel - reads REENTRY_WATCHLIST.md (a plain
+  // Markdown table written by check_reentry_opportunities.py). That file
+  // is gitignored and only ever exists on the machine running
+  // portfolio_server.py - on the public GitHub Pages site the fetch
+  // below just 404s and the panel stays hidden, exactly as it should
+  // (this data reveals real trading activity, same as portfolio_real.tsv).
+  (function initReentryPanel() {
+    const panel = document.getElementById('reentryPanel');
+    const countEl = document.getElementById('reentryCount');
+    const headRow = document.getElementById('reentryTableHead');
+    const body = document.getElementById('reentryTableBody');
+    if (!panel) return;
+
+    function parseMarkdownTable(text) {
+      const lines = text.split('\n');
+      const headerIdx = lines.findIndex(l => l.trim().startsWith('|') && l.includes('Ticker'));
+      if (headerIdx === -1) return null;
+      const splitRow = (line) => line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      const headers = splitRow(lines[headerIdx]);
+      const rows = [];
+      for (let i = headerIdx + 2; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim().startsWith('|')) break;
+        rows.push(splitRow(line));
+      }
+      return { headers, rows };
+    }
+
+    function pctClass(str) {
+      const v = parseFloat(str);
+      if (isNaN(v)) return '';
+      return v >= 0 ? 'grade-vgood' : 'grade-vbad';
+    }
+
+    fetch(`REENTRY_WATCHLIST.md?t=${Date.now()}`)
+      .then(res => res.ok ? res.text() : Promise.reject(new Error('not found')))
+      .then(text => {
+        const countMatch = text.match(/\*\*(\d+) candidate/);
+        const count = countMatch ? parseInt(countMatch[1], 10) : 0;
+        if (!count) return; // no candidates today - leave the panel hidden
+
+        const parsed = parseMarkdownTable(text);
+        if (!parsed || !parsed.rows.length) return;
+
+        countEl.textContent = `${count} candidate${count === 1 ? '' : 's'}`;
+        headRow.innerHTML = parsed.headers.map(h => `<th>${h}</th>`).join('');
+        body.innerHTML = parsed.rows.map(row => {
+          const cells = row.map((cell, i) => {
+            const header = parsed.headers[i] || '';
+            const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
+            return `<td class="${cls}">${cell}</td>`;
+          }).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
+        panel.style.display = '';
+      })
+      .catch(() => {
+        // File doesn't exist yet (no exit_history.tsv, or running on the
+        // public site) - panel just stays hidden, no error shown.
+      });
+  })();
 </script>
