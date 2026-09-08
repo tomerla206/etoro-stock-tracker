@@ -257,3 +257,26 @@ Per user request: a button on the site that scans ONLY the portfolio holdings (n
 - `portfolio_virtual.tsv`, `portfolio_real.tsv` — position snapshots (8 tab-separated columns, see step 7).
 - `portfolio_tp.tsv`, `portfolio_real_tp.tsv` — TP per ticker.
 - `merge_portfolio.py` — injects `data-pf-v-*` / `data-pf-r-*` attributes onto each `<tr>` in `all_rows.html` from these 4 files.
+
+## "SCAN EXIT HISTORY" — realized-profit exit log + re-entry watchlist (added 2026-09-08)
+
+**Trigger phrases**: "SCAN EXIT HISTORY", or a request like "check when I sold X and for how much". Requires a live Claude-in-Chrome session on the user's real eToro login (same constraint as SCAN HOLDINGS/SCAN RED - `https://www.etoro.com/portfolio/history` needs a real authenticated session, can't be scripted headlessly).
+
+**Why this exists**: the user wants to know when a stock they sold for a realized profit (deliberately, to lock in a gain rather than ride it back down) later pulls back to a good re-entry point - the long-term thesis (analyst target) still intact, just cheaper than where they exited. Nothing in this project tracked past exits at all before this - `SCAN HOLDINGS`'s "position was closed" detection only ever reported the closure in the moment, then overwrote the stored file with no permanent record.
+
+**Steps**:
+1. Navigate to `https://www.etoro.com/portfolio/history`, filter to **Manual Trades** (the funnel icon), set the date range to the longest available (**1Y**).
+2. Switch the account selector (top-left) between **Main Account (Real)** and **Virtual Portfolio** - do this once per account, since exits matter separately per account.
+3. `get_page_text` extracts the whole visible table as clean structured text (ticker, invested, units, open price/date/time, close price/date/time, P/L$, P/L%) - no screenshots needed. Click the **"Show More"** button (find it fresh by text each time rather than reusing a stale ref - a stale ref can silently land on a row instead of the button once the DOM re-renders, opening a "Trade Story" popup instead of loading more rows) to load further back, re-extracting with `get_page_text` after a batch of clicks. The Virtual account can have 1000+ rows of test activity; the Real account's is usually far more manageable and more relevant - prioritize Real, extract however much of Virtual seems worthwhile.
+4. Save the raw extracted text to a scratch file, then run `python parse_exit_history.py <raw_text_file> <real|virtual>` - parses each closed-position block, keeps ONLY rows that are both actually closed (has a close date) and closed at a **profit** (P/L% > 0, matching the user's stated intent - a stop-loss exit isn't what this log is for), and appends/updates `exit_history.tsv` (TICKER, exit_date, exit_price, pl_pct, account). Re-running for the same ticker+date+account replaces that row, so this is safe to re-run incrementally as more history gets extracted or a new SCAN EXIT HISTORY pass happens later.
+5. `check_reentry_opportunities.py` (added to `fundamentals_scan.py`'s own daily LOCAL chain, right after `backtest_signals.py`) reads `exit_history.tsv` alongside the already-scanned `fundamentals_data.tsv` (today's price) and `analyst_targets_*.txt` (average target), and flags a ticker only when BOTH hold: price has dropped at least `PULLBACK_THRESHOLD_PCT` (default 5%) from the exit price, AND the analyst average target still implies at least `UPSIDE_THRESHOLD_PCT` (default 20%) upside from today's price. Writes `REENTRY_WATCHLIST.md`.
+
+**Privacy**: `exit_history.tsv` and `REENTRY_WATCHLIST.md` are both gitignored (same sensitivity as `portfolio_real.tsv` - they reveal real trading activity, which tickers/when/at what profit) - only the two scripts that produce them are committed. This is also exactly why `check_reentry_opportunities.py` only runs in `fundamentals_scan.py`'s LOCAL chain, never in `aggregate_scan_shards.py`'s cloud-parallel chain - the cloud runner's checkout never has (and never should have) `exit_history.tsv` to read.
+
+**Known gotcha**: clicking "Show More" by reusing an earlier `ref_N` (instead of re-finding the button by text each time) can silently stop loading new rows and start opening per-row "Trade Story" popups instead, once the page has re-rendered enough that the old ref now points at a different element. Close the popup (× button, top-right of the modal) and re-find the button fresh if this happens.
+
+### Files involved
+- `exit_history.tsv` (gitignored) — the permanent exit log, one row per (ticker, exit_date, account).
+- `REENTRY_WATCHLIST.md` (gitignored) — today's re-entry candidates.
+- `parse_exit_history.py` — one-time/manual parser, raw eToro history text → `exit_history.tsv`.
+- `check_reentry_opportunities.py` — daily automatic checker, `exit_history.tsv` + current data → `REENTRY_WATCHLIST.md`.

@@ -523,6 +523,9 @@ def main():
     print("Updating signal backtest (no-ops quietly until enough daily history accumulates)...")
     subprocess.run([sys.executable, "backtest_signals.py"], cwd=ROOT, check=False)
 
+    print("Checking exit_history.tsv for re-entry opportunities (local-only, uses private trade data)...")
+    subprocess.run([sys.executable, "check_reentry_opportunities.py"], cwd=ROOT, check=False)
+
     print("Checking for meaningful day-over-day Score changes...")
     subprocess.run([sys.executable, "compute_score_change.py"], cwd=ROOT, check=False)
 

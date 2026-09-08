@@ -7,6 +7,14 @@ portfolio_real_tp.tsv
 portfolio_virtual.tsv
 portfolio_tp.tsv
 
+# Real exit/trade history and the watchlist derived from it - reveals actual
+# account trading activity (which tickers, when, at what price/profit), same
+# sensitivity as the portfolio files above. The SCRIPTS that produce these
+# (parse_exit_history.py/check_reentry_opportunities.py) are fine to commit;
+# their OUTPUT never should be.
+exit_history.tsv
+REENTRY_WATCHLIST.md
+
 # Real Chrome/Playwright profile directories used for the live eToro login
 # session (SCAN HOLDINGS/SCAN RED) - contain actual account cookies/session
 # tokens/autofill data. Must never be committed under any circumstances.
