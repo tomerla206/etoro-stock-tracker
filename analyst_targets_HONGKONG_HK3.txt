@@ -9,7 +9,7 @@
 1308.HK	SITC International Holdings	44.96	37.00	46.33	52.00	OK	TRADEABLE
 1317.HK	China Maple Leaf Educational Systems Ltd	0.17				NOFAQ	TRADEABLE
 1318.HK	Mao Geping Cosmetics Co Ltd	50.40	65.00	80.75	102.81	OK	TRADEABLE
-1339.HK	People's Insurance Company (Group) of China	5.90	6.00	7.29	8.20	OK	TRADEABLE
+1339.HK	People's Insurance Company (Group) of China	5.90	6.00	7.37	8.20	OK	TRADEABLE
 1347.HK	Hua Hong Grace Semiconductor Ltd	111.00	140.00	166.67	220.00	OK	TRADEABLE
 1359.HK	China Cinda Asset Management Co Ltd	0.91				NOFAQ	TRADEABLE
 1378.HK	China Hongqiao Group Ltd	23.52	26.00	35.68	52.90	OK	TRADEABLE
