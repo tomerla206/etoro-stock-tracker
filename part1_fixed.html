@@ -254,6 +254,13 @@
     color: var(--accent);
   }
 
+  .refresh-last-run {
+    display: block;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
   .refresh-cols b {
     font-weight: 700;
   }
@@ -993,6 +1000,18 @@
     font-weight: 600;
     white-space: nowrap;
     border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  table.reentry-table th:hover {
+    color: var(--text);
+  }
+
+  .reentry-sort-arrow {
+    display: inline-block;
+    font-size: 9px;
+    margin-inline-start: 3px;
   }
 
   table.reentry-table td {
@@ -2456,6 +2475,7 @@
           <div class="refresh-text">
             <span class="refresh-desc">אימות מחדש של רשימת "לא ניתן למסחר" מול eToro עצמו, בקצב איטי (<span class="ltr-num">25-30</span> שנ׳ לטיקר).</span>
             <span class="refresh-cols"><b>עמודות:</b> סטטוס TRADEABLE / NOT TRADEABLE בלבד (לא נוגע במחירי יעד)</span>
+            <span class="refresh-last-run" id="lastRunScanRed"></span>
           </div>
         </div>
         <div class="refresh-row">
@@ -2463,6 +2483,7 @@
           <div class="refresh-text">
             <span class="refresh-desc">סריקה חיה של החשבון האמיתי (Real+Virtual) מול eToro: פוזיציות חדשות / הזמנות שמולאו / נסגרו / ממתינות, ובסוף מריץ אוטומטית גם SCAN VALUES.</span>
             <span class="refresh-cols"><b>עמודות:</b> Units / Avg Open / P&amp;L תחת "MY PORTFOLIO" (מעדכן מי בכלל מוחזק, לא נתוני שוק)</span>
+            <span class="refresh-last-run" id="lastRunScanHoldings"></span>
           </div>
         </div>
         <div class="refresh-row">
@@ -2470,6 +2491,7 @@
           <div class="refresh-text">
             <span class="refresh-desc">עדכון היסטוריית יציאות רווחיות (Real+Virtual) מול eToro, החל מה-checkpoint האחרון בלבד (לא מההתחלה) &ndash; ואז מריץ מחדש את חישוב ה-Re-entry Watchlist.</span>
             <span class="refresh-cols"><b>עמודות:</b> מעדכן <code>exit_history.tsv</code> + <code>scan_checkpoint.json</code> + <code>REENTRY_WATCHLIST.md</code> (הפאנל למעלה) &ndash; אינו נוגע בעמודות הטבלה הראשית</span>
+            <span class="refresh-last-run" id="lastRunScanExits"></span>
           </div>
         </div>
         <div class="refresh-row">

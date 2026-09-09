@@ -2116,6 +2116,65 @@
     if (tip) positionInfoTipBubble(tip);
   });
 
+  // "Last performed" timestamps for the three scans that require a live
+  // Claude session (SCAN RED / SCAN HOLDINGS / SCAN EXITS) - they have no
+  // Run button (nothing here can drive that live browser session), so this
+  // is the only way the site shows when they last actually happened. Reads
+  // the last-modified time of whatever file each scan is known to touch,
+  // via a HEAD request (the local static file server sends a real
+  // Last-Modified header for that regardless of file type). All three
+  // files are local-only/gitignored except SCAN_RED_LOG.md, so on the
+  // public GitHub Pages site the HEAD requests for the other two just 404
+  // and those two lines silently stay blank - same treatment as every
+  // other local-only signal on this page.
+  (function initLastRunTimestamps() {
+    function fmtAgoLocal(unixSec) {
+      const s = Date.now() / 1000 - unixSec;
+      if (s < 60) return 'הרגע';
+      if (s < 3600) return Math.round(s / 60) + ' דק׳';
+      if (s < 86400) return Math.round(s / 3600) + ' שע׳';
+      return Math.round(s / 86400) + ' ימים';
+    }
+
+    function showLastRun(elId, unixSec) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      el.textContent = `בוצע לאחרונה: לפני ${fmtAgoLocal(unixSec)}`;
+    }
+
+    function fetchLastModified(...files) {
+      // Takes the MOST RECENT Last-Modified across all given files (e.g.
+      // SCAN HOLDINGS touches both portfolio_real.tsv and
+      // portfolio_virtual.tsv - whichever was updated more recently is
+      // the meaningful "last ran" answer).
+      return Promise.all(files.map(f =>
+        fetch(`${f}?t=${Date.now()}`, { method: 'HEAD' })
+          .then(res => {
+            if (!res.ok) return null;
+            const lm = res.headers.get('Last-Modified');
+            return lm ? new Date(lm).getTime() / 1000 : null;
+          })
+          .catch(() => null)
+      )).then(times => {
+        const valid = times.filter(t => t !== null);
+        return valid.length ? Math.max(...valid) : null;
+      });
+    }
+
+    fetchLastModified('SCAN_RED_LOG.md').then(t => t && showLastRun('lastRunScanRed', t));
+    fetchLastModified('portfolio_real.tsv', 'portfolio_virtual.tsv').then(t => t && showLastRun('lastRunScanHoldings', t));
+
+    fetch(`scan_checkpoint.json?t=${Date.now()}`)
+      .then(res => res.ok ? res.json() : Promise.reject(new Error('not found')))
+      .then(cp => {
+        const dates = ['real', 'virtual'].map(acc => cp[acc] && cp[acc].last_scanned_on).filter(Boolean);
+        if (!dates.length) return;
+        const el = document.getElementById('lastRunScanExits');
+        if (el) el.textContent = `בוצע לאחרונה: ${dates.sort().reverse()[0]}`;
+      })
+      .catch(() => {});
+  })();
+
   // Re-entry Watchlist panel - reads REENTRY_WATCHLIST.md (a plain
   // Markdown table written by check_reentry_opportunities.py). That file
   // is gitignored and only ever exists on the machine running
@@ -2214,16 +2273,70 @@
       const table = document.createElement('table');
       table.className = 'reentry-table';
       const thead = document.createElement('thead');
-      thead.innerHTML = `<tr>${section.headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+      const headRow = document.createElement('tr');
       const tbody = document.createElement('tbody');
-      tbody.innerHTML = section.rows.map(row => {
-        const cells = row.map((cell, i) => {
-          const header = section.headers[i] || '';
-          const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
-          return `<td class="${cls}">${cell}</td>`;
+
+      function renderRows(rows) {
+        tbody.innerHTML = rows.map(row => {
+          const cells = row.map((cell, i) => {
+            const header = section.headers[i] || '';
+            const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
+            return `<td class="${cls}">${cell}</td>`;
+          }).join('');
+          return `<tr>${cells}</tr>`;
         }).join('');
-        return `<tr>${cells}</tr>`;
-      }).join('');
+      }
+
+      // Click-to-sort, same idea as the main table's sortable columns but
+      // self-contained (this table is small - a handful of columns, up to
+      // a few dozen rows - so a lighter implementation is plenty). A column
+      // is treated as numeric if every cell in it parses as a number once
+      // $/%/+/,/spaces are stripped (covers Exit $, Now $, Target $, and
+      // the two percentage columns); everything else (Ticker, Exit date,
+      // Account) sorts as plain text/lexical, which already sorts dates
+      // correctly since they're YYYY-MM-DD.
+      let sortCol = null;
+      let sortDir = 'desc';
+      const rowsData = section.rows;
+
+      function numOf(cell) {
+        const n = parseFloat(String(cell).replace(/[$%,+\s]/g, ''));
+        return isNaN(n) ? null : n;
+      }
+
+      function sortAndRender(colIdx) {
+        if (sortCol === colIdx) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortCol = colIdx;
+          sortDir = 'asc';
+        }
+        const isNumericCol = rowsData.every(r => numOf(r[colIdx]) !== null);
+        const sorted = rowsData.slice().sort((a, b) => {
+          let cmp;
+          if (isNumericCol) {
+            cmp = numOf(a[colIdx]) - numOf(b[colIdx]);
+          } else {
+            cmp = String(a[colIdx]).localeCompare(String(b[colIdx]));
+          }
+          return sortDir === 'asc' ? cmp : -cmp;
+        });
+        renderRows(sorted);
+        headRow.querySelectorAll('th').forEach((th, i) => {
+          const arrow = th.querySelector('.reentry-sort-arrow');
+          arrow.innerHTML = i === sortCol ? (sortDir === 'asc' ? '&#9650;' : '&#9660;') : '';
+        });
+      }
+
+      headRow.innerHTML = section.headers.map((h, i) =>
+        `<th data-col="${i}">${h}<span class="reentry-sort-arrow"></span></th>`
+      ).join('');
+      headRow.querySelectorAll('th').forEach(th => {
+        th.addEventListener('click', () => sortAndRender(parseInt(th.dataset.col, 10)));
+      });
+
+      renderRows(rowsData);
+      thead.appendChild(headRow);
       table.appendChild(thead);
       table.appendChild(tbody);
       wrap.appendChild(table);
