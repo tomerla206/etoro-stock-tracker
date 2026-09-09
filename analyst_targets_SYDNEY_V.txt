@@ -1,5 +1,5 @@
-VAU.ASX	Vault Minerals Ltd	6.64	5.65	6.69	7.60	OK	TRADEABLE
-VCX.ASX	Vicinity Centres	2.44	2.50	2.60	2.70	OK	TRADEABLE
-VEA.ASX	Viva Energy Group Limited	2.98	2.88	2.91	2.95	OK	TRADEABLE
+VAU.ASX	Vault Minerals Ltd	6.57	5.65	6.69	7.60	OK	TRADEABLE
+VCX.ASX	Vicinity Centres	2.41	2.50	2.60	2.70	OK	TRADEABLE
+VEA.ASX	Viva Energy Group Limited	3.00	2.88	2.91	2.95	OK	TRADEABLE
 VNT.ASX	Ventia Services Group Pty Lt	5.78	5.95	6.54	7.00	OK	TRADEABLE
-VUL.ASX	Vulcan Energy Resources Ltd	2.56	4.50	7.63	10.75	OK	TRADEABLE
+VUL.ASX	Vulcan Energy Resources Ltd	2.60	4.50	7.63	10.75	OK	TRADEABLE
