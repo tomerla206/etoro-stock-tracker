@@ -2545,6 +2545,11 @@
       <button type="button" class="scan-status-btn run-all-btn" id="runAllBackgroundBtn">&#8635; Run All</button>
       <span class="scan-status-text"></span>
     </div>
+    <div class="scan-status-row" data-scan="pull">
+      <span class="scan-status-name">Pull Updates<span class="info-tip" tabindex="0">i<span class="info-tip-bubble">מושך (git pull) את התוצאות העדכניות שהענן כבר סרק, ובונה מחדש את האתר המקומי — בלי לחכות ל-Scheduled Task היומי. רץ אוטומטית פעם אחת בכל פתיחת דף; אפשר גם ללחוץ ידנית בכל רגע. אינו מריץ שום סריקה בעצמו, רק מביא תוצאות שכבר קיימות ב-GitHub.</span></span></span>
+      <button type="button" class="scan-status-btn" data-run="pull">&#8635; Run</button>
+      <span class="scan-status-text">&ndash;</span>
+    </div>
     <div class="scan-status-row local-only" data-scan="scan_values">
       <span class="scan-status-name">Scan Values<span class="local-only-badge">להריץ בעצמך</span><span class="info-tip" tabindex="0">i<span class="info-tip-bubble">בצבע בורדו כי זו סריקה שצריך להריץ בעצמך במחשב המקומי — היא סורקת רק את המניות שבפועל מוחזקות בתיק שלך (Real/Virtual), ולכן לא הועברה להפעלה אוטומטית בענן (כדי שנתוני התיק האישי שלך לא יעלו לשום מקום חוץ מהמחשב הזה).</span></span></span>
       <button type="button" class="scan-status-btn" data-run="scan_values">&#8635; Run</button>

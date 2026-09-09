@@ -25,14 +25,29 @@ manual conflict resolution once.
 Run: python pull_and_merge.py (this is what the two local Scheduled Tasks -
 "eToro FUNDAMENTALS SCAN" and "eToro Daily Scan (MEGASCAN + MEGASCAN YAHOO)"
 - now run instead of the actual scan scripts, since the cloud is that data's
-source of truth).
+source of truth). Also runnable on demand via the site's "Pull Updates"
+button (POST /run/pull on portfolio_server.py) - see index.html/part1_fixed.html's
+scan-status-row for it, and PULL_LOG.md below for how its "last: Xh ago"
+status is tracked the same way as every other scan button.
+
+Writes PULL_LOG.md when done (a single summary line + timestamp) purely so
+portfolio_server.py's existing /status polling (built for the scan scripts'
+own *_LOG.md files) can show this one's "last pulled" time in the site's
+scan-status row for free, without any server-side special-casing.
 """
 
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+LOG_FILE = ROOT / "PULL_LOG.md"
+
+
+def write_log(message):
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    LOG_FILE.write_text(f"{message}\nLast attempt: {timestamp}\n", encoding="utf-8")
 
 
 def main():
@@ -42,10 +57,13 @@ def main():
     if result.returncode != 0:
         print(f"WARNING: git pull failed:\n{result.stderr}")
         print("Skipping local merge - site keeps whatever data it already had.")
+        write_log(f"Pull failed (site keeps existing data): {result.stderr.strip().splitlines()[-1] if result.stderr.strip() else 'unknown error'}")
         return
 
+    already_up_to_date = "Already up to date" in result.stdout
     print("Merging local portfolio data into the freshly-pulled site...")
     subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
+    write_log("Already up to date" if already_up_to_date else "Pulled new data and rebuilt site")
 
 
 if __name__ == "__main__":

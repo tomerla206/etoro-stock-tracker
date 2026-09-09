@@ -4,13 +4,19 @@ Local server for the stock site + on-demand scan buttons.
 Run: python portfolio_server.py
 Then open http://localhost:8791/nasdaq-stocks.html
 
-Each button on the page (Scan Values / MEGASCAN / MEGASCAN YAHOO / Insider Scan)
-POSTs to /run/<name>, which launches that scan's script as its own background
-subprocess (non-blocking - the server stays responsive to other requests while
-a multi-hour scan runs, thanks to ThreadingTCPServer). GET /status polls each
-scan's own progress-log file plus whether its process is still alive, so the
-page can show live progress/ETA and a "last completed" timestamp without ever
-blocking on a running scan.
+Each button on the page (Scan Values / MEGASCAN / MEGASCAN YAHOO / Insider Scan /
+Pull Updates) POSTs to /run/<name>, which launches that scan's script as its
+own background subprocess (non-blocking - the server stays responsive to
+other requests while a multi-hour scan runs, thanks to ThreadingTCPServer).
+GET /status polls each scan's own progress-log file plus whether its process
+is still alive, so the page can show live progress/ETA and a "last completed"
+timestamp without ever blocking on a running scan.
+
+"Pull Updates" (name "pull", see pull_and_merge.py) is also POSTed once
+automatically by the page's own JS right after it loads - the fastest way
+for opening the site to actually pick up fresh cloud-scanned data is to just
+ask this server to git-pull-and-rebuild the moment the page opens, instead of
+only ever relying on the once-a-day Scheduled Task.
 
 SCAN HOLDINGS and SCAN RED are NOT here and never will be - they require a
 live Claude session driving a real logged-in eToro browser session, which no
@@ -45,6 +51,15 @@ SCANS = {
     "megascan_yahoo": ("megascan_yahoo.py", "MEGASCAN_YAHOO_LOG.md", "MEGASCAN_YAHOO_RESULTS.md"),
     "insider_scan": ("insider_scan.py", "INSIDER_SCAN_LOG.md", "INSIDER_SCAN_RESULTS.md"),
     "fundamentals_scan": ("fundamentals_scan.py", "FUNDAMENTALS_SCAN_LOG.md", "FUNDAMENTALS_SCAN_RESULTS.md"),
+    # git pull + rebuild from the cloud's latest scan results (normally run
+    # once a day by a Scheduled Task) - also runnable on demand, and
+    # auto-triggered once per page load, so opening the site can pick up
+    # fresh cloud data without waiting for that daily task. Same
+    # log-file-driven "last: Xh ago" status as every scan above, just with
+    # PULL_LOG.md standing in for both the progress log and the results file
+    # (see pull_and_merge.py - it's a single summary line, not a scan with
+    # a Done/Total to track).
+    "pull": ("pull_and_merge.py", "PULL_LOG.md", "PULL_LOG.md"),
 }
 
 RUNNING = {}  # name -> subprocess.Popen, only tracks processes started by THIS server run

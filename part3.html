@@ -584,6 +584,17 @@
     pollStatus();
     setInterval(pollStatus, 10000);
 
+    // Auto-pull on page load: fires once per load instead of only relying on
+    // the once-a-day Scheduled Task, so opening the site is enough to pick
+    // up whatever the cloud has already scanned. Harmless to fire every
+    // time - the server just runs `git pull` (near-instant no-op if nothing
+    // new) and no-ops entirely if a pull is already in flight (same
+    // already-running guard every other scan button uses). On the public
+    // GitHub Pages site there's no local server to answer this at all - the
+    // fetch just fails silently, exactly like every other local-only call
+    // on this page.
+    fetch('/run/pull', { method: 'POST' }).then(() => pollStatus()).catch(() => {});
+
     // Cloud Scan row: live status of the GitHub Actions workflow that runs
     // MEGASCAN/MEGASCAN YAHOO/INSIDER SCAN/FUNDAMENTALS SCAN daily in the
     // cloud. Uses GitHub's public REST API directly (no auth needed for a
