@@ -914,6 +914,68 @@
     color: var(--text-dim);
   }
 
+  .reentry-toggle-all {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--bg);
+    background: #b3336b;
+    border: none;
+    border-radius: 999px;
+    padding: 4px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .reentry-checkpoint {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 4px 8px;
+  }
+
+  .reentry-group + .reentry-group {
+    margin-top: 14px;
+  }
+
+  .reentry-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dim);
+    padding: 4px;
+    margin: 0 -4px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+  }
+
+  .reentry-group-title:hover {
+    background: rgba(179, 51, 107, 0.08);
+  }
+
+  .reentry-group-arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+    font-size: 10px;
+  }
+
+  .reentry-group.collapsed .reentry-group-arrow {
+    transform: rotate(-90deg);
+  }
+
+  .reentry-group.collapsed .reentry-table,
+  .reentry-group.collapsed .reentry-group-empty {
+    display: none;
+  }
+
+  .reentry-group-empty {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 4px 8px;
+  }
+
   .reentry-table-wrap {
     overflow-x: auto;
   }
@@ -2404,6 +2466,13 @@
           </div>
         </div>
         <div class="refresh-row">
+          <code>SCAN EXITS</code><span class="req-badge req-claude">🧠 דורש קלוד חי</span>
+          <div class="refresh-text">
+            <span class="refresh-desc">עדכון היסטוריית יציאות רווחיות (Real+Virtual) מול eToro, החל מה-checkpoint האחרון בלבד (לא מההתחלה) &ndash; ואז מריץ מחדש את חישוב ה-Re-entry Watchlist.</span>
+            <span class="refresh-cols"><b>עמודות:</b> מעדכן <code>exit_history.tsv</code> + <code>scan_checkpoint.json</code> + <code>REENTRY_WATCHLIST.md</code> (הפאנל למעלה) &ndash; אינו נוגע בעמודות הטבלה הראשית</span>
+          </div>
+        </div>
+        <div class="refresh-row">
           <code>SCAN VALUES</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
           <div class="refresh-text">
             <span class="refresh-desc">ריענון מלא רק להחזקות הקיימות (כפתור "Scan Portfolio", אוטומטי לגמרי).</span>
@@ -2472,7 +2541,7 @@
 
   <div class="scan-status-panel" id="scanStatusPanel">
     <div class="scan-status-row run-all-row">
-      <span class="scan-status-name">Run All Background<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right wide">מפעיל בלחיצה אחת את 4 הסריקות שרצות עצמאית ברקע, בלי צורך בי (Claude) בכלל: <b>MEGASCAN</b> (כיסוי אנליסטים), <b>MEGASCAN YAHOO</b> (Yahoo Finance), <b>INSIDER SCAN</b> (פעילות מנהלים), <b>FUNDAMENTALS SCAN</b> (Short Interest/RSI/P-E/Market Cap + Score). כל אחת רצה כתהליך נפרד ומדווחת התקדמות בשורה שלה למטה, בדיוק כאילו לחצת על כל כפתור בנפרד.<br><br><b>לא כלול כאן:</b> SCAN VALUES (מריץ אוטומטית בסוף SCAN HOLDINGS), ו-SCAN HOLDINGS/SCAN RED שדורשים session חי שלי מול החשבון האמיתי שלך בעטורו — את אלו צריך לבקש ממני בצ'אט.</span></span></span>
+      <span class="scan-status-name">Run All Background<span class="info-tip" tabindex="0">i<span class="info-tip-bubble open-right wide">מפעיל בלחיצה אחת את 4 הסריקות שרצות עצמאית ברקע, בלי צורך בי (Claude) בכלל: <b>MEGASCAN</b> (כיסוי אנליסטים), <b>MEGASCAN YAHOO</b> (Yahoo Finance), <b>INSIDER SCAN</b> (פעילות מנהלים), <b>FUNDAMENTALS SCAN</b> (Short Interest/RSI/P-E/Market Cap + Score). כל אחת רצה כתהליך נפרד ומדווחת התקדמות בשורה שלה למטה, בדיוק כאילו לחצת על כל כפתור בנפרד.<br><br><b>לא כלול כאן:</b> SCAN VALUES (מריץ אוטומטית בסוף SCAN HOLDINGS), ו-SCAN HOLDINGS/SCAN RED/SCAN EXITS שדורשים session חי שלי מול החשבון האמיתי שלך בעטורו — את אלו צריך לבקש ממני בצ'אט.</span></span></span>
       <button type="button" class="scan-status-btn run-all-btn" id="runAllBackgroundBtn">&#8635; Run All</button>
       <span class="scan-status-text"></span>
     </div>
@@ -2522,13 +2591,10 @@
     <div class="reentry-header">
       <span class="reentry-title">&#8635; Re-entry Watchlist<span class="reentry-subtitle">— מניות שיצאת מהן ברווח, שנראה שכדאי לבדוק כניסה מחדש (מקומי בלבד)</span></span>
       <span class="reentry-count" id="reentryCount"></span>
+      <button type="button" class="reentry-toggle-all" id="reentryToggleAll" style="display:none;">הצג הכל</button>
     </div>
-    <div class="reentry-table-wrap">
-      <table class="reentry-table" id="reentryTable">
-        <thead><tr id="reentryTableHead"></tr></thead>
-        <tbody id="reentryTableBody"></tbody>
-      </table>
-    </div>
+    <div class="reentry-checkpoint" id="reentryCheckpoint" style="display:none;"></div>
+    <div class="reentry-table-wrap" id="reentryGroups"></div>
   </div>
 
   <div class="status-filters" id="upsideFilters">

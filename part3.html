@@ -2114,29 +2114,116 @@
   (function initReentryPanel() {
     const panel = document.getElementById('reentryPanel');
     const countEl = document.getElementById('reentryCount');
-    const headRow = document.getElementById('reentryTableHead');
-    const body = document.getElementById('reentryTableBody');
+    const groupsEl = document.getElementById('reentryGroups');
+    const checkpointEl = document.getElementById('reentryCheckpoint');
+    const toggleAllBtn = document.getElementById('reentryToggleAll');
     if (!panel) return;
 
-    function parseMarkdownTable(text) {
+    // Scan checkpoint - written by update_exit_history.py every time a new
+    // batch of exit history is merged in. Shows how far each account
+    // (real/virtual) has been scanned so far and when, so it's obvious at a
+    // glance whether the watchlist above is stale. Same local-only/gitignored
+    // treatment as REENTRY_WATCHLIST.md itself - 404s harmlessly on the
+    // public site.
+    if (checkpointEl) {
+      fetch(`scan_checkpoint.json?t=${Date.now()}`)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error('not found')))
+        .then(cp => {
+          const parts = ['real', 'virtual']
+            .filter(acc => cp[acc] && cp[acc].last_exit_date)
+            .map(acc => `${acc}: עד ${cp[acc].last_exit_date} (נסרק ${cp[acc].last_scanned_on})`);
+          if (!parts.length) return;
+          checkpointEl.textContent = `נסרק במלואו ${parts.join(' · ')}`;
+          checkpointEl.style.display = '';
+        })
+        .catch(() => {
+          // scan_checkpoint.json doesn't exist yet - stays hidden.
+        });
+    }
+
+    // Splits the file into its "## Real (N)" / "## Virtual (N)" sections
+    // (check_reentry_opportunities.py always writes both, in that order,
+    // each followed by either a table or a "_No candidates._" line) so the
+    // two accounts render as visually separate groups instead of one mixed
+    // table - seeing a Real-account row and a Virtual-account row back to
+    // back read as one combined list, which isn't what they are.
+    function parseSections(text) {
       const lines = text.split('\n');
-      const headerIdx = lines.findIndex(l => l.trim().startsWith('|') && l.includes('Ticker'));
-      if (headerIdx === -1) return null;
-      const splitRow = (line) => line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
-      const headers = splitRow(lines[headerIdx]);
-      const rows = [];
-      for (let i = headerIdx + 2; i < lines.length; i++) {
-        const line = lines[i];
-        if (!line.trim().startsWith('|')) break;
-        rows.push(splitRow(line));
+      const sections = [];
+      let current = null;
+      for (const line of lines) {
+        const headingMatch = line.match(/^##\s+(.+?)\s*\((\d+)\)\s*$/);
+        if (headingMatch) {
+          current = { title: headingMatch[1], count: parseInt(headingMatch[2], 10), headers: [], rows: [] };
+          sections.push(current);
+          continue;
+        }
+        if (!current) continue;
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('|')) continue;
+        const cells = trimmed.replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+        if (cells.every(c => /^-+$/.test(c))) continue; // markdown separator row
+        if (!current.headers.length) current.headers = cells;
+        else current.rows.push(cells);
       }
-      return { headers, rows };
+      return sections;
     }
 
     function pctClass(str) {
       const v = parseFloat(str);
       if (isNaN(v)) return '';
       return v >= 0 ? 'grade-vgood' : 'grade-vbad';
+    }
+
+    // Collapsed by default - a re-entry candidate list per account is
+    // useful to check on demand, not something that needs to stay open and
+    // take up space every time the page loads. Each group (Real/Virtual)
+    // toggles independently by clicking its own title; the header button
+    // toggles all of them together in one click.
+    function renderGroup(section) {
+      const wrap = document.createElement('div');
+      wrap.className = 'reentry-group collapsed';
+      const title = document.createElement('div');
+      title.className = 'reentry-group-title';
+      title.innerHTML = `<span class="reentry-group-arrow">&#9660;</span><span>${section.title} (${section.count})</span>`;
+      title.addEventListener('click', () => {
+        wrap.classList.toggle('collapsed');
+        syncToggleAllLabel();
+      });
+      wrap.appendChild(title);
+
+      if (!section.rows.length) {
+        const empty = document.createElement('div');
+        empty.className = 'reentry-group-empty';
+        empty.textContent = 'אין מועמדים כרגע.';
+        wrap.appendChild(empty);
+        return wrap;
+      }
+
+      const table = document.createElement('table');
+      table.className = 'reentry-table';
+      const thead = document.createElement('thead');
+      thead.innerHTML = `<tr>${section.headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+      const tbody = document.createElement('tbody');
+      tbody.innerHTML = section.rows.map(row => {
+        const cells = row.map((cell, i) => {
+          const header = section.headers[i] || '';
+          const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
+          return `<td class="${cls}">${cell}</td>`;
+        }).join('');
+        return `<tr>${cells}</tr>`;
+      }).join('');
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      return wrap;
+    }
+
+    function syncToggleAllLabel() {
+      if (!toggleAllBtn) return;
+      const groups = groupsEl.querySelectorAll('.reentry-group');
+      const anyExpanded = Array.from(groups).some(g => !g.classList.contains('collapsed'));
+      toggleAllBtn.textContent = anyExpanded ? 'הסתר הכל' : 'הצג הכל';
     }
 
     fetch(`REENTRY_WATCHLIST.md?t=${Date.now()}`)
@@ -2146,20 +2233,24 @@
         const count = countMatch ? parseInt(countMatch[1], 10) : 0;
         if (!count) return; // no candidates today - leave the panel hidden
 
-        const parsed = parseMarkdownTable(text);
-        if (!parsed || !parsed.rows.length) return;
+        const sections = parseSections(text);
+        if (!sections.length) return;
 
         countEl.textContent = `${count} candidate${count === 1 ? '' : 's'}`;
-        headRow.innerHTML = parsed.headers.map(h => `<th>${h}</th>`).join('');
-        body.innerHTML = parsed.rows.map(row => {
-          const cells = row.map((cell, i) => {
-            const header = parsed.headers[i] || '';
-            const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
-            return `<td class="${cls}">${cell}</td>`;
-          }).join('');
-          return `<tr>${cells}</tr>`;
-        }).join('');
+        groupsEl.innerHTML = '';
+        sections.forEach(section => groupsEl.appendChild(renderGroup(section)));
         panel.style.display = '';
+
+        if (toggleAllBtn) {
+          toggleAllBtn.style.display = '';
+          toggleAllBtn.onclick = () => {
+            const groups = groupsEl.querySelectorAll('.reentry-group');
+            const anyExpanded = Array.from(groups).some(g => !g.classList.contains('collapsed'));
+            groups.forEach(g => g.classList.toggle('collapsed', anyExpanded));
+            syncToggleAllLabel();
+          };
+          syncToggleAllLabel();
+        }
       })
       .catch(() => {
         // File doesn't exist yet (no exit_history.tsv, or running on the

@@ -95,6 +95,23 @@ def load_current_prices():
     return data
 
 
+def load_held_tickers(account):
+    """Set of tickers currently held (or pending) in portfolio_<account>.tsv -
+    no header row, ticker is always column 0. A ticker already back in the
+    portfolio is not a re-entry candidate anymore; showing it as one (as
+    happened with TNYA - sold part of a position for profit, still holding
+    the rest) is just noise pointing at a position you're already in."""
+    path = ROOT / f"portfolio_{account}.tsv"
+    if not path.exists():
+        return set()
+    held = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        parts = line.split("\t")
+        if parts and parts[0]:
+            held.add(parts[0])
+    return held
+
+
 def load_analyst_targets():
     """ticker -> average analyst target price, from analyst_targets_*.txt."""
     data = {}
@@ -129,8 +146,10 @@ def main():
 
     prices = load_current_prices()
     targets = load_analyst_targets()
+    held = {"real": load_held_tickers("real"), "virtual": load_held_tickers("virtual")}
 
     candidates = []
+    skipped_held = 0
     for ticker, records in exits.items():
         current_price = prices.get(ticker)
         target = targets.get(ticker)
@@ -141,6 +160,15 @@ def main():
         # reference point.
         latest_exit = max(records, key=lambda r: r["exit_date"])
         exit_price = latest_exit["exit_price"]
+
+        # Already back in that same account (e.g. sold part of a position
+        # for profit, still holding the rest) - not a re-entry opportunity
+        # anymore, you're already in it. A different account re-entering
+        # what THIS account exited is still worth flagging, so the check is
+        # per-account, not "held anywhere".
+        if ticker in held.get(latest_exit["account"], ()):
+            skipped_held += 1
+            continue
 
         pullback_pct = (exit_price - current_price) / exit_price * 100
         upside_pct = (target - current_price) / current_price * 100
@@ -159,23 +187,37 @@ def main():
         "# Re-entry Watchlist\n\n",
         f"Tracking {len(exits)} previously-exited ticker(s). A candidate needs BOTH: price down "
         f"at least {PULLBACK_THRESHOLD_PCT:.0f}% from your exit price, AND analyst average target "
-        f"still at least {UPSIDE_THRESHOLD_PCT:.0f}% above today's price.\n\n",
+        f"still at least {UPSIDE_THRESHOLD_PCT:.0f}% above today's price. Tickers already held "
+        f"again in the same account are excluded (that's not a re-entry, it's already happened) "
+        f"- {skipped_held} skipped for that reason this run.\n\n",
         f"**{len(candidates)} candidate(s) today**\n\n",
     ]
-    if candidates:
-        lines.append("| Ticker | Exit date | Exit $ | Now $ | Down since exit | Target $ | Upside to target | Account |\n")
-        lines.append("|---|---|---|---|---|---|---|---|\n")
-        for c in candidates:
+    # Split into two separate tables, Real then Virtual - keeping the two
+    # accounts' candidates visually apart instead of interleaved in one
+    # mixed table sorted purely by upside (which was confusing: seeing
+    # "TNYA (virtual)" and a Real-account candidate back to back reads as
+    # one combined list when they're really two separate portfolios).
+    for account_label, account_key in (("Real", "real"), ("Virtual", "virtual")):
+        account_candidates = [c for c in candidates if c["account"] == account_key]
+        lines.append(f"## {account_label} ({len(account_candidates)})\n\n")
+        if not account_candidates:
+            lines.append("_No candidates._\n\n")
+            continue
+        lines.append("| Ticker | Exit date | Exit $ | Now $ | Down since exit | Target $ | Upside to target |\n")
+        lines.append("|---|---|---|---|---|---|---|\n")
+        for c in account_candidates:
             lines.append(
                 f"| {c['ticker']} | {c['exit_date']} | {c['exit_price']:.2f} | "
                 f"{c['current_price']:.2f} | {c['pullback_pct']:+.1f}% | {c['target']:.2f} | "
-                f"{c['upside_pct']:+.1f}% | {c['account']} |\n"
+                f"{c['upside_pct']:+.1f}% |\n"
             )
+        lines.append("\n")
 
     with open(RESULTS_FILE, "w", encoding="utf-8") as out:
         out.writelines(lines)
 
-    print(f"Checked {len(exits)} exited tickers, {len(candidates)} re-entry candidate(s) -> {RESULTS_FILE.name}")
+    print(f"Checked {len(exits)} exited tickers ({skipped_held} already held again, skipped), "
+          f"{len(candidates)} re-entry candidate(s) -> {RESULTS_FILE.name}")
 
 
 if __name__ == "__main__":

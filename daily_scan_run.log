@@ -128,3 +128,51 @@ Fast-forward
 
 Merging local portfolio data into the freshly-pulled site...
 ===== Daily pull finished: Mon 09/07/2026 17:00:25.57 ===== 
+===== Daily pull started: Wed 09/09/2026  2:00:02.53 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2747 rows tagged (out of 2747 scraped tickers).
+[merge_insider.py] Insider activity merged: 20 rows tagged (out of 20 scraped tickers).
+WARNING: merge_fundamentals.py exited with code 1:
+Traceback (most recent call last):
+  File "H:\\u05e7\u05dc\u05d5\u05d3\\u05e7\u05dc\u05d5\u05d3 2 - Copy\merge_fundamentals.py", line 817, in <module>
+    main()
+  File "H:\\u05e7\u05dc\u05d5\u05d3\\u05e7\u05dc\u05d5\u05d3 2 - Copy\merge_fundamentals.py", line 806, in main
+    with open(ROWS_FILE, "w", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'all_rows.html'
+
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5655 rows tagged (out of 5655 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 0 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 57 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 27 distinct dates).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Wed 09/09/2026  2:00:49.87 ===== 
+===== Daily pull started: Wed 09/09/2026 17:00:01.61 ===== 
+Pulling latest scan results from GitHub...
+Updating dc66aa3..daaf1d1
+
+WARNING: git pull failed:
+From https://github.com/tomerla206/etoro-stock-tracker
+ * branch            main       -> FETCH_HEAD
+error: Your local changes to the following files would be overwritten by merge:
+	all_rows.html
+	index.html
+	nasdaq-stocks.html
+Please commit your changes or stash them before you merge.
+Aborting
+
+Skipping local merge - site keeps whatever data it already had.
+===== Daily pull finished: Wed 09/09/2026 17:00:05.99 ===== 
