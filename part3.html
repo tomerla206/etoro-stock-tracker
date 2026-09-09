@@ -531,6 +531,10 @@
         // text until its own scan completes.
         if (name === cloudActiveScan) return;
         text.textContent = info.last_completed ? `last: ${fmtAgo(info.last_completed)}` : 'never run';
+        // Full local date/time on hover - "4h ago" alone doesn't say
+        // whether that's this morning or yesterday night without doing
+        // the math yourself.
+        text.title = info.last_completed ? new Date(info.last_completed * 1000).toLocaleString() : '';
       }
     }
 
@@ -697,6 +701,7 @@
             cloudShardDetails.innerHTML = ''; // clear yesterday's bars once the run is done
             const ago = fmtAgo(new Date(run.updated_at).getTime() / 1000);
             cloudScanText.textContent = `${run.conclusion}, last: ${ago}`;
+            cloudScanText.title = new Date(run.updated_at).toLocaleString();
           }
         } catch (err) {
           cloudScanText.textContent = 'unavailable';
@@ -2139,7 +2144,10 @@
     function showLastRun(elId, unixSec) {
       const el = document.getElementById(elId);
       if (!el) return;
-      el.textContent = `בוצע לאחרונה: לפני ${fmtAgoLocal(unixSec)}`;
+      const d = new Date(unixSec * 1000);
+      const dateStr = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+      el.textContent = `בוצע לאחרונה: ${dateStr} (לפני ${fmtAgoLocal(unixSec)})`;
+      el.title = d.toString();
     }
 
     function fetchLastModified(...files) {

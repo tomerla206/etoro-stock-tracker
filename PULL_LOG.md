@@ -1,2 +1,2 @@
-Already up to date
-Last attempt: 2026-09-09 22:36:58 UTC
+Pull failed (site keeps existing data): Aborting
+Last attempt: 2026-09-09 23:05:20 UTC
