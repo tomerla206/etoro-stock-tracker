@@ -795,7 +795,7 @@
     if (portfolioMode === 'out') return !inPortfolio;
     return true;
   }
-  const activeStatuses = new Set(['normal', 'nofaq', 'not-tradeable']);
+  const activeStatuses = new Set(['normal']);
 
   function rowStatus(row) {
     if (row.classList.contains('row-not-tradeable')) return 'not-tradeable';
@@ -803,7 +803,7 @@
     return 'normal';
   }
 
-  const activeUpside = new Set(['pos', 'neg', 'undefined']);
+  const activeUpside = new Set(['pos']);
   function rowUpside(row) {
     const p = parseFloat(row.dataset.pct);
     if (isNaN(p)) return 'undefined';
