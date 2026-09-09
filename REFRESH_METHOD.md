@@ -10,9 +10,21 @@ Every scan script (`megascan.py`, `megascan_yahoo.py`, `insider_scan.py`, `scan_
 
 1. **Ask the user**: include `SCAN RED` this time, or skip it and just do MEGASCAN + MEGASCAN YAHOO + SCAN HOLDINGS?
 2. **Launch `MEGASCAN`, `MEGASCAN YAHOO`, and `FUNDAMENTALS SCAN` together in the background** (`python megascan.py`, `python megascan_yahoo.py`, `python fundamentals_scan.py`) - all three are standalone scriptable jobs hitting different domains/endpoints, safe to run concurrently, no shared rate-limit risk (FUNDAMENTALS SCAN is pure HTTP against Yahoo's quoteSummary/chart APIs, ~2-3 min for the full universe - much faster than the other two). Back up `analyst_targets_*.txt` / `yahoo_targets_*.txt` / `yahoo_dividends_*.txt` first if not already done recently.
-3. **While the background scans run, do `SCAN HOLDINGS` live** (requires the interactive claude-in-chrome session driving the user's real eToro login - can't be scripted). This auto-chains into `SCAN VALUES` at its own end (see the SCAN HOLDINGS section below).
-4. **Then, only if the user opted in at step 1, do `SCAN RED`** (also requires the live session - re-verifies the current Not Tradeable list against eToro itself, ~25-30s/ticker pacing, ~2 hours for ~250 tickers).
-5. **Report a single combined summary** at the end: MEGASCAN new-green/lost-coverage counts, MEGASCAN YAHOO updated/no-data counts, FUNDAMENTALS SCAN updated/no-data counts, SCAN HOLDINGS structural changes, SCAN RED bugs found (if run) - not five separate reports scattered through the conversation.
+3. **While the background scans run, do `SCAN LIVE` (see below)** - covers `SCAN HOLDINGS` + `SCAN EXITS`, and `SCAN RED` too if the user opted in at step 1.
+4. **Report a single combined summary** at the end: MEGASCAN new-green/lost-coverage counts, MEGASCAN YAHOO updated/no-data counts, FUNDAMENTALS SCAN updated/no-data counts, plus SCAN LIVE's own combined summary (see below) - not five separate reports scattered through the conversation.
+
+## Code name `SCAN LIVE` (added 2026-09-10) — bundles every scan that needs a live Claude session
+
+**Trigger phrase**: "SCAN LIVE" (or "תעשה סריקה חיה" / "תעדכן הכל בעטורו"). Runs the three scans that are marked 🧠 "דורש קלוד חי" on the site (`SCAN HOLDINGS`, `SCAN EXITS`, `SCAN RED`) back to back in one pass, instead of asking for each separately - all three need the exact same thing (a live `mcp__claude-in-chrome__*` session on the user's real, logged-in eToro tabs), so there's no reason not to just do all three once that session is open.
+
+**Not the same thing as `SCAN ALL`**: `SCAN ALL` also launches the three standalone/scriptable cloud-style scans (MEGASCAN, MEGASCAN YAHOO, FUNDAMENTALS SCAN) in the background - `SCAN LIVE` is only the live-session trio, useful on its own when the user just wants the eToro-account-specific data refreshed without touching the (usually cloud-automated) analyst-coverage data at all.
+
+**Order** (fastest/most-likely-to-matter first, slowest/optional last):
+1. **Ask the user**: include `SCAN RED` this time? (adds ~2h for ~250 tickers at 25-30s/ticker pacing - same ask as `SCAN ALL` step 1, don't assume a default).
+2. **`SCAN HOLDINGS`** - checks both Real and Virtual for new/filled/closed positions and pending orders (see its own section below for the full procedure). Auto-chains `SCAN VALUES` at its own end.
+3. **`SCAN EXITS`** (code name `SCAN EXIT HISTORY` below) - same eToro session, so do it right after HOLDINGS while already logged in and on the account. Checks `scan_checkpoint.json` first (or run `python update_exit_history.py` with no arguments) to see exactly which date each account was last scanned to, then only scrolls/transcribes exits newer than that checkpoint instead of the whole history - the once-manual "scroll to the very start" pass from before 2026-09-10 is no longer needed on repeat runs.
+4. **`SCAN RED`**, only if opted into at step 1 - re-verifies the current Not Tradeable list against eToro itself.
+5. **Report one combined summary**: SCAN HOLDINGS structural changes (new/closed positions, pending orders, TP changes), SCAN EXITS new profitable exits found + updated Re-entry Watchlist candidate count, SCAN RED bugs found (if run).
 
 ## `FUNDAMENTALS SCAN` (added 2026-09-05) — feeds the Score/Short Interest/RSI/P&E columns
 

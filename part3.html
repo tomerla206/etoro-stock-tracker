@@ -2287,36 +2287,42 @@
         }).join('');
       }
 
-      // Click-to-sort, same idea as the main table's sortable columns but
-      // self-contained (this table is small - a handful of columns, up to
-      // a few dozen rows - so a lighter implementation is plenty). A column
-      // is treated as numeric if every cell in it parses as a number once
-      // $/%/+/,/spaces are stripped (covers Exit $, Now $, Target $, and
-      // the two percentage columns); everything else (Ticker, Exit date,
-      // Account) sorts as plain text/lexical, which already sorts dates
-      // correctly since they're YYYY-MM-DD.
+      // Click-to-sort with the same dropdown-menu UX as the main table's
+      // sortable columns (Min/Max, A/Z, Oldest/Newest) - self-contained
+      // rather than reusing the main table's sort-menu code directly since
+      // this table is small (a handful of columns, up to a few dozen rows)
+      // and lives in a separate scope, but it reuses the exact same
+      // .sort-menu/.sort-menu-item CSS classes so it looks identical.
+      // Column type is auto-detected: every cell parses as a number once
+      // $/%/+/,/spaces are stripped -> numeric (Exit $, Now $, Target $,
+      // the two percentage columns); every cell matches YYYY-MM-DD -> date
+      // (Exit date); anything else (Ticker, Account) -> plain text.
       let sortCol = null;
       let sortDir = 'desc';
       const rowsData = section.rows;
+      const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
       function numOf(cell) {
         const n = parseFloat(String(cell).replace(/[$%,+\s]/g, ''));
         return isNaN(n) ? null : n;
       }
 
-      function sortAndRender(colIdx) {
-        if (sortCol === colIdx) {
-          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-        } else {
-          sortCol = colIdx;
-          sortDir = 'asc';
-        }
-        const isNumericCol = rowsData.every(r => numOf(r[colIdx]) !== null);
+      function colType(colIdx) {
+        if (rowsData.every(r => DATE_RE.test(String(r[colIdx]).trim()))) return 'date';
+        if (rowsData.every(r => numOf(r[colIdx]) !== null)) return 'numeric';
+        return 'text';
+      }
+
+      function applySort(colIdx, dir) {
+        sortCol = colIdx;
+        sortDir = dir;
+        const type = colType(colIdx);
         const sorted = rowsData.slice().sort((a, b) => {
           let cmp;
-          if (isNumericCol) {
+          if (type === 'numeric') {
             cmp = numOf(a[colIdx]) - numOf(b[colIdx]);
           } else {
+            // Dates (YYYY-MM-DD) sort correctly with plain string compare too.
             cmp = String(a[colIdx]).localeCompare(String(b[colIdx]));
           }
           return sortDir === 'asc' ? cmp : -cmp;
@@ -2328,11 +2334,48 @@
         });
       }
 
+      let reentrySortMenuEl = null;
+      function ensureReentrySortMenu() {
+        if (reentrySortMenuEl) return reentrySortMenuEl;
+        reentrySortMenuEl = document.createElement('div');
+        reentrySortMenuEl.className = 'sort-menu';
+        document.body.appendChild(reentrySortMenuEl);
+        document.addEventListener('click', (e) => {
+          if (!reentrySortMenuEl.contains(e.target) && !e.target.closest('.reentry-sort-trigger')) {
+            reentrySortMenuEl.classList.remove('open');
+          }
+        });
+        window.addEventListener('scroll', () => reentrySortMenuEl.classList.remove('open'), { capture: true, passive: true });
+        return reentrySortMenuEl;
+      }
+
+      function openSortMenu(colIdx, th) {
+        const menu = ensureReentrySortMenu();
+        const type = colType(colIdx);
+        const opts = type === 'numeric' ? [['asc', 'Min → Max'], ['desc', 'Max → Min']]
+          : type === 'date' ? [['asc', 'Oldest → Newest'], ['desc', 'Newest → Oldest']]
+          : [['asc', 'A → Z'], ['desc', 'Z → A']];
+        menu.innerHTML = opts.map(([dir, label]) =>
+          `<button type="button" class="sort-menu-item${sortCol === colIdx && sortDir === dir ? ' active' : ''}" data-dir="${dir}">${label}</button>`
+        ).join('');
+        menu.querySelectorAll('.sort-menu-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            applySort(colIdx, btn.dataset.dir);
+            menu.classList.remove('open');
+          });
+        });
+        const rect = th.getBoundingClientRect();
+        menu.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 180)) + 'px';
+        menu.style.top = (rect.bottom + 4) + 'px';
+        menu.classList.add('open');
+      }
+
       headRow.innerHTML = section.headers.map((h, i) =>
-        `<th data-col="${i}">${h}<span class="reentry-sort-arrow"></span></th>`
+        `<th class="reentry-sort-trigger" data-col="${i}">${h}<span class="reentry-sort-arrow"></span></th>`
       ).join('');
       headRow.querySelectorAll('th').forEach(th => {
-        th.addEventListener('click', () => sortAndRender(parseInt(th.dataset.col, 10)));
+        th.addEventListener('click', () => openSortMenu(parseInt(th.dataset.col, 10), th));
       });
 
       renderRows(rowsData);
