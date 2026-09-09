@@ -1,4 +1,4 @@
-NAB.ASX	National Australia Bank Limited	38.87	29.00	38.70	48.50	OK	TRADEABLE
+NAB.ASX	National Australia Bank Limited	38.87	29.00	38.71	48.50	OK	TRADEABLE
 NAN.ASX	Nanosonics Limited	2.80	3.20	3.20	3.20	OK	TRADEABLE
 NCK.ASX	Nick Scali Ltd	14.63	15.00	17.26	21.00	OK	TRADEABLE
 NEC.ASX	Nine Entertainment Co. Holdings Limited	0.86	1.04	1.24	1.40	OK	TRADEABLE

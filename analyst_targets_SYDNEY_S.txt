@@ -15,7 +15,7 @@ SLX.ASX	Silex Systems Ltd	5.03	12.80	12.80	12.80	OK	TRADEABLE
 SMR.ASX	Stanmore Resources Ltd	3.14	2.75	2.75	2.75	OK	TRADEABLE
 SOL.ASX	Washington H. Soul Pattinson and Company Limited	44.11				NOFAQ	TRADEABLE
 SPK.ASX	Spark New Zealand Limited	1.75				NOFAQ	TRADEABLE
-STO.ASX	Santos Limited	8.41	7.90	8.53	9.15	OK	TRADEABLE
+STO.ASX	Santos Limited	8.41	7.90	8.44	9.20	OK	TRADEABLE
 SUL.ASX	Super Retail Group Limited	12.75	15.60	15.90	16.20	OK	TRADEABLE
 SUN.ASX	Suncorp Group Limited	18.83	19.80	20.28	21.50	OK	TRADEABLE
 SYR.ASX	Syrah Resources Limited	0.10	0.10	0.10	0.10	OK	TRADEABLE
