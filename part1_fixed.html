@@ -97,6 +97,15 @@
     scrollbar-color: var(--border) transparent;
   }
 
+  /* Filtering/sorting 6,761 rows can take over a second with nothing else
+     on screen changing - this dims the table the instant a filter change
+     is queued (see applyFilters()) so a click/keystroke doesn't look like
+     it did nothing. */
+  #stockTable.filtering {
+    opacity: 0.5;
+    transition: opacity 0.15s ease 0.1s;
+  }
+
   /* Mirrors the table's horizontal scrollbar above the table too - with a
      tall table, the real scrollbar sits at the very bottom of table-wrap and
      is only reachable after scrolling all the way down past every row. This
@@ -196,6 +205,38 @@
     overflow: hidden;
     background: var(--surface);
     direction: rtl;
+  }
+
+  .refresh-codes-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dim);
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+    direction: rtl;
+  }
+
+  .refresh-codes-header:hover {
+    background: var(--surface-2, #f7f7f9);
+  }
+
+  .refresh-codes-arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+    font-size: 10px;
+  }
+
+  .refresh-codes.collapsed .refresh-codes-arrow {
+    transform: rotate(-90deg);
+  }
+
+  .refresh-codes.collapsed .refresh-row {
+    display: none;
   }
 
   .refresh-row {
@@ -336,6 +377,50 @@
     font-size: 13px;
     color: var(--text-dim);
     white-space: nowrap;
+  }
+
+  .count-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reset-filters-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .reset-filters-btn:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .active-filters-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: -10px 0 14px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .active-filters-strip:empty {
+    display: none;
+  }
+
+  .active-filters-strip .af-chip {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 10px;
   }
 
   table {
@@ -2439,6 +2524,32 @@
     display: block;
   }
 
+  .col-toggle-bulk {
+    display: flex;
+    gap: 6px;
+    padding: 0 8px 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .col-toggle-bulk button {
+    flex: 1;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 6px;
+    cursor: pointer;
+  }
+
+  .col-toggle-bulk button:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+
   .col-toggle-menu label {
     display: flex;
     align-items: center;
@@ -2463,7 +2574,10 @@
   <header>
     <div>
       <p class="eyebrow">eToro &middot; All Exchanges</p>
-      <div class="refresh-codes" title="בקש מקלוד להריץ את הריענונים האלה לפי השם">
+      <div class="refresh-codes" id="refreshCodes" title="בקש מקלוד להריץ את הריענונים האלה לפי השם">
+        <div class="refresh-codes-header" id="refreshCodesToggle" tabindex="0" role="button" aria-expanded="true">
+          <span class="refresh-codes-arrow">&#9660;</span><span>קודי סריקה - מה כל אחד עושה</span>
+        </div>
         <div class="refresh-row">
           <code>MEGASCAN</code><span class="req-badge req-script">⚙️ סקריפט עצמאי</span>
           <div class="refresh-text">
@@ -2540,8 +2654,12 @@
       </div>
       <h1>World Markets Tracker</h1>
     </div>
-    <div class="count" id="count">Showing 1,823 of 1,823</div>
+    <div class="count-row">
+      <button type="button" class="reset-filters-btn" id="resetFiltersBtn" title="Reset all filters, columns and search back to the default view">&#8635; Reset filters</button>
+      <div class="count" id="count">Showing 1,823 of 1,823</div>
+    </div>
   </header>
+  <div class="active-filters-strip" id="activeFiltersStrip"></div>
 
   <input class="search" id="search" type="text" placeholder="Search ticker or company name&hellip;" autocomplete="off" aria-label="Search ticker or company name">
 
@@ -2892,6 +3010,10 @@
     <div class="col-toggle" id="colToggle">
       <button type="button" class="col-toggle-btn" id="colToggleBtn">Columns<span class="chev">&#9660;</span></button>
       <div class="col-toggle-menu">
+        <div class="col-toggle-bulk">
+          <button type="button" id="colToggleAllBtn">Select all</button>
+          <button type="button" id="colToggleNoneBtn">Select none</button>
+        </div>
         <label><input type="checkbox" id="toggleExchange" checked> Exchange</label>
         <label><input type="checkbox" id="toggleCons" checked> Consensus %</label>
         <label><input type="checkbox" id="toggleRating" checked> Rating</label>

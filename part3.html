@@ -855,6 +855,7 @@
     }
 
     let totalPL = 0;
+    let eligibleCount = 0;
     const plValues = new Map();
     const cellKey = source === 'yh' ? 'yh' : 'et';
     rows.forEach(row => {
@@ -862,6 +863,7 @@
       const plCell = cellKey === 'yh' ? row._yhPlCell : row._plCell;
       const p = computePctFor(row, source);
       const eligible = positiveOnly && row.style.display !== 'none' && !isNaN(amount) && amount > 0 && sumPct > 0 && p !== null && p > 0;
+      if (eligible) eligibleCount++;
       if (!eligible) {
         allocCell.textContent = '–';
         allocCell.classList.add('empty');
@@ -900,7 +902,7 @@
       }
     });
 
-    return { positiveOnly, amount, sumPct, totalPL };
+    return { positiveOnly, amount, sumPct, totalPL, eligibleCount };
   }
 
   // updateAllocation does up to 3 full passes over all 6,761 rows (with
@@ -926,7 +928,13 @@
     const active = currentSource === 'yh' ? yhResult : etResult;
     if (active.positiveOnly && !isNaN(active.amount) && active.amount > 0 && active.sumPct > 0) {
       const returnPct = (active.totalPL / active.amount) * 100;
-      allocationSummary.textContent = `Expected profit (${currentSource === 'yh' ? 'Yahoo Finance' : 'eToro / TipRanks'}): +$${active.totalPL.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (+${returnPct.toFixed(1)}%)`;
+      // Silently recomputes on every filter change, so the same dollar
+      // amount can mean a totally different universe of stocks from one
+      // moment to the next with no visible basis - state how many stocks
+      // and the actual weighting (proportional to each stock's upside %,
+      // not equal-weighted - see the `share = (p / sumPct) * amount` line
+      // in computeAllocationForSource above).
+      allocationSummary.textContent = `Expected profit (${currentSource === 'yh' ? 'Yahoo Finance' : 'eToro / TipRanks'}): +$${active.totalPL.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (+${returnPct.toFixed(1)}%) — across ${active.eligibleCount.toLocaleString()} filtered stock${active.eligibleCount === 1 ? '' : 's'}, weighted by upside %`;
     } else {
       allocationSummary.textContent = '';
     }
@@ -1758,6 +1766,11 @@
   // so this is safe everywhere it's already called.
   let applyFiltersTimer = null;
   function applyFilters() {
+    // The actual filter pass over 6,761 rows can take over a second with no
+    // other visual feedback, which reads as "did my click even register?" -
+    // dim the table the instant a filter change is queued, not just once
+    // the (still-debounced) work actually starts.
+    if (stockTable) stockTable.classList.add('filtering');
     if (applyFiltersTimer) clearTimeout(applyFiltersTimer);
     applyFiltersTimer = setTimeout(applyFiltersImmediate, 120);
   }
@@ -1797,6 +1810,64 @@
     count.textContent = `Showing ${shown.toLocaleString()} of ${total.toLocaleString()}`;
     renumberRows();
     updateAllocation();
+    updateActiveFiltersStrip();
+    stockTable.classList.remove('filtering');
+  }
+
+  // With 7+ simultaneous pill filters plus 7 collapsible range-slider
+  // groups, there was no single place to see "what am I currently looking
+  // at" - each filter's own highlighted state is scattered across the page.
+  // This renders a compact read-only summary strip below the search box.
+  function updateActiveFiltersStrip() {
+    const strip = document.getElementById('activeFiltersStrip');
+    if (!strip) return;
+    const chips = [];
+    statusFilters.querySelectorAll('.status-pill.active').forEach(b => chips.push(b.textContent.trim()));
+    upsideFilters.querySelectorAll('.status-pill.active').forEach(b => chips.push(b.textContent.trim()));
+    if (portfolioMode !== 'all') {
+      const btn = portfolioFilters.querySelector('.status-pill.active');
+      if (btn) chips.push(btn.textContent.trim());
+    }
+    if (activeExchange !== 'all') chips.push(activeExchange);
+    const srcBtn = sourceToggle.querySelector('.acct-btn.active');
+    if (srcBtn) chips.push(srcBtn.textContent.trim());
+    const acctBtn = accountToggle.querySelector('.acct-btn.active');
+    if (acctBtn) chips.push(acctBtn.textContent.trim());
+    if (search.value.trim()) chips.push(`Search: "${search.value.trim()}"`);
+    if (priceMin.value || priceMax.value) {
+      chips.push(`Price: ${priceMin.value || '0'}–${priceMax.value || '∞'}`);
+    }
+    document.querySelectorAll('.filter-group.filter-active').forEach(g => {
+      const summary = g.querySelector('summary');
+      if (summary) chips.push(summary.textContent.trim() + ' (custom range)');
+    });
+    strip.innerHTML = chips.map(c => `<span class="af-chip">${c}</span>`).join('');
+  }
+
+  // Reset does a plain reload rather than resetting each filter variable in
+  // JS - nothing on this page persists filter/column/search state across a
+  // reload (confirmed: no localStorage, no URL params), so a reload already
+  // returns every control to its default, with zero risk of missing one.
+  const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+  if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', () => location.reload());
+
+  // The scan-code explanations panel is a wall of text ahead of the actual
+  // ticker table on every visit - collapsible, but left EXPANDED by default
+  // (unlike the Re-entry Watchlist groups) since that's the current,
+  // already-familiar default view.
+  const refreshCodes = document.getElementById('refreshCodes');
+  const refreshCodesToggle = document.getElementById('refreshCodesToggle');
+  if (refreshCodes && refreshCodesToggle) {
+    const toggleRefreshCodes = () => {
+      const collapsed = refreshCodes.classList.toggle('collapsed');
+      refreshCodesToggle.setAttribute('aria-expanded', String(!collapsed));
+    };
+    refreshCodesToggle.addEventListener('click', toggleRefreshCodes);
+    refreshCodesToggle.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      toggleRefreshCodes();
+    });
   }
 
   const numericKeys = [
@@ -2016,6 +2087,26 @@
     input.addEventListener('change', () => {
       stockTable.classList.toggle('hide-' + key, !input.checked);
     });
+  });
+
+  // Bulk show/hide - with 47 individually-checked columns, showing or
+  // hiding "everything except a couple" used to mean that many separate
+  // clicks every session (nothing here is persisted across reloads).
+  const colToggleAllBtn = document.getElementById('colToggleAllBtn');
+  const colToggleNoneBtn = document.getElementById('colToggleNoneBtn');
+  function setAllColumns(checked) {
+    Object.entries(colChecks).forEach(([key, input]) => {
+      input.checked = checked;
+      stockTable.classList.toggle('hide-' + key, !checked);
+    });
+  }
+  if (colToggleAllBtn) colToggleAllBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setAllColumns(true);
+  });
+  if (colToggleNoneBtn) colToggleNoneBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setAllColumns(false);
   });
 
   attachHeaderSort(sortName, 'name');
