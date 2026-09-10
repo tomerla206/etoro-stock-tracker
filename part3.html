@@ -2559,7 +2559,17 @@
         });
       });
 
-      renderRows(rowsData);
+      // Default to newest-exit-first rather than whatever order the Python
+      // side happened to write the rows in (sorted by upside %) - the exit
+      // date is what most naturally answers "what did I sell recently that
+      // might be worth watching," so it should be the default view, not
+      // something you have to click a header to get every time.
+      const exitDateCol = section.headers.indexOf('Exit date');
+      if (exitDateCol !== -1) {
+        applySort(exitDateCol, 'desc');
+      } else {
+        renderRows(rowsData);
+      }
       thead.appendChild(headRow);
       table.appendChild(thead);
       table.appendChild(tbody);
