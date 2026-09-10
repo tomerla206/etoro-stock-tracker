@@ -2463,6 +2463,14 @@
         tbody.innerHTML = rows.map(row => {
           const cells = row.map((cell, i) => {
             const header = section.headers[i] || '';
+            // Ticker column - link out to the same eToro research page the
+            // main table's ticker cells use, opening in a new tab, so a
+            // watchlist candidate doesn't require re-searching for it
+            // manually in the main table.
+            if (header === 'Ticker') {
+              const url = `https://www.etoro.com/markets/${cell.toLowerCase()}/research`;
+              return `<td><a class="stock-link" href="${url}" target="_blank" rel="noopener">${cell}</a></td>`;
+            }
             const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
             return `<td class="${cls}">${cell}</td>`;
           }).join('');
