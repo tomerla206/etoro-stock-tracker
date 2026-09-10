@@ -41,8 +41,6 @@ Result: REENTRY_WATCHLIST.md
 import glob
 from pathlib import Path
 
-from add_currency_labels import TARGET_CURRENCY_OVERRIDE
-
 ROOT = Path(__file__).parent
 EXIT_HISTORY_FILE = ROOT / "exit_history.tsv"
 RESULTS_FILE = ROOT / "REENTRY_WATCHLIST.md"
@@ -154,15 +152,7 @@ def main():
     skipped_held = 0
     for ticker, records in exits.items():
         current_price = prices.get(ticker)
-        # TARGET_CURRENCY_OVERRIDE tickers (BP.L, AZN.L, BHP.L, GSK.L, ...) have
-        # their analyst target sourced from the US ADR in USD while
-        # current_price is still the LSE quote in GBX pence - mixing them into
-        # one upside_pct would silently produce a nonsense ratio (see
-        # add_currency_labels.py's docstring, which documents the mismatch but
-        # never converts it). Treat the target as unavailable for these rather
-        # than compute a wrong number - same as any other ticker with no
-        # analyst coverage, it's simply excluded from re-entry candidates.
-        target = None if ticker in TARGET_CURRENCY_OVERRIDE else targets.get(ticker)
+        target = targets.get(ticker)
         if current_price is None or target is None:
             continue
         # Use the most recent exit for this ticker as "the" exit to compare

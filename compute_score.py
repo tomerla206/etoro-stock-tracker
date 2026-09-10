@@ -60,8 +60,6 @@ are done (see build_site.py's docstring for why merging is centralized there).
 import glob
 from pathlib import Path
 
-from add_currency_labels import TARGET_CURRENCY_OVERRIDE
-
 ROOT = Path(__file__).parent
 
 RATING_POINTS = {
@@ -449,16 +447,7 @@ def main():
         relative_strength_52w = fnd.get("relative_strength_52w")
 
         rating_pts = score_rating(rating)
-        # TARGET_CURRENCY_OVERRIDE tickers (BP.L, AZN.L, BHP.L, GSK.L, ...) have
-        # their analyst target sourced from the US ADR in USD while `price` is
-        # still the LSE quote in GBX pence - mixing them into one upside % would
-        # silently produce a nonsense ratio (see add_currency_labels.py's own
-        # docstring, which documents the mismatch but never converts it). Treat
-        # price as unavailable for this signal only, same as any other ticker
-        # missing analyst data - score_upside() already falls back to a neutral
-        # 1.0 in that case rather than guessing.
-        upside_price = None if ticker in TARGET_CURRENCY_OVERRIDE else price
-        upside_pts = score_upside(upside_price, avg_target)
+        upside_pts = score_upside(price, avg_target)
         insider_pts = score_insider(net, fnd.get("market_cap"))
         short_pts = score_short_interest(short_pct)
         tech_pts = score_technicals(tech_price, ma50, ma200, rsi14)
