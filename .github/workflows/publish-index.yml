@@ -1,0 +1,56 @@
+name: Publish index.html
+
+# nasdaq-stocks.html (served locally) and index.html (the public GitHub
+# Pages entry point) both come from the same three source parts -
+# part1_fixed.html + all_rows.html + part3.html - assembled by
+# build_site.py. index.html is otherwise just a plain copy with no build
+# step of its own, so any hand-edit to part1_fixed.html/part3.html (a CSS
+# tweak, a JS bug fix) has to be applied to it separately or it silently
+# goes stale. Until now that meant editing every JS/CSS fix TWICE by hand.
+#
+# daily-scan.yml already regenerates index.html from these same sources
+# once a day (in its aggregate job), so this isn't introducing a new
+# mechanism - it's just running that same "cp nasdaq-stocks.html index.html"
+# step immediately on every push that touches the two source files,
+# instead of waiting for tomorrow's cron.
+#
+# Deliberately NOT triggered on all_rows.html - that file changes daily via
+# daily-scan.yml's own commit, which already updates index.html as part of
+# that same commit, so adding it here would just be a redundant, no-op run
+# every day. This workflow only exists to close the same-day gap for manual
+# code edits to the other two files.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - part1_fixed.html
+      - part3.html
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild nasdaq-stocks.html from part1_fixed.html + all_rows.html + part3.html
+        run: python3 build_site.py
+
+      - name: Publish site to GitHub Pages entry point
+        run: cp nasdaq-stocks.html index.html
+
+      - name: Commit and push refreshed index.html
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Sync index.html with part1_fixed.html/part3.html [skip ci]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase && git push && break
+            echo "Push attempt $i failed, retrying..."
+            sleep $((RANDOM % 5 + 3))
+          done
