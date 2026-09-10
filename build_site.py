@@ -59,6 +59,13 @@ MERGE_SCRIPTS = [
     "merge_score_percentile.py",
     "merge_portfolio.py",
     "merge_scan_dates.py",
+    # Must run LAST: tags each row with data-currency/data-target-currency for
+    # the UI's $/GBX/etc. labels. It isn't wired into any of the scripts above
+    # (it only ever ran when someone remembered to launch it by hand), so its
+    # labels were silently wiped by the very next automated rebuild - found
+    # 2026-09-10 while fixing a stale TARGET_CURRENCY_OVERRIDE entry, since a
+    # dormant feature is much easier to leave stale than one that runs daily.
+    "add_currency_labels.py",
 ]
 
 
