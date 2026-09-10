@@ -2,7 +2,8 @@
 <title>World Markets Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #0b1220;
@@ -2542,7 +2543,7 @@
     <div class="count" id="count">Showing 1,823 of 1,823</div>
   </header>
 
-  <input class="search" id="search" type="text" placeholder="Search ticker or company name&hellip;" autocomplete="off">
+  <input class="search" id="search" type="text" placeholder="Search ticker or company name&hellip;" autocomplete="off" aria-label="Search ticker or company name">
 
   <div class="exchange-filters" id="exchangeFilters"></div>
 
@@ -2638,7 +2639,7 @@
     <div class="allocation-box" id="allocationBox">
       <span class="allocation-label">Total to invest</span>
       <span class="allocation-currency">$</span>
-      <input type="number" id="allocationAmount" placeholder="10,000" min="0" step="0.01">
+      <input type="number" id="allocationAmount" placeholder="10,000" min="0" step="0.01" aria-label="Total amount to invest">
       <span class="allocation-summary" id="allocationSummary"></span>
     </div>
   </div>
@@ -2876,9 +2877,9 @@
 
   <div class="filters">
     <div class="price-range">
-      <input type="number" id="priceMin" placeholder="Min $" min="0" step="0.01">
+      <input type="number" id="priceMin" placeholder="Min $" min="0" step="0.01" aria-label="Minimum price">
       <span>&ndash;</span>
-      <input type="number" id="priceMax" placeholder="Max $" min="0" step="0.01">
+      <input type="number" id="priceMax" placeholder="Max $" min="0" step="0.01" aria-label="Maximum price">
     </div>
     <div class="pct-basis-toggle" id="pctBasisToggle">
       <span class="pct-basis-label">Upside % vs.</span>

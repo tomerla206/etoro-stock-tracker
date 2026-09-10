@@ -53,10 +53,14 @@ def load_checkpoint():
 
 
 def save_checkpoint(checkpoint):
-    CHECKPOINT_FILE.write_text(
+    # Write to a temp file and rename into place so a crash mid-write can
+    # never leave scan_checkpoint.json truncated/corrupted.
+    tmp = CHECKPOINT_FILE.with_suffix(".json.tmp")
+    tmp.write_text(
         json.dumps(checkpoint, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    tmp.replace(CHECKPOINT_FILE)
 
 
 def max_exit_date(existing, account):

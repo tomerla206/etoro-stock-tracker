@@ -33,6 +33,7 @@ second one just waits for the first's rebuild to finish rather than running
 concurrently against it.
 """
 
+import os
 import subprocess
 import sys
 import time
@@ -91,6 +92,7 @@ def release_lock():
 
 def main():
     acquire_lock()
+    failed = []
     try:
         for script in MERGE_SCRIPTS:
             if not (ROOT / script).exists():
@@ -103,14 +105,26 @@ def main():
                 print(f"[{script}] {output}")
             if result.returncode != 0:
                 print(f"WARNING: {script} exited with code {result.returncode}:\n{result.stderr}")
+                failed.append(script)
 
-        with open(ROOT / "nasdaq-stocks.html", "w", encoding="utf-8") as out:
+        # Write to a temp file and rename into place rather than writing
+        # nasdaq-stocks.html directly, so a crash/kill mid-write (Task
+        # Manager kill, power loss) can never leave a truncated site file -
+        # os.replace is atomic on both Windows and POSIX.
+        tmp_path = ROOT / "nasdaq-stocks.html.tmp"
+        with open(tmp_path, "w", encoding="utf-8") as out:
             for part in ("part1_fixed.html", "all_rows.html", "part3.html"):
                 out.write((ROOT / part).read_text(encoding="utf-8"))
-        print("Site rebuilt: nasdaq-stocks.html")
+        os.replace(tmp_path, ROOT / "nasdaq-stocks.html")
+
+        if failed:
+            print(f"Site rebuilt WITH {len(failed)} merge failure(s): {', '.join(failed)}")
+        else:
+            print("Site rebuilt: nasdaq-stocks.html")
     finally:
         release_lock()
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

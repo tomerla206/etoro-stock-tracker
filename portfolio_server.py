@@ -31,6 +31,7 @@ import re
 import socketserver
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 from urllib.parse import unquote, urlparse
@@ -62,7 +63,15 @@ SCANS = {
     "pull": ("pull_and_merge.py", "PULL_LOG.md", "PULL_LOG.md"),
 }
 
+_GZIP_CACHE = {}  # rel_path -> (mtime, compressed_bytes) - nasdaq-stocks.html is
+# ~45MB, so recompressing it on every single request (every reload/tab-open)
+# burns real CPU for no reason when the file hasn't changed since last serve.
+
 RUNNING = {}  # name -> subprocess.Popen, only tracks processes started by THIS server run
+RUNNING_LOCK = threading.Lock()  # ThreadingServer handles requests on separate
+# threads, so two near-simultaneous POST /run/<name> requests (e.g. a
+# double-click) could both pass the "already running" check before either
+# writes to RUNNING, launching the same scan script twice concurrently.
 
 
 def parse_log(name):
@@ -109,14 +118,15 @@ def parse_log(name):
 
 def start_scan(name):
     script = SCANS[name][0]
-    existing = RUNNING.get(name)
-    if existing is not None and existing.poll() is None:
-        return {"status": "already_running"}
-    proc = subprocess.Popen(
-        [sys.executable, script], cwd=ROOT,
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-    )
-    RUNNING[name] = proc
+    with RUNNING_LOCK:
+        existing = RUNNING.get(name)
+        if existing is not None and existing.poll() is None:
+            return {"status": "already_running"}
+        proc = subprocess.Popen(
+            [sys.executable, script], cwd=ROOT,
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        RUNNING[name] = proc
     return {"status": "started"}
 
 
@@ -175,15 +185,27 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         try:
             if not file_path.is_file():
                 return False
-            data = file_path.read_bytes()
+            mtime = file_path.stat().st_mtime
         except OSError:
             return False
-        compressed = gzip.compress(data, compresslevel=6)
+
+        cached = _GZIP_CACHE.get(rel_path)
+        if cached is not None and cached[0] == mtime:
+            compressed = cached[1]
+        else:
+            try:
+                data = file_path.read_bytes()
+            except OSError:
+                return False
+            compressed = gzip.compress(data, compresslevel=6)
+            _GZIP_CACHE[rel_path] = (mtime, compressed)
+
         content_type = mimetypes.guess_type(str(file_path))[0] or "application/octet-stream"
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Encoding", "gzip")
         self.send_header("Content-Length", str(len(compressed)))
+        self.send_header("Last-Modified", self.date_time_string(int(mtime)))
         self.end_headers()
         self.wfile.write(compressed)
         return True
