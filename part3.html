@@ -1938,7 +1938,16 @@
 
   function attachHeaderSort(th, key) {
     th.classList.add('sort-trigger');
+    th.tabIndex = 0;
+    th.setAttribute('role', 'button');
+    th.setAttribute('aria-haspopup', 'true');
     th.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openSortMenu(key, th);
+    });
+    th.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
       e.stopPropagation();
       openSortMenu(key, th);
     });
@@ -2255,6 +2264,24 @@
     const toggleAllBtn = document.getElementById('reentryToggleAll');
     if (!panel) return;
 
+    // Shared across both Real/Virtual groups (renderGroup is called once per
+    // group) so the sort-menu element and its document/window listeners get
+    // created once, not duplicated per group.
+    let reentrySortMenuEl = null;
+    function ensureReentrySortMenu() {
+      if (reentrySortMenuEl) return reentrySortMenuEl;
+      reentrySortMenuEl = document.createElement('div');
+      reentrySortMenuEl.className = 'sort-menu';
+      document.body.appendChild(reentrySortMenuEl);
+      document.addEventListener('click', (e) => {
+        if (!reentrySortMenuEl.contains(e.target) && !e.target.closest('.reentry-sort-trigger')) {
+          reentrySortMenuEl.classList.remove('open');
+        }
+      });
+      window.addEventListener('scroll', () => reentrySortMenuEl.classList.remove('open'), { capture: true, passive: true });
+      return reentrySortMenuEl;
+    }
+
     // Scan checkpoint - written by update_exit_history.py every time a new
     // batch of exit history is merged in. Shows how far each account
     // (real/virtual) has been scanned so far and when, so it's obvious at a
@@ -2399,21 +2426,6 @@
         });
       }
 
-      let reentrySortMenuEl = null;
-      function ensureReentrySortMenu() {
-        if (reentrySortMenuEl) return reentrySortMenuEl;
-        reentrySortMenuEl = document.createElement('div');
-        reentrySortMenuEl.className = 'sort-menu';
-        document.body.appendChild(reentrySortMenuEl);
-        document.addEventListener('click', (e) => {
-          if (!reentrySortMenuEl.contains(e.target) && !e.target.closest('.reentry-sort-trigger')) {
-            reentrySortMenuEl.classList.remove('open');
-          }
-        });
-        window.addEventListener('scroll', () => reentrySortMenuEl.classList.remove('open'), { capture: true, passive: true });
-        return reentrySortMenuEl;
-      }
-
       function openSortMenu(colIdx, th) {
         const menu = ensureReentrySortMenu();
         const type = colType(colIdx);
@@ -2437,10 +2449,15 @@
       }
 
       headRow.innerHTML = section.headers.map((h, i) =>
-        `<th class="reentry-sort-trigger" data-col="${i}">${h}<span class="reentry-sort-arrow"></span></th>`
+        `<th class="reentry-sort-trigger" data-col="${i}" tabindex="0" role="button" aria-haspopup="true">${h}<span class="reentry-sort-arrow"></span></th>`
       ).join('');
       headRow.querySelectorAll('th').forEach(th => {
         th.addEventListener('click', () => openSortMenu(parseInt(th.dataset.col, 10), th));
+        th.addEventListener('keydown', (e) => {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          e.preventDefault();
+          openSortMenu(parseInt(th.dataset.col, 10), th);
+        });
       });
 
       renderRows(rowsData);
