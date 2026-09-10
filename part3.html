@@ -156,6 +156,18 @@
   const overallConfidenceRangeMaxHint = document.getElementById('overallConfidenceRangeMaxHint');
   const tbody = document.getElementById('rows');
   const rows = Array.from(document.querySelectorAll('#rows tr'));
+  // Cache the handful of per-row cells that get touched on every filter/sort
+  // pass (renumberRows, computeAllocationForSource) so those hot paths use a
+  // plain property lookup instead of a querySelector() per row per call.
+  rows.forEach(row => {
+    row._rownumEl = row.querySelector('.rownum');
+    row._allocCell = row.querySelector('.alloc-cell');
+    row._plCell = row.querySelector('.pl-cell');
+    row._shareCell = row.querySelector('.pl-share-cell');
+    row._yhAllocCell = row.querySelector('.yh-alloc');
+    row._yhPlCell = row.querySelector('.yh-pl');
+    row._yhShareCell = row.querySelector('.yh-plshare');
+  });
 
   function renderSparklineRow(row) {
     // Draws a tiny inline SVG trend line into a row's .oscore-spark
@@ -680,6 +692,12 @@
       async function pollCloudScan() {
         try {
           const res = await fetch('https://api.github.com/repos/tomerla206/etoro-stock-tracker/actions/workflows/daily-scan.yml/runs?per_page=1');
+          if (!res.ok) {
+            // e.g. 403 = GitHub API rate-limited this client; don't show
+            // "no runs yet", which reads as "the scan never ran".
+            cloudScanText.textContent = res.status === 403 ? 'rate-limited' : `error ${res.status}`;
+            return;
+          }
           const data = await res.json();
           const run = data.workflow_runs && data.workflow_runs[0];
           if (!run) {
@@ -838,9 +856,10 @@
 
     let totalPL = 0;
     const plValues = new Map();
+    const cellKey = source === 'yh' ? 'yh' : 'et';
     rows.forEach(row => {
-      const allocCell = row.querySelector(sel.alloc);
-      const plCell = row.querySelector(sel.pl);
+      const allocCell = cellKey === 'yh' ? row._yhAllocCell : row._allocCell;
+      const plCell = cellKey === 'yh' ? row._yhPlCell : row._plCell;
       const p = computePctFor(row, source);
       const eligible = positiveOnly && row.style.display !== 'none' && !isNaN(amount) && amount > 0 && sumPct > 0 && p !== null && p > 0;
       if (!eligible) {
@@ -868,7 +887,7 @@
     });
 
     rows.forEach(row => {
-      const shareCell = row.querySelector(sel.share);
+      const shareCell = cellKey === 'yh' ? row._yhShareCell : row._shareCell;
       if (plValues.has(row) && totalPL > 0) {
         const sharePct = (plValues.get(row) / totalPL) * 100;
         shareCell.textContent = sharePct.toFixed(1) + '%';
@@ -1676,7 +1695,7 @@
     rows.forEach(row => {
       if (row.style.display !== 'none') {
         n++;
-        row.querySelector('.rownum').textContent = n;
+        row._rownumEl.textContent = n;
       }
     });
   }
@@ -2148,6 +2167,19 @@
     if (tip) positionInfoTipBubble(tip);
   });
 
+  // Shared, memoized fetch of scan_checkpoint.json - initLastRunTimestamps
+  // and initReentryPanel both need it and used to each issue their own
+  // independent request on every page load; this caches the one in-flight
+  // promise so the file is only fetched once.
+  let scanCheckpointPromise = null;
+  function fetchScanCheckpoint() {
+    if (!scanCheckpointPromise) {
+      scanCheckpointPromise = fetch(`scan_checkpoint.json?t=${Date.now()}`)
+        .then(res => res.ok ? res.json() : Promise.reject(new Error('not found')));
+    }
+    return scanCheckpointPromise;
+  }
+
   // "Last performed" timestamps for the three scans that require a live
   // Claude session (SCAN RED / SCAN HOLDINGS / SCAN EXITS) - they have no
   // Run button (nothing here can drive that live browser session), so this
@@ -2199,8 +2231,7 @@
     fetchLastModified('SCAN_RED_LOG.md').then(t => t && showLastRun('lastRunScanRed', t));
     fetchLastModified('portfolio_real.tsv', 'portfolio_virtual.tsv').then(t => t && showLastRun('lastRunScanHoldings', t));
 
-    fetch(`scan_checkpoint.json?t=${Date.now()}`)
-      .then(res => res.ok ? res.json() : Promise.reject(new Error('not found')))
+    fetchScanCheckpoint()
       .then(cp => {
         const dates = ['real', 'virtual'].map(acc => cp[acc] && cp[acc].last_scanned_on).filter(Boolean);
         if (!dates.length) return;
@@ -2231,8 +2262,7 @@
     // treatment as REENTRY_WATCHLIST.md itself - 404s harmlessly on the
     // public site.
     if (checkpointEl) {
-      fetch(`scan_checkpoint.json?t=${Date.now()}`)
-        .then(res => res.ok ? res.json() : Promise.reject(new Error('not found')))
+      fetchScanCheckpoint()
         .then(cp => {
           const parts = ['real', 'virtual']
             .filter(acc => cp[acc] && cp[acc].last_exit_date)
