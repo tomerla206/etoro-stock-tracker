@@ -1716,7 +1716,25 @@
     return row._searchText;
   }
 
+  // Debounced wrapper - the real work is applyFiltersImmediate below. 24
+  // range sliders (see the *RangeMin/Max Slider 'input' listeners) each
+  // call applyFilters() on every 'input' event, which fires continuously
+  // while dragging (can be 100+ times/sec) - undebounced, each of those
+  // ran a full pass over all 6,761 rows with ~14 checks per row, which is
+  // exactly what froze the tab into a "Page Unresponsive" dialog during a
+  // slider drag (2026-09-10). Debouncing means rapid-fire calls just keep
+  // resetting this timer - the expensive pass only actually runs once,
+  // ~120ms after the user stops moving the slider/typing/etc. No call site
+  // relies on applyFilters() having already run by the time it returns
+  // (every one of the 50+ callers is the last statement in its handler),
+  // so this is safe everywhere it's already called.
+  let applyFiltersTimer = null;
   function applyFilters() {
+    if (applyFiltersTimer) clearTimeout(applyFiltersTimer);
+    applyFiltersTimer = setTimeout(applyFiltersImmediate, 120);
+  }
+
+  function applyFiltersImmediate() {
     updateFilterGroupDots();
     const q = search.value.trim().toLowerCase();
     const min = parseFloat(priceMin.value);
