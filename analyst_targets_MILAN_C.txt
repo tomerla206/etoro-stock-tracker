@@ -1,4 +1,4 @@
 CE.MI	Credito Emiliano S.p.A	20.54			NOFAQ	TRADEABLE
 CEM.MI	Cementir Holding N.V	14.67			NOFAQ	TRADEABLE
-CPR.MI	Davide Campari - Milano Beverage	5.73	6.00	6.25	6.50	OK	TRADEABLE
-CRL.MI	Carel Industries S.p.A	27.00	36.30	36.30	36.30	OK	TRADEABLE
+CPR.MI	Davide Campari - Milano Beverage	5.74	6.00	6.25	6.50	OK	TRADEABLE
+CRL.MI	Carel Industries S.p.A	27.25	36.30	36.30	36.30	OK	TRADEABLE
