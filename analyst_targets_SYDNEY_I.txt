@@ -1,4 +1,4 @@
-IAG.ASX	Insurance Australia Group Limited	8.14	8.60	8.97	9.25	OK	TRADEABLE
+IAG.ASX	Insurance Australia Group Limited	8.14	8.60	8.88	9.25	OK	TRADEABLE
 IDX.ASX	Integral Diagnostics Ltd	2.28	2.95	3.31	3.70	OK	TRADEABLE
 IEL.ASX	IDP Education Limited	1.51	1.75	2.40	4.10	OK	TRADEABLE
 IGO.ASX	IGO Limited	7.58	7.00	8.34	9.50	OK	TRADEABLE

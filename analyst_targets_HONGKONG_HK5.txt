@@ -15,10 +15,10 @@
 3606.HK	Fuyao Glass Industry Group H	54.85	73.70	73.70	73.70	OK	TRADEABLE
 3618.HK	Chongqing Rural Commercial Bank Co Ltd	6.34				NOFAQ	TRADEABLE
 3692.HK	Hansoh Pharmaceutical Group	32.72	49.12	49.12	49.12	OK	TRADEABLE
-3750.HK	Contemporary Amperex Technology Co Limited	547.50	725.00	828.00	947.00	OK	TRADEABLE
+3750.HK	Contemporary Amperex Technology Co Limited	547.50	725.00	804.20	925.00	OK	TRADEABLE
 3759.HK	Pharmaron Beijing Co Ltd	27.54	35.30	35.30	35.30	OK	TRADEABLE
 3800.HK	GCL Technology Holdings Ltd	0.70	1.00	1.21	1.62	OK	TRADEABLE
-3808.HK	Sinotruk Hong Kong Ltd	40.84	46.00	52.27	55.80	OK	TRADEABLE
+3808.HK	Sinotruk Hong Kong Ltd	40.84	55.80	55.80	55.80	OK	TRADEABLE
 3888.HK	Kingsoft Corp Ltd	24.38	31.80	31.80	31.80	OK	TRADEABLE
 3898.HK	Zhuzhou CRRC Times Electri H	29.42	39.90	46.23	54.00	OK	TRADEABLE
 3958.HK	Orient Securities Company Limited	5.76				NOFAQ	TRADEABLE

@@ -2,7 +2,7 @@ A2M.ASX	The a2 Milk Company Limited	6.65	7.62	7.62	7.62	OK	TRADEABLE
 ABB.ASX	Aussie Broadband Ltd	4.00	5.88	6.07	6.20	OK	TRADEABLE
 AD8.ASX	Audinate Group Ltd	2.32	3.00	3.00	3.00	OK	TRADEABLE
 AGL.ASX	AGL Energy Limited	8.40	8.28	10.11	10.90	OK	TRADEABLE
-AIA.ASX	Auckland International Airport Limited	6.77	6.94	6.94	6.94	OK	TRADEABLE
+AIA.ASX	Auckland International Airport Limited	6.77	6.89	6.89	6.89	OK	TRADEABLE
 ALD.ASX	Ampol Limited	41.21	40.00	41.83	44.00	OK	TRADEABLE
 ALL.ASX	Aristocrat Leisure Limited	59.89	61.00	65.20	69.40	OK	TRADEABLE
 ALQ.ASX	ALS Limited	21.03	22.75	24.38	26.00	OK	TRADEABLE

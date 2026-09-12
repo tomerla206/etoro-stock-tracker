@@ -12,7 +12,7 @@
 1339.HK	People's Insurance Company (Group) of China	5.90	6.00	7.50	8.20	OK	TRADEABLE
 1347.HK	Hua Hong Grace Semiconductor Ltd	111.70	140.00	166.67	220.00	OK	TRADEABLE
 1359.HK	China Cinda Asset Management Co Ltd	0.89				NOFAQ	TRADEABLE
-1378.HK	China Hongqiao Group Ltd	22.50	39.00	42.00	45.00	OK	TRADEABLE
+1378.HK	China Hongqiao Group Ltd	22.50	26.00	35.68	52.90	OK	TRADEABLE
 1398.HK	Industrial And Commercial Bank of China	7.61				NOFAQ	TRADEABLE
 144.HK	China Merchants Port Holding	16.59				NOFAQ	TRADEABLE
 1456.HK	Guolian Minsheng Securities H	3.80				NOFAQ	TRADEABLE
