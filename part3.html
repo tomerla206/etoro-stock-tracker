@@ -817,6 +817,7 @@
 
   function rowStatus(row) {
     if (row.classList.contains('row-not-tradeable')) return 'not-tradeable';
+    if (row.classList.contains('row-elevated-risk')) return 'elevated-risk';
     if (row.classList.contains('row-nofaq')) return 'nofaq';
     return 'normal';
   }

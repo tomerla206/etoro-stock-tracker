@@ -1,0 +1,36 @@
+# eToro "elevated risk" trading-restriction list.
+# One ticker per line (matches data-ticker on the row). Manually verified
+# 2026-09-12 by clicking Trade on every ticker with Upside % >= 200 and
+# recording which ones show the "elevated risk" blocking modal.
+PDSB
+SRFM
+ZEPP
+MREO
+SDA
+DVLT
+BKYI
+ATYR
+MVST
+SLQT
+INV.US
+CXAI
+BDTX
+CMPX
+AKBA
+EMAT
+CRBP
+ZURA
+VTGN
+SNGX
+PROK
+KLRA
+UPLD
+HUMA
+CODX
+CAPR
+IMRX
+FATE
+OPAD
+IMSR
+GRSD
+MLTX

@@ -25,6 +25,8 @@
     --row-not-tradeable-border: #6b2635;
     --row-nofaq-bg: #3a3316;
     --row-nofaq-border: #6b5c26;
+    --row-elevated-risk-bg: #2e1f14;
+    --row-elevated-risk-border: #7a4a26;
   }
 
   @media (prefers-color-scheme: light) {
@@ -48,6 +50,8 @@
       --row-not-tradeable-border: #f3c1c9;
       --row-nofaq-bg: #fdf6e3;
       --row-nofaq-border: #eeddab;
+      --row-elevated-risk-bg: #f5e6d8;
+      --row-elevated-risk-border: #d9a875;
     }
   }
 
@@ -71,6 +75,8 @@
     --row-not-tradeable-border: #f3c1c9;
     --row-nofaq-bg: #fdf6e3;
     --row-nofaq-border: #eeddab;
+    --row-elevated-risk-bg: #f5e6d8;
+    --row-elevated-risk-border: #d9a875;
   }
 
   * { box-sizing: border-box; }
@@ -550,6 +556,22 @@
 
   tbody tr.row-nofaq:hover td {
     filter: brightness(1.12);
+  }
+
+  tbody tr.row-elevated-risk td {
+    background: var(--row-elevated-risk-bg);
+  }
+
+  tbody tr.row-elevated-risk td.analysis-cell {
+    background: var(--row-elevated-risk-bg);
+  }
+
+  tbody tr.row-elevated-risk:hover td {
+    filter: brightness(1.12);
+  }
+
+  tbody tr.row-not-tradeable.row-elevated-risk td {
+    background: var(--row-not-tradeable-bg);
   }
 
   .stock-link {
@@ -1674,6 +1696,7 @@
   .dot-normal { background: var(--accent); }
   .dot-nofaq { background: var(--row-nofaq-border); }
   .dot-not-tradeable { background: var(--row-not-tradeable-border); }
+  .dot-elevated-risk { background: var(--row-elevated-risk-border); }
   .dot-upside-pos { background: var(--analysis-high); }
   .dot-upside-neg { background: var(--analysis-low); }
   .dot-upside-undefined { background: var(--text-dim); }
@@ -2669,6 +2692,7 @@
     <button type="button" class="status-pill active" data-status="normal"><span class="status-dot dot-normal"></span>Tradeable</button>
     <button type="button" class="status-pill" data-status="nofaq"><span class="status-dot dot-nofaq"></span>No Coverage</button>
     <button type="button" class="status-pill" data-status="not-tradeable"><span class="status-dot dot-not-tradeable"></span>Not Tradeable</button>
+    <button type="button" class="status-pill" data-status="elevated-risk"><span class="status-dot dot-elevated-risk"></span>Elevated Risk</button>
   </div>
 
   <div class="status-filters" id="portfolioFilters">

@@ -45,6 +45,7 @@ LOCK_STALE_SECONDS = 120  # a lock older than this is assumed to be from a crash
 
 MERGE_SCRIPTS = [
     "merge_analyst_targets.py",
+    "merge_elevated_risk.py",
     "merge_yahoo_targets.py",
     "merge_yahoo_dividends.py",
     "merge_consensus.py",
