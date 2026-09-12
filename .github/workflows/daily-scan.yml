@@ -43,7 +43,12 @@ on:
     # "eToro Daily Scan" Scheduled Task), so pull_and_merge.py finds fresh
     # data waiting rather than yesterday's.
     - cron: "0 21 * * *"
-  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+  workflow_dispatch:   # lets you trigger a run manually from the Actions tab
+    inputs:
+      megascan_yahoo_fresh:
+        description: "Force MEGASCAN YAHOO to ignore its checkpoint and rescan every ticker (normally only the nightly schedule does this - see the megascan_yahoo job's env comment)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -128,6 +133,17 @@ jobs:
         env:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: 6
+          # yahoo_targets_0_MEGASCAN.txt/yahoo_dividends_MEGASCAN.txt are
+          # committed, persistent checkpoint files - load_checkpoint()'s
+          # "already done" filter was only ever meant to resume a single
+          # crashed/interrupted run, but since nothing ever cleared it
+          # between days, this scan found the full universe "already done"
+          # and did nothing on every scheduled run once the checkpoint first
+          # completed (found 2026-09-12: MEGASCAN_YAHOO_RESULTS.md showed
+          # "Updated this run: 0" for at least 3 consecutive days). Force a
+          # full re-scan on the daily cron; leave a manual workflow_dispatch
+          # re-run free to resume same-day from wherever a crash left off.
+          MEGASCAN_YAHOO_FRESH: ${{ (github.event_name == 'schedule' || inputs.megascan_yahoo_fresh) && '1' || '' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
