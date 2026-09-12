@@ -9,7 +9,7 @@ ADV	50	Hold
 AGMB	100	Strong Buy
 ALCO	0	Hold
 ALHC	67	Moderate Buy
-AMBR	100	Moderate Buy
+AMBR	0	Hold
 ALMS	83	Strong Buy
 ALTO	100	Moderate Buy
 AMLX	100	Strong Buy
@@ -1820,7 +1820,7 @@ EXK	100	Strong Buy
 FBIN	44	Moderate Buy
 FCN	100	Hold
 FE	57	Moderate Buy
-FICO	75	Strong Buy
+FICO	80	Strong Buy
 FITB	71	Moderate Buy
 FMC	63	Hold
 FNF	100	Strong Buy
@@ -1888,7 +1888,7 @@ MWA	50	Moderate Buy
 NAK	100	Moderate Buy
 NE	100	Hold
 NFG	50	Moderate Buy
-NJR	50	Hold
+NJR	50	Moderate Buy
 NNI	100	Hold
 NOMD	50	Moderate Buy
 NPKI	100	Moderate Buy
@@ -2256,7 +2256,7 @@ LEN.DE	50	Hold
 MBG.DE	75	Hold
 MSFT.EUR	96	Strong Buy
 NA9.DE	50	Moderate Buy
-NEM.DE	75	Moderate Buy
+NEM.DE	67	Moderate Buy
 OEWA.DE	67	Moderate Sell
 PAT.DE	100	Strong Buy
 PNE3.DE	100	Moderate Buy
@@ -4282,3 +4282,4 @@ PSPN.ZU	0	Hold
 SIKA.ZU	100	Strong Buy
 SRAIL.ZU	100	Hold
 UHR.ZU	50	Moderate Sell
+UBER	96	Strong Buy
