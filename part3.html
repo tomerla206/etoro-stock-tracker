@@ -2190,6 +2190,11 @@
   updateComputedPctColumns();
   updatePctColumn();
   resetUpsideRangeToFull();
+  // Default to highest-upside-first (eToro/TipRanks Upside %) instead of
+  // alphabetical by ticker - upside is what most people actually want to
+  // scan first, and it was previously only reachable by clicking the
+  // column header's sort menu every single visit.
+  setSort('etPct', 'desc');
   applyFilters();
 
   // Mirror scrollbar above the table (see .table-scroll-top CSS comment) -
