@@ -175,22 +175,22 @@
     אין לראות בכך המלצת השקעה. מומלץ לבצע Paper Trading לפני כסף אמיתי ולהגביל את החשיפה לחלק קטן מהתיק בלבד.
   </div>
 
-  <div class="meta" id="metaLine">נוצר: 2026-09-13 17:53 &middot; 2666 מניות (יקום נזיל, מחיר &ge; $5, US) &middot; לחץ על כותרת עמודה למיון</div>
+  <div class="meta" id="metaLine">נוצר: 2026-09-13 18:23 &middot; 2666 מניות (יקום נזיל, מחיר &ge; $5, US) &middot; לחץ על כותרת עמודה למיון</div>
 
   <div class="table-wrap">
     <table id="momentumTable">
       <thead>
         <tr>
-          <th data-col="0" data-type="num">Rank<span class="arrow"></span></th>
-          <th data-col="1" data-type="text">Ticker<span class="arrow"></span></th>
-          <th data-col="2" data-type="num">Score<span class="arrow"></span></th>
-          <th data-col="3" data-type="num">21d Return<span class="arrow"></span></th>
-          <th data-col="4" data-type="num">Turnover x30d<span class="arrow"></span></th>
-          <th data-col="5" data-type="num">52w Position<span class="arrow"></span></th>
-          <th data-col="6" data-type="num">Vol Persist 5/60d<span class="arrow"></span></th>
-          <th data-col="7" data-type="num">Rel Strength vs SPY 10d<span class="arrow"></span></th>
-          <th data-col="8" data-type="num">RSI(2)<span class="arrow"></span></th>
-          <th data-col="9" data-type="num">Analyst Revision<span class="arrow"></span></th>
+          <th data-col="0" data-type="num" title="המיקום של המניה בדירוג לפי הניקוד הכולל (Score) - 1 = הניקוד הגבוה ביותר.">Rank<span class="arrow"></span></th>
+          <th data-col="1" data-type="text" title="הטיקר של המניה. לחיצה פותחת את דף המחקר שלה באיטורו בכרטיסייה חדשה.">Ticker<span class="arrow"></span></th>
+          <th data-col="2" data-type="num" title="הניקוד הכולל (z-score משוקלל) שמשלב את כל העמודות שמימין: מומנטום מאושר בנפח, קרבה לשיא 52 שבועות, עקביות נפח, חוזק יחסי מול SPY, טיימינג RSI(2) ושינוי דירוג אנליסטים. ככל שגבוה יותר - כך המניה מדורגת גבוה יותר ברשימה הספקולטיבית הזו.">Score<span class="arrow"></span></th>
+          <th data-col="3" data-type="num" title="השינוי באחוזים במחיר המניה ב-21 ימי המסחר האחרונים (כחודש). זהו הסיגנל המרכזי, אבל הוא נספר בניקוד רק אם יש אישור נפח מסחר (ראה עמודת Turnover) - מחקר Medhat &amp; Schmeling (2022) מראה שמומנטום בלי נפח גבוה נוטה דווקא להתהפך.">21d Return<span class="arrow"></span></th>
+          <th data-col="4" data-type="num" title="נפח המסחר של היום חלקי הממוצע ב-30 הימים האחרונים. מעל 1.2x = 'אישור נפח' - סימן שהתנועה במחיר נתמכת בעניין מסחר אמיתי ולא רק רעש.">Turnover x30d<span class="arrow"></span></th>
+          <th data-col="5" data-type="num" title="המיקום של המחיר הנוכחי בטווח 52 השבועות (0 = השפל השנתי, 100 = השיא השנתי). מחקר George &amp; Hwang מראה שקרבה לשיא היא מנבא חזק יותר ממומנטום גולמי, ובניגוד למומנטום היא לא נוטה להתהפך.">52w Position<span class="arrow"></span></th>
+          <th data-col="6" data-type="num" title="ממוצע נפח המסחר ב-5 הימים האחרונים חלקי הממוצע ב-60 הימים האחרונים. בודק אם הקפיצה בנפח היא מגמה נמשכת (מעל 1) או רק בליפ חד-פעמי (מתחת ל-1).">Vol Persist 5/60d<span class="arrow"></span></th>
+          <th data-col="7" data-type="num" title="התשואה של המניה ב-10 הימים האחרונים פחות התשואה של מדד ה-S&amp;P 500 (SPY) באותה תקופה. חיובי = המניה חזקה יותר מהשוק הכללי.">Rel Strength vs SPY 10d<span class="arrow"></span></th>
+          <th data-col="8" data-type="num" title="RSI מהיר (2 ימים בלבד, לפי Larry Connors) - ערך נמוך (מתחת ל-10) מסמן 'oversold' קיצוני, לרוב נקודת כניסה טובה יותר בתוך מגמת עלייה. משמש כאן לתזמון, לא כסיגנל עצמאי.">RSI(2)<span class="arrow"></span></th>
+          <th data-col="9" data-type="num" title="השינוי באחוזים ביעד המחיר הממוצע של האנליסטים בכ-2-3 השבועות האחרונים. שינוי בדירוג/יעד הוא סיגנל חזק יותר מהרמה הסטטית שלו. יופיע ריק עד שיצטבר מספיק היסטוריה (כשבועיים-שלושה של הרצות יומיות).">Analyst Revision<span class="arrow"></span></th>
         </tr>
       </thead>
       <tbody id="momentumBody">
