@@ -1,0 +1,79 @@
+{
+  "project": "Weekly Momentum Score engine - short-term (1 week to 1 month) trading signal, separate page + nav button, NOT merged into the main table",
+  "research_basis": "See conversation research summary 2026-09-13: composite z-score of (21d return x volume turnover interaction), 52w-high proximity, 5d/60d volume-turnover persistence, 10d relative strength vs SPY, RSI(2) as entry timing, and analyst rating/target revision delta. Universe restricted to liquid US tickers (no exchange-suffix dot, price >= $5) - NOT the full 6,761-ticker global universe, since short-term signals need liquidity and this is inherently higher-risk/lower-accuracy than the main Score.",
+  "stages": [
+    {
+      "id": 1,
+      "name": "momentum_scan.py - fetch 6mo daily OHLCV for the liquid US universe, compute raw momentum signals",
+      "status": "done",
+      "output_files": [
+        "momentum_data.tsv"
+      ],
+      "notes": "Own independent Yahoo chart fetch (range=6mo,interval=1d) per ticker - deliberately NOT reusing fundamentals_scan.py's fetch loop, to keep this new engine decoupled and low-risk to the existing pipeline. Universe: tickers with no '.' in ticker (US NASDAQ/NYSE convention already used throughout this project) AND price >= 5 (join from fundamentals_data.tsv). Computes per ticker: ret_5d, ret_10d, ret_21d, vol_avg_5d, vol_avg_30d, vol_avg_60d, turnover_ratio (today_vol/vol_avg_30), turnover_persist (vol_avg_5/vol_avg_60), rsi2, rel_strength_10d (needs SPY's own 10d return fetched once)."
+    },
+    {
+      "id": 2,
+      "name": "analyst_snapshot.py - daily snapshot appender for rating/target revision tracking",
+      "status": "done",
+      "output_files": [
+        "analyst_snapshot_history.tsv"
+      ],
+      "notes": "Idempotent per day (like score_history.py pattern - replaces today's rows if re-run same day). Reads analyst_targets_*.txt (avg target, status) per ticker, appends DATE\\tTICKER\\tAVG_TARGET\\tSTATUS row. A second function compute_analyst_revision() looks up the nearest available snapshot ~14-21 days ago vs today to compute revision_pct. Needs several days of accumulated history before this signal is meaningful - falls back to 0/neutral until enough history exists (same known limitation as score_history.py's own change-detection)."
+    },
+    {
+      "id": 3,
+      "name": "compute_weekly_momentum.py - join everything, z-score, weight, rank",
+      "status": "done",
+      "output_files": [
+        "weekly_momentum_score.tsv"
+      ],
+      "notes": "Joins momentum_data.tsv + fundamentals_data.tsv (range52_pos field, i.e. 52-week-range position, already computed there - reused, not recomputed) + analyst_snapshot_history.tsv's revision delta. Winsorize each raw signal at +-3 std, z-score across the liquid universe, weighted sum per the researched weights (21d-return-x-turnover 20%, 52w-high-proximity 15%, turnover persistence 15%, relative strength vs SPY 15%, RSI(2) timing 10%, analyst revision 15%, remaining 10% reserved for earnings-proximity flag once stage 8 exists). Output sorted by score desc with explicit rank column and each raw component value (for transparency/debugging, not just the final score)."
+    },
+    {
+      "id": 4,
+      "name": "weekly_momentum.html - standalone page + build script",
+      "status": "done",
+      "output_files": [
+        "weekly_momentum.html",
+        "build_weekly_momentum_page.py"
+      ],
+      "notes": "Own minimal HTML/CSS/JS (reuses the main site's CSS custom-property theme tokens for visual consistency light/dark, but is otherwise a self-contained page, NOT part of nasdaq-stocks.html/index.html). Sortable table: Rank, Ticker (linked to eToro research page, same pattern as main site), Score, 21d Ret, Turnover, 52w Pos, Rel Strength vs SPY, RSI(2), Analyst Revision. A clear disclaimer banner at the top explaining this is a speculative short-term screen, not the main Score, per the user's own explicit risk acknowledgement."
+    },
+    {
+      "id": 5,
+      "name": "Nav button on the main page linking to weekly_momentum.html",
+      "status": "done",
+      "output_files": [
+        "part1_fixed.html (edit)"
+      ],
+      "notes": "Explicitly requested: NOT on the main page/table itself, just a button/link in the header nav area that navigates to the separate weekly_momentum.html page."
+    },
+    {
+      "id": 6,
+      "name": "backtest_weekly_momentum.py - historical validation",
+      "status": "done",
+      "output_files": [
+        "WEEKLY_MOMENTUM_BACKTEST.md"
+      ],
+      "notes": "Fetches longer history (or reuses cached data) to simulate: for each past date, what would the top-20 ranked-by-score set have returned over the next 5/10/15 trading days, applying the researched risk rules (1.5-2x ATR stop, 15-day hard time-stop). Reports win rate, avg return, rough Sharpe estimate, compared against an equal-weight-signal benchmark (per the research's explicit warning: if tuned weights don't beat equal weights out-of-sample, the weighting is probably fit to noise).",
+      "result_summary": "First backtest run (400-ticker sample, 6 as-of points, price/volume components only): +1.01pp edge over random per 10-day trade, but scored win rate (46.7%) was LOWER than random (51.7%) - fewer, bigger winners. High per-date variance (+5.70% to -6.97% avg across only 6 dates). NOT statistically significant with this sample size - needs paper-trading and a larger/longer backtest before any real-money use."
+    },
+    {
+      "id": 7,
+      "name": "verify_weekly_momentum.py - end-to-end health check script",
+      "status": "done",
+      "output_files": [
+        "verify_weekly_momentum.py"
+      ],
+      "notes": "Standalone, runnable anytime: checks every stage's output file exists, is fresh (not >2 days stale on a day this should have run), has sane value ranges (no all-null columns, no impossible percentages), that weekly_momentum.html's rendered ticker count matches weekly_momentum_score.tsv's row count, and that the nav button link exists in part1_fixed.html. Prints a clear PASS/FAIL report per check, nonzero exit code if anything fails."
+    },
+    {
+      "id": 8,
+      "name": "(stretch, later) earnings-proximity flag via Finnhub or Nasdaq calendar",
+      "status": "not_started",
+      "output_files": [],
+      "notes": "Needs a Finnhub free API key (user must obtain one) or the undocumented Nasdaq calendar JSON endpoint (no key, but can change without notice). Deferred until stages 1-7 are working end to end."
+    }
+  ],
+  "how_to_resume": "Read this file, find the first stage with status != 'done', continue from there. Each stage's 'notes' field has enough detail to implement it without re-deriving the design. After finishing a stage, update its status to 'done' and re-run verify_weekly_momentum.py (once stage 7 exists) to confirm nothing broke."
+}

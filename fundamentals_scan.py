@@ -532,6 +532,18 @@ def main():
     print("Rebuilding site (build_site.py runs every merge script + reassembles)...")
     subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
 
+    # Weekly Momentum Score - a separate, speculative short-term screen (its
+    # own page, its own nav button, deliberately NOT part of the main table
+    # or the main Score). See WEEKLY_MOMENTUM_STATE.json for the research
+    # this is based on. Kept out of MERGE_SCRIPTS/build_site.py on purpose -
+    # it has nothing to do with all_rows.html.
+    print("Updating Weekly Momentum Score (separate speculative short-term screen)...")
+    subprocess.run([sys.executable, "momentum_scan.py"], cwd=ROOT, check=False)
+    subprocess.run([sys.executable, "analyst_snapshot.py"], cwd=ROOT, check=False)
+    subprocess.run([sys.executable, "compute_weekly_momentum.py"], cwd=ROOT, check=False)
+    subprocess.run([sys.executable, "build_weekly_momentum_page.py"], cwd=ROOT, check=False)
+    subprocess.run([sys.executable, "verify_weekly_momentum.py"], cwd=ROOT, check=False)
+
 
 if __name__ == "__main__":
     main()

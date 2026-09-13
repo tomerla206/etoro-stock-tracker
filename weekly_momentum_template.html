@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Momentum Score (Speculative)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #0b1220;
+    --surface: #101a2c;
+    --surface-2: #16223a;
+    --border: #24334f;
+    --text: #e7ecf5;
+    --text-dim: #8b98b3;
+    --accent: #4fd1a5;
+    --warn-bg: #3a2a14;
+    --warn-border: #7a5a26;
+    --warn-text: #e8c88a;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f6fa;
+      --surface: #ffffff;
+      --surface-2: #eef1f7;
+      --border: #dbe1ec;
+      --text: #101828;
+      --text-dim: #5c6a84;
+      --accent: #0f9d6b;
+      --warn-bg: #fdf2e0;
+      --warn-border: #e8c07a;
+      --warn-text: #7a5410;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface-2: #eef1f7;
+    --border: #dbe1ec;
+    --text: #101828;
+    --text-dim: #5c6a84;
+    --accent: #0f9d6b;
+    --warn-bg: #fdf2e0;
+    --warn-border: #e8c07a;
+    --warn-text: #7a5410;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    padding: 24px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0;
+  }
+  .back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+  .back-link:hover {
+    background: var(--surface-2);
+  }
+  .disclaimer {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    color: var(--warn-text);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .disclaimer strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .meta {
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 900px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    color: var(--text-dim);
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+  }
+  th:hover {
+    color: var(--text);
+  }
+  th .arrow {
+    font-size: 9px;
+    margin-inline-start: 4px;
+  }
+  td {
+    padding: 8px 12px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  tr:hover td {
+    background: var(--surface-2);
+  }
+  .stock-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .stock-link:hover {
+    text-decoration: underline;
+  }
+  .rank-cell {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .score-cell {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .pos { color: #22c58a; }
+  .neg { color: #ff6070; }
+  .dim { color: var(--text-dim); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>&#9889; Weekly Momentum Score <span class="dim" style="font-weight:400;font-size:13px;">— ניקוד ספקולטיבי לטווח קצר (שבוע-חודש)</span></h1>
+    <a class="back-link" href="index.html">&larr; חזרה לאתר הראשי</a>
+  </div>
+
+  <div class="disclaimer">
+    <strong>אזהרה: זהו כלי סינון ספקולטיבי, לא המשך של ה-Score הראשי</strong>
+    הניקוד הזה בנוי על מומנטום מחיר/נפח קצר-טווח (21 יום), חוזק יחסי מול השוק, קרבה לשיא 52 שבועות ו-RSI —
+    לא על יעדי אנליסטים לשנה. שיעור ההצלחה הריאלי הצפוי נמוך יותר (~45-60%) והתנודתיות גבוהה יותר מה-Score הראשי.
+    אין לראות בכך המלצת השקעה. מומלץ לבצע Paper Trading לפני כסף אמיתי ולהגביל את החשיפה לחלק קטן מהתיק בלבד.
+  </div>
+
+  <div class="meta" id="metaLine"><!--META--></div>
+
+  <div class="table-wrap">
+    <table id="momentumTable">
+      <thead>
+        <tr>
+          <th data-col="0" data-type="num">Rank<span class="arrow"></span></th>
+          <th data-col="1" data-type="text">Ticker<span class="arrow"></span></th>
+          <th data-col="2" data-type="num">Score<span class="arrow"></span></th>
+          <th data-col="3" data-type="num">21d Return<span class="arrow"></span></th>
+          <th data-col="4" data-type="num">Turnover x30d<span class="arrow"></span></th>
+          <th data-col="5" data-type="num">52w Position<span class="arrow"></span></th>
+          <th data-col="6" data-type="num">Vol Persist 5/60d<span class="arrow"></span></th>
+          <th data-col="7" data-type="num">Rel Strength vs SPY 10d<span class="arrow"></span></th>
+          <th data-col="8" data-type="num">RSI(2)<span class="arrow"></span></th>
+          <th data-col="9" data-type="num">Analyst Revision<span class="arrow"></span></th>
+        </tr>
+      </thead>
+      <tbody id="momentumBody">
+<!--ROWS-->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    (function () {
+      const table = document.getElementById('momentumTable');
+      const tbody = document.getElementById('momentumBody');
+      const headers = table.querySelectorAll('th');
+      let sortCol = 2, sortDir = 'desc'; // default: Score desc (matches file's own order)
+
+      function numOf(cell) {
+        const n = parseFloat(String(cell.dataset.raw ?? cell.textContent).replace(/[%,\s]/g, ''));
+        return isNaN(n) ? null : n;
+      }
+
+      function applySort(colIdx, type, dir) {
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort((a, b) => {
+          const ca = a.children[colIdx], cb = b.children[colIdx];
+          let cmp;
+          if (type === 'num') {
+            const na = numOf(ca), nb = numOf(cb);
+            if (na === null && nb === null) cmp = 0;
+            else if (na === null) cmp = 1;
+            else if (nb === null) cmp = -1;
+            else cmp = na - nb;
+          } else {
+            cmp = ca.textContent.localeCompare(cb.textContent);
+          }
+          return dir === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(r => tbody.appendChild(r));
+        headers.forEach(h => {
+          const arrow = h.querySelector('.arrow');
+          arrow.innerHTML = parseInt(h.dataset.col, 10) === colIdx ? (dir === 'asc' ? '&#9650;' : '&#9660;') : '';
+        });
+      }
+
+      headers.forEach(h => {
+        h.addEventListener('click', () => {
+          const colIdx = parseInt(h.dataset.col, 10);
+          const type = h.dataset.type;
+          if (sortCol === colIdx) {
+            sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            sortCol = colIdx;
+            sortDir = type === 'text' ? 'asc' : 'desc';
+          }
+          applySort(sortCol, type, sortDir);
+        });
+      });
+
+      applySort(sortCol, 'num', sortDir);
+    })();
+  </script>
+</body>
+</html>
