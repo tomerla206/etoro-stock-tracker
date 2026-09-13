@@ -2466,9 +2466,17 @@
       const tbody = document.createElement('tbody');
 
       function renderRows(rows) {
+        const heldColIdx = section.headers.indexOf('Held');
         tbody.innerHTML = rows.map(row => {
+          const isHeld = heldColIdx !== -1 && row[heldColIdx] === '✓';
           const cells = row.map((cell, i) => {
             const header = section.headers[i] || '';
+            // Held flag column - drives the row's highlight (see isHeld
+            // above); kept as a real column so sorting/colType detection
+            // stays simple, just hidden visually via CSS (.reentry-held-cell).
+            if (header === 'Held') {
+              return `<td class="reentry-held-cell">${cell}</td>`;
+            }
             // Ticker column - link out to the same eToro research page the
             // main table's ticker cells use, opening in a new tab, so a
             // watchlist candidate doesn't require re-searching for it
@@ -2480,7 +2488,8 @@
             const cls = /%/.test(cell) || /upside|down/i.test(header) ? pctClass(cell) : '';
             return `<td class="${cls}">${cell}</td>`;
           }).join('');
-          return `<tr>${cells}</tr>`;
+          const rowCls = isHeld ? ' class="reentry-row-held" title="נקנתה מחדש - עדיין נמצאת ברשימה למעקב"' : '';
+          return `<tr${rowCls}>${cells}</tr>`;
         }).join('');
       }
 
@@ -2553,9 +2562,10 @@
         menu.classList.add('open');
       }
 
-      headRow.innerHTML = section.headers.map((h, i) =>
-        `<th class="reentry-sort-trigger" data-col="${i}" tabindex="0" role="button" aria-haspopup="true">${h}<span class="reentry-sort-arrow"></span></th>`
-      ).join('');
+      headRow.innerHTML = section.headers.map((h, i) => {
+        const hiddenCls = h === 'Held' ? ' reentry-held-cell' : '';
+        return `<th class="reentry-sort-trigger${hiddenCls}" data-col="${i}" tabindex="0" role="button" aria-haspopup="true">${h}<span class="reentry-sort-arrow"></span></th>`;
+      }).join('');
       headRow.querySelectorAll('th').forEach(th => {
         th.addEventListener('click', () => openSortMenu(parseInt(th.dataset.col, 10), th));
         th.addEventListener('keydown', (e) => {
@@ -2604,6 +2614,15 @@
         groupsEl.innerHTML = '';
         sections.forEach(section => groupsEl.appendChild(renderGroup(section)));
         panel.style.display = '';
+
+        const legendEl = document.getElementById('reentryLegend');
+        if (legendEl) {
+          const anyHeld = sections.some(s => {
+            const idx = s.headers.indexOf('Held');
+            return idx !== -1 && s.rows.some(r => r[idx] === '✓');
+          });
+          legendEl.style.display = anyHeld ? '' : 'none';
+        }
 
         if (toggleAllBtn) {
           toggleAllBtn.style.display = '';

@@ -149,7 +149,7 @@ def main():
     held = {"real": load_held_tickers("real"), "virtual": load_held_tickers("virtual")}
 
     candidates = []
-    skipped_held = 0
+    held_again_count = 0
     for ticker, records in exits.items():
         current_price = prices.get(ticker)
         target = targets.get(ticker)
@@ -162,23 +162,31 @@ def main():
         exit_price = latest_exit["exit_price"]
 
         # Already back in that same account (e.g. sold part of a position
-        # for profit, still holding the rest) - not a re-entry opportunity
-        # anymore, you're already in it. A different account re-entering
-        # what THIS account exited is still worth flagging, so the check is
-        # per-account, not "held anywhere".
-        if ticker in held.get(latest_exit["account"], ()):
-            skipped_held += 1
-            continue
+        # for profit, still holding the rest, or re-bought after seeing it
+        # on this very watchlist) - not a re-entry OPPORTUNITY anymore, but
+        # still worth keeping visible (marked, not dropped) so the user can
+        # keep tracking how the re-entry is doing rather than losing the
+        # row entirely the moment they act on it. A different account
+        # re-entering what THIS account exited is unaffected, so the check
+        # is per-account, not "held anywhere".
+        held_again = ticker in held.get(latest_exit["account"], ())
+        if held_again:
+            held_again_count += 1
 
         pullback_pct = (exit_price - current_price) / exit_price * 100
         upside_pct = (target - current_price) / current_price * 100
 
-        if pullback_pct >= PULLBACK_THRESHOLD_PCT and upside_pct >= UPSIDE_THRESHOLD_PCT:
+        # Held-again tickers stay on the list regardless of whether the
+        # original pullback/upside thresholds still hold (that's the point
+        # - tracking what happened after buying back in, not re-filtering
+        # it); tickers not yet re-bought still need to clear both bars.
+        if held_again or (pullback_pct >= PULLBACK_THRESHOLD_PCT and upside_pct >= UPSIDE_THRESHOLD_PCT):
             candidates.append({
                 "ticker": ticker, "exit_date": latest_exit["exit_date"],
                 "exit_price": exit_price, "current_price": current_price,
                 "target": target, "pullback_pct": pullback_pct,
                 "upside_pct": upside_pct, "account": latest_exit["account"],
+                "held_again": held_again,
             })
 
     candidates.sort(key=lambda c: c["upside_pct"], reverse=True)
@@ -188,8 +196,9 @@ def main():
         f"Tracking {len(exits)} previously-exited ticker(s). A candidate needs BOTH: price down "
         f"at least {PULLBACK_THRESHOLD_PCT:.0f}% from your exit price, AND analyst average target "
         f"still at least {UPSIDE_THRESHOLD_PCT:.0f}% above today's price. Tickers already held "
-        f"again in the same account are excluded (that's not a re-entry, it's already happened) "
-        f"- {skipped_held} skipped for that reason this run.\n\n",
+        f"again in the same account stay on the list too (marked, highlighted blue on the site) "
+        f"so you can keep tracking them after buying back in, rather than the row just vanishing "
+        f"- {held_again_count} marked that way this run.\n\n",
         f"**{len(candidates)} candidate(s) today**\n\n",
     ]
     # Split into two separate tables, Real then Virtual - keeping the two
@@ -203,21 +212,22 @@ def main():
         if not account_candidates:
             lines.append("_No candidates._\n\n")
             continue
-        lines.append("| Ticker | Exit date | Exit $ | Now $ | Down since exit | Target $ | Upside to target |\n")
-        lines.append("|---|---|---|---|---|---|---|\n")
+        lines.append("| Ticker | Exit date | Exit $ | Now $ | Down since exit | Target $ | Upside to target | Held |\n")
+        lines.append("|---|---|---|---|---|---|---|---|\n")
         for c in account_candidates:
+            held_mark = "✓" if c["held_again"] else ""
             lines.append(
                 f"| {c['ticker']} | {c['exit_date']} | {c['exit_price']:.2f} | "
                 f"{c['current_price']:.2f} | {c['pullback_pct']:+.1f}% | {c['target']:.2f} | "
-                f"{c['upside_pct']:+.1f}% |\n"
+                f"{c['upside_pct']:+.1f}% | {held_mark} |\n"
             )
         lines.append("\n")
 
     with open(RESULTS_FILE, "w", encoding="utf-8") as out:
         out.writelines(lines)
 
-    print(f"Checked {len(exits)} exited tickers ({skipped_held} already held again, skipped), "
-          f"{len(candidates)} re-entry candidate(s) -> {RESULTS_FILE.name}")
+    print(f"Checked {len(exits)} exited tickers ({held_again_count} already held again, marked), "
+          f"{len(candidates)} entr{'y' if len(candidates) == 1 else 'ies'} on the watchlist -> {RESULTS_FILE.name}")
 
 
 if __name__ == "__main__":

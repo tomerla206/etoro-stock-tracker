@@ -27,6 +27,8 @@
     --row-nofaq-border: #6b5c26;
     --row-elevated-risk-bg: #2e1f14;
     --row-elevated-risk-border: #7a4a26;
+    --row-held-again-bg: #16283a;
+    --row-held-again-border: #2f6ea5;
   }
 
   @media (prefers-color-scheme: light) {
@@ -52,6 +54,8 @@
       --row-nofaq-border: #eeddab;
       --row-elevated-risk-bg: #f5e6d8;
       --row-elevated-risk-border: #d9a875;
+      --row-held-again-bg: #e3f0fb;
+      --row-held-again-border: #a7cdec;
     }
   }
 
@@ -77,6 +81,8 @@
     --row-nofaq-border: #eeddab;
     --row-elevated-risk-bg: #f5e6d8;
     --row-elevated-risk-border: #d9a875;
+    --row-held-again-bg: #e3f0fb;
+    --row-held-again-border: #a7cdec;
   }
 
   * { box-sizing: border-box; }
@@ -1048,6 +1054,24 @@
     padding: 0 4px 8px;
   }
 
+  .reentry-legend {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .reentry-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--row-held-again-border);
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
   .reentry-group + .reentry-group {
     margin-top: 14px;
   }
@@ -1130,6 +1154,18 @@
 
   table.reentry-table tr:last-child td {
     border-bottom: none;
+  }
+
+  table.reentry-table tr.reentry-row-held td {
+    background: var(--row-held-again-bg);
+  }
+
+  table.reentry-table tr.reentry-row-held:hover td {
+    filter: brightness(1.12);
+  }
+
+  .reentry-held-cell {
+    display: none;
   }
 
   .reentry-empty {
@@ -2771,6 +2807,7 @@
       <button type="button" class="reentry-toggle-all" id="reentryToggleAll" style="display:none;">הצג הכל</button>
     </div>
     <div class="reentry-checkpoint" id="reentryCheckpoint" style="display:none;"></div>
+    <div class="reentry-legend" id="reentryLegend" style="display:none;"><span class="reentry-legend-dot"></span>שורה בכחול = המניה נקנתה מחדש (עדיין למעקב, לא עומדת בהכרח בסף)</div>
     <div class="reentry-table-wrap" id="reentryGroups"></div>
   </div>
 
