@@ -41,7 +41,7 @@ HOG	Harley-Davidson Inc	27.87	17.00	24.00	31.00	OK	TRADEABLE
 HOMB	Home BancShares Inc/AR	29.97	31.00	32.83	36.00	OK	TRADEABLE
 HOV	Hovnanian Enterprises Inc	115.92				NOFAQ	TRADEABLE
 HP	Helmerich & Payne Inc	44.04	41.00	44.67	49.00	OK	TRADEABLE
-HPE	Hewlett Packard Enterprise Co	62.09	54.00	69.47	88.00	OK	TRADEABLE
+HPE	Hewlett Packard Enterprise Co	62.09	54.00	69.79	88.00	OK	TRADEABLE
 HPP	Hudson Pacific Properties Inc	12.23	9.00	13.00	17.00	OK	TRADEABLE
 HPQ	Hewlett Packard	35.48	19.00	26.85	34.00	OK	TRADEABLE
 HR	Healthcare Realty Trust Inc	18.90	14.00	20.83	24.00	OK	TRADEABLE
