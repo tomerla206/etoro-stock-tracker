@@ -171,6 +171,25 @@ def main():
     print("Rebuilding site (build_site.py runs every merge script + reassembles)...")
     subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
 
+    # Weekly Momentum Score - same reasoning as the block above: this used to
+    # only run inside fundamentals_scan.py's own tail chain, which the CLOUD
+    # job never reaches (it returns early after write_shard_output() whenever
+    # SHARD_COUNT > 1 - see fundamentals_scan.py's main()). That meant this
+    # entire engine silently depended on the LOCAL Windows Task Scheduler job
+    # actually running - i.e. depended on the user's PC being on at 06:00,
+    # exactly the reliability gap the user asked to close. Running it here
+    # instead, on the cloud's fully-aggregated fundamentals_data.tsv, makes it
+    # PC-independent like the rest of the daily pipeline. No private data
+    # involved (unlike check_reentry_opportunities.py, deliberately never run
+    # here) - momentum_scan.py/analyst_snapshot.py only ever touch public
+    # market data, safe to run in the cloud checkout.
+    print("Updating Weekly Momentum Score (separate speculative short-term screen)...")
+    for script in (
+        "momentum_scan.py", "analyst_snapshot.py", "compute_weekly_momentum.py",
+        "build_weekly_momentum_page.py", "verify_weekly_momentum.py",
+    ):
+        subprocess.run([sys.executable, script], cwd=ROOT, check=False)
+
     print("Aggregation complete.")
 
 
