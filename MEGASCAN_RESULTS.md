@@ -1,7 +1,7 @@
 # MEGASCAN Results (aggregated from shards)
 
-New GREEN (yellow -> green): 2
-Lost coverage (green -> yellow): 1
-Refreshed, still green: 4292
-Still yellow, unchanged: 2061
+New GREEN (yellow -> green): 11
+Lost coverage (green -> yellow): 5
+Refreshed, still green: 4289
+Still yellow, unchanged: 2051
 Errors (0): 
