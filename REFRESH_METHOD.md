@@ -269,7 +269,18 @@ Per user request: a button on the site that scans ONLY the portfolio holdings (n
 - `portfolio_virtual.tsv`, `portfolio_real.tsv` — position snapshots (8 tab-separated columns, see step 7).
 - `portfolio_tp.tsv`, `portfolio_real_tp.tsv` — TP per ticker.
 - `merge_portfolio.py` — injects `data-pf-v-*` / `data-pf-r-*` attributes onto each `<tr>` in `all_rows.html` from these 4 files.
-- `build_red_pl_report.py` → `red_pl_report.html` (not gitignored — no private numbers beyond what's already on the public site, same as `nasdaq-stocks.html`) — every Virtual `HELD` position with P/L below -2%, entry/current price, analyst target, dollar loss, and a rough estimated time-to-breakeven (see the script's own docstring for the "Buy"-rated-but-target-below-price broken-data heuristic, added after ALSEN.PA's target turned out to be a failed-scrape placeholder). Pure re-render of already-collected data (`portfolio_virtual.tsv` + `all_rows.html`) — no live session needed, so it's chained into `fundamentals_scan.py`'s local-only tail (right after `build_site.py`) AND re-run at the end of every SCAN HOLDINGS pass (step 8 above), so it never depends on remembering to run it by hand. Served locally at `http://localhost:8791/red_pl_report.html` alongside the main site.
+- `build_red_pl_report.py` → `red_pl_report.html` — see code name `SCAN LOSSES` below.
+
+## Code name `SCAN LOSSES` (added 2026-09-16) — red-P/L report for both accounts
+
+**Trigger phrase**: "SCAN LOSSES", "דוח הפסדים", "תעשה סריקת הפסדים". Runs `python build_red_pl_report.py`, which re-renders `red_pl_report.html`: every `HELD` position in **both** `portfolio_real.tsv` and `portfolio_virtual.tsv` with P/L below 0%, with entry/current price, analyst target, dollar loss, a "חשבון" (account) badge per row, and a rough estimated time-to-breakeven based on the analyst target trajectory (see the script's own docstring for the "Buy"-rated-but-target-below-price broken-data heuristic, added after ALSEN.PA's target turned out to be a failed-scrape placeholder - Low=Avg=High=1.00 exactly).
+
+**Not a live scan**: this is a pure re-render of already-collected data (`portfolio_*.tsv` + `all_rows.html`) - no eToro session needed, so unlike `SCAN HOLDINGS`/`SCAN EXITS`/`SCAN RED` it can run standalone, unattended, anytime. It's wired into three places so it never goes stale by accident:
+1. **Standalone**, on request (this code name).
+2. **Chained into `fundamentals_scan.py`'s local-only tail**, right after `build_site.py` (so every local daily run refreshes it against whatever `all_rows.html`/portfolio data currently exists).
+3. **Re-run at the end of every `SCAN HOLDINGS` pass** (see step 8 above), so it's always fresh right after the numbers it depends on change.
+
+Not gitignored (no private numbers beyond what's already on the public site, same as `nasdaq-stocks.html`) - served locally at `http://localhost:8791/red_pl_report.html` alongside the main site.
 
 ## "SCAN EXIT HISTORY" — realized-profit exit log + re-entry watchlist (added 2026-09-08)
 

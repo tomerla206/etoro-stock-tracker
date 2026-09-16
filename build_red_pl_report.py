@@ -1,12 +1,17 @@
 """
-Builds red_pl_report.html: every Virtual HELD position with P/L below -2%,
-its entry/current price, analyst target, dollar loss, and a rough estimated
-time-to-breakeven based on the analyst target trajectory.
+Code name: SCAN LOSSES. Builds red_pl_report.html: every HELD position
+(Real + Virtual) with P/L below 0%, its entry/current price, analyst
+target, dollar loss, and a rough estimated time-to-breakeven based on the
+analyst target trajectory.
 
-Reads portfolio_virtual.tsv (private, gitignored - live SCAN HOLDINGS data)
-and all_rows.html (site's per-ticker analyst/price data). Only meaningful
-after a SCAN HOLDINGS pass has refreshed portfolio_virtual.tsv - this script
-itself never touches eToro, it just re-renders whatever is already on disk.
+Reads portfolio_virtual.tsv + portfolio_real.tsv (private, gitignored -
+live SCAN HOLDINGS data) and all_rows.html (site's per-ticker analyst/price
+data). Only meaningful after a SCAN HOLDINGS pass has refreshed those two
+files - this script itself never touches eToro, it just re-renders
+whatever is already on disk, which is why it's safe to run on its own
+(standalone "SCAN LOSSES"), chained into fundamentals_scan.py's local-only
+tail, AND re-run at the end of every SCAN HOLDINGS pass - all three
+triggers just re-derive the same page from the same source files.
 
 A "Buy"-rated ticker whose analyst target is at or below the current price
 is treated as broken source data (seen once with ALSEN.PA, where
@@ -24,7 +29,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-PLPCT_THRESHOLD = -2.0
+PLPCT_THRESHOLD = 0.0
+ACCOUNTS = [("Virtual", "portfolio_virtual.tsv"), ("Real", "portfolio_real.tsv")]
 
 TEMPLATE = r"""<!DOCTYPE html>
 <html lang="he" dir="rtl">
@@ -213,6 +219,16 @@ TEMPLATE = r"""<!DOCTYPE html>
     font-size: 11.5px;
     color: var(--text-dim);
   }
+  .acct-badge {
+    font-family: 'Heebo', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .acct-real { color: var(--loss-5); border-color: var(--loss-5); }
+  .acct-virtual { color: var(--text-dim); }
   footer {
     margin-top: 22px;
     font-size: 12px;
@@ -224,10 +240,10 @@ TEMPLATE = r"""<!DOCTYPE html>
 <body>
 <div class="wrap">
   <div class="masthead">
-    <h1>הפוזיציות באדום — פורטפוליו וירטואלי</h1>
+    <h1>הפוזיציות בהפסד — Real + Virtual</h1>
     <div class="meta" id="genDate">__GEN_DATE__</div>
   </div>
-  <p class="subtitle">כל ההחזקות עם P/L מתחת ל־‎-2%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
+  <p class="subtitle">כל ההחזקות בשני החשבונות (Real + Virtual) עם P/L מתחת ל-0%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
 
   <div class="stats">
     <div class="stat warn">
@@ -258,15 +274,16 @@ TEMPLATE = r"""<!DOCTYPE html>
       <thead>
         <tr>
           <th data-col="0" data-type="text">טיקר / חברה<span class="arrow"></span></th>
-          <th data-col="1" data-type="num">מחיר כניסה<span class="arrow"></span></th>
-          <th data-col="2" data-type="num">מחיר נוכחי<span class="arrow"></span></th>
-          <th data-col="3" data-type="num">P/L%<span class="arrow"></span></th>
-          <th data-col="4" data-type="num">הפסד בדולרים<span class="arrow"></span></th>
-          <th data-col="5" data-type="num">הושקע<span class="arrow"></span></th>
-          <th data-col="6" data-type="num">יעד אנליסטים<span class="arrow"></span></th>
-          <th data-col="7" data-type="num">Upside ליעד<span class="arrow"></span></th>
-          <th data-col="8" data-type="text">דירוג<span class="arrow"></span></th>
-          <th data-col="9" data-type="num">זמן משוער לאיזון<span class="arrow"></span></th>
+          <th data-col="1" data-type="text">חשבון<span class="arrow"></span></th>
+          <th data-col="2" data-type="num">מחיר כניסה<span class="arrow"></span></th>
+          <th data-col="3" data-type="num">מחיר נוכחי<span class="arrow"></span></th>
+          <th data-col="4" data-type="num">P/L%<span class="arrow"></span></th>
+          <th data-col="5" data-type="num">הפסד בדולרים<span class="arrow"></span></th>
+          <th data-col="6" data-type="num">הושקע<span class="arrow"></span></th>
+          <th data-col="7" data-type="num">יעד אנליסטים<span class="arrow"></span></th>
+          <th data-col="8" data-type="num">Upside ליעד<span class="arrow"></span></th>
+          <th data-col="9" data-type="text">דירוג<span class="arrow"></span></th>
+          <th data-col="10" data-type="num">זמן משוער לאיזון<span class="arrow"></span></th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -321,6 +338,7 @@ function render(rows) {
         <a class="ticker-link" href="https://www.etoro.com/markets/${d.ticker.toLowerCase()}/research" target="_blank" rel="noopener">${d.ticker}</a>
         <span class="company">${d.name}</span>
       </td>
+      <td data-raw="${d.account}"><span class="acct-badge ${d.account === 'Real' ? 'acct-real' : 'acct-virtual'}">${d.account === 'Real' ? 'אמיתי' : 'וירטואלי'}</span></td>
       <td data-raw="${d.entry}">${fmtPrice(d.entry, d.currency)}</td>
       <td data-raw="${d.price ?? ''}">${fmtPrice(d.price, d.currency)}</td>
       <td data-raw="${d.plpct}"><span class="plpct-bar" style="background:${plColor(d.plpct)}">${d.plpct.toFixed(1)}%</span></td>
@@ -347,7 +365,7 @@ document.getElementById('statInvested').textContent = '$' + Math.round(totalInve
 // Sorting
 const table = document.getElementById('tbl');
 const headers = table.querySelectorAll('th');
-let sortCol = 3, sortDir = 'asc'; // default: P/L% ascending (worst first) — matches initial data order
+let sortCol = 4, sortDir = 'asc'; // default: P/L% ascending (worst first) — matches initial data order
 
 function applySort(colIdx, type, dir) {
   const rows = Array.from(document.getElementById('tbody').querySelectorAll('tr'));
@@ -387,9 +405,9 @@ applySort(sortCol, 'num', sortDir);
 """
 
 
-def load_portfolio():
-    rows = {}
-    path = ROOT / "portfolio_virtual.tsv"
+def load_portfolio(account, filename):
+    rows = []
+    path = ROOT / filename
     if not path.exists():
         return rows
     with open(path, encoding="utf-8") as f:
@@ -405,13 +423,15 @@ def load_portfolio():
                 continue
             try:
                 plpct_f = float(plpct)
+                avgopen_f = float(avgopen)
+                netvalue_f = float(netvalue)
             except ValueError:
                 continue
             if plpct_f < PLPCT_THRESHOLD:
-                rows[ticker] = {
-                    "name": name, "units": float(units), "avgopen": float(avgopen),
-                    "pl": float(pl), "plpct": plpct_f, "netvalue": float(netvalue),
-                }
+                rows.append((ticker, {
+                    "account": account, "name": name, "avgopen": avgopen_f,
+                    "plpct": plpct_f, "netvalue": netvalue_f,
+                }))
     return rows
 
 
@@ -421,15 +441,17 @@ def get_attr(block, attr):
 
 
 def main():
-    portfolio = load_portfolio()
+    portfolio = []
+    for account, filename in ACCOUNTS:
+        portfolio.extend(load_portfolio(account, filename))
     if not portfolio:
-        print("No Virtual HELD positions below the P/L threshold (or portfolio_virtual.tsv missing) - skipping.")
+        print("No HELD positions below the P/L threshold (or portfolio_virtual.tsv/portfolio_real.tsv missing) - skipping.")
         return
 
     html = (ROOT / "all_rows.html").read_text(encoding="utf-8")
 
     results = []
-    for ticker, data in portfolio.items():
+    for ticker, data in portfolio:
         m = re.search(r'<tr data-ticker="' + re.escape(ticker) + r'"[^>]*>', html)
         block = m.group(0) if m else ""
         price = get_attr(block, "data-price")
@@ -485,6 +507,7 @@ def main():
 
         out.append({
             "ticker": ticker,
+            "account": d["account"],
             "name": d["name"],
             "entry": entry,
             "price": price,
