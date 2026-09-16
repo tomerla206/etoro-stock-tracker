@@ -437,6 +437,28 @@
     filter: brightness(1.1);
   }
 
+  .red-pl-btn {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e07a7a;
+    background: var(--surface-2);
+    border: 1px solid #a83d3d;
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .red-pl-btn:hover {
+    background: var(--surface);
+    filter: brightness(1.1);
+  }
+
   .active-filters-strip {
     display: flex;
     flex-wrap: wrap;
@@ -2738,6 +2760,7 @@
     <div class="count-row">
       <button type="button" class="reset-filters-btn" id="resetFiltersBtn" title="Reset all filters, columns and search back to the default view">&#8635; Reset filters</button>
       <a class="weekly-momentum-btn" href="weekly_momentum.html" title="כלי סינון ספקולטיבי נפרד לטווח קצר (שבוע-חודש) - לא חלק מה-Score הראשי">&#9889; Weekly Momentum</a>
+      <a class="red-pl-btn" href="red_pl_report.html" target="_blank" rel="noopener" title="דוח כל ההחזקות (Real + Virtual) עם P/L מתחת ל-0%, נפתח בחלון חדש">&#128201; Red P/L</a>
       <div class="count" id="count">Showing 1,823 of 1,823</div>
     </div>
   </header>

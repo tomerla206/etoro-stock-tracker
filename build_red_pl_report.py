@@ -125,6 +125,24 @@ TEMPLATE = r"""<!DOCTYPE html>
     font-size: 13px;
     font-family: 'IBM Plex Mono', monospace;
   }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Heebo', sans-serif;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .back-link:hover {
+    background: var(--surface-2);
+  }
   .subtitle {
     color: var(--text-dim);
     font-size: 15px;
@@ -267,7 +285,10 @@ TEMPLATE = r"""<!DOCTYPE html>
 <div class="wrap">
   <div class="masthead">
     <h1>הפוזיציות בהפסד — Real + Virtual</h1>
-    <div class="meta" id="genDate">__GEN_DATE__</div>
+    <div class="header-actions">
+      <div class="meta" id="genDate">__GEN_DATE__</div>
+      <a class="back-link" href="nasdaq-stocks.html">&rarr; חזרה לאתר הראשי</a>
+    </div>
   </div>
   <p class="subtitle">כל ההחזקות עם P/L מתחת ל-0%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
 
