@@ -197,7 +197,7 @@
 <div class="wrap">
   <div class="masthead">
     <h1>הפוזיציות באדום — פורטפוליו וירטואלי</h1>
-    <div class="meta" id="genDate"></div>
+    <div class="meta" id="genDate">16/09/2026</div>
   </div>
   <p class="subtitle">כל ההחזקות עם P/L מתחת ל־‎-2%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
 
@@ -222,7 +222,7 @@
 
   <div class="disclaimer">
     <strong>איך לקרוא את "אומדן זמן לאיזון" — ולמה להיזהר ממנו</strong>
-    האומדן מניח שהמחיר "יטפס" בקצב קבוע לכיוון יעד המחיר הממוצע של האנליסטים (טווח של כ־12 חודש), ומחשב כמה זמן ייקח לחזור למחיר הכניסה שלך לפי אותו קצב. זו הערכה גסה בלבד — לא תחזית מבוססת, ולא המלצת השקעה. במניות עם כיסוי אנליסטים דל (1-2 אנליסטים בלבד, מסומן ⚠) היעד עצמו לא אמין, והאומדן יכול לצאת קיצוני או חסר משמעות. מחיר "נוכחי" מבוסס על הסריקה היומית האחרונה ולא בזמן אמת. ל-ALSEN.PA באופן ספציפי יעד האנליסטים במקור שבור (Low=Avg=High=‎€1.00‎ בדיוק — כנראה סריקה שנכשלה, לא יעד אמיתי), אז אומדן ה-Upside וזמן האיזון שלה חסרי משמעות לגמרי; התעלמו מהם.
+    האומדן מניח שהמחיר "יטפס" בקצב קבוע לכיוון יעד המחיר הממוצע של האנליסטים (טווח של כ־12 חודש), ומחשב כמה זמן ייקח לחזור למחיר הכניסה שלך לפי אותו קצב. זו הערכה גסה בלבד — לא תחזית מבוססת, ולא המלצת השקעה. במניות עם כיסוי אנליסטים דל (1-2 אנליסטים בלבד, מסומן ⚠) היעד עצמו לא אמין, והאומדן יכול לצאת קיצוני או חסר משמעות. מחיר "נוכחי" מבוסס על הסריקה היומית האחרונה ולא בזמן אמת. שורה עם דירוג "Buy" אבל יעד מתחת למחיר הנוכחי מסומנת כנתון שבור במקור (⚠ נתון יעד שבור) ומוצגת בלי יעד/Upside/זמן איזון, במקום Upside שלילי חסר היגיון.
   </div>
 
   <div class="table-wrap">
@@ -944,14 +944,14 @@ const DATA = [
     "ticker": "ALSEN.PA",
     "name": "Sensorion SA",
     "entry": 10.603,
-    "price": 9.80,
+    "price": 10.88,
     "plpct": -7.55,
     "target": null,
     "upside_pct": null,
     "rating": "Moderate Buy",
     "coverage": "4",
     "months_to_breakeven": null,
-    "breakeven_note": "Analyst target data broken at source (Low=Avg=High=1.00)",
+    "breakeven_note": "Analyst target data broken at source",
     "currency": "EUR",
     "netvalue": 1848.76
   },
@@ -1455,7 +1455,7 @@ function render(rows) {
       <td data-raw="${loss}" style="color:var(--loss-5);font-weight:600;">-$${Math.round(Math.abs(loss)).toLocaleString('en-US')}</td>
       <td data-raw="${inv}">$${Math.round(inv).toLocaleString('en-US')}</td>
       <td data-raw="${d.target ?? ''}">${fmtPrice(d.target, d.currency)}</td>
-      <td data-raw="${d.upside_pct ?? ''}">${d.upside_pct !== null ? (d.upside_pct > 0 ? '+' : '') + d.upside_pct.toFixed(1) + '%' : '—'}${lowConf ? ' <span class="low-conf">⚠ כיסוי דל</span>' : ''}</td>
+      <td data-raw="${d.upside_pct ?? ''}">${d.upside_pct !== null ? (d.upside_pct > 0 ? '+' : '') + d.upside_pct.toFixed(1) + '%' : '—'}${lowConf && d.upside_pct !== null ? ' <span class="low-conf">⚠ כיסוי דל</span>' : ''}</td>
       <td class="rating" data-raw="${d.rating || ''}">${d.rating || '—'}${d.coverage ? ` (${d.coverage})` : ''}</td>
       <td data-raw="${d.months_to_breakeven ?? 999999}">${fmtMonths(d.months_to_breakeven, d.breakeven_note)}</td>
     </tr>`;
@@ -1465,13 +1465,12 @@ function render(rows) {
 render(DATA);
 
 document.getElementById('statCount').textContent = DATA.length;
-const totalLoss = DATA.reduce((s, d) => s + (d.netvalue - d.netvalue / (1 + d.plpct / 100)), 0);
+const totalLoss = DATA.reduce((s, d) => s + lossDollars(d), 0);
 document.getElementById('statLoss').textContent = '$' + Math.round(totalLoss).toLocaleString('en-US');
 const avgPl = DATA.reduce((s, d) => s + d.plpct, 0) / DATA.length;
 document.getElementById('statAvg').textContent = avgPl.toFixed(1) + '%';
 const totalInvested = DATA.reduce((s, d) => s + invested(d), 0);
 document.getElementById('statInvested').textContent = '$' + Math.round(totalInvested).toLocaleString('en-US');
-document.getElementById('genDate').textContent = new Date().toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
 
 // Sorting
 const table = document.getElementById('tbl');

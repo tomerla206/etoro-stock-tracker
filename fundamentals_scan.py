@@ -532,6 +532,9 @@ def main():
     print("Rebuilding site (build_site.py runs every merge script + reassembles)...")
     subprocess.run([sys.executable, "build_site.py"], cwd=ROOT, check=False)
 
+    print("Rebuilding red-P/L report (local-only, uses private portfolio data)...")
+    subprocess.run([sys.executable, "build_red_pl_report.py"], cwd=ROOT, check=False)
+
     # Weekly Momentum Score - a separate, speculative short-term screen (its
     # own page, its own nav button, deliberately NOT part of the main table
     # or the main Score). See WEEKLY_MOMENTUM_STATE.json for the research
