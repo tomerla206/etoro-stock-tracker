@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הפסדים בוירטואלי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --surface: #ffffff;
+    --surface-2: #f0ede7;
+    --border: #ddd7cc;
+    --text: #201d18;
+    --text-dim: #6b6459;
+    --accent: #b8850f;
+    --accent-soft: #f3e6c8;
+    --loss-1: #7a8a72;
+    --loss-2: #c9a84c;
+    --loss-3: #d98a4a;
+    --loss-4: #cc5f4a;
+    --loss-5: #b03d3d;
+    --low-conf: #a8875a;
+    --row-hover: #f0ede7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171512;
+      --surface: #201d18;
+      --surface-2: #262219;
+      --border: #3a352b;
+      --text: #ede8de;
+      --text-dim: #9c9587;
+      --accent: #e0b04f;
+      --accent-soft: #3a2f18;
+      --loss-1: #8fa085;
+      --loss-2: #d4b25a;
+      --loss-3: #e09a5c;
+      --loss-4: #dd7a63;
+      --loss-5: #d15a5a;
+      --low-conf: #c4a06b;
+      --row-hover: #262219;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171512;
+    --surface: #201d18;
+    --surface-2: #262219;
+    --border: #3a352b;
+    --text: #ede8de;
+    --text-dim: #9c9587;
+    --accent: #e0b04f;
+    --accent-soft: #3a2f18;
+    --loss-1: #8fa085;
+    --loss-2: #d4b25a;
+    --loss-3: #e09a5c;
+    --loss-4: #dd7a63;
+    --loss-5: #d15a5a;
+    --low-conf: #c4a06b;
+    --row-hover: #262219;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', system-ui, sans-serif;
+    direction: rtl;
+    padding: 28px 20px 60px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 800;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--text-dim);
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin: 6px 0 22px;
+    max-width: 62ch;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .stat .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .stat .value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat.warn .value { color: var(--loss-5); }
+
+  .disclaimer {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+  .disclaimer strong { display: block; margin-bottom: 4px; }
+
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 920px; }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--surface-2);
+    text-align: right;
+    padding: 11px 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+  }
+  thead th:hover { color: var(--text); }
+  thead th .arrow { font-size: 9px; margin-inline-start: 4px; opacity: 0.7; }
+  tbody td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody td.name-cell { font-family: 'Heebo', system-ui, sans-serif; white-space: normal; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--row-hover); }
+  .ticker-link { color: var(--text); text-decoration: none; font-weight: 700; }
+  .ticker-link:hover { text-decoration: underline; }
+  .company { color: var(--text-dim); font-size: 12px; display: block; }
+  .plpct-bar {
+    display: inline-block;
+    min-width: 58px;
+    text-align: left;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: #1a1508;
+  }
+  .low-conf { color: var(--low-conf); font-size: 11px; font-family: 'Heebo', sans-serif; }
+  .note { color: var(--text-dim); font-size: 12px; font-family: 'Heebo', sans-serif; }
+  .rating {
+    font-family: 'Heebo', sans-serif;
+    font-size: 11.5px;
+    color: var(--text-dim);
+  }
+  footer {
+    margin-top: 22px;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <h1>הפוזיציות באדום — פורטפוליו וירטואלי</h1>
+    <div class="meta" id="genDate"></div>
+  </div>
+  <p class="subtitle">כל ההחזקות עם P/L מתחת ל־‎-2%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
+
+  <div class="stats">
+    <div class="stat warn">
+      <div class="label">מניות באדום</div>
+      <div class="value" id="statCount">—</div>
+    </div>
+    <div class="stat warn">
+      <div class="label">הפסד לא ממומש (משוער)</div>
+      <div class="value" id="statLoss">—</div>
+    </div>
+    <div class="stat">
+      <div class="label">P/L ממוצע</div>
+      <div class="value" id="statAvg">—</div>
+    </div>
+    <div class="stat">
+      <div class="label">סה"כ מושקע בפוזיציות אלה</div>
+      <div class="value" id="statInvested">—</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>איך לקרוא את "אומדן זמן לאיזון" — ולמה להיזהר ממנו</strong>
+    האומדן מניח שהמחיר "יטפס" בקצב קבוע לכיוון יעד המחיר הממוצע של האנליסטים (טווח של כ־12 חודש), ומחשב כמה זמן ייקח לחזור למחיר הכניסה שלך לפי אותו קצב. זו הערכה גסה בלבד — לא תחזית מבוססת, ולא המלצת השקעה. במניות עם כיסוי אנליסטים דל (1-2 אנליסטים בלבד, מסומן ⚠) היעד עצמו לא אמין, והאומדן יכול לצאת קיצוני או חסר משמעות. מחיר "נוכחי" מבוסס על הסריקה היומית האחרונה ולא בזמן אמת. ל-ALSEN.PA באופן ספציפי יעד האנליסטים במקור שבור (Low=Avg=High=‎€1.00‎ בדיוק — כנראה סריקה שנכשלה, לא יעד אמיתי), אז אומדן ה-Upside וזמן האיזון שלה חסרי משמעות לגמרי; התעלמו מהם.
+  </div>
+
+  <div class="table-wrap">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th data-col="0" data-type="text">טיקר / חברה<span class="arrow"></span></th>
+          <th data-col="1" data-type="num">מחיר כניסה<span class="arrow"></span></th>
+          <th data-col="2" data-type="num">מחיר נוכחי<span class="arrow"></span></th>
+          <th data-col="3" data-type="num">P/L%<span class="arrow"></span></th>
+          <th data-col="4" data-type="num">הפסד בדולרים<span class="arrow"></span></th>
+          <th data-col="5" data-type="num">הושקע<span class="arrow"></span></th>
+          <th data-col="6" data-type="num">יעד אנליסטים<span class="arrow"></span></th>
+          <th data-col="7" data-type="num">Upside ליעד<span class="arrow"></span></th>
+          <th data-col="8" data-type="text">דירוג<span class="arrow"></span></th>
+          <th data-col="9" data-type="num">זמן משוער לאיזון<span class="arrow"></span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <footer>נוצר אוטומטית מתוך portfolio_virtual.tsv + all_rows.html · אינו מהווה ייעוץ השקעות</footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    "ticker": "TCRX",
+    "name": "Tscan Therapeutics Inc",
+    "entry": 0.7696,
+    "price": 0.32,
+    "plpct": -56.3,
+    "target": 1.0,
+    "upside_pct": 212.5,
+    "rating": "Hold",
+    "coverage": "3",
+    "months_to_breakeven": 9.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 2003.91
+  },
+  {
+    "ticker": "LENZ",
+    "name": "Lenz Therapeutics",
+    "entry": 9.3599,
+    "price": 4.23,
+    "plpct": -55.02,
+    "target": 24.4,
+    "upside_pct": 476.8,
+    "rating": "Moderate Buy",
+    "coverage": "7",
+    "months_to_breakeven": 5.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 4497.86
+  },
+  {
+    "ticker": "FICO",
+    "name": "Fair Isaac Corp",
+    "entry": 1883.5,
+    "price": 985.96,
+    "plpct": -47.44,
+    "target": 1510.0,
+    "upside_pct": 53.2,
+    "rating": "Strong Buy",
+    "coverage": "19",
+    "months_to_breakeven": 18.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 2629.58
+  },
+  {
+    "ticker": "BABA",
+    "name": "Alibaba Group Holding Ltd",
+    "entry": 192.03,
+    "price": 109.34,
+    "plpct": -43.86,
+    "target": 192.53,
+    "upside_pct": 76.1,
+    "rating": "Strong Buy",
+    "coverage": "39",
+    "months_to_breakeven": 11.9,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 2805.69
+  },
+  {
+    "ticker": "CIFR",
+    "name": "Cipher Mining Inc",
+    "entry": 27.61,
+    "price": 15.09,
+    "plpct": -37.52,
+    "target": 30.72,
+    "upside_pct": 103.6,
+    "rating": "Strong Buy",
+    "coverage": "17",
+    "months_to_breakeven": 10.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 6243.21
+  },
+  {
+    "ticker": "ALNY",
+    "name": "Alnylam Pharmaceuticals",
+    "entry": 371.9,
+    "price": 238.27,
+    "plpct": -36.05,
+    "target": 395.86,
+    "upside_pct": 66.1,
+    "rating": "Strong Buy",
+    "coverage": "26",
+    "months_to_breakeven": 10.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 19176.0
+  },
+  {
+    "ticker": "PLNT",
+    "name": "Planet Fitness Inc",
+    "entry": 69.5099,
+    "price": 50.81,
+    "plpct": -27.59,
+    "target": 61.5,
+    "upside_pct": 21.0,
+    "rating": "Moderate Buy",
+    "coverage": "17",
+    "months_to_breakeven": 19.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 7240.69
+  },
+  {
+    "ticker": "OCGN",
+    "name": "Ocugen Inc",
+    "entry": 1.34,
+    "price": 0.99,
+    "plpct": -26.13,
+    "target": 10.25,
+    "upside_pct": 935.4,
+    "rating": "Moderate Buy",
+    "coverage": "6",
+    "months_to_breakeven": 1.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 14346.38
+  },
+  {
+    "ticker": "CRBU",
+    "name": "Caribou Biosciences Inc",
+    "entry": 1.7,
+    "price": 1.27,
+    "plpct": -24.71,
+    "target": 8.0,
+    "upside_pct": 529.9,
+    "rating": "Strong Buy",
+    "coverage": "7",
+    "months_to_breakeven": 1.9,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 14883.72
+  },
+  {
+    "ticker": "AVNW",
+    "name": "Aviat Networks Inc",
+    "entry": 26.26,
+    "price": 19.85,
+    "plpct": -24.3,
+    "target": 33.6,
+    "upside_pct": 69.3,
+    "rating": "Strong Buy",
+    "coverage": "8",
+    "months_to_breakeven": 6.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 28685.62
+  },
+  {
+    "ticker": "WYNN",
+    "name": "Wynn Resorts Ltd",
+    "entry": 109.70695,
+    "price": 86.71,
+    "plpct": -22.52,
+    "target": 135.0,
+    "upside_pct": 55.7,
+    "rating": "Strong Buy",
+    "coverage": "20",
+    "months_to_breakeven": 6.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 10894.79
+  },
+  {
+    "ticker": "LSCC",
+    "name": "Lattice Semiconductor",
+    "entry": 137.14,
+    "price": 106.49,
+    "plpct": -22.18,
+    "target": 167.11,
+    "upside_pct": 56.9,
+    "rating": "Strong Buy",
+    "coverage": "13",
+    "months_to_breakeven": 6.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 7780.69
+  },
+  {
+    "ticker": "UPB",
+    "name": "Upstream Bio Inc",
+    "entry": 7.04,
+    "price": 5.48,
+    "plpct": -22.02,
+    "target": 36.25,
+    "upside_pct": 561.5,
+    "rating": "Strong Buy",
+    "coverage": "7",
+    "months_to_breakeven": 1.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 3556.86
+  },
+  {
+    "ticker": "ANVS",
+    "name": "Annovis Bio Inc",
+    "entry": 1.42,
+    "price": 1.12,
+    "plpct": -21.83,
+    "target": 17.0,
+    "upside_pct": 1417.9,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 1.0,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1519.78
+  },
+  {
+    "ticker": "NEM.DE",
+    "name": "Nordex SE",
+    "entry": 73.88,
+    "price": 60.0,
+    "plpct": -21.57,
+    "target": 77.33,
+    "upside_pct": 28.9,
+    "rating": "Moderate Buy",
+    "coverage": "17",
+    "months_to_breakeven": 9.8,
+    "breakeven_note": "",
+    "currency": "EUR",
+    "netvalue": 23522.57
+  },
+  {
+    "ticker": "CRIS",
+    "name": "Curis Inc",
+    "entry": 1.38,
+    "price": 1.13,
+    "plpct": -19.57,
+    "target": 20.0,
+    "upside_pct": 1669.9,
+    "rating": "Moderate Buy",
+    "coverage": "3",
+    "months_to_breakeven": 0.8,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1561.82
+  },
+  {
+    "ticker": "PTCT",
+    "name": "PTC Therapeutics",
+    "entry": 82.98,
+    "price": 65.65,
+    "plpct": -18.62,
+    "target": 95.14,
+    "upside_pct": 44.9,
+    "rating": "Moderate Buy",
+    "coverage": "14",
+    "months_to_breakeven": 7.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 8137.13
+  },
+  {
+    "ticker": "SURG",
+    "name": "Surgepays Inc",
+    "entry": 0.1762,
+    "price": 0.15,
+    "plpct": -17.2,
+    "target": 3.5,
+    "upside_pct": 2233.3,
+    "rating": "",
+    "coverage": "1",
+    "months_to_breakeven": 0.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1653.36
+  },
+  {
+    "ticker": "HIVE",
+    "name": "HIVE Digital Technologies",
+    "entry": 3.52,
+    "price": 2.89,
+    "plpct": -16.76,
+    "target": 7.3,
+    "upside_pct": 152.6,
+    "rating": "Strong Buy",
+    "coverage": "8",
+    "months_to_breakeven": 2.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1645.25
+  },
+  {
+    "ticker": "LCTX",
+    "name": "Lineage Cell Therapeutics",
+    "entry": 1.28,
+    "price": 1.06,
+    "plpct": -16.41,
+    "target": 9.0,
+    "upside_pct": 749.1,
+    "rating": "Moderate Buy",
+    "coverage": "6",
+    "months_to_breakeven": 1.1,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 4283.17
+  },
+  {
+    "ticker": "MANU",
+    "name": "Manchester United plc",
+    "entry": 23.84,
+    "price": 19.97,
+    "plpct": -16.19,
+    "target": 23.49,
+    "upside_pct": 17.6,
+    "rating": "",
+    "coverage": "2",
+    "months_to_breakeven": 13.1,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 16740.67
+  },
+  {
+    "ticker": "KLAC",
+    "name": "KLA Corporation",
+    "entry": 203.23,
+    "price": 168.02,
+    "plpct": -16.18,
+    "target": 242.56,
+    "upside_pct": 44.4,
+    "rating": "Moderate Buy",
+    "coverage": "26",
+    "months_to_breakeven": 6.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 4068.6
+  },
+  {
+    "ticker": "RYTM",
+    "name": "Rhythm Pharmaceuticals Inc",
+    "entry": 119.17,
+    "price": 96.77,
+    "plpct": -15.59,
+    "target": 142.63,
+    "upside_pct": 47.4,
+    "rating": "Strong Buy",
+    "coverage": "16",
+    "months_to_breakeven": 6.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 19851.5
+  },
+  {
+    "ticker": "EYPT",
+    "name": "EyePoint Inc",
+    "entry": 4.28,
+    "price": 3.66,
+    "plpct": -14.25,
+    "target": 25.13,
+    "upside_pct": 586.6,
+    "rating": "Moderate Buy",
+    "coverage": "11",
+    "months_to_breakeven": 1.0,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1699.07
+  },
+  {
+    "ticker": "ALLO",
+    "name": "Allogene Therapeutics Inc.",
+    "entry": 1.99,
+    "price": 1.72,
+    "plpct": -14.07,
+    "target": 10.0,
+    "upside_pct": 481.4,
+    "rating": "Strong Buy",
+    "coverage": "9",
+    "months_to_breakeven": 1.0,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 3863.93
+  },
+  {
+    "ticker": "IVVD",
+    "name": "Invivyd Inc",
+    "entry": 0.95,
+    "price": 0.83,
+    "plpct": -13.41,
+    "target": 10.0,
+    "upside_pct": 1104.8,
+    "rating": "Strong Buy",
+    "coverage": "3",
+    "months_to_breakeven": 0.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 17137.5
+  },
+  {
+    "ticker": "GE",
+    "name": "General Electric",
+    "entry": 363.12,
+    "price": 307.05,
+    "plpct": -13.16,
+    "target": 415.09,
+    "upside_pct": 35.2,
+    "rating": "Strong Buy",
+    "coverage": "21",
+    "months_to_breakeven": 6.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 17366.38
+  },
+  {
+    "ticker": "CABA",
+    "name": "Cabaletta Bio Inc",
+    "entry": 3.01,
+    "price": 2.6,
+    "plpct": -12.96,
+    "target": 20.67,
+    "upside_pct": 695.0,
+    "rating": "Strong Buy",
+    "coverage": "8",
+    "months_to_breakeven": 0.8,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 17350.99
+  },
+  {
+    "ticker": "CTMX",
+    "name": "CytomX Therapeutics Inc",
+    "entry": 3.2,
+    "price": 2.69,
+    "plpct": -12.19,
+    "target": 13.25,
+    "upside_pct": 392.6,
+    "rating": "Strong Buy",
+    "coverage": "8",
+    "months_to_breakeven": 1.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1703.03
+  },
+  {
+    "ticker": "CBUS",
+    "name": "Cibus Inc",
+    "entry": 1.74,
+    "price": 1.58,
+    "plpct": -12.07,
+    "target": 25.0,
+    "upside_pct": 1482.3,
+    "rating": "Moderate Buy",
+    "coverage": "3",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1747.7
+  },
+  {
+    "ticker": "NOVT",
+    "name": "Novanta Inc",
+    "entry": 152.39,
+    "price": 138.23,
+    "plpct": -11.04,
+    "target": 194.0,
+    "upside_pct": 40.3,
+    "rating": "Moderate Buy",
+    "coverage": "2",
+    "months_to_breakeven": 3.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 8895.09
+  },
+  {
+    "ticker": "TTWO",
+    "name": "Take-Two Interactive",
+    "entry": 240.0,
+    "price": 211.91,
+    "plpct": -10.62,
+    "target": 299.45,
+    "upside_pct": 41.3,
+    "rating": "Strong Buy",
+    "coverage": "29",
+    "months_to_breakeven": 4.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 8790.99
+  },
+  {
+    "ticker": "RL",
+    "name": "Ralph Lauren Corp",
+    "entry": 380.18,
+    "price": 335.23,
+    "plpct": -10.52,
+    "target": 450.57,
+    "upside_pct": 34.4,
+    "rating": "Strong Buy",
+    "coverage": "17",
+    "months_to_breakeven": 5.1,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1559.07
+  },
+  {
+    "ticker": "FLNA",
+    "name": "Filana Therapeutics Inc",
+    "entry": 0.758,
+    "price": 0.7,
+    "plpct": -9.72,
+    "target": 5.0,
+    "upside_pct": 614.3,
+    "rating": "Moderate Buy",
+    "coverage": "2",
+    "months_to_breakeven": 0.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1803.16
+  },
+  {
+    "ticker": "EXPN.L",
+    "name": "Experian Plc",
+    "entry": 3071.0,
+    "price": 2858.0,
+    "plpct": -9.25,
+    "target": 3822.6,
+    "upside_pct": 33.8,
+    "rating": "Strong Buy",
+    "coverage": "18",
+    "months_to_breakeven": 3.0,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1802.65
+  },
+  {
+    "ticker": "GNLX",
+    "name": "Genelux Corp",
+    "entry": 2.62,
+    "price": 2.47,
+    "plpct": -9.16,
+    "target": 31.0,
+    "upside_pct": 1155.1,
+    "rating": "Moderate Buy",
+    "coverage": "5",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1808.98
+  },
+  {
+    "ticker": "STC",
+    "name": "Stewart Information Services Corp",
+    "entry": 72.7699,
+    "price": 65.96,
+    "plpct": -9.15,
+    "target": 79.0,
+    "upside_pct": 19.8,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 6.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 9084.79
+  },
+  {
+    "ticker": "TNYA",
+    "name": "Tenaya Therapeutics Inc",
+    "entry": 0.7318,
+    "price": 0.67,
+    "plpct": -9.11,
+    "target": 13.0,
+    "upside_pct": 1840.3,
+    "rating": "Strong Buy",
+    "coverage": "5",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 4168.34
+  },
+  {
+    "ticker": "NNOX",
+    "name": "Nano-X Imaging Ltd.",
+    "entry": 0.7559,
+    "price": 0.69,
+    "plpct": -9.0,
+    "target": 3.0,
+    "upside_pct": 334.8,
+    "rating": "Hold",
+    "coverage": "3",
+    "months_to_breakeven": 0.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1819.36
+  },
+  {
+    "ticker": "IMUX",
+    "name": "Immunic Inc",
+    "entry": 11.33,
+    "price": 10.37,
+    "plpct": -8.91,
+    "target": 43.6,
+    "upside_pct": 320.4,
+    "rating": "Strong Buy",
+    "coverage": "11",
+    "months_to_breakeven": 0.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1815.3
+  },
+  {
+    "ticker": "COF",
+    "name": "Capital One Financial",
+    "entry": 226.99,
+    "price": 206.85,
+    "plpct": -8.84,
+    "target": 259.18,
+    "upside_pct": 25.3,
+    "rating": "Strong Buy",
+    "coverage": "22",
+    "months_to_breakeven": 4.9,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1821.93
+  },
+  {
+    "ticker": "NVT",
+    "name": "nVent Electric plc",
+    "entry": 163.26,
+    "price": 146.8,
+    "plpct": -8.81,
+    "target": 205.17,
+    "upside_pct": 39.8,
+    "rating": "Strong Buy",
+    "coverage": "15",
+    "months_to_breakeven": 3.8,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 9118.64
+  },
+  {
+    "ticker": "BLK",
+    "name": "BlackRock Inc",
+    "entry": 1158.23,
+    "price": 1058.66,
+    "plpct": -8.68,
+    "target": 1318.38,
+    "upside_pct": 24.5,
+    "rating": "Strong Buy",
+    "coverage": "16",
+    "months_to_breakeven": 4.9,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 44008.47
+  },
+  {
+    "ticker": "TVRD",
+    "name": "Tvardi Therapeutics Inc",
+    "entry": 1.92,
+    "price": 1.76,
+    "plpct": -8.33,
+    "target": 8.2,
+    "upside_pct": 365.9,
+    "rating": "Moderate Buy",
+    "coverage": "8",
+    "months_to_breakeven": 0.7,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1805.13
+  },
+  {
+    "ticker": "FARN.L",
+    "name": "Faron Pharmaceuticals Oy",
+    "entry": 37.0,
+    "price": 35.0,
+    "plpct": -8.24,
+    "target": 1000.0,
+    "upside_pct": 2757.1,
+    "rating": "Moderate Buy",
+    "coverage": "1",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1696.63
+  },
+  {
+    "ticker": "CBRE",
+    "name": "CBRE Group Inc",
+    "entry": 152.7496,
+    "price": 140.11,
+    "plpct": -7.57,
+    "target": 183.5,
+    "upside_pct": 31.0,
+    "rating": "Strong Buy",
+    "coverage": "12",
+    "months_to_breakeven": 3.8,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1847.71
+  },
+  {
+    "ticker": "ALSEN.PA",
+    "name": "Sensorion SA",
+    "entry": 10.603,
+    "price": 9.80,
+    "plpct": -7.55,
+    "target": null,
+    "upside_pct": null,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": null,
+    "breakeven_note": "Analyst target data broken at source (Low=Avg=High=1.00)",
+    "currency": "EUR",
+    "netvalue": 1848.76
+  },
+  {
+    "ticker": "WMT",
+    "name": "Walmart Inc.",
+    "entry": 116.24178,
+    "price": 108.09,
+    "plpct": -7.0,
+    "target": 126.85,
+    "upside_pct": 17.4,
+    "rating": "Strong Buy",
+    "coverage": "40",
+    "months_to_breakeven": 5.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 27890.77
+  },
+  {
+    "ticker": "CDXS",
+    "name": "Codexis Inc",
+    "entry": 1.46,
+    "price": 1.4,
+    "plpct": -6.85,
+    "target": 7.0,
+    "upside_pct": 400.0,
+    "rating": "Strong Buy",
+    "coverage": "6",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1850.34
+  },
+  {
+    "ticker": "KLRS",
+    "name": "Kalaris Therapeutics Inc",
+    "entry": 3.37,
+    "price": 3.2,
+    "plpct": -6.53,
+    "target": 14.0,
+    "upside_pct": 337.5,
+    "rating": "Moderate Buy",
+    "coverage": "7",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1863.9
+  },
+  {
+    "ticker": "MCRB",
+    "name": "Seres Therapeutics Inc",
+    "entry": 4.64,
+    "price": 4.6,
+    "plpct": -6.47,
+    "target": 17.0,
+    "upside_pct": 269.6,
+    "rating": "Moderate Buy",
+    "coverage": "2",
+    "months_to_breakeven": 0.1,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1854.7
+  },
+  {
+    "ticker": "EAAS.L",
+    "name": "Eenergy Group Plc",
+    "entry": 1.71,
+    "price": 1.65,
+    "plpct": -6.44,
+    "target": 9.0,
+    "upside_pct": 445.5,
+    "rating": "Moderate Buy",
+    "coverage": "1",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1828.44
+  },
+  {
+    "ticker": "REKR",
+    "name": "Rekor Systems Inc",
+    "entry": 0.4671,
+    "price": 0.44,
+    "plpct": -6.27,
+    "target": 3.0,
+    "upside_pct": 581.8,
+    "rating": "Moderate Buy",
+    "coverage": "1",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1849.21
+  },
+  {
+    "ticker": "GOGO",
+    "name": "Gogo Inc",
+    "entry": 2.7,
+    "price": 2.57,
+    "plpct": -5.93,
+    "target": 10.0,
+    "upside_pct": 289.1,
+    "rating": "Moderate Buy",
+    "coverage": "2",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1867.64
+  },
+  {
+    "ticker": "SDY.L",
+    "name": "Speedy Hire Plc",
+    "entry": 15.95,
+    "price": 15.66,
+    "plpct": -5.83,
+    "target": 53.0,
+    "upside_pct": 238.4,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1970.69
+  },
+  {
+    "ticker": "ASLE",
+    "name": "AerSale Corporation",
+    "entry": 5.76,
+    "price": 5.4,
+    "plpct": -5.73,
+    "target": 7.25,
+    "upside_pct": 34.3,
+    "rating": "Hold",
+    "coverage": "2",
+    "months_to_breakeven": 2.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1874.71
+  },
+  {
+    "ticker": "TDUP",
+    "name": "Thredup Inc - Class A",
+    "entry": 2.65,
+    "price": 2.48,
+    "plpct": -5.66,
+    "target": 10.0,
+    "upside_pct": 303.2,
+    "rating": "Moderate Buy",
+    "coverage": "5",
+    "months_to_breakeven": 0.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1858.74
+  },
+  {
+    "ticker": "SPRY",
+    "name": "ARS Pharmaceuticals Inc",
+    "entry": 4.6,
+    "price": 4.25,
+    "plpct": -5.65,
+    "target": 30.0,
+    "upside_pct": 605.9,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1808.34
+  },
+  {
+    "ticker": "AYTU",
+    "name": "Aytu BioScience Inc",
+    "entry": 2.14,
+    "price": 1.99,
+    "plpct": -5.61,
+    "target": 9.5,
+    "upside_pct": 377.4,
+    "rating": "",
+    "coverage": "3",
+    "months_to_breakeven": 0.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1860.82
+  },
+  {
+    "ticker": "OKUR",
+    "name": "OnKure Therapeutics Inc",
+    "entry": 3.05,
+    "price": 2.93,
+    "plpct": -5.57,
+    "target": 17.0,
+    "upside_pct": 480.2,
+    "rating": "Strong Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1876.22
+  },
+  {
+    "ticker": "GETY",
+    "name": "Getty Images Holdings Inc",
+    "entry": 0.2342,
+    "price": 0.23,
+    "plpct": -5.55,
+    "target": 0.85,
+    "upside_pct": 269.6,
+    "rating": "Hold",
+    "coverage": "",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1885.76
+  },
+  {
+    "ticker": "OLMA",
+    "name": "Olema Pharmaceuticals Inc",
+    "entry": 10.15,
+    "price": 9.78,
+    "plpct": -5.52,
+    "target": 33.17,
+    "upside_pct": 239.2,
+    "rating": "Strong Buy",
+    "coverage": "10",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1885.94
+  },
+  {
+    "ticker": "NJR",
+    "name": "NewJersey Resources",
+    "entry": 56.59,
+    "price": 53.27,
+    "plpct": -5.2,
+    "target": 63.0,
+    "upside_pct": 18.3,
+    "rating": "Moderate Buy",
+    "coverage": "7",
+    "months_to_breakeven": 4.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 9473.78
+  },
+  {
+    "ticker": "SINT",
+    "name": "SiNtx Technologies Inc",
+    "entry": 1.78,
+    "price": 1.7,
+    "plpct": -5.06,
+    "target": 8.0,
+    "upside_pct": 370.6,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1888.27
+  },
+  {
+    "ticker": "ONT.US",
+    "name": "Onterris Inc",
+    "entry": 18.9,
+    "price": 17.8,
+    "plpct": -4.97,
+    "target": 81.68,
+    "upside_pct": 358.9,
+    "rating": "Moderate Buy",
+    "coverage": "5",
+    "months_to_breakeven": 0.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1870.83
+  },
+  {
+    "ticker": "ENVX",
+    "name": "Enovix Corporation",
+    "entry": 3.07,
+    "price": 2.98,
+    "plpct": -4.56,
+    "target": 12.17,
+    "upside_pct": 308.4,
+    "rating": "Moderate Buy",
+    "coverage": "10",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1902.6
+  },
+  {
+    "ticker": "ARDX",
+    "name": "Ardelyx Inc",
+    "entry": 3.55,
+    "price": 3.4,
+    "plpct": -4.51,
+    "target": 13.0,
+    "upside_pct": 282.4,
+    "rating": "Strong Buy",
+    "coverage": "10",
+    "months_to_breakeven": 0.4,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1899.16
+  },
+  {
+    "ticker": "VERI",
+    "name": "Veritone Inc",
+    "entry": 1.14,
+    "price": 1.11,
+    "plpct": -4.39,
+    "target": 5.0,
+    "upside_pct": 350.5,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1879.31
+  },
+  {
+    "ticker": "SAA.L",
+    "name": "M&C Saatchi Plc",
+    "entry": 148.0,
+    "price": 144.0,
+    "plpct": -4.08,
+    "target": 165.2,
+    "upside_pct": 14.7,
+    "rating": "",
+    "coverage": "5",
+    "months_to_breakeven": 2.4,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1891.9
+  },
+  {
+    "ticker": "CHRS",
+    "name": "Coherus BioSciences",
+    "entry": 1.35,
+    "price": 1.33,
+    "plpct": -3.7,
+    "target": 8.5,
+    "upside_pct": 539.1,
+    "rating": "Moderate Buy",
+    "coverage": "4",
+    "months_to_breakeven": 0.1,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1896.86
+  },
+  {
+    "ticker": "PLX",
+    "name": "Protalix Biotherapeutics Inc",
+    "entry": 2.75,
+    "price": 2.66,
+    "plpct": -3.64,
+    "target": 12.0,
+    "upside_pct": 351.1,
+    "rating": "Moderate Buy",
+    "coverage": "2",
+    "months_to_breakeven": 0.3,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1899.65
+  },
+  {
+    "ticker": "NOK",
+    "name": "Nokia Corp",
+    "entry": 10.57,
+    "price": 9.84,
+    "plpct": -3.31,
+    "target": 17.2,
+    "upside_pct": 74.8,
+    "rating": "Strong Buy",
+    "coverage": "11",
+    "months_to_breakeven": 1.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 11641.91
+  },
+  {
+    "ticker": "NP5.DE",
+    "name": "Newron Pharmaceuticals SpA",
+    "entry": 11.83,
+    "price": 11.7,
+    "plpct": -2.74,
+    "target": 46.61,
+    "upside_pct": 298.4,
+    "rating": "Moderate Buy",
+    "coverage": "",
+    "months_to_breakeven": 0.1,
+    "breakeven_note": "",
+    "currency": "EUR",
+    "netvalue": 1941.85
+  },
+  {
+    "ticker": "PBEE.L",
+    "name": "Pensionbee Group Plc",
+    "entry": 133.0,
+    "price": 130.0,
+    "plpct": -2.31,
+    "target": 525.5,
+    "upside_pct": 304.2,
+    "rating": "Strong Buy",
+    "coverage": "7",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "GBX",
+    "netvalue": 1924.92
+  },
+  {
+    "ticker": "ATLX",
+    "name": "Atlas Lithium Corporation",
+    "entry": 3.04,
+    "price": 2.96,
+    "plpct": -2.3,
+    "target": 11.5,
+    "upside_pct": 288.5,
+    "rating": "Moderate Buy",
+    "coverage": "1",
+    "months_to_breakeven": 0.2,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 1934.86
+  },
+  {
+    "ticker": "PCVX",
+    "name": "Vaxcyte Inc",
+    "entry": 60.78,
+    "price": 59.21,
+    "plpct": -2.29,
+    "target": 104.6,
+    "upside_pct": 76.7,
+    "rating": "Strong Buy",
+    "coverage": "9",
+    "months_to_breakeven": 0.6,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 29299.46
+  },
+  {
+    "ticker": "VST",
+    "name": "Vistra Corp",
+    "entry": 144.24,
+    "price": 141.53,
+    "plpct": -2.17,
+    "target": 227.8,
+    "upside_pct": 61.0,
+    "rating": "Strong Buy",
+    "coverage": "19",
+    "months_to_breakeven": 0.5,
+    "breakeven_note": "",
+    "currency": "USD",
+    "netvalue": 6989.27
+  }
+];
+
+const CCY_SYM = { USD: '$', EUR: '€', GBX: '£', GBP: '£' };
+function fmtPrice(v, ccy) {
+  if (v === null || v === undefined) return '—';
+  const sym = CCY_SYM[ccy] || '';
+  const dec = v < 5 ? 4 : v < 100 ? 2 : 2;
+  return sym + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: dec });
+}
+function plColor(pct) {
+  if (pct <= -30) return 'var(--loss-5)';
+  if (pct <= -15) return 'var(--loss-4)';
+  if (pct <= -8) return 'var(--loss-3)';
+  if (pct <= -4) return 'var(--loss-2)';
+  return 'var(--loss-1)';
+}
+function fmtMonths(m, note) {
+  if (note === 'Already at/above entry') return '<span class="note">המחיר כבר מעל הכניסה (לפי הסריקה)</span>';
+  if (note === 'No live price') return '<span class="note">אין מחיר חי</span>';
+  if (note && note.startsWith('Analyst target data broken')) return '<span class="note">⚠ נתון יעד שבור במקור</span>';
+  if (note) return '<span class="note">היעד מתחת למחיר הנוכחי</span>';
+  if (m === null || m === undefined) return '<span class="note">—</span>';
+  if (m < 1) return `~${Math.round(m * 30)} ימים`;
+  return `~${m.toFixed(1)} חודשים`;
+}
+
+function invested(d) {
+  return d.netvalue / (1 + d.plpct / 100);
+}
+function lossDollars(d) {
+  return d.netvalue - invested(d);
+}
+
+function render(rows) {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = rows.map(d => {
+    const lowConf = (!d.coverage || parseInt(d.coverage, 10) <= 2);
+    const inv = invested(d);
+    const loss = lossDollars(d);
+    return `<tr>
+      <td class="name-cell">
+        <a class="ticker-link" href="https://www.etoro.com/markets/${d.ticker.toLowerCase()}/research" target="_blank" rel="noopener">${d.ticker}</a>
+        <span class="company">${d.name}</span>
+      </td>
+      <td data-raw="${d.entry}">${fmtPrice(d.entry, d.currency)}</td>
+      <td data-raw="${d.price ?? ''}">${fmtPrice(d.price, d.currency)}</td>
+      <td data-raw="${d.plpct}"><span class="plpct-bar" style="background:${plColor(d.plpct)}">${d.plpct.toFixed(1)}%</span></td>
+      <td data-raw="${loss}" style="color:var(--loss-5);font-weight:600;">-$${Math.round(Math.abs(loss)).toLocaleString('en-US')}</td>
+      <td data-raw="${inv}">$${Math.round(inv).toLocaleString('en-US')}</td>
+      <td data-raw="${d.target ?? ''}">${fmtPrice(d.target, d.currency)}</td>
+      <td data-raw="${d.upside_pct ?? ''}">${d.upside_pct !== null ? (d.upside_pct > 0 ? '+' : '') + d.upside_pct.toFixed(1) + '%' : '—'}${lowConf ? ' <span class="low-conf">⚠ כיסוי דל</span>' : ''}</td>
+      <td class="rating" data-raw="${d.rating || ''}">${d.rating || '—'}${d.coverage ? ` (${d.coverage})` : ''}</td>
+      <td data-raw="${d.months_to_breakeven ?? 999999}">${fmtMonths(d.months_to_breakeven, d.breakeven_note)}</td>
+    </tr>`;
+  }).join('');
+}
+
+render(DATA);
+
+document.getElementById('statCount').textContent = DATA.length;
+const totalLoss = DATA.reduce((s, d) => s + (d.netvalue - d.netvalue / (1 + d.plpct / 100)), 0);
+document.getElementById('statLoss').textContent = '$' + Math.round(totalLoss).toLocaleString('en-US');
+const avgPl = DATA.reduce((s, d) => s + d.plpct, 0) / DATA.length;
+document.getElementById('statAvg').textContent = avgPl.toFixed(1) + '%';
+const totalInvested = DATA.reduce((s, d) => s + invested(d), 0);
+document.getElementById('statInvested').textContent = '$' + Math.round(totalInvested).toLocaleString('en-US');
+document.getElementById('genDate').textContent = new Date().toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// Sorting
+const table = document.getElementById('tbl');
+const headers = table.querySelectorAll('th');
+let sortCol = 3, sortDir = 'asc'; // default: P/L% ascending (worst first) — matches initial data order
+
+function applySort(colIdx, type, dir) {
+  const rows = Array.from(document.getElementById('tbody').querySelectorAll('tr'));
+  rows.sort((a, b) => {
+    const ca = a.children[colIdx], cb = b.children[colIdx];
+    let cmp;
+    if (type === 'num') {
+      const na = parseFloat(ca.dataset.raw), nb = parseFloat(cb.dataset.raw);
+      cmp = (isNaN(na) ? Infinity : na) - (isNaN(nb) ? Infinity : nb);
+    } else {
+      cmp = (ca.dataset.raw || ca.textContent).localeCompare(cb.dataset.raw || cb.textContent);
+    }
+    return dir === 'asc' ? cmp : -cmp;
+  });
+  const tbody = document.getElementById('tbody');
+  rows.forEach(r => tbody.appendChild(r));
+  headers.forEach(h => {
+    const arrow = h.querySelector('.arrow');
+    arrow.innerHTML = parseInt(h.dataset.col, 10) === colIdx ? (dir === 'asc' ? '▲' : '▼') : '';
+  });
+}
+
+headers.forEach(h => {
+  h.addEventListener('click', () => {
+    const colIdx = parseInt(h.dataset.col, 10);
+    const type = h.dataset.type;
+    if (sortCol === colIdx) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+    else { sortCol = colIdx; sortDir = type === 'text' ? 'asc' : 'asc'; }
+    applySort(sortCol, type, sortDir);
+  });
+});
+
+applySort(sortCol, 'num', sortDir);
+</script>
+</body>
+</html>
