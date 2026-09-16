@@ -195,6 +195,32 @@
   }
   .acct-real { color: var(--loss-5); border-color: var(--loss-5); }
   .acct-virtual { color: var(--text-dim); }
+
+  .toggle-group {
+    display: inline-flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+  .toggle-btn {
+    font-family: 'Heebo', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .toggle-btn:hover { color: var(--text); }
+  .toggle-btn.active {
+    background: var(--accent);
+    color: #201d18;
+  }
   footer {
     margin-top: 22px;
     font-size: 12px;
@@ -209,7 +235,13 @@
     <h1>הפוזיציות בהפסד — Real + Virtual</h1>
     <div class="meta" id="genDate">16/09/2026</div>
   </div>
-  <p class="subtitle">כל ההחזקות בשני החשבונות (Real + Virtual) עם P/L מתחת ל-0%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
+  <p class="subtitle">כל ההחזקות עם P/L מתחת ל-0%‎, ממוינות מהגרוע לקל ביותר. לכל שורה: מחיר כניסה, מחיר נוכחי, יעד אנליסטים ממוצע, ואומדן זמן משוער לחזרה לאיזון.</p>
+
+  <div class="toggle-group" id="acctToggle">
+    <button class="toggle-btn active" data-acct="all">הכל</button>
+    <button class="toggle-btn" data-acct="Virtual">וירטואלי</button>
+    <button class="toggle-btn" data-acct="Real">אמיתי</button>
+  </div>
 
   <div class="stats">
     <div class="stat warn">
@@ -1887,15 +1919,38 @@ function render(rows) {
   }).join('');
 }
 
-render(DATA);
+function updateStats(rows) {
+  document.getElementById('statCount').textContent = rows.length;
+  const totalLoss = rows.reduce((s, d) => s + lossDollars(d), 0);
+  document.getElementById('statLoss').textContent = '$' + Math.round(totalLoss).toLocaleString('en-US');
+  const avgPl = rows.length ? rows.reduce((s, d) => s + d.plpct, 0) / rows.length : 0;
+  document.getElementById('statAvg').textContent = avgPl.toFixed(1) + '%';
+  const totalInvested = rows.reduce((s, d) => s + invested(d), 0);
+  document.getElementById('statInvested').textContent = '$' + Math.round(totalInvested).toLocaleString('en-US');
+}
 
-document.getElementById('statCount').textContent = DATA.length;
-const totalLoss = DATA.reduce((s, d) => s + lossDollars(d), 0);
-document.getElementById('statLoss').textContent = '$' + Math.round(totalLoss).toLocaleString('en-US');
-const avgPl = DATA.reduce((s, d) => s + d.plpct, 0) / DATA.length;
-document.getElementById('statAvg').textContent = avgPl.toFixed(1) + '%';
-const totalInvested = DATA.reduce((s, d) => s + invested(d), 0);
-document.getElementById('statInvested').textContent = '$' + Math.round(totalInvested).toLocaleString('en-US');
+let currentAcct = 'all';
+function currentRows() {
+  return currentAcct === 'all' ? DATA : DATA.filter(d => d.account === currentAcct);
+}
+function refresh() {
+  const rows = currentRows();
+  render(rows);
+  updateStats(rows);
+  applySort(sortCol, headers[sortCol].dataset.type, sortDir);
+}
+
+document.getElementById('acctToggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('.toggle-btn');
+  if (!btn) return;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentAcct = btn.dataset.acct;
+  refresh();
+});
+
+render(DATA);
+updateStats(DATA);
 
 // Sorting
 const table = document.getElementById('tbl');
