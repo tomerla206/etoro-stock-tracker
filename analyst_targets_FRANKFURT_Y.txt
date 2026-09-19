@@ -1,2 +1,2 @@
-YOC.DE	Yoc AG	4.67				NOFAQ	TRADEABLE
+YOC.DE	Yoc AG	4.58				NOFAQ	TRADEABLE
 YSN.DE	Secunet Security Networks Aktiengesellschaft	197.00	260.00	260.00	260.00	OK	TRADEABLE
