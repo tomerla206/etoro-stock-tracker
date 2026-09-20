@@ -51,7 +51,7 @@ CEVA	Ceva Inc.	30.27	38.00	47.14	60.00	OK	TRADEABLE
 CFFN	Capitol Federal Financial Inc	8.90	9.00	9.50	10.00	OK	TRADEABLE
 CG	The Carlyle Group Inc	40.10	50.00	59.25	73.00	OK	TRADEABLE
 CGBD	Carlyle Secured Lending Inc	11.41	12.00	12.00	12.00	OK	TRADEABLE
-CGC	Canopy Growth Corp	0.93	1.22	2.41	3.60	OK	TRADEABLE
+CGC	Canopy Growth Corp	0.93	1.22	1.22	1.22	OK	TRADEABLE
 CGEM	Cullinan Oncology Inc	21.08	27.00	35.00	47.00	OK	TRADEABLE
 CGNT	Cognyte Software Ltd	8.41	13.00	13.00	13.00	OK	TRADEABLE
 CGNX	Cognex Corp	61.56	65.00	79.78	91.00	OK	TRADEABLE
@@ -120,7 +120,7 @@ CRBP	Corbus Pharmaceuticals Holding	7.48	30.00	36.67	48.00	OK	TRADEABLE
 CRBU	Caribou Biosciences Inc	1.30	8.00	8.00	8.00	OK	TRADEABLE
 CRCT	Cricut Inc	5.64	3.70	4.10	4.50	OK	TRADEABLE
 CRDF	Cardiff Oncology Inc	1.37	6.00	7.50	9.00	OK	TRADEABLE
-CRDO	Credo Technology Group Holding Ltd	175.89	235.00	287.08	350.00	OK	TRADEABLE
+CRDO	Credo Technology Group Holding Ltd	175.89	235.00	283.62	350.00	OK	TRADEABLE
 CRESY	Cresud Sociedad Anónima Comercial Inmobiliaria Financiera y Agropecuaria CRESY	11.17			NOFAQ	TRADEABLE
 CRIS	Curis Inc	1.00	20.00	20.00	20.00	OK	TRADEABLE
 CRMD	CorMedix Inc	7.72	14.00	14.50	15.00	OK	TRADEABLE

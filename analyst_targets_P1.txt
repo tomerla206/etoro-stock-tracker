@@ -1,5 +1,5 @@
 PAA	Plains All American Pipeline LP	25.37	23.00	25.50	27.00	OK	TRADEABLE
-PAAS	Pan American Silver Corp	49.99	53.00	65.58	94.00	OK	TRADEABLE
+PAAS	Pan American Silver Corp	49.99	53.00	65.57	94.00	OK	TRADEABLE
 PACB	Pacific Biosciences of California Inc	1.37	1.25	2.08	3.00	OK	TRADEABLE
 PAGP	Plains GP Holdings LP	27.67	23.00	26.00	28.00	OK	TRADEABLE
 PAHC	Phibro Animal Health Corporation	34.56	35.00	35.00	35.00	OK	TRADEABLE

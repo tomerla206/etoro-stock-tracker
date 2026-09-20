@@ -1,4 +1,4 @@
 RATOb.ST	Ratos AB	37.42				NOFAQ	TRADEABLE
-RAYb.ST	RaySearch Laboratories AB (publ)	177.20				NOFAQ	TRADEABLE
+RAYb.ST	RaySearch Laboratories AB (publ)	171.60				NOFAQ	TRADEABLE
 ROKOb.ST	Roko AB (publ)	1852.00				NOFAQ	TRADEABLE
 RUSTA.ST	Rusta AB (publ)	77.35				NOFAQ	TRADEABLE
