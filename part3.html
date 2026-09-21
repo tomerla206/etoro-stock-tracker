@@ -794,11 +794,11 @@
     // if the user hasn't already hidden/shown it manually, and restore it when
     // leaving "In Portfolio" (only if we're the ones who hid it).
     const toggleYahoo = document.getElementById('toggleYahoo');
-    if (portfolioMode === 'in' && toggleYahoo.checked) {
+    if ((portfolioMode === 'in' || portfolioMode === 'orders') && toggleYahoo.checked) {
       toggleYahoo.checked = false;
       stockTable.classList.add('hide-yahoo');
       autoHidYahoo = true;
-    } else if (portfolioMode !== 'in' && autoHidYahoo) {
+    } else if (portfolioMode !== 'in' && portfolioMode !== 'orders' && autoHidYahoo) {
       toggleYahoo.checked = true;
       stockTable.classList.remove('hide-yahoo');
       autoHidYahoo = false;
@@ -811,6 +811,7 @@
     const inPortfolio = status === 'HELD' || status === 'PENDING';
     if (portfolioMode === 'in') return inPortfolio;
     if (portfolioMode === 'out') return !inPortfolio;
+    if (portfolioMode === 'orders') return status === 'PENDING';
     return true;
   }
   const activeStatuses = new Set(['normal']);

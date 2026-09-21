@@ -994,3 +994,30 @@ Already up to date.
 
 Merging local portfolio data into the freshly-pulled site...
 ===== Daily pull finished: Sun 09/20/2026 17:00:45.14 ===== 
+===== Daily pull started: Tue 09/22/2026  2:00:01.59 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 71 elevated-risk tickers from elevated_risk.tsv
+Updated 71 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4299 rows tagged (out of 4299 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2753 rows tagged (out of 2753 scraped tickers).
+[merge_insider.py] Insider activity merged: 75 rows tagged (out of 75 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4320 rows tagged (out of 4320 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5653 rows tagged (out of 5653 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 2 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 264 rows tagged, TP known for 42.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Tue 09/22/2026  2:00:45.60 ===== 

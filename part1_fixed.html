@@ -1799,6 +1799,7 @@
   .dot-nofaq { background: var(--row-nofaq-border); }
   .dot-not-tradeable { background: var(--row-not-tradeable-border); }
   .dot-elevated-risk { background: var(--row-elevated-risk-border); }
+  .dot-pending { background: #f5a623; }
   .dot-upside-pos { background: var(--analysis-high); }
   .dot-upside-neg { background: var(--analysis-low); }
   .dot-upside-undefined { background: var(--text-dim); }
@@ -2804,6 +2805,7 @@
     <button type="button" class="status-pill active" data-portfolio="all">All Stocks</button>
     <button type="button" class="status-pill" data-portfolio="in"><span class="status-dot dot-normal"></span>In Portfolio</button>
     <button type="button" class="status-pill" data-portfolio="out">Not in Portfolio</button>
+    <button type="button" class="status-pill" data-portfolio="orders"><span class="status-dot dot-pending"></span>Orders</button>
     <div class="account-toggle" id="sourceToggle">
       <span class="account-toggle-label">Analysis Source</span>
       <button type="button" class="acct-btn active" data-src="tr">TipRanks</button>

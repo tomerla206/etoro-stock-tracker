@@ -59,6 +59,19 @@ def check_portfolio_file(filename):
             ISSUES.append(f"{filename}:{lineno}: duplicate ticker {ticker} (first seen line {seen[ticker]})")
         seen[ticker] = lineno
 
+        if status == "PENDING":
+            # Not filled yet: units/avgopen are legitimately unknown (blank),
+            # and pl/plpct are meaningless until the order executes. Only
+            # netvalue (the reserved/invested amount) and status matter here -
+            # see merge_portfolio.py's PENDING tooltip, which only reads
+            # netvalue. Just sanity-check that netvalue parses.
+            try:
+                float(netvalue)
+            except ValueError as e:
+                ISSUES.append(f"{filename}:{lineno}: non-numeric netvalue for pending {ticker}: {e}")
+            out_lines.append(line)
+            continue
+
         try:
             units_f = float(units)
             avgopen_f = float(avgopen)
