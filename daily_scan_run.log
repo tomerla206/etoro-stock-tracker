@@ -334,3 +334,663 @@ Already up to date.
 
 Merging local portfolio data into the freshly-pulled site...
 ===== Daily pull finished: Sat 09/12/2026 17:00:36.67 ===== 
+===== Daily pull started: Sun 09/13/2026  2:00:02.85 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4285 rows tagged (out of 4285 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2742 rows tagged (out of 2742 scraped tickers).
+[merge_insider.py] Insider activity merged: 45 rows tagged (out of 45 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4305 rows tagged (out of 4305 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5660 rows tagged (out of 5660 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 9 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6163 rows tagged (out of 6163 ranked tickers).
+[merge_portfolio.py] Virtual: 60 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 35 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sun 09/13/2026  2:00:51.48 ===== 
+===== Daily pull started: Sun 09/13/2026 17:00:01.97 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4293 rows tagged (out of 4293 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 23 rows tagged (out of 23 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4314 rows tagged (out of 4314 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 17 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6137 rows tagged (out of 6137 ranked tickers).
+[merge_portfolio.py] Virtual: 60 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sun 09/13/2026 17:00:39.20 ===== 
+===== Daily pull started: Mon 09/14/2026  2:00:02.04 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4293 rows tagged (out of 4293 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 23 rows tagged (out of 23 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4314 rows tagged (out of 4314 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 17 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6137 rows tagged (out of 6137 ranked tickers).
+[merge_portfolio.py] Virtual: 60 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Mon 09/14/2026  2:00:44.08 ===== 
+===== Daily pull started: Mon 09/14/2026 17:00:01.28 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4293 rows tagged (out of 4293 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 40 rows tagged (out of 40 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4314 rows tagged (out of 4314 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 0 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 60 rows tagged, TP known for 50.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Mon 09/14/2026 17:00:42.68 ===== 
+===== Daily pull started: Tue 09/15/2026  2:00:01.29 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4293 rows tagged (out of 4293 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 40 rows tagged (out of 40 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4314 rows tagged (out of 4314 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 0 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 92 rows tagged, TP known for 45.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Tue 09/15/2026  2:00:40.20 ===== 
+===== Daily pull started: Tue 09/15/2026 17:00:01.90 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4294 rows tagged (out of 4294 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 31 rows tagged (out of 31 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4315 rows tagged (out of 4315 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 5 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6142 rows tagged (out of 6142 ranked tickers).
+[merge_portfolio.py] Virtual: 92 rows tagged, TP known for 45.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Tue 09/15/2026 17:00:47.49 ===== 
+===== Daily pull started: Wed 09/16/2026  2:00:01.40 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4294 rows tagged (out of 4294 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2750 rows tagged (out of 2750 scraped tickers).
+[merge_insider.py] Insider activity merged: 31 rows tagged (out of 31 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4315 rows tagged (out of 4315 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 5 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6142 rows tagged (out of 6142 ranked tickers).
+[merge_portfolio.py] Virtual: 99 rows tagged, TP known for 44.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Wed 09/16/2026  2:00:42.73 ===== 
+===== Daily pull started: Wed 09/16/2026 17:00:01.54 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 32 elevated-risk tickers from elevated_risk.tsv
+Updated 32 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4300 rows tagged (out of 4300 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2752 rows tagged (out of 2752 scraped tickers).
+[merge_insider.py] Insider activity merged: 34 rows tagged (out of 34 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4321 rows tagged (out of 4321 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5661 rows tagged (out of 5661 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 20 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6162 rows tagged (out of 6162 ranked tickers).
+[merge_portfolio.py] Virtual: 99 rows tagged, TP known for 44.
+Real: 15 rows tagged, TP known for 12.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 27 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Wed 09/16/2026 17:00:37.01 ===== 
+===== Daily pull started: Thu 09/17/2026  7:08:26.73 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 33 elevated-risk tickers from elevated_risk.tsv
+Updated 33 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2754 rows tagged (out of 2754 scraped tickers).
+[merge_insider.py] Insider activity merged: 39 rows tagged (out of 39 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 21 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 113 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Thu 09/17/2026  7:09:25.80 ===== 
+===== Daily pull started: Thu 09/17/2026 17:00:02.00 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 33 elevated-risk tickers from elevated_risk.tsv
+Updated 33 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2754 rows tagged (out of 2754 scraped tickers).
+[merge_insider.py] Insider activity merged: 39 rows tagged (out of 39 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 21 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 113 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Thu 09/17/2026 17:00:46.34 ===== 
+===== Daily pull started: Fri 09/18/2026  2:00:01.77 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 33 elevated-risk tickers from elevated_risk.tsv
+Updated 33 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2754 rows tagged (out of 2754 scraped tickers).
+[merge_insider.py] Insider activity merged: 39 rows tagged (out of 39 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 21 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6135 rows tagged (out of 6135 ranked tickers).
+[merge_portfolio.py] Virtual: 113 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Fri 09/18/2026  2:00:43.16 ===== 
+===== Daily pull started: Fri 09/18/2026 17:00:01.41 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 33 elevated-risk tickers from elevated_risk.tsv
+Updated 33 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4304 rows tagged (out of 4304 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2756 rows tagged (out of 2756 scraped tickers).
+[merge_insider.py] Insider activity merged: 34 rows tagged (out of 34 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4325 rows tagged (out of 4325 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 6 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 113 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 28 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Fri 09/18/2026 17:00:41.66 ===== 
+===== Daily pull started: Sat 09/19/2026  2:00:01.46 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 61 elevated-risk tickers from elevated_risk.tsv
+Updated 61 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4304 rows tagged (out of 4304 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2756 rows tagged (out of 2756 scraped tickers).
+[merge_insider.py] Insider activity merged: 64 rows tagged (out of 64 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6182 rows tagged (out of 6182 scanned tickers).
+[merge_score.py] Score merged: 4325 rows tagged (out of 4325 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6188 rows tagged (out of 6188 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6182 rows tagged (out of 6182 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5654 rows tagged (out of 5654 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6213 rows tagged (out of 6213 scored tickers, 6 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6136 rows tagged (out of 6136 ranked tickers).
+[merge_portfolio.py] Virtual: 215 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 53 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sat 09/19/2026  2:00:39.83 ===== 
+===== Daily pull started: Sat 09/19/2026 18:49:40.21 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 61 elevated-risk tickers from elevated_risk.tsv
+Updated 61 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4285 rows tagged (out of 4285 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2744 rows tagged (out of 2744 scraped tickers).
+[merge_insider.py] Insider activity merged: 25 rows tagged (out of 25 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4306 rows tagged (out of 4306 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5653 rows tagged (out of 5653 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 9 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6134 rows tagged (out of 6134 ranked tickers).
+[merge_portfolio.py] Virtual: 215 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sat 09/19/2026 18:51:36.93 ===== 
+===== Daily pull started: Sun 09/20/2026  2:00:01.60 ===== 
+Pulling latest scan results from GitHub...
+Updating 707fa84..6084f45
+
+Local changes to 2 file(s) were blocking the pull (likely from a local SCAN VALUES run) - discarded and retrying:
+  all_rows.html
+  nasdaq-stocks.html
+Updating 707fa84..6084f45
+Fast-forward
+ BACKTEST_RESULTS.md                                |     2 +-
+ INSIDER_SCAN_RESULTS.md                            |    52 +-
+ MEGASCAN_RESULTS.md                                |     6 +-
+ MEGASCAN_YAHOO_RESULTS.md                          |     2 +-
+ MOMENTUM_SCAN_LOG.md                               |     6 +-
+ all_rows.html                                      | 13522 +++++++++----------
+ analyst_snapshot_history.tsv                       |  4295 ++++++
+ analyst_targets_A.txt                              |    42 +-
+ analyst_targets_AMSTERDAM.txt                      |   120 +-
+ analyst_targets_B.txt                              |    12 +-
+ analyst_targets_BRUSSELS.txt                       |   112 +-
+ analyst_targets_C.txt                              |    22 +-
+ analyst_targets_COPENHAGEN.txt                     |    94 +-
+ analyst_targets_D.txt                              |     6 +-
+ analyst_targets_E.txt                              |     6 +-
+ analyst_targets_F.txt                              |     6 +-
+ analyst_targets_FRANKFURT_0-9.txt                  |    18 +-
+ analyst_targets_FRANKFURT_A.txt                    |    48 +-
+ analyst_targets_FRANKFURT_B.txt                    |    34 +-
+ analyst_targets_FRANKFURT_C.txt                    |    22 +-
+ analyst_targets_FRANKFURT_D.txt                    |    42 +-
+ analyst_targets_FRANKFURT_E.txt                    |    26 +-
+ analyst_targets_FRANKFURT_F.txt                    |    18 +-
+ analyst_targets_FRANKFURT_G.txt                    |    18 +-
+ analyst_targets_FRANKFURT_H.txt                    |    34 +-
+ analyst_targets_FRANKFURT_I.txt                    |    18 +-
+ analyst_targets_FRANKFURT_J.txt                    |     8 +-
+ analyst_targets_FRANKFURT_K.txt                    |    14 +-
+ analyst_targets_FRANKFURT_L.txt                    |    14 +-
+ analyst_targets_FRANKFURT_M.txt                    |    34 +-
+ analyst_targets_FRANKFURT_N.txt                    |    20 +-
+ analyst_targets_FRANKFURT_O.txt                    |     6 +-
+ analyst_targets_FRANKFURT_P.txt                    |    18 +-
+ analyst_targets_FRANKFURT_Q.txt                    |     4 +-
+ analyst_targets_FRANKFURT_R.txt                    |    12 +-
+ analyst_targets_FRANKFURT_S.txt                    |    52 +-
+ analyst_targets_FRANKFURT_T.txt                    |    24 +-
+ analyst_targets_FRANKFURT_U.txt                    |     8 +-
+ analyst_targets_FRANKFURT_V.txt                    |    22 +-
+ analyst_targets_FRANKFURT_W.txt                    |    16 +-
+ analyst_targets_FRANKFURT_X.txt                    |     2 +-
+ analyst_targets_FRANKFURT_Y.txt                    |     2 +-
+ analyst_targets_FRANKFURT_Z.txt                    |     4 +-
+ analyst_targets_G.txt                              |    12 +-
+ analyst_targets_H.txt                              |    12 +-
+ analyst_targets_HELSINKI.txt                       |   140 +-
+ analyst_targets_HONGKONG_HK2.txt                   |     4 +-
+ analyst_targets_HONGKONG_HK4.txt                   |     2 +-
+ analyst_targets_HONGKONG_HK5.txt                   |     2 +-
+ analyst_targets_I.txt                              |    12 +-
+ analyst_targets_J.txt                              |     4 +-
+ analyst_targets_K.txt                              |    10 +-
+ analyst_targets_L.txt                              |     6 +-
+ analyst_targets_LISBON.txt                         |     8 +-
+ analyst_targets_LONDON.txt                         |    60 +-
+ analyst_targets_LONDONAIM.txt                      |     6 +-
+ analyst_targets_M1.txt                             |    10 +-
+ analyst_targets_M2.txt                             |    12 +-
+ analyst_targets_MADRID.txt                         |    86 +-
+ analyst_targets_MILAN_A.txt                        |     2 +-
+ analyst_targets_MILAN_B.txt                        |    10 +-
+ analyst_targets_MILAN_C.txt                        |     4 +-
+ analyst_targets_MILAN_D.txt                        |     2 +-
+ analyst_targets_MILAN_E.txt                        |     8 +-
+ analyst_targets_MILAN_F.txt                        |     4 +-
+ analyst_targets_MILAN_G.txt                        |     4 +-
+ analyst_targets_MILAN_I.txt                        |    10 +-
+ analyst_targets_MILAN_L.txt                        |     4 +-
+ analyst_targets_MILAN_M.txt                        |     4 +-
+ analyst_targets_MILAN_N.txt                        |     2 +-
+ analyst_targets_MILAN_P.txt                        |     6 +-
+ analyst_targets_MILAN_R.txt                        |     6 +-
+ analyst_targets_MILAN_S.txt                        |    12 +-
+ analyst_targets_MILAN_T.txt                        |     8 +-
+ analyst_targets_MILAN_U.txt                        |     4 +-
+ analyst_targets_N.txt                              |    22 +-
+ analyst_targets_NYSE_A.txt                         |    38 +-
+ analyst_targets_NYSE_B.txt                         |    24 +-
+ analyst_targets_NYSE_C1.txt                        |    22 +-
+ analyst_targets_NYSE_C2.txt                        |    20 +-
+ analyst_targets_NYSE_D.txt                         |     8 +-
+ analyst_targets_NYSE_E.txt                         |    20 +-
+ analyst_targets_NYSE_F.txt                         |    14 +-
+ analyst_targets_NYSE_G.txt                         |    14 +-
+ analyst_targets_NYSE_H.txt                         |     8 +-
+ analyst_targets_NYSE_I.txt                         |    10 +-
+ analyst_targets_NYSE_J.txt                         |     4 +-
+ analyst_targets_NYSE_K.txt                         |     6 +-
+ analyst_targets_NYSE_L.txt                         |     6 +-
+ analyst_targets_NYSE_M1.txt                        |    10 +-
+ analyst_targets_NYSE_M2.txt                        |     6 +-
+ analyst_targets_NYSE_N.txt                         |    10 +-
+ analyst_targets_NYSE_O.txt                         |     6 +-
+ analyst_targets_NYSE_P1.txt                        |     4 +-
+ analyst_targets_NYSE_R.txt                         |    12 +-
+ analyst_targets_NYSE_S1.txt                        |    10 +-
+ analyst_targets_NYSE_S2.txt                        |    14 +-
+ analyst_targets_NYSE_T1.txt                        |    14 +-
+ analyst_targets_NYSE_T2.txt                        |    16 +-
+ analyst_targets_NYSE_U.txt                         |     4 +-
+ analyst_targets_NYSE_V.txt                         |    10 +-
+ analyst_targets_NYSE_W.txt                         |     8 +-
+ analyst_targets_NYSE_X.txt                         |     2 +-
+ analyst_targets_NYSE_Y.txt                         |     2 +-
+ analyst_targets_NYSE_Z.txt                         |     4 +-
+ analyst_targets_O.txt                              |     4 +-
+ analyst_targets_OSLO_O.txt                         |     2 +-
+ analyst_targets_OSLO_S.txt                         |     2 +-
+ analyst_targets_OSLO_T.txt                         |     2 +-
+ analyst_targets_OSLO_V.txt                         |     2 +-
+ analyst_targets_OTC.txt                            |    26 +-
+ analyst_targets_P1.txt                             |     8 +-
+ analyst_targets_P2.txt                             |    12 +-
+ analyst_targets_PARIS_7.txt                        |     2 +-
+ analyst_targets_PARIS_A1.txt                       |    78 +-
+ analyst_targets_PARIS_A2.txt                       |    76 +-
+ analyst_targets_PARIS_A3.txt                       |    74 +-
+ analyst_targets_PARIS_B.txt                        |    18 +-
+ analyst_targets_PARIS_C.txt                        |    44 +-
+ analyst_targets_PARIS_D.txt                        |    12 +-
+ analyst_targets_PARIS_E.txt                        |    32 +-
+ analyst_targets_PARIS_F.txt                        |    10 +-
+ analyst_targets_PARIS_G.txt                        |    18 +-
+ analyst_targets_PARIS_H.txt                        |     4 +-
+ analyst_targets_PARIS_I.txt                        |    18 +-
+ analyst_targets_PARIS_J.txt                        |     2 +-
+ analyst_targets_PARIS_K.txt                        |     2 +-
+ analyst_targets_PARIS_L.txt                        |    12 +-
+ analyst_targets_PARIS_M.txt                        |    18 +-
+ analyst_targets_PARIS_N.txt                        |     8 +-
+ analyst_targets_PARIS_O.txt                        |     8 +-
+ analyst_targets_PARIS_P.txt                        |    14 +-
+ analyst_targets_PARIS_Q.txt                        |     2 +-
+ analyst_targets_PARIS_R.txt                        |    14 +-
+ analyst_targets_PARIS_S.txt                        |    30 +-
+ analyst_targets_PARIS_T.txt                        |    14 +-
+ analyst_targets_PARIS_U.txt                        |     2 +-
+ analyst_targets_PARIS_V.txt                        |    20 +-
+ analyst_targets_PARIS_W.txt                        |     4 +-
+ analyst_targets_PARIS_X.txt                        |     2 +-
+ analyst_targets_Q.txt                              |     2 +-
+ analyst_targets_R.txt                              |    18 +-
+ analyst_targets_S1.txt                             |    12 +-
+ analyst_targets_S2.txt                             |    14 +-
+ analyst_targets_STOCKHOLM_A.txt                    |    26 +-
+ analyst_targets_STOCKHOLM_B.txt                    |    18 +-
+ analyst_targets_STOCKHOLM_C.txt                    |    12 +-
+ analyst_targets_STOCKHOLM_D.txt                    |     6 +-
+ analyst_targets_STOCKHOLM_E.txt                    |    22 +-
+ analyst_targets_STOCKHOLM_F.txt                    |     2 +-
+ analyst_targets_STOCKHOLM_G.txt                    |     2 +-
+ analyst_targets_STOCKHOLM_H.txt                    |    16 +-
+ analyst_targets_STOCKHOLM_I.txt                    |    12 +-
+ analyst_targets_STOCKHOLM_K.txt                    |     2 +-
+ analyst_targets_STOCKHOLM_L.txt                    |    14 +-
+ analyst_targets_STOCKHOLM_M.txt                    |    12 +-
+ analyst_targets_STOCKHOLM_N.txt                    |    12 +-
+ analyst_targets_STOCKHOLM_O.txt                    |     6 +-
+ analyst_targets_STOCKHOLM_R.txt                    |     8 +-
+ analyst_targets_STOCKHOLM_S.txt                    |    46 +-
+ analyst_targets_STOCKHOLM_T.txt                    |     8 +-
+ analyst_targets_STOCKHOLM_V.txt                    |     6 +-
+ analyst_targets_STOCKHOLM_W.txt                    |     2 +-
+ analyst_targets_STOCKHOLM_X.txt                    |     2 +-
+ analyst_targets_STOCKHOLM_Y.txt                    |     2 +-
+ analyst_targets_SYDNEY_A.txt                       |     4 +-
+ analyst_targets_SYDNEY_B.txt                       |     6 +-
+ analyst_targets_SYDNEY_C.txt                       |     6 +-
+ analyst_targets_SYDNEY_D.txt                       |     2 +-
+ analyst_targets_SYDNEY_F.txt                       |     2 +-
+ analyst_targets_SYDNEY_G.txt                       |     4 +-
+ analyst_targets_SYDNEY_K.txt                       |     2 +-
+ analyst_targets_SYDNEY_O.txt                       |     2 +-
+ analyst_targets_SYDNEY_P.txt                       |     2 +-
+ analyst_targets_SYDNEY_R.txt                       |     4 +-
+ analyst_targets_SYDNEY_S.txt                       |     4 +-
+ analyst_targets_SYDNEY_V.txt                       |     2 +-
+ analyst_targets_SYDNEY_W.txt                       |     4 +-
+ analyst_targets_T.txt                              |    10 +-
+ analyst_targets_V.txt                              |     6 +-
+ analyst_targets_W.txt                              |     8 +-
+ analyst_targets_X.txt                              |     2 +-
+ analyst_targets_Z.txt                              |     2 +-
+ analyst_targets_ZURICH.txt                         |    84 +-
+ consensus_ratings.txt                              |   482 +-
+ .../fundamentals-shard-0/fundamentals_shard0.json  |     2 +-
+ .../fundamentals-shard-1/fundamentals_shard1.json  |     2 +-
+ .../fundamentals-shard-2/fundamentals_shard2.json  |     2 +-
+ .../insider-scan-output/INSIDER_SCAN_RESULTS.md    |    52 +-
+ .../insider-scan-output/insider_activity.tsv       |    41 +-
+ .../megascan-shard-0/megascan_shard0.json          |     2 +-
+ .../megascan-shard-1/megascan_shard1.json          |     2 +-
+ .../megascan-shard-2/megascan_shard2.json          |     2 +-
+ .../megascan-shard-3/megascan_shard3.json          |     2 +-
+ .../megascan-shard-4/megascan_shard4.json          |     2 +-
+ .../megascan-shard-5/megascan_shard5.json          |     2 +-
+ .../megascan_yahoo_shard0.json                     |     2 +-
+ .../megascan_yahoo_shard1.json                     |     2 +-
+ .../megascan_yahoo_shard2.json                     |     2 +-
+ .../megascan_yahoo_shard3.json                     |     2 +-
+ .../megascan_yahoo_shard4.json                     |     2 +-
+ .../megascan_yahoo_shard5.json                     |     2 +-
+ fundamentals_data.tsv                              | 12348 ++++++++---------
+ growth_score.tsv                                   |  4344 +++---
+ hedge_fund_activity.tsv                            |    95 +-
+ index.html                                         | 13522 +++++++++----------
+ insider_activity.tsv                               |    41 +-
+ momentum_data.tsv                                  |  5593 ++++----
+ nasdaq-stocks.html                                 | 13522 +++++++++----------
+ overall_score.tsv                                  | 12216 ++++++++---------
+ risk_score.tsv                                     |  5328 ++++----
+ score.tsv                                          |  1290 +-
+ score_change.tsv                                   |    20 +-
+ score_history.tsv                                  |  6212 +++++++++
+ score_percentile.tsv                               |  6406 ++++-----
+ secondary_score.tsv                                | 12174 ++++++++---------
+ sector_data.tsv                                    |  4858 +++----
+ weekly_momentum.html                               |  4997 ++++---
+ weekly_momentum_score.tsv                          |  5349 ++++----
+ yahoo_dividends_MEGASCAN.txt                       |  4166 +++---
+ yahoo_targets_0_MEGASCAN.txt                       |  1996 +--
+ 221 files changed, 73167 insertions(+), 62616 deletions(-)
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 61 elevated-risk tickers from elevated_risk.tsv
+Updated 61 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2749 rows tagged (out of 2749 scraped tickers).
+[merge_insider.py] Insider activity merged: 36 rows tagged (out of 36 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5651 rows tagged (out of 5651 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 11 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6134 rows tagged (out of 6134 ranked tickers).
+[merge_portfolio.py] Virtual: 215 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sun 09/20/2026  2:00:56.10 ===== 
+===== Daily pull started: Sun 09/20/2026 17:00:01.85 ===== 
+[merge_analyst_targets.py] Loaded 6761 valid ticker records (after skipping 0 MISMATCH/malformed) from analyst_targets_*.txt
+Updated 6761 rows in all_rows.html
+[merge_elevated_risk.py] Loaded 61 elevated-risk tickers from elevated_risk.tsv
+Updated 61 rows in all_rows.html
+[merge_yahoo_targets.py] Yahoo Finance targets merged: 6729 rows tagged (out of 6730 scraped tickers).
+[merge_yahoo_dividends.py] Yahoo dividends merged: 5987 rows tagged (out of 5987 scraped tickers).
+[merge_consensus.py] Consensus/Rating merged: 4295 rows tagged (out of 4295 scraped tickers).
+[merge_hedgefund.py] Hedge Fund Activity merged: 2749 rows tagged (out of 2749 scraped tickers).
+[merge_insider.py] Insider activity merged: 36 rows tagged (out of 36 scraped tickers).
+[merge_fundamentals.py] Fundamentals (Short%/RSI/PE/Market Cap/Beta/Volume/PEG/52wRange/ROE/InstOwn/CurrentRatio/QuickRatio/ROA/HeldInsiders/GrossMargin/OpMargin/FCFYield/Coverage/ForwardPE/P-B/EV-EBITDA/EV-Revenue/Payout/EBITDAMargin/CashMcap/OCFMargin/RelStrength/ShortIntTrend/FloatPct/EPSGrowth5y/EPSGrowthNextYr/EarningsQGrowth) merged: 6181 rows tagged (out of 6181 scanned tickers).
+[merge_score.py] Score merged: 4316 rows tagged (out of 4316 scored tickers).
+[merge_secondary_score.py] Secondary Score merged: 6187 rows tagged (out of 6187 scored tickers).
+[merge_risk_score.py] Risk Score merged: 6181 rows tagged (out of 6181 scored tickers, now includes Short Interest Trend + Float %%).
+[merge_growth_score.py] Growth Score merged: 5651 rows tagged (out of 5651 scored tickers).
+[merge_overall_score.py] Overall Score merged: 6212 rows tagged (out of 6212 scored tickers, 11 with a meaningful change, 6213 with history).
+[merge_score_percentile.py] Score Percentile merged: 6134 rows tagged (out of 6134 ranked tickers).
+[merge_portfolio.py] Virtual: 215 rows tagged, TP known for 43.
+Real: 14 rows tagged, TP known for 10.
+[merge_scan_dates.py] Scan dates merged: 6761 rows tagged (out of 6761 known tickers from 29 distinct dates).
+[add_currency_labels.py] Currency labels added to 6761 rows (0 target-currency overrides applied).
+Site rebuilt: nasdaq-stocks.html
+Pulling latest scan results from GitHub...
+Already up to date.
+
+Merging local portfolio data into the freshly-pulled site...
+===== Daily pull finished: Sun 09/20/2026 17:00:45.14 ===== 
