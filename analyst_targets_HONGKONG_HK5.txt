@@ -1,39 +1,39 @@
-288.HK	WH Group Ltd	6.54				NOFAQ	TRADEABLE
-2883.HK	China Oilfield	7.43	9.00	10.82	12.00	OK	TRADEABLE
-2899.HK	Zijin Mining	34.02	50.20	52.07	55.00	OK	TRADEABLE
-291.HK	China Resources Beer (Holdings) Company Limited	18.35				NOFAQ	TRADEABLE
-293.HK	Cathay Pacific Airways	14.13				NOFAQ	TRADEABLE
-3.HK	Hong Kong & China Gas Co Ltd	7.11				NOFAQ	TRADEABLE
-300.HK	Midea Group Co Ltd	96.25				NOFAQ	TRADEABLE
-316.HK	Orient Overseas International Ltd	145.10				NOFAQ	TRADEABLE
-3311.HK	China State Construction Int	8.43	7.00	10.52	12.00	OK	TRADEABLE
-3323.HK	China National Building Material	3.20	3.20	5.25	7.30	OK	TRADEABLE
-3328.HK	Bank of Communications	8.24	8.50	8.50	8.50	OK	TRADEABLE
-3347.HK	Hangzhou Tigermed Consulting Co Ltd	46.58	41.00	52.42	73.00	OK	TRADEABLE
-341.HK	Cafe de Coral Holdings Ltd	5.20				NOFAQ	TRADEABLE
-358.HK	Jiangxi Copper Co Ltd H	34.32				NOFAQ	TRADEABLE
-3606.HK	Fuyao Glass Industry Group H	54.00	73.70	73.70	73.70	OK	TRADEABLE
-3618.HK	Chongqing Rural Commercial Bank Co Ltd	6.32				NOFAQ	TRADEABLE
-3692.HK	Hansoh Pharmaceutical Group	35.34	49.12	49.12	49.12	OK	TRADEABLE
-3750.HK	Contemporary Amperex Technology Co Limited	507.00	736.00	776.75	820.00	OK	TRADEABLE
-3759.HK	Pharmaron Beijing Co Ltd	30.26	35.30	35.30	35.30	OK	TRADEABLE
-3800.HK	GCL Technology Holdings Ltd	0.74	1.00	1.21	1.62	OK	TRADEABLE
-3808.HK	Sinotruk Hong Kong Ltd	36.80	55.80	55.80	55.80	OK	TRADEABLE
-3888.HK	Kingsoft Corp Ltd	25.22	31.80	31.80	31.80	OK	TRADEABLE
-3898.HK	Zhuzhou CRRC Times Electri H	28.76	39.90	46.23	54.00	OK	TRADEABLE
-3958.HK	Orient Securities Company Limited	5.82				NOFAQ	TRADEABLE
-3968.HK	China Merchants Bank	51.65	58.50	58.50	58.50	OK	TRADEABLE
-3969.HK	China Railway Signal & Com H	2.97				NOFAQ	TRADEABLE
-3988.HK	Bank of China	6.02	5.96	5.96	5.96	OK	TRADEABLE
-3996.HK	China Energy Engineering Corp Limited	1.04				NOFAQ	TRADEABLE
-3998.HK	Bosideng Intl Hldgs Ltd	3.93	5.15	5.53	6.03	OK	TRADEABLE
-4.HK	Wharf Holdings Ltd	19.59				NOFAQ	TRADEABLE
-6030.HK	CITIC Securities Co Ltd	25.54	32.50	33.60	34.40	OK	TRADEABLE
-6055.HK	China Tobacco International HK Co Ltd	24.14	26.65	29.48	32.75	OK	TRADEABLE
-6066.HK	CSC Financial Co Ltd	11.57	15.20	16.35	17.50	OK	TRADEABLE
-6099.HK	China Merchants Securities Co	15.14	17.50	18.67	20.50	OK	TRADEABLE
-6160.HK	BeiGene Ltd	217.60	225.60	272.93	321.70	OK	TRADEABLE
-6178.HK	Everbright Securities Company Limited	7.16				NOFAQ	TRADEABLE
-6181.HK	Laopu Gold Co Ltd	362.80	580.00	580.00	580.00	OK	TRADEABLE
-6185.HK	CanSino Biologics Inc	29.40	46.00	50.53	53.20	OK	TRADEABLE
-6186.HK	China Feihe Ltd	2.53	2.96	3.52	4.01	OK	TRADEABLE
+288.HK	WH Group Ltd	6.45				NOFAQ	TRADEABLE
+2883.HK	China Oilfield	7.51	9.00	10.82	12.00	OK	TRADEABLE
+2899.HK	Zijin Mining	33.58	50.20	52.07	55.00	OK	TRADEABLE
+291.HK	China Resources Beer (Holdings) Company Limited	18.61				NOFAQ	TRADEABLE
+293.HK	Cathay Pacific Airways	14.35				NOFAQ	TRADEABLE
+3.HK	Hong Kong & China Gas Co Ltd	7.09				NOFAQ	TRADEABLE
+300.HK	Midea Group Co Ltd	96.40				NOFAQ	TRADEABLE
+316.HK	Orient Overseas International Ltd	142.50				NOFAQ	TRADEABLE
+3311.HK	China State Construction Int	8.38	7.00	10.52	12.00	OK	TRADEABLE
+3323.HK	China National Building Material	3.27	3.20	5.25	7.30	OK	TRADEABLE
+3328.HK	Bank of Communications	8.21	8.50	8.50	8.50	OK	TRADEABLE
+3347.HK	Hangzhou Tigermed Consulting Co Ltd	46.76	41.00	52.42	73.00	OK	TRADEABLE
+341.HK	Cafe de Coral Holdings Ltd	5.22				NOFAQ	TRADEABLE
+358.HK	Jiangxi Copper Co Ltd H	34.18				NOFAQ	TRADEABLE
+3606.HK	Fuyao Glass Industry Group H	53.80	73.70	73.70	73.70	OK	TRADEABLE
+3618.HK	Chongqing Rural Commercial Bank Co Ltd	6.30				NOFAQ	TRADEABLE
+3692.HK	Hansoh Pharmaceutical Group	34.94	49.12	49.12	49.12	OK	TRADEABLE
+3750.HK	Contemporary Amperex Technology Co Limited	511.50	736.00	776.75	820.00	OK	TRADEABLE
+3759.HK	Pharmaron Beijing Co Ltd	30.60	35.30	35.30	35.30	OK	TRADEABLE
+3800.HK	GCL Technology Holdings Ltd	0.75	1.00	1.21	1.62	OK	TRADEABLE
+3808.HK	Sinotruk Hong Kong Ltd	36.24	55.80	55.80	55.80	OK	TRADEABLE
+3888.HK	Kingsoft Corp Ltd	24.92	31.80	31.80	31.80	OK	TRADEABLE
+3898.HK	Zhuzhou CRRC Times Electri H	28.34	39.90	46.23	54.00	OK	TRADEABLE
+3958.HK	Orient Securities Company Limited	5.80				NOFAQ	TRADEABLE
+3968.HK	China Merchants Bank	51.25	58.50	58.50	58.50	OK	TRADEABLE
+3969.HK	China Railway Signal & Com H	2.94				NOFAQ	TRADEABLE
+3988.HK	Bank of China	6.00	5.96	5.96	5.96	OK	TRADEABLE
+3996.HK	China Energy Engineering Corp Limited	1.02				NOFAQ	TRADEABLE
+3998.HK	Bosideng Intl Hldgs Ltd	4.01	5.15	5.53	6.03	OK	TRADEABLE
+4.HK	Wharf Holdings Ltd	19.86				NOFAQ	TRADEABLE
+6030.HK	CITIC Securities Co Ltd	25.32	32.50	33.60	34.40	OK	TRADEABLE
+6055.HK	China Tobacco International HK Co Ltd	23.90	26.65	29.48	32.75	OK	TRADEABLE
+6066.HK	CSC Financial Co Ltd	11.50	15.20	16.35	17.50	OK	TRADEABLE
+6099.HK	China Merchants Securities Co	14.94	17.50	18.67	20.50	OK	TRADEABLE
+6160.HK	BeiGene Ltd	218.20	225.60	272.93	321.70	OK	TRADEABLE
+6178.HK	Everbright Securities Company Limited	7.15				NOFAQ	TRADEABLE
+6181.HK	Laopu Gold Co Ltd	353.00	580.00	580.00	580.00	OK	TRADEABLE
+6185.HK	CanSino Biologics Inc	31.82	46.00	50.53	53.20	OK	TRADEABLE
+6186.HK	China Feihe Ltd	2.57	2.96	3.52	4.01	OK	TRADEABLE
