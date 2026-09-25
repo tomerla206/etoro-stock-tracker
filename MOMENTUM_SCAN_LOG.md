@@ -1,8 +1,8 @@
 # MOMENTUM SCAN progress
 
-Done: 2819 / 2819
+Done: 2816 / 2816
 
-Elapsed: 0.7 min | Rate: 66.31/s | ETA: 0.0 min
+Elapsed: 1.0 min | Rate: 47.91/s | ETA: 0.0 min
 
-Updated: 2813
-No data: 6
+Updated: 2808
+No data: 8
