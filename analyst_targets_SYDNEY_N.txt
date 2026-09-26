@@ -7,8 +7,8 @@ NHC.ASX	New Hope Corporation Limited	5.71	5.00	5.67	6.40	OK	TRADEABLE
 NHF.ASX	nib holdings limited	6.44	6.60	7.38	8.20	OK	TRADEABLE
 NIC.ASX	Nickel Industries Limited	0.81	0.80	1.12	1.45	OK	TRADEABLE
 NSR.ASX	National Storage REIT	2.790				NOFAQ	NOT_TRADEABLE
-NST.ASX	Northern Star Resources Limited	22.11	19.70	24.19	29.40	OK	TRADEABLE
-NUF.ASX	Nufarm Limited	3.04	3.50	3.78	4.24	OK	TRADEABLE
+NST.ASX	Northern Star Resources Limited	22.11	19.70	24.05	29.40	OK	TRADEABLE
+NUF.ASX	Nufarm Limited	3.04	3.50	3.75	4.24	OK	TRADEABLE
 NVX.ASX	Novonix Limited	0.10				NOFAQ	TRADEABLE
 NWH.ASX	NRW Holdings Limited	8.07	8.00	8.46	8.80	OK	TRADEABLE
 NWL.ASX	Netwealth Group Limited	17.02	23.00	25.02	28.05	OK	TRADEABLE
