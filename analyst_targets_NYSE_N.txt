@@ -69,6 +69,6 @@ NWN	Northwest Natural Holding Company	47.04	61.00	61.00	61.00	OK	TRADEABLE
 NX	Quanex Building Products Corporation	19.74	28.00	29.00	30.00	OK	TRADEABLE
 NXDR	Nextdoor Holdings Inc	2.51	3.25	3.27	3.30	OK	TRADEABLE
 NXDT	NexPoint Diversified Real Estate Trust	5.21	-	-	-	NOFAQ	TRADEABLE
-NXE	Nexgen Energy Ltd	9.19	14.00	16.05	21.21	OK	TRADEABLE
+NXE	Nexgen Energy Ltd	9.19	14.00	16.04	21.20	OK	TRADEABLE
 NXRT	NexPoint Residential Trust Inc	19.64	30.00	30.00	30.00	OK	TRADEABLE
 NYT	The New York Times Co	63.83	63.00	76.50	85.00	OK	TRADEABLE
