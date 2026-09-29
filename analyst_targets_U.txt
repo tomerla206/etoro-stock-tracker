@@ -28,4 +28,4 @@ USEA	United Maritime Corp	2.72	4.00	4.00	4.00	OK	NOT_TRADEABLE
 USLM	United States Lime & Minerals Inc	111.40				NOFAQ	TRADEABLE
 UTHR	United Therapeutics Corp	475.45	515.00	630.00	687.00	OK	TRADEABLE
 UTMD	Utah Medical Products Inc	74.18				NOFAQ	TRADEABLE
-UVSP	Univest Financial Corporation	42.16	47.00	47.00	47.00	OK	TRADEABLE
+UVSP	Univest Financial Corporation	41.60	47.00	47.00	47.00	OK	TRADEABLE
