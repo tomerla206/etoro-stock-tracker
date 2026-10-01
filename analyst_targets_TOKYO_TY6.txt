@@ -1,36 +1,36 @@
-8750.T	Dai-ichi Life Holdings Inc.	1871.50				NOFAQ	TRADEABLE
-8766.T	Tokio Marine Holdings Inc.	523.20				NOFAQ	TRADEABLE
-8795.T	T&D Holdings Inc.	4840.00				NOFAQ	TRADEABLE
-8801.T	Mitsui Fudosan Co. Ltd.	1453.00				NOFAQ	TRADEABLE
-8802.T	Mitsubishi Estate Co. Ltd.	3545.00				NOFAQ	TRADEABLE
-8804.T	Tokyo Tatemono Co. Ltd.	3243.00				NOFAQ	TRADEABLE
-8830.T	Sumitomo Realty & Development Co. Ltd.	3096.00				NOFAQ	TRADEABLE
-9001.T	Tobu Railway Co. Ltd.	2816.50				NOFAQ	TRADEABLE
-9005.T	Tokyu Corp.	1600.00				NOFAQ	TRADEABLE
-9007.T	Odakyu Electric Railway Co. Ltd.	1704.00				NOFAQ	TRADEABLE
-9008.T	Keio Corp.	754.20				NOFAQ	TRADEABLE
-9009.T	Keisei Electric Railway Co. Ltd.	1324.00				NOFAQ	TRADEABLE
-9020.T	East Japan Railway Co.	3337.00				NOFAQ	TRADEABLE
-9021.T	West Japan Railway Co.	2908.50				NOFAQ	TRADEABLE
-9022.T	Central Japan Railway Co.	3675.00				NOFAQ	TRADEABLE
-9064.T	Yamato Holdings Co. Ltd.	1999.00				NOFAQ	TRADEABLE
-9101.T	Nippon Yusen K.K.	7078.00				NOFAQ	TRADEABLE
-9104.T	Mitsui O.S.K. Lines Ltd.	6900.00				NOFAQ	TRADEABLE
-9107.T	Kawasaki Kisen Kaisha Ltd.	3283.00				NOFAQ	TRADEABLE
-9147.T	Nippon Express Holdings Inc	5676.00				NOFAQ	TRADEABLE
-9201.T	Japan Airlines Co. Ltd.	3012.00				NOFAQ	TRADEABLE
-9202.T	ANA Holdings Inc.	2950.00				NOFAQ	TRADEABLE
-9432.T	Nippon Telegraph and Telephone Corp.	171.30				NOFAQ	TRADEABLE
-9433.T	KDDI Corp.	2923.50				NOFAQ	TRADEABLE
-9434.T	SoftBank Corp.	239.50				NOFAQ	TRADEABLE
-9501.T	Tokyo Electric Power Company Holdings Inc.	515.40				NOFAQ	TRADEABLE
-9502.T	Chubu Electric Power Co. Inc.	2709.00				NOFAQ	TRADEABLE
-9503.T	The Kansai Electric Power Co. Inc.	2642.00				NOFAQ	TRADEABLE
-9531.T	Tokyo Gas Co. Ltd.	6075.00				NOFAQ	TRADEABLE
-9532.T	Osaka Gas Co. Ltd.	5670.00				NOFAQ	TRADEABLE
-9602.T	Toho Co. Ltd.	1553.00				NOFAQ	TRADEABLE
-9735.T	SECOM Co. Ltd.	6210.00				NOFAQ	TRADEABLE
-9766.T	Konami Group Corp.	21075.00				NOFAQ	TRADEABLE
-9843.T	Nitori Holdings Co. Ltd.	2929.50				NOFAQ	TRADEABLE
-9983.T	Fast Retailing Co. Ltd.	68710.00				NOFAQ	TRADEABLE
-9984.T	SoftBank Group Corp.	6035.00				NOFAQ	TRADEABLE
+8750.T	Dai-ichi Life Holdings Inc.	1834.50				NOFAQ	TRADEABLE
+8766.T	Tokio Marine Holdings Inc.	537.50				NOFAQ	TRADEABLE
+8795.T	T&D Holdings Inc.	4877.00				NOFAQ	TRADEABLE
+8801.T	Mitsui Fudosan Co. Ltd.	1466.00				NOFAQ	TRADEABLE
+8802.T	Mitsubishi Estate Co. Ltd.	3608.00				NOFAQ	TRADEABLE
+8804.T	Tokyo Tatemono Co. Ltd.	3279.00				NOFAQ	TRADEABLE
+8830.T	Sumitomo Realty & Development Co. Ltd.	3154.00				NOFAQ	TRADEABLE
+9001.T	Tobu Railway Co. Ltd.	2821.00				NOFAQ	TRADEABLE
+9005.T	Tokyu Corp.	1613.50				NOFAQ	TRADEABLE
+9007.T	Odakyu Electric Railway Co. Ltd.	1706.50				NOFAQ	TRADEABLE
+9008.T	Keio Corp.	757.70				NOFAQ	TRADEABLE
+9009.T	Keisei Electric Railway Co. Ltd.	1335.50				NOFAQ	TRADEABLE
+9020.T	East Japan Railway Co.	3323.00				NOFAQ	TRADEABLE
+9021.T	West Japan Railway Co.	2942.00				NOFAQ	TRADEABLE
+9022.T	Central Japan Railway Co.	3724.00				NOFAQ	TRADEABLE
+9064.T	Yamato Holdings Co. Ltd.	1977.50				NOFAQ	TRADEABLE
+9101.T	Nippon Yusen K.K.	7212.00				NOFAQ	TRADEABLE
+9104.T	Mitsui O.S.K. Lines Ltd.	7090.00				NOFAQ	TRADEABLE
+9107.T	Kawasaki Kisen Kaisha Ltd.	3259.00				NOFAQ	TRADEABLE
+9147.T	Nippon Express Holdings Inc	5775.00				NOFAQ	TRADEABLE
+9201.T	Japan Airlines Co. Ltd.	3069.00				NOFAQ	TRADEABLE
+9202.T	ANA Holdings Inc.	2951.00				NOFAQ	TRADEABLE
+9432.T	Nippon Telegraph and Telephone Corp.	171.60				NOFAQ	TRADEABLE
+9433.T	KDDI Corp.	2928.00				NOFAQ	TRADEABLE
+9434.T	SoftBank Corp.	240.60				NOFAQ	TRADEABLE
+9501.T	Tokyo Electric Power Company Holdings Inc.	534.10				NOFAQ	TRADEABLE
+9502.T	Chubu Electric Power Co. Inc.	2709.50				NOFAQ	TRADEABLE
+9503.T	The Kansai Electric Power Co. Inc.	2665.00				NOFAQ	TRADEABLE
+9531.T	Tokyo Gas Co. Ltd.	6190.00				NOFAQ	TRADEABLE
+9532.T	Osaka Gas Co. Ltd.	5751.00				NOFAQ	TRADEABLE
+9602.T	Toho Co. Ltd.	1549.50				NOFAQ	TRADEABLE
+9735.T	SECOM Co. Ltd.	6194.00				NOFAQ	TRADEABLE
+9766.T	Konami Group Corp.	21400.00				NOFAQ	TRADEABLE
+9843.T	Nitori Holdings Co. Ltd.	2871.50				NOFAQ	TRADEABLE
+9983.T	Fast Retailing Co. Ltd.	70860.00				NOFAQ	TRADEABLE
+9984.T	SoftBank Group Corp.	6430.00				NOFAQ	TRADEABLE
