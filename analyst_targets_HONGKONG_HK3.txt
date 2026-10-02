@@ -13,7 +13,7 @@
 1347.HK	Hua Hong Grace Semiconductor Ltd	105.40	140.00	166.67	220.00	OK	TRADEABLE
 1359.HK	China Cinda Asset Management Co Ltd	0.90				NOFAQ	TRADEABLE
 1378.HK	China Hongqiao Group Ltd	21.54	30.00	34.58	45.00	OK	TRADEABLE
-1398.HK	Industrial And Commercial Bank of China	7.71	7.80	7.80	7.80	OK	TRADEABLE
+1398.HK	Industrial And Commercial Bank of China	7.71	7.71	7.76	7.80	OK	TRADEABLE
 144.HK	China Merchants Port Holding	17.06				NOFAQ	TRADEABLE
 1456.HK	Guolian Minsheng Securities H	3.63				NOFAQ	TRADEABLE
 151.HK	Want Want China Holdings Ltd	2.82				NOFAQ	TRADEABLE
