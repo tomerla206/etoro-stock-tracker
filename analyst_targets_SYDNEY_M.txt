@@ -1,7 +1,7 @@
 MAQ.ASX	Macquarie Technology Group L	53.84	57.90	83.24	95.00	OK	TRADEABLE
 MFG.ASX	Magellan Financial Group Limited	8.09	9.40	9.82	10.25	OK	TRADEABLE
 MGR.ASX	Mirvac Group	1.78	2.25	2.25	2.25	OK	TRADEABLE
-MIN.ASX	Mineral Resources Limited	50.98	60.00	67.50	75.00	OK	TRADEABLE
+MIN.ASX	Mineral Resources Limited	50.98	29.20	54.73	75.00	OK	TRADEABLE
 MMS.ASX	Mcmillan Shakespeare Ltd	18.16	23.00	23.00	23.00	OK	TRADEABLE
 MND.ASX	Monadelphous Group Limited	31.23	23.30	30.04	35.80	OK	TRADEABLE
 MP1.ASX	Megaport Limited	22.34	29.00	29.00	29.00	OK	TRADEABLE

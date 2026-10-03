@@ -5,7 +5,7 @@ Tickers checked: 3260 (of 6356 total; 3096 have no US SEC filer)
 ## Tickers with recent insider activity (16)
 
 ### Top net buying
-- AFCG: net $647,285 (9 buys, 0 sells)
+- AFCG: net $432,250 (5 buys, 0 sells)
 - AAON: net $74,660 (1 buys, 0 sells)
 - ABAT: net $-88,375 (0 buys, 2 sells)
 - ACIC: net $-100,536 (1 buys, 1 sells)
@@ -38,7 +38,7 @@ Tickers checked: 3260 (of 6356 total; 3096 have no US SEC filer)
 - ACIC: net $-100,536 (1 buys, 1 sells)
 - ABAT: net $-88,375 (0 buys, 2 sells)
 - AAON: net $74,660 (1 buys, 0 sells)
-- AFCG: net $647,285 (9 buys, 0 sells)
+- AFCG: net $432,250 (5 buys, 0 sells)
 
 ## Errors (0)
 

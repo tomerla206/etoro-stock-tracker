@@ -35,5 +35,5 @@
 02269.HK	Wuxi Biologics Cayman Inc	54.55				NOFAQ	TRADEABLE
 02313.HK	Shenzhou International Group	33.98				NOFAQ	TRADEABLE
 02319.HK	China Mengniu Dairy Co Ltd	17.58				NOFAQ	TRADEABLE
-02382.HK	Sunny Optical Technology Group	63.35				NOFAQ	TRADEABLE
+02382.HK	Sunny Optical Technology Group	62.05				NOFAQ	TRADEABLE
 02386.HK	Sinopec Engineering Group Co	5.22				NOFAQ	TRADEABLE

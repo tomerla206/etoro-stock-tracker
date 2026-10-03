@@ -1,5 +1,5 @@
 TAH.ASX	Tabcorp Holdings Limited	0.88	1.00	1.04	1.07	OK	TRADEABLE
-TCL.ASX	Transurban Group	13.11	13.11	13.99	14.68	OK	TRADEABLE
+TCL.ASX	Transurban Group	13.11	13.11	13.89	14.68	OK	TRADEABLE
 TLC.ASX	The Lottery Corporation Limited	4.86	5.00	5.50	6.00	OK	TRADEABLE
 TLS.ASX	Telstra Group Ltd	4.83	4.60	5.02	5.50	OK	TRADEABLE
 TLX.ASX	Telix Pharmaceuticals Limited	15.16	19.00	23.91	32.00	OK	TRADEABLE
