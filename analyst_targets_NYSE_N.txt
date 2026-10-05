@@ -12,9 +12,9 @@ NET	Cloudflare	349.07	160.00	349.80	400.00	OK	TRADEABLE
 NEU	NewMarket Corporation	924.06	-	-	-	NOFAQ	TRADEABLE
 NEXA	Nexa Resources SA	12.24	12.50	14.60	16.00	OK	TRADEABLE
 NFG	National Fuel Gas Company	76.43	91.00	92.00	93.00	OK	TRADEABLE
-NG.US	Novagold Resources Inc	6.55	13.60	14.94	17.22	OK	TRADEABLE
+NG.US	Novagold Resources Inc	6.55	13.60	14.92	17.17	OK	TRADEABLE
 NGG	National Grid plc-ADR	76.12	90.30	90.30	90.30	OK	TRADEABLE
-NGS	Natural Gas Services Group	33.17	53.00	53.50	54.00	OK	TRADEABLE
+NGS	Natural Gas Services Group	33.17				NOFAQ	TRADEABLE
 NGVC	Natural Grocers By Vitamin C	30.61	35.00	37.50	40.00	OK	TRADEABLE
 NGVT	Ingevity Corporation	72.41	85.00	85.00	85.00	OK	TRADEABLE
 NHC	National HealthCare Corporation	227.66	-	-	-	NOFAQ	TRADEABLE
@@ -70,5 +70,5 @@ NX	Quanex Building Products Corporation	19.00	28.00	29.00	30.00	OK	TRADEABLE
 NXDR	Nextdoor Holdings Inc	2.44	3.25	3.27	3.30	OK	TRADEABLE
 NXDT	NexPoint Diversified Real Estate Trust	5.30	-	-	-	NOFAQ	TRADEABLE
 NXE	Nexgen Energy Ltd	9.00	14.00	15.96	21.05	OK	TRADEABLE
-NXRT	NexPoint Residential Trust Inc	18.67	18.00	24.00	30.00	OK	TRADEABLE
+NXRT	NexPoint Residential Trust Inc	18.67				NOFAQ	TRADEABLE
 NYT	The New York Times Co	62.70	63.00	76.50	85.00	OK	TRADEABLE

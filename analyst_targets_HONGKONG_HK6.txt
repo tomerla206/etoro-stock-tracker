@@ -1,7 +1,7 @@
 6198.HK	Qingdao Port International H	7.53				NOFAQ	TRADEABLE
 6618.HK	JD Health International Inc	34.64	80.00	80.00	80.00	OK	TRADEABLE
 669.HK	Techtronic Industries Co Ltd	128.70				NOFAQ	TRADEABLE
-6690.HK	Haier Smart Home Co Ltd	20.08	22.00	27.22	31.90	OK	TRADEABLE
+6690.HK	Haier Smart Home Co Ltd	20.08	21.00	27.05	31.90	OK	TRADEABLE
 670.HK	China Eastern Airlines Corporation Limited	2.49				NOFAQ	TRADEABLE
 6806.HK	Shenwan Hongyuan Group Co Ltd	2.34				NOFAQ	TRADEABLE
 6818.HK	China Everbright Bank Company Limited	2.78				NOFAQ	TRADEABLE
