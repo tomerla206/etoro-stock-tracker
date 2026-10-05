@@ -27,6 +27,15 @@ scan_checkpoint.json
 .claude/scheduled_tasks.lock
 .build_site.lock
 
+# eToro API credentials (x-api-key / x-user-key) - never commit, never leave
+# this machine. See bulk_buy.py.
+.env
+
+# Forward-tracking snapshots of the real account's positions over time -
+# same sensitivity as portfolio_virtual.tsv (reveals actual holdings/P&L
+# history). See track_positions_history.py.
+position_history.tsv
+
 # Intermediate per-shard scan output from the parallel cloud pipeline
 # (megascan.py/megascan_yahoo.py/fundamentals_scan.py with SHARD_COUNT>1) -
 # consumed once by aggregate_scan_shards.py and pointless to keep afterward;
@@ -41,3 +50,40 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# SCAN API output (your holdings vs analyst targets - personal, local only)
+api_targets.tsv
+api_scan_report.html
+SCAN_API_RESULTS.md
+SCAN_API_LOG.md
+cancel_list.tsv
+
+# CRASH CHECK output (your holdings - personal, local only)
+held_crash_report.html
+HELD_CRASH_CHECK_RESULTS.md
+HELD_CRASH_CHECK_LOG.md
+sell_crashed_daily_virtual.tsv
+sell_crashed_daily_real.tsv
+
+# MARKET CHECK output (regenerated locally)
+market_check.tsv
+MARKET_CHECK_LOG.md
+
+# Protections added 2026-10-05 (personal holdings / local decisions - local only)
+daily_holdings_report.html
+HOLDINGS_CHECK_RESULTS.md
+HOLDINGS_CHECK_LOG.md
+sell_takeprofit_virtual.tsv
+sell_takeprofit_real.tsv
+sell_concentration_virtual.tsv
+sell_concentration_real.tsv
+sell_brokenthesis_virtual.tsv
+sell_brokenthesis_real.tsv
+flood_decisions.tsv
+filter_performance_report.html
+FILTER_REPORT_RESULTS.md
+FILTER_REPORT_LOG.md
+partial_fills.tsv
+hours_restricted_cleanup_log.tsv
+HOURS_CLEANUP_LOG.md
+bulk_buy_real.tsv
