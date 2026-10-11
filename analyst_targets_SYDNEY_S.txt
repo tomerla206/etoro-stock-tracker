@@ -1,4 +1,4 @@
-S32.ASX	South32 Limited	4.91	4.90	5.15	5.92	OK	TRADEABLE
+S32.ASX	South32 Limited	4.91	4.90	5.13	5.87	OK	TRADEABLE
 SCG.ASX	Scentre Group	3.45	4.10	4.10	4.10	OK	TRADEABLE
 SDF.ASX	Steadfast Group Limited	5.77	6.00	6.00	6.00	OK	TRADEABLE
 SDR.ASX	Siteminder Ltd	2.69	3.15	5.45	7.15	OK	TRADEABLE
@@ -11,7 +11,7 @@ SGR.ASX	The Star Entertainment Group Limited	0.12				NOFAQ	TRADEABLE
 SHL.ASX	Sonic Healthcare Limited	18.65	20.30	21.35	22.90	OK	TRADEABLE
 SIG.ASX	Sigma Healthcare Ltd	2.69	2.90	3.13	3.40	OK	TRADEABLE
 SIQ.ASX	Smartgroup Corp Ltd	11.66	13.00	13.00	13.00	OK	TRADEABLE
-SLX.ASX	Silex Systems Ltd	4.01	6.20	9.83	12.80	OK	TRADEABLE
+SLX.ASX	Silex Systems Ltd	4.01	6.20	8.34	10.48	OK	TRADEABLE
 SMR.ASX	Stanmore Resources Ltd	2.56	2.75	3.35	3.95	OK	TRADEABLE
 SOL.ASX	Washington H. Soul Pattinson and Company Limited	46.38				NOFAQ	TRADEABLE
 SPK.ASX	Spark New Zealand Limited	1.59				NOFAQ	TRADEABLE

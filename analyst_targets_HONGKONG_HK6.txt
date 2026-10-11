@@ -1,7 +1,7 @@
 6198.HK	Qingdao Port International H	7.78				NOFAQ	TRADEABLE
 6618.HK	JD Health International Inc	36.08	80.00	80.00	80.00	OK	TRADEABLE
 669.HK	Techtronic Industries Co Ltd	127.50				NOFAQ	TRADEABLE
-6690.HK	Haier Smart Home Co Ltd	20.42	21.00	27.05	31.90	OK	TRADEABLE
+6690.HK	Haier Smart Home Co Ltd	20.42	21.00	26.08	27.60	OK	TRADEABLE
 670.HK	China Eastern Airlines Corporation Limited	2.44				NOFAQ	TRADEABLE
 6806.HK	Shenwan Hongyuan Group Co Ltd	2.38				NOFAQ	TRADEABLE
 6818.HK	China Everbright Bank Company Limited	2.83				NOFAQ	TRADEABLE
@@ -18,7 +18,7 @@
 874.HK	Guangzhou Baiyunshan Pharmaceutical Holdings Co Ltd	13.21				NOFAQ	TRADEABLE
 960.HK	Longfor Group Holdings Ltd	5.34				NOFAQ	TRADEABLE
 9618.HK	JD.com Inc	105.60	194.00	194.00	194.00	OK	TRADEABLE
-9626.HK	Bilibili IncClass Z	120.40	162.00	200.82	251.16	OK	TRADEABLE
+9626.HK	Bilibili IncClass Z	120.40	162.00	198.19	251.16	OK	TRADEABLE
 9633.HK	Nongfu Spring Co Ltd	41.62	47.80	54.84	61.00	OK	TRADEABLE
 9658.HK	Super Hi International Holding Ltd	9.05	12.12	12.12	12.12	OK	NOT_TRADEABLE
 9660.HK	Horizon Robotics Inc	4.11	5.41	8.43	13.14	OK	TRADEABLE
