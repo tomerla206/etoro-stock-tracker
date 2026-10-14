@@ -1,5 +1,5 @@
 PAA	Plains All American Pipeline LP	24.50	24.00	26.80	31.00	OK	TRADEABLE
-PAAS	Pan American Silver Corp	45.71	52.61	67.65	94.00	OK	TRADEABLE
+PAAS	Pan American Silver Corp	45.71	52.56	67.63	94.00	OK	TRADEABLE
 PACB	Pacific Biosciences of California Inc	2.10	1.25	2.08	3.00	OK	TRADEABLE
 PAGP	Plains GP Holdings LP	26.76	24.00	27.29	30.00	OK	TRADEABLE
 PAHC	Phibro Animal Health Corporation	37.43	35.00	35.00	35.00	OK	TRADEABLE
@@ -34,7 +34,7 @@ PFBC	Preferred Bank	103.35	110.00	113.67	120.00	OK	TRADEABLE
 PFG	Principal Financial Group Inc	107.84	86.00	112.13	128.00	OK	TRADEABLE
 PFIS	Peoples Financial Services	68.22				NOFAQ	TRADEABLE
 PFLT	PennantPark Floating Rate Capital Ltd	6.69	8.50	9.50	10.50	OK	TRADEABLE
-PGC	Peapack-Gladstone Financial Corporation	43.60	56.00	57.00	58.00	OK	TRADEABLE
+PGC	Peapack-Gladstone Financial Corporation	43.28	56.00	57.00	58.00	OK	TRADEABLE
 PGNY	Progyny Inc	28.03	30.00	31.40	35.00	OK	TRADEABLE
 PGY	Pagaya Technologies Ltd	17.41	25.00	28.67	36.00	OK	TRADEABLE
 PHAT	Phathom Pharmaceuticals Inc	7.13	20.00	22.20	26.00	OK	TRADEABLE
@@ -47,7 +47,7 @@ PKOH	Park-Ohio Holdings Corp	48.32	59.00	59.00	59.00	OK	TRADEABLE
 PLAB	Photronics Inc	29.24	44.00	44.00	44.00	OK	TRADEABLE
 PLAY	Dave & Busters Entertainment Inc	7.09	9.00	9.00	9.00	OK	TRADEABLE
 PLCE	Children's Place Inc	1.31	3.25	3.25	3.25	OK	TRADEABLE
-PLMR	Palomar Holdings Inc	134.23	152.00	164.00	183.00	OK	TRADEABLE
+PLMR	Palomar Holdings Inc	134.23	152.00	158.50	165.00	OK	TRADEABLE
 PLPC	Preformed Line Products Company	383.49	480.00	480.00	480.00	OK	TRADEABLE
 PLRX	Pliant Therapeutics Inc	0.99	2.00	2.50	3.00	OK	TRADEABLE
-PLSE	Pulse Biosciences Inc	52.45	35.00	49.00	58.00	OK	TRADEABLE
+PLSE	Pulse Biosciences Inc	52.45	55.00	57.75	60.00	OK	TRADEABLE
