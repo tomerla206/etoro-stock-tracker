@@ -6,4 +6,4 @@ TLX.ASX	Telix Pharmaceuticals Limited	15.73	19.00	24.58	32.00	OK	TRADEABLE
 TNE.ASX	Technology One Limited	31.91	32.00	33.75	36.56	OK	TRADEABLE
 TPG.ASX	TPG Telecom Limited	3.72	3.60	4.02	4.30	OK	TRADEABLE
 TPW.ASX	Temple & Webster Group Ltd	4.45	5.30	7.15	9.00	OK	TRADEABLE
-TWE.ASX	Treasury Wine Estates Limited	6.05	5.90	5.90	5.90	OK	TRADEABLE
+TWE.ASX	Treasury Wine Estates Limited	6.05	5.90	6.60	7.30	OK	TRADEABLE

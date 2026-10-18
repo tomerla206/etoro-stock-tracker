@@ -22,7 +22,7 @@ GDST	Goldenstone Acquisition Ltd	12.50				NOFAQ	NOT_TRADEABLE
 GLFE	Golf Entertainment Group Inc	7.50				NOFAQ	NOT_TRADEABLE
 GOEVQ	Canoo Inc.	0.00				NOFAQ	NOT_TRADEABLE
 HTGMQ	HTG Molecular Diagnostics Inc	0.00				NOFAQ	NOT_TRADEABLE
-HTZWW	Hertz Global Holdings Inc. Wt	0.83				NOFAQ	NOT_TRADEABLE
+HTZWW	Hertz Global Holdings Inc. Wt	0.84				NOFAQ	NOT_TRADEABLE
 IDEXQ	Ideanomics Inc	0.0008				NOFAQ	NOT_TRADEABLE
 IVCAF	Libity	11.21				NOFAQ	TRADEABLE
 IVCBF	Investcorp Europe Acquisi-A	6.00				NOFAQ	NOT_TRADEABLE
@@ -66,7 +66,7 @@ TBLT	Toughbuilt Industries Inc	0.01				NOFAQ	NOT_TRADEABLE
 TRVN	Trevena Inc	0.00				NOFAQ	NOT_TRADEABLE
 TSPH	TuSimple Holdings Inc	0.17				NOFAQ	NOT_TRADEABLE
 VISL	Vislink Technologies Inc	4.00				NOFAQ	NOT_TRADEABLE
-WCPRF	Whitecap Resources Inc	14.27	14.13	14.90	15.90	OK	NOT_TRADEABLE
+WCPRF	Whitecap Resources Inc	14.27	14.13	14.89	15.89	OK	NOT_TRADEABLE
 XELA	Exela Technologies Inc	0.01				NOFAQ	NOT_TRADEABLE
 ZOMDF	Zomedica Corp	0.08				NOFAQ	NOT_TRADEABLE
 ZPTA	Zapata Quantum Inc	0.67	1.00	1.00	1.00	OK	NOT_TRADEABLE
