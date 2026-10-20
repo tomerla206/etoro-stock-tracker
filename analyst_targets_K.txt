@@ -3,7 +3,7 @@ KMB	Kimberly-Clark Corp	105.57	100.00	111.20	120.00	OK	TRADEABLE
 KHC	Kraft Heinz Co	23.68	23.00	23.50	25.00	OK	TRADEABLE
 KLAC	KLA Corp	165.74	180.00	241.11	325.00	OK	TRADEABLE
 KC	Kingsoft Cloud Holdings Ltd-ADR	8.47				NOFAQ	TRADEABLE
-KTOS	Kratos Defense & Security Solutions Inc	40.42	60.00	90.36	145.00	OK	TRADEABLE
+KTOS	Kratos Defense & Security Solutions Inc	40.42	60.00	84.92	130.00	OK	TRADEABLE
 KUST	Kustom Entertainment Inc	0.9961			NOFAQ	NOT_TRADEABLE
 KNDI	Kandi Technologies Group Inc	0.6375			NOFAQ	TRADEABLE
 KLRS	Kalaris Therapeutics Inc	2.00	14.00	15.50	17.00	OK	TRADEABLE
