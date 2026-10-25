@@ -4,7 +4,7 @@
 6690.HK	Haier Smart Home Co Ltd	19.41	21.00	25.61	28.00	OK	TRADEABLE
 670.HK	China Eastern Airlines Corporation Limited	2.31				NOFAQ	TRADEABLE
 6806.HK	Shenwan Hongyuan Group Co Ltd	2.24				NOFAQ	TRADEABLE
-6818.HK	China Everbright Bank Company Limited	2.62				NOFAQ	TRADEABLE
+6818.HK	China Everbright Bank Company Limited	2.62	2.20	2.20	2.20	OK	TRADEABLE
 6936.HK	SF Holding Co Ltd	28.48	36.00	36.00	36.00	OK	TRADEABLE
 6969.HK	Smoore International Holdings Limited	8.37	12.00	13.18	16.88	OK	TRADEABLE
 6990.HK	Sichuan Kelun Biotech Biopharmaceutical Co Ltd	460.40	642.29	642.29	642.29	OK	TRADEABLE

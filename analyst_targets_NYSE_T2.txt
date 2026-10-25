@@ -1,6 +1,6 @@
 TM	Toyota Motor Corporation-ADR	196.79				NOFAQ	TRADEABLE
 TME	Tencent Music Entertainment Group-ADR	8.51	15.00	15.00	15.00	OK	TRADEABLE
-TMO	Thermo Fisher Scientific Inc	673.82	575.00	743.50	830.00	OK	TRADEABLE
+TMO	Thermo Fisher Scientific Inc	673.82	575.00	753.50	830.00	OK	TRADEABLE
 TMP	Tompkins Financial Corporation	101.20	104.00	104.50	105.00	OK	TRADEABLE
 TNC	Tennant Company	66.26				NOFAQ	TRADEABLE
 TNET	TriNet Group Inc.	75.78	62.00	70.25	82.00	OK	TRADEABLE

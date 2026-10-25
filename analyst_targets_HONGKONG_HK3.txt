@@ -36,4 +36,4 @@
 1810.HK	Xiaomi Corp	26.80	25.54	32.18	38.00	OK	TRADEABLE
 1816.HK	CGN Power Co Ltd	3.28	3.02	3.92	4.70	OK	TRADEABLE
 1818.HK	Zhaojin Mining Industry H	16.54	21.50	21.50	21.50	OK	TRADEABLE
-1833.HK	Ping An Healthcare and Technology Co Ltd	5.53	11.40	12.26	13.37	OK	TRADEABLE
+1833.HK	Ping An Healthcare and Technology Co Ltd	5.53	8.30	11.27	13.37	OK	TRADEABLE

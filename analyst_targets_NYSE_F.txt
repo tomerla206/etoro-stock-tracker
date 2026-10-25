@@ -1,5 +1,5 @@
 F	Ford Motor Co	11.60	14.00	15.58	17.50	OK	TRADEABLE
-FAF	First American Financial Corp	64.72	78.00	81.67	85.00	OK	TRADEABLE
+FAF	First American Financial Corp	64.72	78.00	80.00	82.00	OK	TRADEABLE
 FBIN	Fortune Brands Innovations Inc	42.98	42.00	50.22	65.00	OK	TRADEABLE
 FBK	Fb Financial Corporation	53.46	64.00	64.00	64.00	OK	TRADEABLE
 FBP	First BanCorp/Puerto Rico	27.42	30.00	31.00	32.00	OK	TRADEABLE
