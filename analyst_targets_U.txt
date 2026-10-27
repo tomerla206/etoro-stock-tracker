@@ -1,5 +1,5 @@
 UAL	United Airlines Holdings Inc	97.93	125.00	150.50	167.00	OK	TRADEABLE
-UBSI	United Bankshares Inc/WV	48.67	48.00	48.00	48.00	OK	TRADEABLE
+UBSI	United Bankshares Inc/WV	48.67	54.00	54.00	54.00	OK	TRADEABLE
 UCTT	Ultra Clean Holdings Inc.	45.32	120.00	137.00	150.00	OK	TRADEABLE
 UEIC	Universal Electronics Inc.	5.24	5.00	5.00	5.00	OK	TRADEABLE
 UFCS	United Fire Group Inc	57.38	60.00	60.00	60.00	OK	TRADEABLE
@@ -28,4 +28,4 @@ USEA	United Maritime Corp	2.49	4.00	4.00	4.00	OK	NOT_TRADEABLE
 USLM	United States Lime & Minerals Inc	111.71				NOFAQ	TRADEABLE
 UTHR	United Therapeutics Corp	587.50	559.00	667.50	728.00	OK	TRADEABLE
 UTMD	Utah Medical Products Inc	74.23				NOFAQ	TRADEABLE
-UVSP	Univest Financial Corporation	42.14				NOFAQ	TRADEABLE
+UVSP	Univest Financial Corporation	42.25				NOFAQ	TRADEABLE

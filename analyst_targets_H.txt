@@ -5,7 +5,7 @@ HAIN	Hain Celestial	0.15	0.30	1.65	3.00	OK	TRADEABLE
 HALO	Halozyme Therapeutics Inc	125.63	78.00	105.86	130.00	OK	TRADEABLE
 HAPN	Happen Inc	14.09	22.00	24.40	25.00	OK	TRADEABLE
 HAS	Hasbro Inc	117.44	100.00	119.83	137.00	OK	TRADEABLE
-HBAN	Huntington Bancshares Inc	15.73	18.00	18.96	20.00	OK	TRADEABLE
+HBAN	Huntington Bancshares Inc	15.73	18.00	19.00	20.00	OK	TRADEABLE
 HBNC	Horizon Bancorp Inc	20.37	23.00	24.00	25.00	OK	TRADEABLE
 HBT	Hbt Financial Inc/De	36.24	38.00	39.50	41.00	OK	TRADEABLE
 HCAT	Health Catalyst Inc	1.69	1.80	1.90	2.00	OK	TRADEABLE
@@ -15,7 +15,7 @@ HCSG	Healthcare Services Group Inc	25.30	24.00	25.33	28.00	OK	TRADEABLE
 HDSN	Hudson Technologies Inc	5.37	7.25	7.63	8.00	OK	TRADEABLE
 HELE	Helen of Troy Limited	28.07	26.00	26.00	26.00	OK	TRADEABLE
 HEPS	D-Market Elektronik Hizmetler Ve Ticaret As	2.80				NOFAQ	TRADEABLE
-HFWA	Heritage Financial Corporation	29.15	32.00	32.75	34.00	OK	TRADEABLE
+HFWA	Heritage Financial Corporation	29.15	32.00	33.00	34.00	OK	TRADEABLE
 HIFS	Hingham Institution for Savings	302.79				NOFAQ	TRADEABLE
 HIMX	Himax Technologies Inc-ADR	11.32	43.00	43.00	43.00	OK	TRADEABLE
 HIVE	Hive Digital Technologies Ltd	1.93	6.00	7.30	10.00	OK	TRADEABLE
@@ -43,8 +43,8 @@ HRTX	Heron Therapeutics Inc	0.30				NOFAQ	TRADEABLE
 HRZN	Horizon Technology Finance Corporation	3.96	4.50	5.17	6.00	OK	TRADEABLE
 HSAI	Hesai Group	13.13	29.30	29.30	29.30	OK	TRADEABLE
 HSIC	Henry Schein Inc	84.96	64.00	97.00	110.00	OK	TRADEABLE
-HSPOF	Horizon Space Acquisition I	11.99				NOFAQ	TRADEABLE
-HST	Host Hotels & Resorts Inc	24.72	23.00	25.45	27.00	OK	TRADEABLE
+HSPOF	Horizon Space Acquisition I	12.29				NOFAQ	TRADEABLE
+HST	Host Hotels & Resorts Inc	24.72	23.00	25.55	27.00	OK	TRADEABLE
 HSTM	HealthStream Inc	35.16	29.00	32.50	36.00	OK	TRADEABLE
 HTFL	Heartflow Inc	56.71	34.00	43.00	56.00	OK	TRADEABLE
 HTHT	Huazhu Group Ltd-ADR	46.23	62.70	64.05	65.40	OK	TRADEABLE
