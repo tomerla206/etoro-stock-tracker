@@ -1,2 +1,2 @@
-UBI.PA	Ubisoft Entertainment SA	4.32	5.40	5.63	5.85	OK	TRADEABLE
-URW.PA	Unibail-Rodamco-Westfield	90.10	120.00	122.00	124.00	OK	TRADEABLE
+UBI.PA	Ubisoft Entertainment SA	4.26	5.40	5.63	5.85	OK	TRADEABLE
+URW.PA	Unibail-Rodamco-Westfield	91.06	120.00	120.50	121.00	OK	TRADEABLE
