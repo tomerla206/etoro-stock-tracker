@@ -9,15 +9,15 @@
 3311.HK	China State Construction Int	8.68	7.00	10.22	11.50	OK	TRADEABLE
 3323.HK	China National Building Material	2.85	3.20	5.25	7.30	OK	TRADEABLE
 3328.HK	Bank of Communications	8.60	8.50	8.50	8.50	OK	TRADEABLE
-3347.HK	Hangzhou Tigermed Consulting Co Ltd	37.92	41.00	47.28	52.10	OK	TRADEABLE
+3347.HK	Hangzhou Tigermed Consulting Co Ltd	37.92	41.00	47.68	52.60	OK	TRADEABLE
 341.HK	Cafe de Coral Holdings Ltd	5.94				NOFAQ	TRADEABLE
 358.HK	Jiangxi Copper Co Ltd H	24.26				NOFAQ	TRADEABLE
 3606.HK	Fuyao Glass Industry Group H	50.90	73.70	73.70	73.70	OK	TRADEABLE
-3618.HK	Chongqing Rural Commercial Bank Co Ltd	6.78	8.37	8.37	8.37	OK	TRADEABLE
+3618.HK	Chongqing Rural Commercial Bank Co Ltd	6.78	8.37	8.51	8.65	OK	TRADEABLE
 3692.HK	Hansoh Pharmaceutical Group	32.36	50.54	50.54	50.54	OK	TRADEABLE
 3750.HK	Contemporary Amperex Technology Co Limited	338.80	249.00	626.17	779.00	OK	TRADEABLE
 3759.HK	Pharmaron Beijing Co Ltd	26.98	35.30	35.30	35.30	OK	TRADEABLE
-3800.HK	GCL Technology Holdings Ltd	0.58	1.00	1.21	1.63	OK	TRADEABLE
+3800.HK	GCL Technology Holdings Ltd	0.58	1.00	1.24	1.63	OK	TRADEABLE
 3808.HK	Sinotruk Hong Kong Ltd	31.16	55.80	55.80	55.80	OK	TRADEABLE
 3888.HK	Kingsoft Corp Ltd	22.94	31.80	31.80	31.80	OK	TRADEABLE
 3898.HK	Zhuzhou CRRC Times Electri H	25.66	39.90	41.95	44.00	OK	TRADEABLE
