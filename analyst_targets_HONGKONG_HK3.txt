@@ -6,7 +6,7 @@
 1209.HK	China Resources Mixc Lifestyle Services Limited	39.88	51.65	51.65	51.65	OK	TRADEABLE
 1288.HK	Agricultural Bank of China	6.94	7.10	7.10	7.10	OK	TRADEABLE
 1299.HK	AIA Group Ltd	75.40	106.00	110.67	114.00	OK	TRADEABLE
-1308.HK	SITC International Holdings	48.24	36.10	47.20	52.00	OK	TRADEABLE
+1308.HK	SITC International Holdings	48.24	36.10	48.06	53.40	OK	TRADEABLE
 1317.HK	China Maple Leaf Educational Systems Ltd	0.15				NOFAQ	TRADEABLE
 1318.HK	Mao Geping Cosmetics Co Ltd	49.14	65.00	77.68	102.81	OK	TRADEABLE
 1339.HK	People's Insurance Company (Group) of China	5.07	7.00	7.80	8.20	OK	TRADEABLE

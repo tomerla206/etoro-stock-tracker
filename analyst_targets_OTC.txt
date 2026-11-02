@@ -57,7 +57,7 @@ SICP	SilverGate Capital	0.69				NOFAQ	NOT_TRADEABLE
 SLAMF	Slam Corp	19.00				NOFAQ	NOT_TRADEABLE
 SLNAF	Selina Hospitality PLC	0.00				NOFAQ	NOT_TRADEABLE
 SMNR	Semnur Pharmaceuticals Inc	0.36				NOFAQ	NOT_TRADEABLE
-SNBRQ	Sleep Number Corporation	0.01				NOFAQ	TRADEABLE
+SNBRQ	Sleep Number Corporation	0.00				NOFAQ	TRADEABLE
 SNFI	Stark Novus Financial Inc	1.67				NOFAQ	NOT_TRADEABLE
 SRNE	Sorrento Therapeutics Inc	0.00				NOFAQ	NOT_TRADEABLE
 SUNWQ	Sunworks Inc	0.00				NOFAQ	NOT_TRADEABLE
