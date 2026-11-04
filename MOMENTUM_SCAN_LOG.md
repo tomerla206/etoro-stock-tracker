@@ -2,7 +2,7 @@
 
 Done: 2770 / 2770
 
-Elapsed: 0.7 min | Rate: 66.49/s | ETA: 0.0 min
+Elapsed: 0.8 min | Rate: 56.96/s | ETA: 0.0 min
 
-Updated: 2754
-No data: 16
+Updated: 2748
+No data: 22
