@@ -1,9 +1,9 @@
-TAH.ASX	Tabcorp Holdings Limited	0.91	1.00	1.02	1.07	OK	TRADEABLE
-TCL.ASX	Transurban Group	14.64	13.07	13.70	14.30	OK	TRADEABLE
+TAH.ASX	Tabcorp Holdings Limited	0.92	1.00	1.02	1.07	OK	TRADEABLE
+TCL.ASX	Transurban Group	14.60	13.07	13.70	14.30	OK	TRADEABLE
 TLC.ASX	The Lottery Corporation Limited	5.49	4.50	5.41	6.00	OK	TRADEABLE
-TLS.ASX	Telstra Group Ltd	5.11	4.60	4.60	4.60	OK	TRADEABLE
-TLX.ASX	Telix Pharmaceuticals Limited	13.91	21.00	25.60	31.50	OK	TRADEABLE
-TNE.ASX	Technology One Limited	32.42	32.00	33.75	36.56	OK	TRADEABLE
-TPG.ASX	TPG Telecom Limited	4.05	4.30	4.30	4.30	OK	TRADEABLE
-TPW.ASX	Temple & Webster Group Ltd	6.14	5.30	7.15	9.00	OK	TRADEABLE
-TWE.ASX	Treasury Wine Estates Limited	6.28	5.90	6.57	7.30	OK	TRADEABLE
+TLS.ASX	Telstra Group Ltd	5.10	4.60	4.60	4.60	OK	TRADEABLE
+TLX.ASX	Telix Pharmaceuticals Limited	13.67	21.00	25.60	31.50	OK	TRADEABLE
+TNE.ASX	Technology One Limited	32.65	32.00	33.75	36.56	OK	TRADEABLE
+TPG.ASX	TPG Telecom Limited	4.10	4.30	4.30	4.30	OK	TRADEABLE
+TPW.ASX	Temple & Webster Group Ltd	6.12	5.30	7.15	9.00	OK	TRADEABLE
+TWE.ASX	Treasury Wine Estates Limited	6.35	5.90	6.57	7.30	OK	TRADEABLE
