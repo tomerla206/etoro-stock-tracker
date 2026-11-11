@@ -1,30 +1,30 @@
-CA.PA	Carrefour SA	13.65	16.10	17.23	18.35	OK	TRADEABLE
-CAF.PA	Caiss Regio Credi Agric Mutuel Paris Idf	88.04				NOFAQ	TRADEABLE
-CAP.PA	Capgemini SE	126.90	135.00	135.00	135.00	OK	TRADEABLE
-CARM.PA	Carmila SA	15.36				NOFAQ	TRADEABLE
-CAT31.PA	Caisse Regionale De Credit Agricole Mutuel Toulouse 31	99.32				NOFAQ	TRADEABLE
+CA.PA	Carrefour SA	13.59	16.10	17.23	18.35	OK	TRADEABLE
+CAF.PA	Caiss Regio Credi Agric Mutuel Paris Idf	88.40				NOFAQ	TRADEABLE
+CAP.PA	Capgemini SE	123.30	135.00	135.00	135.00	OK	TRADEABLE
+CARM.PA	Carmila SA	15.20				NOFAQ	TRADEABLE
+CAT31.PA	Caisse Regionale De Credit Agricole Mutuel Toulouse 31	98.50				NOFAQ	TRADEABLE
 CBOT.PA	Cbo Territoria SA	3.76				NOFAQ	TRADEABLE
-CBSM.PA	Soc Centrale Bois Scieries Manche SA	8.85				NOFAQ	TRADEABLE
-CCN.PA	Caisse Regionale de Credit Agricole Mutuel de Normandie Seine SC	120.00				NOFAQ	TRADEABLE
-CDA.PA	Compagnie des Alpes SA	19.50				NOFAQ	TRADEABLE
-CDI.PA	Christian Dior	441.40				NOFAQ	TRADEABLE
-CEN.PA	Groupe Crit SA	45.20				NOFAQ	TRADEABLE
-CIV.PA	Caisse regionale de Credit Agricole Mutuel dIlle-et-Vilaine	96.98				NOFAQ	TRADEABLE
-CMO.PA	Credit Agricole du Morbihan SC	95.25				NOFAQ	TRADEABLE
-CNDF.PA	Caisse Reg Credit Agric Mut Nord France	24.49				NOFAQ	TRADEABLE
+CBSM.PA	Soc Centrale Bois Scieries Manche SA	8.50				NOFAQ	TRADEABLE
+CCN.PA	Caisse Regionale de Credit Agricole Mutuel de Normandie Seine SC	121.48				NOFAQ	TRADEABLE
+CDA.PA	Compagnie des Alpes SA	19.36				NOFAQ	TRADEABLE
+CDI.PA	Christian Dior	432.20				NOFAQ	TRADEABLE
+CEN.PA	Groupe Crit SA	46.80				NOFAQ	TRADEABLE
+CIV.PA	Caisse regionale de Credit Agricole Mutuel dIlle-et-Vilaine	96.99				NOFAQ	TRADEABLE
+CMO.PA	Credit Agricole du Morbihan SC	96.99				NOFAQ	TRADEABLE
+CNDF.PA	Caisse Reg Credit Agric Mut Nord France	25.08				NOFAQ	TRADEABLE
 CO.PA	Casino Guichard Perrachon SA	0.17				NOFAQ	TRADEABLE
-COFA.PA	Coface SA	15.87				NOFAQ	TRADEABLE
-COH.PA	Coheris SA	7.40				NOFAQ	TRADEABLE
-COTY.PA	Coty Inc	3.44	2.24	2.84	3.59	OK	TRADEABLE
-COV.PA	Covivio SA	45.42	60.00	60.00	60.00	OK	TRADEABLE
-COVH.PA	Covivio Hotels SCA	20.40				NOFAQ	TRADEABLE
-CRAP.PA	Credit Agricole Alpes Provence	110.00				NOFAQ	TRADEABLE
-CRAV.PA	Caisse Regionale De Credit Agricole Mutuel Atlantique Vendee	106.86				NOFAQ	TRADEABLE
-CRBP2.PA	Caisse Regionale de Credit Agricole Mutuel Brie Picardie	30.16				NOFAQ	TRADEABLE
-CRI.PA	Chargeurs SA	7.69				NOFAQ	TRADEABLE
-CRLA.PA	Caisse Regionale de Credit Agricole Mutuel du Languedoc	63.41				NOFAQ	TRADEABLE
-CRLO.PA	Cr Credit Agricole Mutuel Loire Hte Loir	85.99				NOFAQ	TRADEABLE
-CRSU.PA	Caisse Regionale De Credit Agricole Mutuel Sud Rhone Alpes	169.00				NOFAQ	TRADEABLE
+COFA.PA	Coface SA	16.10				NOFAQ	TRADEABLE
+COH.PA	Coheris SA	7.28				NOFAQ	TRADEABLE
+COTY.PA	Coty Inc	3.70	2.23	2.82	3.56	OK	TRADEABLE
+COV.PA	Covivio SA	45.50	60.00	60.00	60.00	OK	TRADEABLE
+COVH.PA	Covivio Hotels SCA	20.30				NOFAQ	TRADEABLE
+CRAP.PA	Credit Agricole Alpes Provence	109.00				NOFAQ	TRADEABLE
+CRAV.PA	Caisse Regionale De Credit Agricole Mutuel Atlantique Vendee	107.42				NOFAQ	TRADEABLE
+CRBP2.PA	Caisse Regionale de Credit Agricole Mutuel Brie Picardie	30.51				NOFAQ	TRADEABLE
+CRI.PA	Chargeurs SA	7.73				NOFAQ	TRADEABLE
+CRLA.PA	Caisse Regionale de Credit Agricole Mutuel du Languedoc	63.93				NOFAQ	TRADEABLE
+CRLO.PA	Cr Credit Agricole Mutuel Loire Hte Loir	86.00				NOFAQ	TRADEABLE
+CRSU.PA	Caisse Regionale De Credit Agricole Mutuel Sud Rhone Alpes	170.00				NOFAQ	TRADEABLE
 CRTO.PA	Caisse Reg Cred Agric Mut Tourain Poitou	105.98				NOFAQ	TRADEABLE
-CS.PA	AXA Group	44.68	48.00	54.98	77.00	OK	TRADEABLE
-CVX.PA	Carvolix SA	4.90				NOFAQ	TRADEABLE
+CS.PA	AXA Group	45.36	48.00	54.98	77.00	OK	TRADEABLE
+CVX.PA	Carvolix SA	4.92				NOFAQ	TRADEABLE
