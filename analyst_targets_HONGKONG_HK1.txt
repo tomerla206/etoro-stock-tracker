@@ -1,39 +1,39 @@
-00001.HK	CK Hutchison Holdings Ltd	69.35				NOFAQ	TRADEABLE
-00002.HK	CLP Holdings Ltd	80.85				NOFAQ	TRADEABLE
-00006.HK	Power Assets Holdings Ltd	65.15				NOFAQ	TRADEABLE
-00016.HK	Sun Hung Kai Properties Ltd	112.40				NOFAQ	TRADEABLE
+00001.HK	CK Hutchison Holdings Ltd	68.75				NOFAQ	TRADEABLE
+00002.HK	CLP Holdings Ltd	81.05				NOFAQ	TRADEABLE
+00006.HK	Power Assets Holdings Ltd	65.50				NOFAQ	TRADEABLE
+00016.HK	Sun Hung Kai Properties Ltd	110.90				NOFAQ	TRADEABLE
 00017.HK	New World Development Co Ltd	4.87				NOFAQ	TRADEABLE
-00019.HK	Swire Pacific Ltd	113.60				NOFAQ	TRADEABLE
-00027.HK	Galaxy Entertainment Group Ltd	34.48				NOFAQ	TRADEABLE
-00066.HK	MTR Corp Ltd	33.66				NOFAQ	TRADEABLE
-00135.HK	Kunlun Energy Co Ltd	7.70				NOFAQ	TRADEABLE
-00175.HK	Geely Automobile Holdings Ltd	13.92				NOFAQ	TRADEABLE
-00241.HK	Alibaba Health Information Tec	2.92				NOFAQ	TRADEABLE
-00257.HK	China Everbright Environment Group Ltd	5.23				NOFAQ	TRADEABLE
-00268.HK	Kingdee International Software	8.90				NOFAQ	TRADEABLE
-00285.HK	BYD Electronic International	20.68				NOFAQ	TRADEABLE
-00322.HK	Tingyi Cayman Islands Holding	13.65				NOFAQ	TRADEABLE
-00384.HK	China Gas Holdings Ltd	4.89				NOFAQ	TRADEABLE
-00388.HK	Hong Kong Exchanges & Clearing	382.00				NOFAQ	TRADEABLE
-00763.HK	ZTE Corp	19.74				NOFAQ	TRADEABLE
-00857.HK	PetroChina Co Ltd	10.05				NOFAQ	TRADEABLE
-00880.HK	SJM Holdings Ltd	1.11				NOFAQ	TRADEABLE
-00966.HK	China Taiping Insurance Holdin	17.54				NOFAQ	TRADEABLE
-00981.HK	Semiconductor Manufacturing International Corporation	48.74				NOFAQ	NOT_TRADEABLE
-01055.HK	China Southern Airlines Co Ltd	2.91				NOFAQ	TRADEABLE
-01093.HK	CSPC Pharmaceutical Group Ltd	8.40				NOFAQ	TRADEABLE
-01113.HK	CK Asset Holdings Ltd	49.48				NOFAQ	TRADEABLE
-01114.HK	Brilliance China Automotive	1.73				NOFAQ	TRADEABLE
-01128.HK	Wynn Macau Ltd	4.22				NOFAQ	TRADEABLE
-01177.HK	Sino Biopharmaceutical Ltd	5.57				NOFAQ	TRADEABLE
-01211.HK	BYD Co Ltd	67.55				NOFAQ	TRADEABLE
-01336.HK	New China Life Insurance Co Ltd	37.68				NOFAQ	TRADEABLE
-01928.HK	Sands China Ltd	11.03				NOFAQ	TRADEABLE
-02018.HK	AAC Technologies Holdings Inc	37.58				NOFAQ	TRADEABLE
-02020.HK	ANTA Sports Products Ltd	79.00				NOFAQ	TRADEABLE
+00019.HK	Swire Pacific Ltd	112.60				NOFAQ	TRADEABLE
+00027.HK	Galaxy Entertainment Group Ltd	33.42				NOFAQ	TRADEABLE
+00066.HK	MTR Corp Ltd	32.56				NOFAQ	TRADEABLE
+00135.HK	Kunlun Energy Co Ltd	7.68				NOFAQ	TRADEABLE
+00175.HK	Geely Automobile Holdings Ltd	13.41				NOFAQ	TRADEABLE
+00241.HK	Alibaba Health Information Tec	2.86				NOFAQ	TRADEABLE
+00257.HK	China Everbright Environment Group Ltd	5.10				NOFAQ	TRADEABLE
+00268.HK	Kingdee International Software	8.74				NOFAQ	TRADEABLE
+00285.HK	BYD Electronic International	19.63				NOFAQ	TRADEABLE
+00322.HK	Tingyi Cayman Islands Holding	13.63				NOFAQ	TRADEABLE
+00384.HK	China Gas Holdings Ltd	4.87				NOFAQ	TRADEABLE
+00388.HK	Hong Kong Exchanges & Clearing	378.40				NOFAQ	TRADEABLE
+00763.HK	ZTE Corp	19.44				NOFAQ	TRADEABLE
+00857.HK	PetroChina Co Ltd	10.33				NOFAQ	TRADEABLE
+00880.HK	SJM Holdings Ltd	1.08				NOFAQ	TRADEABLE
+00966.HK	China Taiping Insurance Holdin	17.15				NOFAQ	TRADEABLE
+00981.HK	Semiconductor Manufacturing International Corporation	48.52				NOFAQ	NOT_TRADEABLE
+01055.HK	China Southern Airlines Co Ltd	2.86				NOFAQ	TRADEABLE
+01093.HK	CSPC Pharmaceutical Group Ltd	8.03				NOFAQ	TRADEABLE
+01113.HK	CK Asset Holdings Ltd	49.24				NOFAQ	TRADEABLE
+01114.HK	Brilliance China Automotive	1.71				NOFAQ	TRADEABLE
+01128.HK	Wynn Macau Ltd	4.10				NOFAQ	TRADEABLE
+01177.HK	Sino Biopharmaceutical Ltd	5.56				NOFAQ	TRADEABLE
+01211.HK	BYD Co Ltd	65.00				NOFAQ	TRADEABLE
+01336.HK	New China Life Insurance Co Ltd	36.82				NOFAQ	TRADEABLE
+01928.HK	Sands China Ltd	10.67				NOFAQ	TRADEABLE
+02018.HK	AAC Technologies Holdings Inc	36.72				NOFAQ	TRADEABLE
+02020.HK	ANTA Sports Products Ltd	79.10				NOFAQ	TRADEABLE
 02196.HK	Shanghai Fosun Pharmaceutical	16.57				NOFAQ	TRADEABLE
-02269.HK	Wuxi Biologics Cayman Inc	48.88				NOFAQ	TRADEABLE
-02313.HK	Shenzhou International Group	42.24				NOFAQ	TRADEABLE
-02319.HK	China Mengniu Dairy Co Ltd	21.76				NOFAQ	TRADEABLE
-02382.HK	Sunny Optical Technology Group	64.30				NOFAQ	TRADEABLE
-02386.HK	Sinopec Engineering Group Co	5.57				NOFAQ	TRADEABLE
+02269.HK	Wuxi Biologics Cayman Inc	46.74				NOFAQ	TRADEABLE
+02313.HK	Shenzhou International Group	42.46				NOFAQ	TRADEABLE
+02319.HK	China Mengniu Dairy Co Ltd	21.92				NOFAQ	TRADEABLE
+02382.HK	Sunny Optical Technology Group	65.85				NOFAQ	TRADEABLE
+02386.HK	Sinopec Engineering Group Co	5.76				NOFAQ	TRADEABLE
