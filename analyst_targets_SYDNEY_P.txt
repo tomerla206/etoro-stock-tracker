@@ -5,6 +5,6 @@ PMV.ASX	Premier Investments Limited	14.44	11.50	13.77	16.50	OK	TRADEABLE
 PNI.ASX	Pinnacle Investment Management Group Limited	15.60	22.62	22.81	23.00	OK	TRADEABLE
 PNV.ASX	PolyNovo Limited	0.88	0.95	1.15	1.22	OK	TRADEABLE
 PPT.ASX	Perpetual Limited	18.42	16.80	16.90	17.00	OK	TRADEABLE
-PRU.ASX	Perseus Mining Limited	6.35	6.20	7.68	8.95	OK	TRADEABLE
+PRU.ASX	Perseus Mining Limited	6.35	6.20	7.69	8.95	OK	TRADEABLE
 PWH.ASX	Pwr Holdings Ltd	11.41	1.00	1.00	1.00	OK	TRADEABLE
 PXA.ASX	PEXA Group Limited	7.05	7.03	7.86	8.30	OK	TRADEABLE
