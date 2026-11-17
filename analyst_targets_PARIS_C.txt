@@ -26,5 +26,5 @@ CRLA.PA	Caisse Regionale de Credit Agricole Mutuel du Languedoc	66.98				NOFAQ	T
 CRLO.PA	Cr Credit Agricole Mutuel Loire Hte Loir	85.43				NOFAQ	TRADEABLE
 CRSU.PA	Caisse Regionale De Credit Agricole Mutuel Sud Rhone Alpes	172.00				NOFAQ	TRADEABLE
 CRTO.PA	Caisse Reg Cred Agric Mut Tourain Poitou	105.50				NOFAQ	TRADEABLE
-CS.PA	AXA Group	47.10	48.00	54.98	77.00	OK	TRADEABLE
+CS.PA	AXA Group	47.10				NOFAQ	TRADEABLE
 CVX.PA	Carvolix SA	4.85				NOFAQ	TRADEABLE
