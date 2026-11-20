@@ -1,3 +1,3 @@
 # FUNDAMENTALS SCAN Results (aggregated from shards)
 
-Updated: 6174 | No data: 181 | Errors: 1
+Updated: 6173 | No data: 182 | Errors: 1

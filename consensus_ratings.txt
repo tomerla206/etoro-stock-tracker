@@ -1,19 +1,19 @@
-ACAD	80	Strong Buy
 ABEO	100	Moderate Buy
+AAPL	50	Moderate Buy
+ACAD	78	Strong Buy
 ADV	50	Moderate Buy
 ADMA	50	Moderate Buy
 ACT	40	Moderate Sell
-AAPL	50	Moderate Buy
 AEVA	33	Moderate Buy
 AGMB	100	Strong Buy
 ALHC	50	Moderate Buy
 ALMS	80	Strong Buy
-AMBR	100	Moderate Buy
 ALTO	100	Moderate Buy
+AMBR	100	Moderate Buy
 AMLX	100	Strong Buy
 AMZN	100	Strong Buy
-APC	100	Strong Buy
 ANIP	75	Strong Buy
+APC	100	Strong Buy
 APPS	100	Moderate Buy
 ARDX	100	Strong Buy
 ARXS	100	Strong Buy
@@ -60,7 +60,7 @@ CMCSA	50	Hold
 CNDT	100	Moderate Buy
 COCP	100	Moderate Buy
 COLL	75	Strong Buy
-CPB	29	Moderate Sell
+CPB	83	Hold
 CRDF	100	Moderate Buy
 CRNT	100	Moderate Buy
 CRTO	60	Moderate Buy
@@ -119,7 +119,7 @@ QBY0.DE	100	Moderate Buy
 RWE.DE	100	Strong Buy
 SAV.DE	100	Moderate Buy
 SDF.DE	50	Moderate Sell
-SIE.DE	55	Moderate Buy
+SIE.DE	50	Moderate Buy
 SLL.DE	100	Hold
 SZU.DE	33	Moderate Buy
 TMV.DE	33	Moderate Buy
@@ -136,7 +136,7 @@ HBAN	71	Moderate Buy
 HCSG	33	Moderate Buy
 HIMX	100	Moderate Buy
 HNRG	100	Moderate Buy
-HOOD	92	Strong Buy
+HOOD	91	Strong Buy
 HQ	100	Moderate Buy
 HSAI	100	Strong Buy
 HTHT	100	Moderate Buy
@@ -146,17 +146,17 @@ HUT	100	Strong Buy
 0728.HK	100	Moderate Buy
 0916.HK	25	Hold
 1088.HK	83	Strong Buy
-1179.HK	100	Strong Buy
+1179.HK	100	Moderate Buy
 1299.HK	100	Strong Buy
 1519.HK	100	Moderate Buy
 1787.HK	100	Hold
 1818.HK	100	Hold
 1913.HK	100	Strong Buy
 1997.HK	100	Moderate Buy
-2057.HK	100	Hold
+2057.HK	50	Moderate Buy
 2331.HK	100	Moderate Buy
 2513.HK	100	Hold
-2618.HK	100	Hold
+2618.HK	50	Moderate Buy
 2883.HK	100	Strong Buy
 3800.HK	100	Strong Buy
 6055.HK	100	Strong Buy
@@ -180,7 +180,7 @@ IRON	100	Strong Buy
 ITG	100	Strong Buy
 JBHT	56	Moderate Buy
 JKHY	67	Moderate Buy
-KHC	71	Hold
+KHC	83	Hold
 KNSL	50	Hold
 KYMR	89	Strong Buy
 KE	67	Moderate Buy
@@ -188,14 +188,13 @@ KRRO	100	Moderate Buy
 LAND	50	Moderate Buy
 LCID	40	Moderate Sell
 LFMD	100	Strong Buy
-LGVN	50	Moderate Buy
 LILAK	100	Hold
 LITE	56	Moderate Buy
 LMB	100	Moderate Buy
 LOB	50	Moderate Buy
 LQDA	80	Strong Buy
 LULU	82	Hold
-LYFT	82	Hold
+LYFT	83	Hold
 ABDN.L	50	Hold
 ALFA.L	100	Moderate Buy
 AO.L	100	Moderate Buy
@@ -208,7 +207,7 @@ BWY.L	40	Hold
 CGS.L	100	Moderate Buy
 CRST.L	100	Moderate Buy
 DCC.L	100	Hold
-DNLM.L	100	Moderate Buy
+DNLM.L	100	Strong Buy
 EDV.L	100	Strong Buy
 ENT.L	83	Strong Buy
 FAN.L	100	Moderate Buy
@@ -217,6 +216,7 @@ FUTR.L	100	Hold
 GKP.L	100	Moderate Buy
 GPE.L	100	Moderate Sell
 HAS.L	100	Moderate Buy
+HHPD.L	100	Moderate Buy
 HMSO.L	100	Moderate Buy
 HSX.L	0	Hold
 IAG.L	100	Strong Buy
@@ -225,7 +225,7 @@ JD.L	100	Hold
 KAP.L	100	Moderate Buy
 LAND.L	67	Moderate Buy
 LMP.L	50	Moderate Buy
-MGAM.L	33	Moderate Buy
+MGAM.L	50	Moderate Buy
 MNDI.L	50	Moderate Buy
 NWG.L	83	Strong Buy
 ONT.L	100	Strong Buy
@@ -291,7 +291,7 @@ TPRO.MI	100	Moderate Buy
 NAMM	100	Moderate Buy
 NBIS	67	Moderate Buy
 NDAQ	92	Strong Buy
-NEXN	100	Strong Buy
+NEXN	100	Moderate Buy
 NKTX	100	Strong Buy
 NRIX	83	Strong Buy
 NTES	100	Moderate Buy
@@ -311,15 +311,15 @@ AI	33	Moderate Sell
 AIZ	100	Strong Buy
 ALH	100	Strong Buy
 ALSN	50	Moderate Buy
-AMBP	33	Moderate Buy
+AMBP	50	Moderate Buy
 AMN	50	Moderate Buy
 AMRX	100	Strong Buy
 AMX	100	Hold
 ANGX	100	Moderate Buy
 APD	83	Strong Buy
 AQN	40	Moderate Buy
-ARIS	100	Strong Buy
 ARX	33	Moderate Sell
+ARIS	100	Strong Buy
 ASIX	100	Hold
 ATI	100	Strong Buy
 ATS	33	Hold
@@ -340,7 +340,7 @@ BLCO	44	Moderate Buy
 BMA	67	Moderate Buy
 BNL	67	Moderate Buy
 BOH	80	Hold
-BRBR	43	Moderate Buy
+BRBR	50	Moderate Buy
 BRSL	50	Moderate Buy
 BSM	100	Hold
 BUD	100	Moderate Buy
@@ -371,13 +371,13 @@ CW	50	Moderate Buy
 CXM	50	Hold
 DBD	100	Moderate Buy
 DCOM	100	Moderate Buy
-DECK	67	Moderate Buy
+DECK	70	Moderate Buy
 DG.US	44	Moderate Buy
 DINO	50	Moderate Buy
 DLR	91	Strong Buy
 DOC	29	Moderate Buy
 DOW	67	Hold
-DTE	50	Moderate Buy
+DTE	56	Moderate Buy
 DX	100	Moderate Buy
 ED	20	Hold
 EGP.US	80	Strong Buy
@@ -395,7 +395,7 @@ FC	100	Strong Buy
 FDX	92	Strong Buy
 FHI	60	Hold
 FLR.US	50	Moderate Buy
-FNB	71	Moderate Buy
+FNB	67	Moderate Buy
 FOUR	50	Moderate Buy
 FSK	33	Moderate Sell
 FTRE	57	Moderate Buy
@@ -412,7 +412,7 @@ GROY	100	Strong Buy
 GTN	67	Moderate Buy
 GXO	100	Strong Buy
 HAWK	100	Strong Buy
-HD	82	Strong Buy
+HD	93	Strong Buy
 HG	100	Strong Buy
 HIMS	75	Hold
 HLIO	67	Moderate Buy
@@ -435,7 +435,7 @@ KFRC	50	Moderate Buy
 KLAR	78	Hold
 KN	50	Moderate Buy
 KREF	50	Moderate Sell
-KTB	71	Moderate Buy
+KTB	75	Strong Buy
 LAC	100	Hold
 LB	50	Moderate Buy
 LDOS	86	Hold
@@ -444,13 +444,12 @@ LLY	90	Strong Buy
 LOAR	75	Strong Buy
 LRN	50	Moderate Buy
 LUCK	50	Moderate Buy
-LXFR	100	Hold
 LYV	80	Moderate Buy
 MAC	100	Moderate Buy
 MCS.US	67	Moderate Buy
 MED.US	100	Hold
 MHK	56	Hold
-MKC/V	67	Moderate Buy
+MKC/V	50	Moderate Buy
 MMM	50	Moderate Buy
 MPLX.US	50	Moderate Buy
 MSGE	75	Strong Buy
@@ -463,12 +462,12 @@ NIO	55	Moderate Buy
 NMAX	100	Moderate Buy
 NOG	60	Hold
 NP	50	Moderate Buy
-NRG	83	Strong Buy
+NRG	82	Strong Buy
 NTR	100	Strong Buy
 NVT	83	Strong Buy
 NXE	100	Strong Buy
 OC	67	Moderate Buy
-OKE	75	Hold
+OKE	31	Moderate Buy
 ONIT	100	Strong Buy
 ORA.US	86	Strong Buy
 OSG	100	Moderate Buy
@@ -478,7 +477,7 @@ PARR	60	Moderate Buy
 PBF	75	Hold
 PCOR	92	Strong Buy
 PEN	100	Hold
-PGR	43	Moderate Buy
+PGR	47	Moderate Buy
 PHR	63	Moderate Buy
 PK	50	Hold
 PLGO	50	Hold
@@ -491,31 +490,32 @@ PXED	40	Moderate Buy
 R	83	Strong Buy
 RBRK	100	Strong Buy
 RDN	100	Strong Buy
-REPX	100	Moderate Buy
-RGA	71	Moderate Buy
+REPX	100	Strong Buy
+RGA	75	Moderate Buy
 RIO	33	Hold
 RLI	50	Moderate Buy
 RNG	50	Moderate Buy
 ROL	57	Hold
 RS	33	Moderate Sell
 RVLV	67	Moderate Buy
-RYN	75	Hold
+RYN	33	Moderate Buy
 SAH	50	Moderate Sell
+SBS	100	Moderate Buy
 SGI	100	Strong Buy
 SLB	100	Strong Buy
-SMA	50	Moderate Buy
 SMRT	100	Moderate Buy
+SMA	50	Moderate Buy
 SNN.US	100	Hold
 SOLV	33	Moderate Buy
 SPG	100	Hold
 SPXC	100	Strong Buy
 ST	67	Moderate Buy
-STLA.US	60	Hold
+STLA.US	43	Moderate Sell
 STVN	75	Hold
 SUPV.US	100	Hold
-SWX	100	Strong Buy
+SWX	100	Moderate Buy
 SYY	71	Moderate Buy
-TAP	50	Moderate Sell
+TAP	40	Hold
 TDC	40	Moderate Sell
 TE	100	Moderate Buy
 TEVA	100	Strong Buy
@@ -526,27 +526,27 @@ TOL	89	Strong Buy
 TPR	100	Strong Buy
 TRIN	100	Moderate Sell
 TRU.US	75	Strong Buy
-TSN	80	Strong Buy
-TU	83	Hold
+TSN	100	Strong Buy
+TU	67	Hold
 TXT	33	Moderate Buy
 UEC	67	Moderate Buy
 UIS	100	Moderate Buy
 UNFI	40	Moderate Buy
 URG	100	Strong Buy
 USPH	100	Moderate Buy
-VEEV	73	Moderate Buy
+VEEV	79	Moderate Buy
 VICI	43	Moderate Buy
 VMI	100	Moderate Buy
 VPG	100	Moderate Buy
-VSXY	63	Moderate Buy
+VSXY	71	Moderate Buy
 VVV.US	67	Moderate Buy
-WAL	75	Strong Buy
+WAL	73	Moderate Buy
 WD	100	Moderate Buy
 WEX	50	Moderate Buy
 WHK	100	Moderate Buy
 WOLF	100	Hold
 WRBY	75	Strong Buy
-WY	83	Strong Buy
+WY	100	Strong Buy
 XPO	100	Strong Buy
 YPF	50	Moderate Buy
 ZIM	50	Moderate Sell
@@ -563,7 +563,7 @@ ASAIY	100	Hold
 PAGP	50	Hold
 PAYP	67	Moderate Buy
 PCT.US	100	Hold
-PENN	50	Moderate Buy
+PENN	57	Moderate Buy
 PFG	63	Hold
 PHAT	83	Strong Buy
 PKOH	100	Moderate Buy
@@ -599,11 +599,11 @@ QUIK	100	Moderate Buy
 RBC	100	Strong Buy
 RDNT	100	Strong Buy
 REG	71	Moderate Buy
-RGLD	40	Hold
+RGLD	50	Moderate Buy
 RIGL	33	Moderate Buy
 RLMD	100	Moderate Buy
 RNW	100	Hold
-ROP	67	Moderate Buy
+ROP	50	Moderate Buy
 RUSHA	67	Moderate Buy
 RXT	100	Hold
 SANA	67	Moderate Buy
@@ -631,23 +631,21 @@ MTRS.ST	100	Moderate Buy
 SAVE.ST	50	Moderate Sell
 SYSR.ST	100	Moderate Buy
 ABB.ASX	100	Strong Buy
-ALQ.ASX	0	Hold
+ALQ.ASX	67	Moderate Buy
 ANZ.ASX	63	Hold
 ASX.ASX	100	Hold
 BGA.ASX	100	Hold
 BPT.ASX	75	Hold
-BXB.ASX	60	Moderate Buy
+BXB.ASX	50	Moderate Buy
 CHC.ASX	86	Strong Buy
 CMM.ASX	86	Strong Buy
 CQE.ASX	100	Moderate Buy
-CWY.ASX	100	Moderate Buy
+CWY.ASX	100	Hold
 DRO.ASX	100	Hold
 ELD.ASX	100	Hold
 FLT.ASX	100	Moderate Buy
-GOZ.ASX	100	Moderate Buy
 HUB.ASX	100	Strong Buy
 ILU.ASX	67	Moderate Buy
-IRE.ASX	50	Moderate Buy
 KLS.ASX	100	Moderate Buy
 LYC.ASX	90	Strong Buy
 MND.ASX	50	Hold
@@ -655,13 +653,13 @@ NAB.ASX	40	Hold
 NHF.ASX	40	Moderate Buy
 NWH.ASX	100	Strong Buy
 ORI.ASX	100	Strong Buy
-PNV.ASX	75	Strong Buy
+PNV.ASX	100	Hold
 QBE.ASX	75	Hold
 RIC.ASX	100	Moderate Buy
 S32.ASX	40	Moderate Buy
-SGH.ASX	50	Moderate Buy
+SGH.ASX	100	Hold
 SIQ.ASX	33	Moderate Buy
-SUL.ASX	33	Moderate Buy
+SUL.ASX	50	Moderate Buy
 TLS.ASX	40	Hold
 VAU.ASX	75	Strong Buy
 WAF.ASX	100	Moderate Buy
@@ -682,7 +680,7 @@ UPXI	100	Moderate Buy
 USLM	100	Moderate Buy
 VC	100	Strong Buy
 VERA	90	Strong Buy
-VIAV	100	Strong Buy
+VIAV	100	Moderate Buy
 VITL	100	Moderate Buy
 VNOM	100	Strong Buy
 VRNS	95	Hold
@@ -694,7 +692,7 @@ WING	71	Moderate Buy
 WLTH	57	Moderate Buy
 WSBC	50	Moderate Buy
 WT	80	Strong Buy
-WWD	86	Strong Buy
+WWD	88	Strong Buy
 XENE	92	Strong Buy
 Z	100	Moderate Buy
 ZURA	100	Strong Buy
@@ -708,25 +706,25 @@ SLHN.ZU	33	Hold
 SREN.ZU	80	Strong Sell
 VACN.ZU	67	Moderate Buy
 ACB	33	Moderate Sell
-ACIW	67	Moderate Buy
+ADP	30	Moderate Buy
 AAL	38	Moderate Buy
-ADP	78	Hold
-ABNB	62	Moderate Buy
-ALDX	100	Hold
-ALVO	100	Strong Buy
+ACIW	67	Moderate Buy
+ABNB	63	Moderate Buy
 AKAM	56	Moderate Buy
+ALDX	100	Hold
 ALKS	67	Moderate Buy
 ALNT	67	Moderate Buy
+ALVO	100	Strong Buy
 AMPH	100	Moderate Sell
 ANAB	100	Strong Buy
 ANNX	100	Strong Buy
-AQST	100	Strong Buy
-APMD	100	Strong Buy
 APEI	75	Strong Buy
+APMD	100	Strong Buy
+AQST	100	Strong Buy
 ARGX	100	Strong Buy
 ARQT	100	Strong Buy
 ASLE	100	Hold
-ASST	100	Strong Buy
+ASST	100	Moderate Buy
 ATAT	100	Moderate Buy
 ATOM.US	100	Moderate Buy
 AVAH	33	Moderate Buy
@@ -737,7 +735,7 @@ ASM.NV	100	Strong Buy
 BESI.NV	25	Hold
 CTPNV.NV	100	Moderate Buy
 NRP.NV	100	Hold
-PHIA.NV	89	Hold
+PHIA.NV	100	Hold
 SBMO.NV	100	Moderate Buy
 BANR	33	Moderate Buy
 BCPC	100	Moderate Buy
@@ -747,12 +745,12 @@ BKKT	100	Moderate Buy
 BLFS	100	Hold
 BLZE	80	Strong Buy
 BNTX	77	Strong Buy
-BRKR	43	Moderate Buy
+BRKR	38	Moderate Buy
 BTDR	100	Strong Buy
 BWB	100	Moderate Buy
 CAC	100	Hold
 CAMT	67	Moderate Buy
-CART	76	Hold
+CART	78	Hold
 CBRS	100	Strong Buy
 CCC.US	80	Hold
 CDNA	100	Strong Buy
@@ -773,7 +771,7 @@ CRNX	82	Hold
 CRUS	40	Hold
 CSTL	100	Strong Buy
 CTMX	100	Strong Buy
-CVLT	78	Strong Buy
+CVLT	70	Moderate Buy
 CYTK	92	Strong Buy
 DBX	100	Hold
 DFLI	100	Moderate Buy
@@ -791,7 +789,7 @@ EXFY	100	Hold
 EYPT	78	Hold
 FBNC	67	Moderate Buy
 FELE	50	Moderate Buy
-FIGR	75	Strong Buy
+FIGR	50	Moderate Buy
 FIVN	33	Moderate Buy
 FLNA	100	Moderate Buy
 FNKO	100	Hold
@@ -807,8 +805,8 @@ BAS.DE	75	Strong Buy
 BFSA.DE	100	Moderate Buy
 CON.DE	100	Moderate Buy
 CWC.DE	100	Moderate Buy
-DB1.DE	57	Moderate Buy
-DEZ.DE	100	Strong Buy
+DB1.DE	67	Moderate Buy
+DEZ.DE	100	Moderate Buy
 DWNI.DE	100	Moderate Buy
 EBO.DE	100	Moderate Buy
 EIN.DE	100	Moderate Buy
@@ -819,15 +817,15 @@ HABA.DE	100	Moderate Buy
 HLE.DE	100	Hold
 IXX.DE	100	Moderate Buy
 KSB3.DE	100	Moderate Buy
-LEG.DE	100	Hold
 LPK.DE	100	Moderate Buy
+LEG.DE	100	Hold
 MUV2.DE	40	Moderate Buy
 NDA.DE	100	Hold
 NP5.DE	100	Moderate Buy
 PUM.DE	50	Moderate Buy
-QIA.DE	83	Hold
-RY4C.DE	86	Strong Buy
-SAX.DE	100	Moderate Buy
+QIA.DE	29	Moderate Buy
+RY4C.DE	88	Strong Buy
+SAX.DE	40	Hold
 SLYG.DE	100	Moderate Buy
 SRT.DE	100	Moderate Buy
 TNIE.DE	100	Moderate Buy
@@ -860,7 +858,7 @@ HWC	67	Moderate Buy
 1308.HK	60	Moderate Buy
 1378.HK	100	Strong Buy
 1530.HK	100	Moderate Buy
-1698.HK	100	Strong Buy
+1698.HK	70	Moderate Buy
 1797.HK	100	Strong Buy
 1833.HK	100	Strong Buy
 1919.HK	100	Moderate Buy
@@ -870,21 +868,21 @@ HWC	67	Moderate Buy
 2628.HK	100	Moderate Buy
 2899.HK	100	Moderate Buy
 3311.HK	80	Moderate Buy
-3606.HK	100	Moderate Buy
+3606.HK	73	Moderate Buy
 3808.HK	100	Moderate Buy
 3988.HK	100	Strong Buy
 6066.HK	100	Moderate Buy
 6186.HK	67	Moderate Buy
-9660.HK	100	Strong Buy
+9660.HK	89	Strong Buy
 9896.HK	100	Moderate Buy
 9992.HK	50	Moderate Buy
 IBOC	100	Moderate Buy
 IFRX	100	Moderate Buy
-IMTX	100	Strong Buy
+IMTX	100	Moderate Buy
 INSE	75	Strong Buy
-INTU	47	Moderate Buy
-IQ.US	40	Moderate Buy
-IRTC	88	Strong Buy
+INTU	43	Moderate Buy
+IQ.US	100	Moderate Buy
+IRTC	86	Strong Buy
 JBIO	100	Strong Buy
 JOYY	100	Moderate Buy
 KLAC	76	Strong Buy
@@ -900,6 +898,7 @@ LIME	100	Strong Buy
 LIVN	100	Strong Buy
 LMNR.US	100	Moderate Buy
 LOCO	100	Moderate Buy
+LQDT	100	Moderate Buy
 LUNG	60	Moderate Buy
 LYTS	100	Moderate Buy
 ABF.L	50	Moderate Sell
@@ -926,8 +925,8 @@ HTG.L	75	Moderate Buy
 IBST.L	100	Hold
 IMB.L	100	Hold
 JDW.L	0	Hold
-KGF.L	33	Moderate Buy
-LGEN.L	100	Moderate Buy
+KGF.L	75	Hold
+LGEN.L	0	Hold
 LRE.L	67	Moderate Buy
 MAB1.L	100	Moderate Buy
 MNG.L	33	Hold
@@ -964,7 +963,7 @@ PRO.L	100	Moderate Buy
 RKH.L	100	Moderate Buy
 SEE.L	100	Moderate Buy
 VIC.L	100	Moderate Buy
-MAR	36	Moderate Buy
+MAR	40	Moderate Buy
 MBGL	80	Hold
 MCBS	100	Hold
 MDB	88	Strong Buy
@@ -973,7 +972,7 @@ MGNX	50	Moderate Buy
 MMYT	100	Moderate Buy
 MPWR	100	Strong Buy
 MRTN	100	Hold
-MSFT	89	Strong Buy
+MSFT	88	Strong Buy
 MTRX	100	Moderate Buy
 ACS.MC	100	Moderate Buy
 GRE.MC	100	Moderate Buy
@@ -985,7 +984,7 @@ ENAV.MI	100	Moderate Buy
 GVS.MI	100	Moderate Buy
 NEXI.MI	100	Hold
 REY.MI	100	Moderate Buy
-STLAM.MI	60	Hold
+STLAM.MI	43	Moderate Sell
 TRN.MI	100	Hold
 NAMS	100	Strong Buy
 NBIX	81	Strong Buy
@@ -1006,7 +1005,7 @@ ADT	100	Hold
 AG	75	Strong Buy
 AGO	100	Moderate Buy
 AIG	33	Moderate Buy
-AJG	64	Moderate Buy
+AJG	57	Moderate Buy
 ALIT	100	Moderate Buy
 ALTG	50	Moderate Buy
 AMC	75	Hold
@@ -1016,7 +1015,7 @@ ANVS	100	Moderate Buy
 APG	100	Strong Buy
 AR.US	82	Strong Buy
 ARLO	100	Strong Buy
-AS	88	Strong Buy
+AS	86	Strong Buy
 ASPN	67	Moderate Buy
 ATKR	100	Hold
 AU	67	Moderate Buy
@@ -1045,7 +1044,7 @@ CBT	33	Hold
 CCJ	100	Strong Buy
 CFG	79	Strong Buy
 CIB	50	Moderate Buy
-CL	78	Strong Buy
+CL	75	Strong Buy
 CLW	100	Hold
 CMG	64	Moderate Buy
 CNA	100	Moderate Sell
@@ -1055,7 +1054,7 @@ COMP.US	100	Strong Buy
 COUR	33	Moderate Buy
 CPNG	67	Moderate Buy
 CRBG	80	Strong Buy
-CRI	50	Moderate Sell
+CRI	100	Hold
 CSL	67	Moderate Buy
 CTEV	100	Moderate Buy
 CTS	100	Moderate Buy
@@ -1102,13 +1101,13 @@ GCO	100	Moderate Buy
 GEF	100	Hold
 GEV	85	Strong Buy
 GGG	100	Hold
-GIS	71	Hold
+GIS	67	Hold
 GM	86	Strong Buy
 GOLF	100	Hold
 GPK	100	Hold
 GS	38	Moderate Buy
 GTY	100	Hold
-H.US	67	Moderate Buy
+H.US	69	Moderate Buy
 HAYW	75	Hold
 HGTY	40	Moderate Buy
 HIPO	100	Hold
@@ -1116,16 +1115,15 @@ HLLY	100	Strong Buy
 HP	56	Moderate Buy
 HRI	100	Strong Buy
 HTGC	75	Strong Buy
-HUM	67	Moderate Buy
+HUM	71	Moderate Buy
 HY	100	Moderate Buy
 IBP	86	Hold
 IDT	100	Moderate Buy
-IHG	67	Moderate Buy
+IHG	50	Moderate Buy
 INFQ	100	Strong Buy
 INSW	100	Strong Buy
-IP.US	100	Strong Buy
+IP.US	50	Moderate Buy
 IRT	100	Moderate Buy
-IVR	100	Hold
 JBI	50	Moderate Buy
 JELD	100	Hold
 JMKE	87	Strong Buy
@@ -1159,8 +1157,8 @@ MSGS	60	Moderate Buy
 MTDR	78	Strong Buy
 MTW	100	Moderate Sell
 MUX	100	Strong Buy
-NABL	33	Moderate Buy
-NCLH	71	Hold
+NABL	75	Hold
+NCLH	73	Hold
 NEXA	75	Hold
 NGVT	100	Moderate Buy
 NIQ	100	Strong Buy
@@ -1169,7 +1167,7 @@ NPK	100	Hold
 NRGV	100	Moderate Buy
 NTST	100	Strong Buy
 NXRT	100	Hold
-OGS	60	Moderate Buy
+OGS	50	Moderate Buy
 OKLO	50	Moderate Buy
 OPFI	100	Moderate Buy
 OSK	78	Strong Buy
@@ -1184,8 +1182,8 @@ PII	100	Hold
 PKE	100	Moderate Buy
 PLNT	57	Moderate Buy
 PNFP	89	Strong Buy
-PPL	89	Strong Buy
-PRKS	50	Moderate Buy
+PPL	88	Strong Buy
+PRKS	43	Moderate Buy
 PSA	78	Hold
 PSX	50	Moderate Buy
 Q	100	Strong Buy
@@ -1210,8 +1208,8 @@ SITE	60	Moderate Buy
 SLF	56	Hold
 SMBK	50	Moderate Buy
 SMWB	50	Moderate Buy
-SNOW	88	Strong Buy
-SON	67	Moderate Buy
+SNOW	87	Strong Buy
+SON	50	Moderate Buy
 SPGI	100	Strong Buy
 SQM	67	Moderate Buy
 SSB	100	Strong Buy
@@ -1220,7 +1218,7 @@ STM.US	100	Strong Buy
 STWD	75	Strong Buy
 SXC	100	Hold
 T.US	56	Moderate Buy
-TBBB	100	Moderate Buy
+TBBB	100	Strong Buy
 TDG	42	Moderate Buy
 TECK	75	Hold
 TEX	57	Moderate Buy
@@ -1236,7 +1234,7 @@ TV	100	Moderate Buy
 TYL	75	Strong Buy
 UBER	100	Strong Buy
 UL.US	100	Moderate Buy
-UNH	83	Strong Buy
+UNH	91	Strong Buy
 URI	85	Strong Buy
 UTI	100	Strong Buy
 UWMC	100	Hold
@@ -1255,7 +1253,7 @@ WTRG	0	Hold
 XHR	100	Hold
 XPOF	50	Moderate Buy
 YELP	33	Moderate Buy
-YSS	40	Moderate Buy
+YSS	33	Moderate Buy
 ZBH	82	Hold
 ZIP	75	Hold
 OBT	100	Moderate Buy
@@ -1271,11 +1269,11 @@ PAHC	100	Moderate Sell
 PAYS	80	Strong Buy
 PCTY	90	Strong Buy
 PDSB	100	Moderate Buy
-PEP	83	Hold
+PEP	82	Hold
 PLAB	100	Moderate Buy
 PLSE	100	Strong Buy
 PMTS	100	Moderate Buy
-PONY	100	Strong Buy
+PONY	75	Strong Buy
 PPLI	86	Strong Buy
 PRCT	40	Moderate Buy
 PROK	100	Moderate Buy
@@ -1283,10 +1281,10 @@ PSEC	100	Moderate Sell
 PTON	60	Moderate Buy
 PZZA	33	Moderate Buy
 ABVX.PA	100	Moderate Buy
-AF.PA	83	Hold
+AF.PA	86	Hold
 AM.PA	100	Hold
 AYV.PA	50	Moderate Buy
-BIM.PA	100	Hold
+BIM.PA	75	Hold
 CAP.PA	100	Hold
 DEC.PA	100	Moderate Buy
 ENX.PA	50	Moderate Buy
@@ -1295,7 +1293,7 @@ IDL.PA	100	Moderate Buy
 IPS.PA	100	Hold
 OPM.PA	100	Hold
 PLX.PA	100	Hold
-RNO.PA	50	Moderate Buy
+RNO.PA	50	Hold
 SAN.PA	50	Moderate Buy
 SESG.PA	100	Moderate Sell
 SU.PA	83	Strong Buy
@@ -1313,7 +1311,8 @@ REPL	100	Strong Buy
 RGNX	75	Strong Buy
 RMBS	50	Moderate Buy
 ROAD	75	Strong Buy
-ROST	83	Strong Buy
+ROST	82	Strong Buy
+RRGB	100	Moderate Buy
 RYAAY	100	Moderate Buy
 SANM	33	Moderate Buy
 SBRA	50	Moderate Buy
@@ -1322,14 +1321,14 @@ SENEA	100	Moderate Buy
 SFM	50	Hold
 SGML	100	Hold
 SHC	67	Moderate Buy
-SHOP	82	Strong Buy
+SHOP	83	Strong Buy
 SINT	100	Moderate Buy
 SKIN	100	Hold
 SLDP	100	Moderate Buy
 SLRC	100	Moderate Buy
 SMTI	100	Hold
 SNPS	93	Strong Buy
-SPCX	79	Strong Buy
+SPCX	80	Strong Buy
 SPRY	100	Moderate Buy
 SRCE	50	Moderate Buy
 SSRM	100	Strong Buy
@@ -1356,7 +1355,7 @@ DRR.ASX	75	Strong Buy
 ELV.ASX	100	Moderate Buy
 FMG.ASX	80	Strong Sell
 GPT.ASX	100	Moderate Buy
-HVN.ASX	50	Moderate Sell
+HVN.ASX	100	Moderate Sell
 IMD.ASX	50	Moderate Buy
 JBH.ASX	100	Hold
 LIC.ASX	100	Moderate Buy
@@ -1365,7 +1364,7 @@ MP1.ASX	100	Moderate Buy
 NAN.ASX	75	Strong Buy
 NIC.ASX	100	Strong Buy
 NWL.ASX	100	Strong Buy
-PDN.ASX	71	Moderate Buy
+PDN.ASX	67	Moderate Buy
 PPT.ASX	100	Hold
 RDX.ASX	100	Moderate Buy
 RIO.ASX	25	Hold
@@ -1382,7 +1381,7 @@ TBCH	50	Moderate Buy
 TEAM	100	Strong Buy
 TENB	47	Moderate Buy
 TMC	100	Moderate Buy
-TNGX	80	Strong Buy
+TNGX	75	Strong Buy
 TOWN	100	Hold
 TRI	50	Moderate Buy
 TROW	33	Moderate Sell
@@ -1410,7 +1409,7 @@ WYFI	100	Strong Buy
 XERS	75	Strong Buy
 XP	100	Moderate Buy
 XTIA	100	Moderate Buy
-ZBIO	100	Moderate Buy
+ZBIO	100	Strong Buy
 ZLAB	100	Moderate Buy
 ZVRA	100	Strong Buy
 AMRZ.ZU	42	Hold
@@ -1420,41 +1419,41 @@ KNIN.ZU	40	Moderate Sell
 NOVN.ZU	60	Hold
 SCHP.ZU	33	Hold
 SMG.ZU	100	Hold
-STMN.ZU	100	Moderate Buy
+STMN.ZU	50	Moderate Buy
 ZURN.ZU	80	Hold
-ADAM	50	Moderate Buy
 ACLS	100	Moderate Buy
-ACDC	67	Moderate Sell
 ABOS	40	Hold
+ADAM	50	Moderate Buy
 AFRM	71	Moderate Buy
-ADPT	86	Strong Buy
 AAOI	75	Strong Buy
 AEHR	100	Moderate Buy
+ADPT	86	Strong Buy
+ACDC	50	Moderate Sell
 AGNC	38	Moderate Buy
 AIOT	100	Strong Buy
+ALKT	83	Hold
 AKBA	100	Strong Buy
-ALEC	40	Hold
-ALKT	29	Moderate Buy
 ALNY	76	Strong Buy
 ALXO	100	Moderate Buy
+ALEC	50	Hold
 AMCX	100	Hold
 AMPL	75	Strong Buy
 ANDE	100	Strong Buy
 ARBE	100	Moderate Buy
-ARRY	33	Moderate Buy
 ARHS	57	Moderate Buy
+ARRY	33	Moderate Buy
 ASML	100	Strong Buy
 ASTE	100	Moderate Buy
 ATEC	100	Strong Buy
 ATRA	100	Moderate Buy
 AUGO	100	Moderate Buy
 AVAV	78	Strong Buy
-AVPT	50	Moderate Buy
+AVPT	56	Moderate Buy
 AYTU	33	Moderate Buy
 AGN.NV	100	Hold
 ASML.NV	91	Strong Buy
 BFIT.NV	50	Moderate Buy
-CVC.NV	75	Strong Buy
+CVC.NV	67	Moderate Buy
 MT.NV	67	Moderate Buy
 NSI.NV	100	Hold
 PNL.NV	100	Moderate Sell
@@ -1463,7 +1462,7 @@ BBCP	50	Moderate Buy
 BCML	100	Moderate Buy
 BELFB	100	Strong Buy
 BHRB	100	Moderate Buy
-BKNG	85	Strong Buy
+BKNG	81	Strong Buy
 BLKB	50	Moderate Buy
 BMBL	100	Hold
 BOKF	86	Hold
@@ -1496,38 +1495,37 @@ CVRX	33	Moderate Buy
 CZR	100	Hold
 DCGO	50	Moderate Buy
 DFTX	100	Strong Buy
-DKNG	75	Strong Buy
+DKNG	71	Moderate Buy
 DNTH	100	Strong Buy
 DOX	50	Moderate Buy
 DSGN	100	Moderate Buy
 DXCM	92	Strong Buy
 EDIT	100	Strong Buy
-EIKN	100	Moderate Buy
+EIKN	100	Strong Buy
 ENPH	44	Moderate Buy
-EQIX	80	Strong Buy
 ESQ	100	Hold
-EVLV	100	Moderate Buy
+EQIX	80	Strong Buy
 EXLS	100	Strong Buy
 EZPW	100	Moderate Buy
-FCEL	75	Strong Buy
 FFBC	33	Moderate Buy
 FIZZ	100	Moderate Sell
 FLNC	63	Hold
+FCEL	75	Strong Buy
 FORM	67	Moderate Buy
 FRME	100	Strong Buy
 FRST	100	Moderate Buy
 FTDR	100	Moderate Buy
 FWONA	100	Moderate Buy
-2M6.DE	50	Moderate Buy
+2M6.DE	53	Moderate Buy
 AAPL.EUR	50	Moderate Buy
 AUS.DE	100	Moderate Buy
 BAYN.DE	100	Strong Buy
 BNR.DE	33	Moderate Sell
 DBAN.DE	100	Moderate Buy
-DWS.DE	60	Hold
+DWS.DE	75	Hold
 EKT.DE	100	Moderate Buy
 FAA.DE	100	Moderate Buy
-FNTN.DE	100	Hold
+FNTN.DE	33	Moderate Buy
 FTK.DE	100	Moderate Buy
 GFT.DE	50	Moderate Buy
 HAG.DE	100	Moderate Buy
@@ -1539,19 +1537,19 @@ MBB.DE	100	Hold
 META.EUR	87	Strong Buy
 NDX1.DE	100	Strong Buy
 PAH3.DE	50	Moderate Sell
-PLTR.EUR	64	Moderate Buy
+PLTR.EUR	69	Moderate Buy
 RHM.DE	67	Moderate Buy
 SFQ.DE	50	Moderate Buy
 SIX2.DE	100	Strong Buy
 SMHN.DE	100	Moderate Buy
 SY1.DE	50	Moderate Buy
-TKA.DE	80	Strong Buy
+TKA.DE	75	Strong Buy
 TPE.DE	100	Moderate Buy
 TUI1.DE	100	Hold
 UTDI.DE	100	Strong Buy
 WCH.DE	67	Moderate Buy
 WSU.DE	100	Moderate Buy
-ZAL.DE	100	Moderate Buy
+ZAL.DE	100	Strong Buy
 GCMG	100	Moderate Buy
 GEHC	70	Moderate Buy
 GERN	100	Moderate Buy
@@ -1559,13 +1557,13 @@ GHRS	100	Strong Buy
 GO	75	Hold
 GPCR	100	Strong Buy
 GRFS	100	Hold
-GT	100	Moderate Buy
-HAIN	0	Hold
+GT	0	Hold
 HBT	33	Moderate Buy
+HAIN	0	Hold
 HELE	100	Hold
 HLIT	60	Moderate Buy
 HRMY	67	Moderate Buy
-HTO	80	Strong Buy
+HTO	75	Strong Buy
 0688.HK	50	Moderate Buy
 0762.HK	100	Moderate Buy
 0941.HK	100	Moderate Buy
@@ -1606,7 +1604,7 @@ KRNY	100	Hold
 KYIV	100	Moderate Buy
 LAUR	100	Moderate Buy
 LECO	80	Strong Buy
-LFTO	90	Strong Buy
+LFTO	89	Strong Buy
 LIDR	100	Moderate Buy
 LIN	100	Strong Buy
 LKFN	100	Hold
@@ -1633,8 +1631,8 @@ EVOK.L	100	Hold
 GEN.L	100	Strong Buy
 GLEN.L	100	Strong Buy
 GRI.L	67	Moderate Buy
-HIK.L	50	Moderate Buy
-HSBA.L	30	Moderate Buy
+HIK.L	100	Hold
+HSBA.L	78	Hold
 HTWS.L	100	Moderate Buy
 ICG.L	100	Strong Buy
 IMI.L	50	Moderate Buy
@@ -1647,7 +1645,7 @@ MSLH.L	100	Moderate Buy
 NXT.L	50	Moderate Buy
 OTB.L	100	Strong Buy
 PLUS.L	100	Moderate Buy
-PSON.L	75	Hold
+PSON.L	33	Moderate Sell
 RAT.L	50	Moderate Buy
 RSG.L	100	Moderate Buy
 SHEL.L	44	Moderate Buy
@@ -1667,20 +1665,20 @@ KGH.L	100	Moderate Buy
 NWF.L	100	Hold
 PGH.L	100	Moderate Buy
 SAA.L	100	Moderate Buy
-MARA	57	Moderate Buy
+MARA	67	Moderate Buy
 MBIN	100	Moderate Buy
 MCFT	50	Moderate Buy
-MDGL	83	Strong Buy
+MDGL	80	Strong Buy
 MFIC	75	Hold
 MKSI	100	Strong Buy
 MLKN	100	Moderate Buy
-MNDY	29	Moderate Buy
+MNDY	33	Moderate Buy
 MOBI	100	Moderate Buy
 MQ	100	Hold
 MRVI	100	Strong Buy
 MTSI	78	Strong Buy
 MWH	100	Strong Buy
-ACX.MC	100	Strong Buy
+ACX.MC	100	Moderate Buy
 CLNX.MC	75	Strong Buy
 SAB.MC	100	Hold
 VID.MC	100	Hold
@@ -1689,7 +1687,7 @@ CPR.MI	75	Strong Buy
 ENEL.MI	50	Moderate Buy
 ICOS.MI	100	Moderate Buy
 LDO.MI	100	Moderate Buy
-PIRC.MI	33	Moderate Buy
+PIRC.MI	100	Hold
 RWAY.MI	100	Hold
 STMMI.MI	67	Moderate Buy
 UCG.MI	60	Moderate Buy
@@ -1706,28 +1704,28 @@ NWBI	100	Hold
 NXPI	56	Moderate Buy
 AADX	60	Moderate Buy
 ABBV	82	Strong Buy
-ABT.US	91	Strong Buy
+ABT.US	92	Strong Buy
 ACHR	100	Hold
 AD	67	Moderate Buy
-AEE	50	Moderate Buy
+AEE	43	Moderate Buy
 AES	100	Hold
 AGBK	100	Moderate Buy
 AGRO	100	Moderate Buy
 AIN	100	Hold
 AKA.US	100	Hold
 ALK	100	Strong Buy
-AMCR	50	Moderate Buy
+AMCR	40	Moderate Buy
 AMPX	100	Strong Buy
 AMT	80	Strong Buy
 AN	50	Moderate Buy
-AON	67	Moderate Buy
+AON	60	Moderate Buy
 APH	88	Strong Buy
 ARCO	100	Hold
-ARMK	83	Strong Buy
+ARMK	86	Strong Buy
 ASAN	100	Hold
 ATMU	100	Strong Buy
 AUB	100	Moderate Buy
-AVY	80	Strong Buy
+AVY	75	Strong Buy
 AXP	64	Moderate Buy
 AZZ	100	Moderate Buy
 BAH	29	Hold
@@ -1742,8 +1740,8 @@ BIRK	60	Moderate Buy
 BKSY	100	Hold
 BLK	100	Strong Buy
 BMNR	100	Moderate Buy
-BRCC	100	Moderate Buy
 BORR	100	Hold
+BRCC	100	Moderate Buy
 BRT	100	Moderate Buy
 BTG.US	67	Moderate Buy
 BURL	44	Moderate Buy
@@ -1752,26 +1750,25 @@ BXSL	50	Moderate Buy
 CALY	33	Moderate Buy
 CAVA	63	Moderate Buy
 CBU	100	Hold
-CCK	60	Moderate Buy
+CCK	50	Moderate Buy
 CDP	100	Hold
 CFR	50	Moderate Buy
-CHH	44	Hold
+CHH	50	Hold
 CIEN	77	Strong Buy
-CLB	100	Moderate Sell
 CLX	38	Moderate Sell
-CMI	78	Strong Buy
-CNC	36	Moderate Buy
+CMI	80	Strong Buy
+CNC	40	Moderate Buy
 CNNE	100	Hold
 CNX	100	Hold
 CON.US	100	Strong Buy
 CP	76	Strong Buy
-CPRI	67	Moderate Buy
+CPRI	57	Moderate Buy
 CRC	100	Strong Buy
 CRK	43	Moderate Sell
 CSQR	100	Strong Buy
 CTGO	100	Moderate Buy
-CTVA	100	Strong Buy
-CVE	92	Strong Buy
+CTVA	86	Strong Buy
+CVE	90	Strong Buy
 CWH	80	Strong Buy
 CXW	100	Moderate Buy
 DAN	100	Moderate Buy
@@ -1794,13 +1791,13 @@ EPC	75	Strong Buy
 EQH	100	Strong Buy
 EROK	50	Moderate Buy
 ESRT	33	Moderate Sell
-ETR	83	Strong Buy
+ETR	82	Strong Buy
 EVR	100	Hold
 EXK	67	Moderate Buy
 FBIN	50	Moderate Buy
 FCN	100	Hold
 FE	63	Moderate Buy
-FICO	43	Moderate Buy
+FICO	50	Moderate Buy
 FITB	86	Strong Buy
 FMC	75	Hold
 FNF	100	Moderate Buy
@@ -1818,11 +1815,11 @@ GVA	0	Hold
 HAE	75	Strong Buy
 HBM	100	Strong Buy
 HE	67	Moderate Sell
-HGV	33	Moderate Buy
+HGV	29	Moderate Buy
 HIW	100	Hold
 HNGE	100	Strong Buy
 HPE	50	Moderate Buy
-HRL	50	Moderate Buy
+HRL	67	Moderate Buy
 HTH	33	Moderate Sell
 HUN	50	Moderate Sell
 HYLN	100	Moderate Buy
@@ -1836,7 +1833,7 @@ IVT	67	Moderate Buy
 JBL	100	Strong Buy
 JHX	100	Strong Buy
 JNJ	67	Moderate Buy
-KGC	88	Strong Buy
+KGC	89	Strong Buy
 KMI	50	Moderate Buy
 KOP	100	Moderate Buy
 KRMN	100	Strong Buy
@@ -1875,13 +1872,13 @@ NPKI	100	Moderate Buy
 NSC	36	Moderate Buy
 NU	100	Moderate Buy
 NVO	33	Moderate Sell
-NWN	50	Moderate Buy
-NYT	50	Moderate Buy
+NWN	100	Hold
 OEC	100	Hold
+NYT	50	Moderate Buy
 OHI	40	Hold
 OLN	83	Hold
 ONON	92	Strong Buy
-OPLN	100	Moderate Buy
+OPLN	100	Strong Buy
 ORCL	86	Strong Buy
 OTF	60	Moderate Buy
 OXY	33	Moderate Buy
@@ -1890,7 +1887,7 @@ PAY.US	67	Moderate Buy
 PD	44	Hold
 PFGC	100	Strong Buy
 PINE	67	Moderate Buy
-PKG	50	Moderate Buy
+PKG	100	Hold
 PLOW	100	Hold
 PNR	57	Moderate Buy
 PRG	100	Strong Buy
@@ -1902,7 +1899,7 @@ RAL	100	Strong Buy
 RCI	100	Strong Buy
 REA	100	Hold
 RH	36	Moderate Buy
-RJF	29	Moderate Buy
+RJF	33	Moderate Buy
 RNR	69	Hold
 RPM	75	Strong Buy
 RSI	71	Moderate Buy
@@ -1912,17 +1909,17 @@ SAP	100	Strong Buy
 SBSW	100	Moderate Buy
 SDHC	100	Hold
 SHEL	33	Moderate Buy
-SJM	67	Moderate Buy
+SJM	60	Moderate Buy
 SLG	75	Hold
 SMG	100	Hold
 SN	100	Strong Buy
 SNX.US	86	Strong Buy
 SPHR	86	Strong Buy
-SR	80	Strong Buy
+SR	50	Moderate Buy
 SSD	33	Moderate Buy
 STC	67	Moderate Buy
 STN	80	Strong Buy
-STZ	50	Moderate Buy
+STZ	55	Moderate Buy
 SXI	100	Moderate Buy
 TAC	100	Strong Buy
 TBI	100	Moderate Buy
@@ -1932,7 +1929,7 @@ TFC	53	Hold
 TGS.US	100	Moderate Buy
 TIMB	100	Hold
 TNC	100	Moderate Buy
-TOST	60	Moderate Buy
+TOST	56	Moderate Buy
 TRNO	100	Moderate Buy
 TS	50	Moderate Buy
 TTAM	33	Moderate Buy
@@ -1941,7 +1938,7 @@ U	78	Strong Buy
 UBS	71	Moderate Buy
 UGI	100	Moderate Buy
 ULS	80	Strong Buy
-UNM	83	Strong Buy
+UNM	86	Strong Buy
 USAC	100	Hold
 UTL	100	Hold
 V	100	Strong Buy
@@ -1950,7 +1947,8 @@ VIPS	100	Hold
 VLO	53	Moderate Buy
 VNO	75	Hold
 VRTS	33	Hold
-VYX	50	Moderate Buy
+VTMX	100	Moderate Buy
+VYX	100	Hold
 WBI	100	Strong Buy
 WEAV	100	Hold
 WFC	67	Moderate Buy
@@ -1964,7 +1962,7 @@ XPRO	0	Hold
 YETI	43	Moderate Buy
 YUM	55	Moderate Buy
 ZEPP	100	Moderate Buy
-ZTO	100	Hold
+ZTO	50	Moderate Buy
 OCFC	50	Moderate Buy
 ODTX	100	Strong Buy
 OMCL	83	Strong Buy
@@ -2008,11 +2006,11 @@ QS	100	Hold
 RAPP	100	Strong Buy
 RCEL	100	Moderate Buy
 REYN	100	Hold
-RIOT	92	Strong Buy
+RIOT	91	Strong Buy
 RMNI	100	Moderate Buy
 ROCK	100	Moderate Buy
 RPAY	33	Moderate Buy
-RRR	78	Strong Buy
+RRR	80	Strong Buy
 RVMD	100	Strong Buy
 RYTM	88	Strong Buy
 SAIA	75	Strong Buy
@@ -2029,7 +2027,7 @@ SLGN	100	Strong Buy
 SMBC	100	Hold
 SNDK	79	Strong Buy
 SNY	100	Hold
-SPSC	50	Hold
+SPSC	60	Hold
 SRPT	56	Hold
 STKS	100	Moderate Buy
 STTK	100	Strong Buy
@@ -2040,7 +2038,7 @@ FABG.ST	100	Moderate Sell
 TELIA.ST	100	Moderate Buy
 AGL.ASX	0	Hold
 ALX.ASX	50	Hold
-APA.ASX	60	Hold
+APA.ASX	33	Moderate Sell
 AX1.ASX	100	Hold
 BHP.ASX	75	Hold
 CBA.ASX	100	Strong Sell
@@ -2059,12 +2057,12 @@ NWS.ASX	100	Strong Buy
 PLS.ASX	57	Moderate Buy
 PRU.ASX	75	Strong Buy
 REA.ASX	56	Hold
-RMD.ASX	67	Moderate Buy
+RMD.ASX	50	Moderate Buy
 SDF.ASX	100	Hold
 SGP.ASX	100	Moderate Buy
 SMR.ASX	50	Moderate Buy
 SYR.ASX	100	Moderate Sell
-TNE.ASX	75	Hold
+TNE.ASX	33	Moderate Buy
 VEA.ASX	50	Moderate Buy
 WJL.ASX	100	Hold
 TBLA	50	Moderate Buy
@@ -2079,12 +2077,12 @@ TPG	86	Strong Buy
 TRIP	56	Hold
 TRS	100	Moderate Buy
 TSCO	27	Moderate Buy
-TTAN	88	Strong Buy
-TVRD	0	Hold
+TTAN	100	Strong Buy
+TVRD	67	Moderate Buy
 TXRH	67	Moderate Buy
 UFPI	67	Moderate Buy
 ULH	100	Hold
-UPBD	100	Moderate Buy
+UPBD	67	Moderate Buy
 URGN	100	Strong Buy
 VCTR	40	Moderate Buy
 VERU	100	Moderate Buy
@@ -2098,8 +2096,8 @@ WHF	0	Hold
 WMT	96	Strong Buy
 WSC	40	Moderate Buy
 WTW	82	Strong Buy
-WYNN	91	Strong Buy
-XMTR	75	Strong Buy
+WYNN	92	Strong Buy
+XMTR	86	Strong Buy
 XPEL	100	Moderate Buy
 ZBRA	67	Moderate Buy
 ZM	58	Moderate Buy
@@ -2110,27 +2108,27 @@ GALD.ZU	100	Strong Buy
 OERL.ZU	50	Moderate Buy
 SCMN.ZU	100	Moderate Sell
 SOON.ZU	100	Moderate Buy
-TECN.ZU	100	Moderate Buy
+TECN.ZU	50	Moderate Buy
 ABSI	88	Strong Buy
-AAON	75	Strong Buy
-ACET	100	Strong Buy
-ADSK	88	Strong Buy
-ADBE	53	Hold
 AEIS	83	Strong Buy
+ADBE	54	Hold
+ACET	100	Strong Buy
 AFYA	100	Moderate Buy
+ADSK	88	Strong Buy
+AAON	75	Strong Buy
 AGNT	100	Moderate Buy
 AIP	100	Strong Buy
-ALGM	89	Strong Buy
-ALLO	100	Strong Buy
-ALRM	50	Moderate Buy
 AMAL	67	Moderate Buy
+ALGM	89	Strong Buy
+ALRM	50	Moderate Buy
+ALLO	100	Strong Buy
 AMD	90	Strong Buy
 AMSC	100	Moderate Buy
 ANGI	100	Hold
-APP	82	Strong Buy
+APP	80	Strong Buy
 ARCB	38	Moderate Buy
 ASND	100	Strong Buy
-ASTH	75	Strong Buy
+ASTH	100	Moderate Buy
 ATEX	100	Strong Buy
 ATRC	100	Strong Buy
 AUPH	50	Moderate Buy
@@ -2138,8 +2136,8 @@ AVGO	96	Strong Buy
 AVT.US	50	Moderate Sell
 AZN	82	Strong Buy
 AKZA.NV	100	Hold
-BNJ.NV	100	Hold
 ASRNL.NV	100	Moderate Buy
+BNJ.NV	100	Hold
 DSFIR.NV	100	Moderate Buy
 KPN.NV	100	Moderate Buy
 PRX.NV	100	Moderate Buy
@@ -2154,13 +2152,13 @@ BMEA	100	Moderate Buy
 BRZE	85	Hold
 BTSG	100	Strong Buy
 BWMN	50	Moderate Sell
-CAE	73	Moderate Buy
+CAE	80	Strong Buy
 CAPR	67	Moderate Buy
 CASS	100	Hold
 CBUS	100	Moderate Buy
 CCNE	50	Moderate Buy
 CDW	60	Moderate Buy
-CELH	83	Strong Buy
+CELH	80	Strong Buy
 CG	57	Moderate Buy
 CGON	86	Strong Buy
 CHRD	100	Strong Buy
@@ -2173,10 +2171,10 @@ COHU	100	Strong Buy
 CORT	100	Strong Buy
 CRBP	100	Strong Buy
 CRMD	100	Strong Buy
-CROX	57	Moderate Buy
-CRWV	71	Moderate Buy
+CROX	50	Moderate Buy
+CRWV	69	Moderate Buy
 CSX	75	Strong Buy
-CTSH	33	Moderate Buy
+CTSH	30	Moderate Buy
 CWST	50	Moderate Buy
 CBOE	33	Moderate Buy
 DCTH	100	Moderate Buy
@@ -2191,8 +2189,8 @@ ELMT	100	Strong Buy
 ENSG	75	Strong Buy
 EQPT	63	Moderate Buy
 ESTA	100	Strong Buy
-EWBC	80	Strong Buy
-EXPE	43	Moderate Buy
+EWBC	89	Strong Buy
+EXPE	42	Moderate Buy
 FA	67	Moderate Buy
 FCFS	100	Moderate Buy
 FFIN	100	Hold
@@ -2205,10 +2203,10 @@ FRVO	100	Strong Buy
 FTNT	64	Hold
 FWONK	88	Strong Buy
 AEIN.DE	100	Moderate Buy
-AMV0.DE	50	Moderate Buy
 AVGO.EUR	96	Strong Buy
-BC8.DE	67	Moderate Buy
-BOSS.DE	100	Hold
+AMV0.DE	50	Moderate Buy
+BC8.DE	50	Moderate Buy
+BOSS.DE	83	Hold
 DBK.DE	88	Strong Buy
 DMP.DE	50	Moderate Buy
 FYB.DE	100	Strong Buy
@@ -2220,8 +2218,8 @@ HRPK.DE	100	Moderate Buy
 ILM1.DE	100	Strong Buy
 JEN.DE	100	Strong Buy
 LEN.DE	100	Hold
-MBG.DE	100	Hold
-MSFT.EUR	89	Strong Buy
+MBG.DE	75	Hold
+MSFT.EUR	88	Strong Buy
 NA9.DE	100	Hold
 NEM.DE	100	Strong Buy
 PAT.DE	100	Strong Buy
@@ -2251,7 +2249,7 @@ HST	50	Moderate Buy
 HUBG	33	Moderate Buy
 HWKN	100	Moderate Buy
 0883.HK	100	Moderate Buy
-1044.HK	100	Hold
+1044.HK	67	Moderate Buy
 1138.HK	100	Strong Buy
 1318.HK	100	Strong Buy
 1801.HK	100	Strong Buy
@@ -2269,7 +2267,7 @@ HWKN	100	Moderate Buy
 6160.HK	100	Strong Buy
 6618.HK	100	Strong Buy
 6936.HK	100	Moderate Buy
-9618.HK	87	Strong Buy
+9618.HK	100	Moderate Buy
 9863.HK	100	Moderate Buy
 IART	50	Hold
 ICFI	50	Moderate Buy
@@ -2290,7 +2288,7 @@ KTOS	93	Strong Buy
 KRYS	100	Moderate Buy
 KROS	50	Moderate Buy
 KRT	0	Hold
-KLRA	100	Moderate Buy
+KLRA	100	Strong Buy
 LEGN	71	Moderate Buy
 LFUS	100	Moderate Buy
 LIF	100	Strong Buy
@@ -2318,13 +2316,13 @@ GROW.L	100	Moderate Buy
 HILS.L	100	Moderate Buy
 INCH.L	100	Moderate Buy
 ITRK.L	100	Hold
-JMAT.L	50	Moderate Buy
+JMAT.L	60	Moderate Buy
 KLR.L	100	Moderate Buy
 LSL.L	100	Moderate Buy
 MTO.L	100	Hold
 NG.L	50	Hold
 OCDO.L	50	Moderate Buy
-OXB.L	100	Hold
+OXB.L	67	Moderate Buy
 PBEE.L	100	Moderate Buy
 PFD.L	50	Moderate Buy
 PNN.L	44	Moderate Buy
@@ -2336,11 +2334,11 @@ RSW.L	67	Moderate Buy
 SFR.L	100	Moderate Buy
 SHI.L	100	Hold
 SMWH.L	33	Moderate Buy
-SSPG.L	50	Moderate Sell
+SSPG.L	100	Hold
 SUS.L	100	Moderate Buy
 TATE.L	100	Hold
 TRST.L	100	Strong Buy
-UTG.L	0	Hold
+UTG.L	100	Moderate Sell
 VLX.L	100	Moderate Buy
 WEIR.L	100	Strong Buy
 WOSG.L	75	Strong Buy
@@ -2376,7 +2374,7 @@ BMED.MI	50	Moderate Buy
 CRL.MI	100	Moderate Buy
 ENI.MI	60	Moderate Buy
 IG.MI	67	Moderate Buy
-LTMC.MI	100	Strong Buy
+LTMC.MI	100	Moderate Buy
 PRY.MI	75	Strong Buy
 SES.MI	100	Moderate Buy
 TEN.MI	100	Moderate Buy
@@ -2402,7 +2400,7 @@ AGX	100	Moderate Buy
 AIR.US	67	Moderate Buy
 AKR	100	Moderate Buy
 ALL	43	Hold
-ALV	50	Moderate Buy
+ALV	33	Moderate Buy
 AME	71	Moderate Buy
 AMTB	50	Moderate Buy
 ANDG	50	Moderate Buy
@@ -2420,15 +2418,15 @@ BAK	50	Moderate Sell
 BAX	83	Hold
 BBY	58	Hold
 BCS	50	Moderate Buy
-BEKE	100	Strong Buy
+BEKE	100	Moderate Buy
 BFAM	25	Hold
 BHVN	50	Moderate Buy
 BJ	54	Moderate Buy
 BKTI	100	Moderate Buy
 BLND.US	100	Moderate Buy
 BMO	50	Moderate Buy
-BNY	54	Moderate Buy
-BOX	50	Hold
+BNY	50	Moderate Buy
+BOX	50	Moderate Buy
 BRX	83	Strong Buy
 BTGO	100	Strong Buy
 BV.US	71	Moderate Buy
@@ -2437,9 +2435,9 @@ BY	33	Moderate Buy
 CACI	90	Strong Buy
 CANG	100	Moderate Buy
 CB	62	Hold
-CCL	81	Strong Buy
-CDRE	100	Moderate Sell
-CGAU	33	Hold
+CCL	82	Strong Buy
+CDRE	75	Moderate Buy
+CGAU	50	Moderate Sell
 CHPT	100	Hold
 CLF.US	80	Hold
 CM	43	Moderate Buy
@@ -2450,7 +2448,7 @@ CODI	67	Moderate Buy
 COOK	75	Hold
 CPA	100	Moderate Buy
 CPS	100	Moderate Buy
-CRCL	11	Hold
+CRCL	13	Hold
 CRL	92	Strong Buy
 CSR	50	Moderate Buy
 CTO	100	Moderate Buy
@@ -2478,8 +2476,8 @@ EPD	40	Moderate Buy
 EQNR	50	Moderate Sell
 ES	50	Hold
 ESS	50	Moderate Buy
-ETSY	50	Moderate Buy
-EVRG	71	Moderate Buy
+ETSY	47	Moderate Buy
+EVRG	67	Moderate Buy
 EXP	100	Hold
 FBK	100	Moderate Buy
 FCPT	50	Moderate Buy
@@ -2502,13 +2500,14 @@ GPN	58	Moderate Buy
 GRDN	100	Strong Buy
 GSK	50	Moderate Buy
 HAFN	100	Moderate Buy
-HCA	60	Moderate Buy
-HEI	42	Moderate Buy
+HCA	50	Moderate Buy
+HEI	36	Moderate Buy
 HHH	100	Moderate Buy
 HL	75	Hold
-HLT	64	Moderate Buy
+HLT	67	Moderate Buy
 HPP	100	Moderate Sell
 HRTG	67	Moderate Buy
+HUYA.US	100	Moderate Buy
 HZO	100	Hold
 ICE	89	Strong Buy
 IEX	88	Strong Buy
@@ -2540,19 +2539,19 @@ M.US	86	Hold
 MAIR	100	Strong Buy
 MATX	100	Strong Buy
 MCD	63	Moderate Buy
-MDT.US	50	Moderate Buy
-MGM	42	Moderate Buy
+MDT.US	53	Moderate Buy
+MGM	46	Hold
 MICC.US	100	Hold
 MLM	83	Strong Buy
 MNTN	80	Hold
 MOV	100	Moderate Buy
 MRK	65	Moderate Buy
-MSCI	88	Strong Buy
+MSCI	86	Strong Buy
 MSM	71	Moderate Buy
 MTH	75	Hold
 MTZ	100	Strong Buy
 NAT	0	Hold
-NEE	58	Moderate Buy
+NEE	55	Moderate Buy
 NG.US	100	Moderate Buy
 NHI	75	Moderate Buy
 NKE	53	Hold
@@ -2572,7 +2571,7 @@ ORI	50	Moderate Buy
 OTIS	67	Moderate Buy
 PAM	100	Hold
 PAYC	50	Moderate Buy
-PBR	75	Strong Buy
+PBR	67	Moderate Buy
 PDM	50	Moderate Buy
 PFS	100	Moderate Buy
 PINS	48	Moderate Buy
@@ -2611,7 +2610,7 @@ SRE	86	Strong Buy
 SSL	100	Moderate Buy
 STDN	100	Strong Buy
 STNG	67	Moderate Buy
-SU	64	Moderate Buy
+SU	70	Moderate Buy
 SVV	67	Moderate Buy
 SXT.US	100	Moderate Buy
 TAK	100	Moderate Buy
@@ -2619,8 +2618,8 @@ TBN	100	Strong Buy
 TDS	100	Moderate Buy
 TELFY	100	Hold
 TFII	75	Strong Buy
-TGT	35	Moderate Buy
-TJX	55	Moderate Buy
+TGT	42	Moderate Buy
+TJX	50	Moderate Buy
 TLYS	100	Hold
 TNET	100	Hold
 TPB	100	Moderate Buy
@@ -2631,7 +2630,7 @@ UGP	50	Moderate Buy
 UNP	79	Strong Buy
 USB	67	Moderate Buy
 UTZ	100	Hold
-VAC	67	Moderate Buy
+VAC	71	Moderate Buy
 VG	88	Strong Buy
 VIRT	100	Moderate Buy
 VLRS	100	Moderate Buy
@@ -2639,7 +2638,7 @@ VNT	75	Moderate Buy
 VSH	67	Moderate Buy
 VTOL	100	Moderate Buy
 VZ	29	Moderate Buy
-WEC	50	Moderate Buy
+WEC	43	Moderate Buy
 WGO	33	Hold
 WK	100	Strong Buy
 WPM	100	Strong Buy
@@ -2667,12 +2666,12 @@ PECO	33	Moderate Buy
 PESI	100	Moderate Buy
 PGC	67	Moderate Buy
 PI	86	Strong Buy
-PLTR	64	Moderate Buy
+PLTR	69	Moderate Buy
 PNTG	100	Strong Buy
 POWI	100	Moderate Buy
 PR	100	Strong Buy
 PRGS	100	Moderate Buy
-PRQR	100	Moderate Buy
+PRQR	100	Strong Buy
 PSKY	56	Hold
 PTCT	88	Strong Buy
 PUBM	100	Strong Buy
@@ -2684,13 +2683,13 @@ ATO.PA	100	Hold
 BN.PA	33	Moderate Buy
 CS.PA	100	Strong Buy
 DG.PA	86	Strong Buy
-EDEN.PA	50	Moderate Buy
+EDEN.PA	100	Hold
 ELIS.PA	100	Moderate Buy
 HO.PA	100	Hold
 ORA.PA	25	Hold
 RCO.PA	100	Moderate Buy
 RXL.PA	100	Moderate Buy
-TKO.PA	100	Moderate Sell
+TKO.PA	33	Moderate Sell
 VIRI.PA	100	Strong Buy
 XFAB.PA	100	Moderate Buy
 QSI	50	Moderate Buy
@@ -2703,7 +2702,7 @@ RIVN	30	Hold
 RMR	100	Moderate Buy
 ROIV	89	Strong Buy
 RPD	79	Hold
-RWAY	33	Hold
+RWAY	50	Hold
 RZLT	100	Strong Buy
 SAIC	83	Hold
 SBCF	67	Moderate Buy
@@ -2740,16 +2739,16 @@ BSL.ASX	33	Moderate Buy
 CCP.ASX	100	Moderate Buy
 CIP.ASX	29	Moderate Buy
 COH.ASX	100	Hold
-CSL.ASX	67	Moderate Buy
+CSL.ASX	50	Moderate Buy
 DMP.ASX	100	Hold
 DVP.ASX	100	Moderate Buy
-EVN.ASX	57	Moderate Buy
+EVN.ASX	67	Moderate Buy
 GMD.ASX	75	Strong Buy
 HLI.ASX	100	Moderate Sell
-IDX.ASX	75	Strong Buy
+IDX.ASX	60	Moderate Buy
 INA.ASX	100	Moderate Buy
 JIN.ASX	100	Hold
-LLC.ASX	50	Hold
+LLC.ASX	33	Moderate Sell
 MGR.ASX	100	Moderate Buy
 MQG.ASX	50	Moderate Buy
 NEC.ASX	75	Strong Buy
@@ -2775,7 +2774,7 @@ TMCR	100	Moderate Buy
 TPST	100	Moderate Buy
 TRMB	100	Strong Buy
 TSEM	80	Strong Buy
-TTD	82	Hold
+TTD	81	Hold
 TVTX	91	Strong Buy
 TYRA	100	Strong Buy
 UAL	100	Strong Buy
@@ -2784,7 +2783,7 @@ UROY	100	Moderate Buy
 UVSP	100	Hold
 VCYT	75	Strong Buy
 VIR	100	Strong Buy
-VLY	86	Strong Buy
+VLY	83	Strong Buy
 VRCA	75	Strong Buy
 VRSN	50	Moderate Buy
 WBD	86	Hold
@@ -2802,35 +2801,35 @@ AVOL.ZU	100	Moderate Buy
 CLN.ZU	67	Moderate Buy
 GALE.ZU	100	Hold
 LISN.ZU	0	Hold
-PGHN.ZU	50	Hold
+PGHN.ZU	33	Moderate Buy
 SDZ.ZU	0	Hold
 SPSN.ZU	100	Hold
 TEMN.ZU	67	Moderate Buy
-AGEN	100	Moderate Buy
-ADTN	75	Strong Buy
-ABTC	100	Strong Buy
 ABAT	100	Moderate Buy
-ACMR	100	Moderate Buy
+AEP	58	Moderate Buy
+AGEN	100	Moderate Buy
+ADTN	60	Moderate Buy
 ACGL	50	Moderate Buy
-AEP	62	Moderate Buy
-ADEA	100	Strong Buy
-AGYS	100	Strong Buy
+ADEA	100	Moderate Buy
+ACMR	100	Moderate Buy
+ABTC	100	Moderate Buy
+AGYS	100	Moderate Buy
 AKTS	100	Moderate Buy
-ALLT.US	100	Moderate Buy
 ALGN	50	Hold
-AMGN	38	Moderate Buy
 AMAT	90	Strong Buy
 ALRS	50	Moderate Buy
+ALLT.US	100	Moderate Buy
+AMGN	38	Moderate Buy
 AMSF	50	Moderate Buy
 ANGO	100	Moderate Buy
 AOSL	100	Hold
 APLD	86	Strong Buy
 APPF	100	Strong Buy
 ARCC	80	Strong Buy
-ARM	93	Strong Buy
 ARVN	50	Moderate Buy
+ARM	93	Strong Buy
 ASO	44	Moderate Buy
-ASTS	57	Moderate Buy
+ASTS	71	Moderate Buy
 ATLC	67	Moderate Buy
 ATRO	67	Moderate Buy
 AUR	100	Hold
@@ -2839,7 +2838,7 @@ AZTA	50	Moderate Buy
 AALB.NV	100	Moderate Buy
 ALFEN.NV	100	Hold
 AVTX.NV	100	Moderate Buy
-CCEP.NV	83	Strong Buy
+CCEP.NV	80	Strong Buy
 ECMPA.NV	100	Moderate Buy
 IMCD.NV	50	Moderate Buy
 LIGHT.NV	100	Moderate Sell
@@ -2848,7 +2847,7 @@ SHELL.NV	44	Moderate Buy
 BBNX	56	Moderate Buy
 BCYC	100	Hold
 BFC	100	Hold
-BIIB	72	Moderate Buy
+BIIB	67	Moderate Buy
 BL	33	Moderate Sell
 BLMN	100	Hold
 BMRC	33	Moderate Buy
@@ -2857,7 +2856,7 @@ BSP	33	Hold
 BULL	100	Moderate Buy
 BYND	100	Moderate Sell
 CAI	67	Moderate Buy
-CAR	33	Moderate Sell
+CAR	50	Moderate Sell
 CASY	83	Strong Buy
 CCAP	33	Moderate Buy
 CCOI	33	Moderate Sell
@@ -2871,7 +2870,7 @@ CLLS	50	Hold
 CLSK	100	Strong Buy
 CMPX	75	Strong Buy
 COAG	100	Moderate Buy
-COIN	60	Moderate Buy
+COIN	57	Moderate Buy
 CORZ	100	Strong Buy
 CRBU	100	Hold
 CRML	50	Moderate Buy
@@ -2881,14 +2880,14 @@ CTAS	70	Moderate Buy
 CVBF	67	Moderate Buy
 CXAI	100	Moderate Buy
 DAKT	100	Moderate Buy
-DDOG	93	Strong Buy
+DDOG	96	Strong Buy
 DGII	75	Strong Buy
 DLTR	47	Moderate Buy
-DOCU	80	Hold
+DOCU	75	Hold
 DPZ	62	Moderate Buy
 DSGX	83	Strong Buy
-DYN	83	Moderate Buy
-EBAY	63	Moderate Buy
+DYN	80	Moderate Buy
+EBAY	59	Moderate Buy
 EFSC	33	Moderate Buy
 ELVN	100	Strong Buy
 ENTA	100	Moderate Buy
@@ -2911,30 +2910,29 @@ ALI1.DE	100	Strong Buy
 AMZN.EUR	100	Strong Buy
 AZ2.DE	100	Moderate Buy
 CBK.DE	100	Hold
-DEF.DE	100	Moderate Buy
 DHER.DE	100	Hold
 DTE.DE	100	Strong Buy
 ELG.DE	100	Moderate Buy
 EVD.DE	100	Strong Buy
-G1A.DE	33	Moderate Buy
+G1A.DE	40	Moderate Buy
 GYC.DE	100	Hold
 HBH.DE	33	Moderate Buy
 INH.DE	100	Moderate Buy
 JST.DE	100	Moderate Buy
 KGX.DE	80	Strong Buy
 KTN.DE	100	Moderate Buy
-LHA.DE	57	Hold
+LHA.DE	63	Hold
 MLP.DE	100	Moderate Buy
-MTX.DE	50	Moderate Buy
+MTX.DE	56	Moderate Buy
 NVDA.EUR	69	Moderate Buy
 OHB.DE	100	Strong Buy
 PCZ.DE	100	Moderate Buy
-RAA.DE	50	Moderate Buy
-S92.DE	50	Moderate Buy
+RAA.DE	100	Moderate Buy
+S92.DE	100	Moderate Buy
 SHA0.DE	50	Moderate Buy
 SNG.DE	100	Moderate Buy
 TEG.DE	100	Moderate Buy
-TSLA.EUR	47	Moderate Buy
+TSLA.EUR	44	Moderate Buy
 VH2.DE	100	Moderate Buy
 VOW.DE	100	Moderate Buy
 GABC	50	Moderate Buy
@@ -2954,7 +2952,7 @@ HLNE	100	Strong Buy
 HON	50	Moderate Buy
 HSTM	80	Hold
 HUMA	60	Moderate Buy
-0902.HK	60	Moderate Buy
+0902.HK	75	Strong Buy
 0992.HK	100	Moderate Buy
 1071.HK	0	Hold
 1157.HK	60	Moderate Buy
@@ -2976,18 +2974,18 @@ HUMA	60	Moderate Buy
 9926.HK	50	Moderate Buy
 IBCP	50	Moderate Buy
 ICHR	80	Strong Buy
-IIIV	100	Hold
+IIIV	50	Moderate Buy
 IMNM	100	Strong Buy
 IMXI	100	Hold
 INDI	80	Strong Buy
 INMD	100	Hold
 INTC	76	Hold
 INVE	100	Hold
-IREN	89	Strong Buy
+IREN	88	Strong Buy
 ISRG	93	Strong Buy
 IVVD	100	Strong Buy
 JANX	71	Moderate Buy
-JD.US	100	Moderate Buy
+JD.US	50	Moderate Buy
 KDP	100	Strong Buy
 KLRS	100	Moderate Buy
 KEEL	100	Strong Buy
@@ -3004,6 +3002,7 @@ LNTH	100	Hold
 LOVE	100	Strong Buy
 LSTR	27	Moderate Buy
 LXRX	100	Strong Buy
+AAF.L	100	Moderate Buy
 AML.L	100	Hold
 ASC.L	100	Hold
 AUTO.L	100	Hold
@@ -3018,7 +3017,7 @@ CRDA.L	100	Moderate Buy
 CURY.L	100	Moderate Buy
 DRX.L	60	Moderate Buy
 ENOG.L	100	Hold
-EXPN.L	100	Moderate Buy
+EXPN.L	0	Hold
 FSJ.L	100	Moderate Buy
 GFRD.L	100	Moderate Buy
 GNC.L	100	Hold
@@ -3039,17 +3038,17 @@ PRV.L	100	Moderate Buy
 RTO.L	75	Strong Buy
 SBRE.L	50	Moderate Buy
 SDY.L	100	Moderate Buy
-SGE.L	50	Moderate Buy
-SN.L	50	Moderate Buy
+SGE.L	67	Moderate Buy
+SN.L	33	Moderate Buy
 SRE.L	100	Strong Buy
-STAN.L	88	Strong Buy
+STAN.L	86	Strong Buy
 THG.L	50	Moderate Buy
 TPK.L	100	Moderate Buy
 TSCO.L	60	Moderate Buy
 UU.L	100	Hold
 VOD.L	60	Moderate Sell
 WIL.L	100	Moderate Buy
-WPP.L	33	Hold
+WPP.L	50	Moderate Sell
 CER.L	100	Strong Buy
 DOTD.L	100	Moderate Buy
 FDEV.L	100	Moderate Buy
@@ -3061,15 +3060,15 @@ MAKO	100	Moderate Buy
 MAT	40	Hold
 MBUU	100	Hold
 MCHP	75	Strong Buy
-MDLZ	83	Strong Buy
+MDLZ	80	Strong Buy
 MERC	100	Hold
-MFP	100	Hold
+MFP	33	Moderate Buy
 MGTX	100	Moderate Buy
 MKTX	100	Hold
 MLYS	100	Strong Buy
 MNRO	50	Moderate Buy
 MORN	100	Moderate Buy
-MRCY	71	Moderate Buy
+MRCY	67	Moderate Buy
 MRX	100	Strong Buy
 MVBF	100	Moderate Buy
 ALM.MC	100	Moderate Buy
@@ -3078,8 +3077,8 @@ FDR.MC	100	Hold
 IDR.MC	100	Moderate Buy
 AMP.MI	33	Moderate Buy
 BMPS.MI	100	Hold
-DIA.MI	50	Moderate Sell
-FBK.MI	67	Moderate Buy
+DIA.MI	33	Moderate Sell
+FBK.MI	75	Strong Buy
 INW.MI	50	Moderate Buy
 PST.MI	100	Moderate Buy
 SFER.MI	100	Hold
@@ -3101,7 +3100,7 @@ ABEV	50	Moderate Buy
 ACA.US	100	Hold
 ACM	78	Strong Buy
 ADIG	100	Hold
-AEM	71	Moderate Buy
+AEM	75	Strong Buy
 AGI	100	Strong Buy
 AHR	100	Strong Buy
 AIT	100	Strong Buy
@@ -3122,7 +3121,7 @@ ATO	75	Hold
 AWK	50	Hold
 AXTA	50	Moderate Buy
 B	67	Moderate Buy
-BALL	67	Moderate Buy
+BALL	50	Moderate Buy
 BB	75	Hold
 BBT	100	Moderate Buy
 BC	50	Moderate Buy
@@ -3134,14 +3133,14 @@ BKD	100	Strong Buy
 BKU	63	Hold
 BLSH	67	Moderate Buy
 BMY	35	Moderate Buy
-BP.US	57	Moderate Buy
 BOBS	67	Moderate Buy
-BRO	43	Moderate Buy
-BTI	100	Strong Buy
+BP.US	57	Moderate Buy
+BRO	50	Moderate Buy
 BSAC	100	Moderate Buy
+BTI	100	Strong Buy
 BVN	50	Moderate Buy
-BYD	40	Moderate Buy
-CAG	50	Moderate Sell
+BYD	36	Moderate Buy
+CAG	40	Moderate Sell
 CARR	56	Moderate Buy
 CC.US	33	Moderate Buy
 CCS	100	Hold
@@ -3152,12 +3151,12 @@ CLH	89	Strong Buy
 CMBT	100	Moderate Buy
 CMS	50	Moderate Buy
 CNI	50	Moderate Buy
-CNP	46	Moderate Buy
+CNP	50	Moderate Buy
 COF	83	Strong Buy
 COP	81	Strong Buy
 CPAY	86	Strong Buy
 CPT	57	Moderate Buy
-CRM	83	Strong Buy
+CRM	82	Strong Buy
 CSTM	100	Moderate Buy
 CTOS	100	Moderate Buy
 CUBI	80	Strong Buy
@@ -3183,20 +3182,20 @@ ENVA	100	Strong Buy
 EPM	100	Moderate Buy
 EQT	71	Moderate Buy
 ESAB	60	Moderate Buy
-ESTC	70	Moderate Buy
+ESTC	68	Moderate Buy
 EVTC	100	Hold
 EXPD	44	Hold
 FBP	50	Moderate Buy
 FCX	67	Moderate Buy
 FIGS	100	Strong Buy
-FLG	80	Strong Buy
-FMX	100	Hold
+FLG	78	Strong Buy
+FMX	50	Moderate Buy
 FOIL	100	Moderate Buy
 FRO	50	Moderate Buy
 FTAI	100	Strong Buy
 FUL	100	Moderate Buy
 GBCI	100	Moderate Buy
-GDDY	50	Moderate Buy
+GDDY	67	Moderate Buy
 GENI	100	Strong Buy
 GFL	75	Moderate Buy
 GIB	40	Moderate Buy
@@ -3204,10 +3203,10 @@ GLOB	100	Hold
 GMED	67	Moderate Buy
 GPOR	50	Moderate Buy
 GRND	100	Moderate Buy
-GWRE	75	Strong Buy
+GWRE	100	Strong Buy
 HAL	85	Strong Buy
 HCC	100	Hold
-HEI.A	42	Moderate Buy
+HEI.A	36	Moderate Buy
 HIG	82	Hold
 HLF	100	Moderate Buy
 HOG	25	Hold
@@ -3219,9 +3218,9 @@ IFF	80	Moderate Buy
 IIPR	100	Moderate Buy
 INGR	100	Hold
 INVX	67	Moderate Buy
-IR	80	Strong Buy
+IR	83	Strong Buy
 ITT	100	Strong Buy
-JBTM	75	Moderate Buy
+JBTM	80	Moderate Buy
 JKS	50	Moderate Buy
 KBR	60	Moderate Buy
 KEY	62	Moderate Buy
@@ -3236,7 +3235,7 @@ LEN.B	60	Moderate Sell
 LION	80	Strong Buy
 LNG	100	Strong Buy
 LTM	100	Moderate Buy
-LVS	45	Moderate Buy
+LVS	54	Moderate Buy
 MA	100	Strong Buy
 MAN	29	Moderate Buy
 MAX	80	Strong Buy
@@ -3251,7 +3250,7 @@ MP	100	Strong Buy
 MRP	100	Moderate Buy
 MSDL	40	Moderate Buy
 MT.US	75	Strong Buy
-MTN	63	Hold
+MTN	56	Hold
 MXL	33	Moderate Buy
 NEM	100	Strong Buy
 NGG	50	Moderate Buy
@@ -3262,7 +3261,7 @@ NPWR	100	Moderate Buy
 NVS	50	Moderate Buy
 NXDR	33	Moderate Buy
 OBDC	83	Strong Buy
-OFRM	33	Hold
+OFRM	50	Moderate Buy
 OII	100	Hold
 OMC	100	Strong Buy
 ONTO	100	Strong Buy
@@ -3271,18 +3270,18 @@ OUT	100	Moderate Buy
 P	88	Strong Buy
 PANW	78	Strong Buy
 PB	44	Moderate Buy
-PBR.A	75	Strong Buy
+PBR.A	67	Moderate Buy
 PEB	29	Hold
 PFSI	40	Moderate Buy
 PHIN	100	Moderate Buy
 PIPR	0	Hold
 PL	50	Moderate Buy
 PM	100	Strong Buy
-POR	40	Hold
+POR	50	Hold
 PRI	100	Hold
-PRMB	71	Moderate Buy
+PRMB	67	Moderate Buy
 PSO	100	Hold
-PVH	33	Hold
+PVH	50	Moderate Buy
 QUAD.US	100	Moderate Buy
 RBA	100	Strong Buy
 RCUS	50	Moderate Buy
@@ -3295,21 +3294,21 @@ RRC	85	Hold
 RY	57	Moderate Buy
 SA	100	Moderate Buy
 SARO	60	Moderate Buy
-SCHW	75	Moderate Buy
+SCHW	73	Moderate Buy
 SE	50	Moderate Buy
 SFBS	100	Moderate Buy
 SHW	64	Moderate Buy
 SKT	71	Hold
-SLVM	100	Moderate Buy
+SLVM	75	Strong Buy
 SMP.US	100	Moderate Buy
 SNAP	83	Hold
-SOBO	43	Moderate Buy
-SPB	50	Moderate Buy
+SOBO	43	Hold
+SPB	67	Moderate Buy
 SPNT	100	Moderate Buy
 SRFM	100	Moderate Buy
 SSMR	100	Moderate Buy
 STE	100	Moderate Buy
-STT	58	Moderate Buy
+STT	64	Moderate Buy
 SUI.US	60	Moderate Buy
 SW	100	Strong Buy
 SYF	56	Moderate Buy
@@ -3317,19 +3316,19 @@ TAL	100	Moderate Buy
 TD	71	Moderate Buy
 TDW	50	Moderate Buy
 TEN.US	100	Moderate Buy
-TFPM	60	Moderate Buy
+TFPM	67	Moderate Buy
 THC	100	Strong Buy
 TM	100	Hold
 TNK	0	Hold
 TPC	100	Moderate Buy
 TREX	70	Moderate Buy
 TRP	82	Strong Buy
-TSLX	75	Strong Buy
+TSLX	100	Strong Buy
 TTE	83	Strong Buy
 TX	75	Strong Buy
 UAA	50	Moderate Sell
 UDR	83	Hold
-UHS	38	Moderate Buy
+UHS	36	Moderate Buy
 UMH	100	Moderate Buy
 USFD	86	Strong Buy
 UUUU	100	Strong Buy
@@ -3343,7 +3342,7 @@ VTR	63	Moderate Buy
 W.US	67	Moderate Buy
 WCC	100	Strong Buy
 WELL.US	100	Strong Buy
-WH	89	Strong Buy
+WH	80	Strong Buy
 WKC	100	Moderate Sell
 WMS	100	Strong Buy
 WST	100	Strong Buy
@@ -3361,9 +3360,9 @@ OPK	100	Moderate Buy
 OSIS	75	Strong Buy
 OUST	100	Moderate Buy
 AMLIF	100	Hold
-PAAS	67	Moderate Buy
+PAAS	50	Moderate Buy
 PAX	100	Moderate Sell
-PDD	50	Moderate Buy
+PDD	67	Moderate Buy
 PEGA	60	Moderate Buy
 PETS.US	100	Moderate Sell
 PGNY	67	Moderate Buy
@@ -3373,7 +3372,7 @@ PLUG	60	Hold
 PODD	30	Moderate Buy
 POWL	50	Moderate Buy
 PRLD	100	Moderate Buy
-PRTA	67	Moderate Buy
+PRTA	0	Hold
 PSMT	100	Hold
 PTEN	67	Moderate Buy
 PVLA	100	Strong Buy
@@ -3384,12 +3383,12 @@ BVI.PA	100	Moderate Buy
 COTY.PA	90	Hold
 DIM.PA	100	Strong Buy
 ERF.PA	100	Hold
-FR.PA	33	Moderate Buy
+FR.PA	67	Moderate Buy
 GET.PA	50	Moderate Buy
 LR.PA	100	Strong Buy
 MC.PA	50	Moderate Buy
-ML.PA	67	Moderate Buy
-TE.PA	67	Moderate Buy
+ML.PA	100	Moderate Buy
+TE.PA	80	Strong Buy
 VRLA.PA	100	Moderate Buy
 QBTS	100	Strong Buy
 QLYS	70	Hold
@@ -3406,7 +3405,7 @@ RUM	100	Moderate Buy
 RXRX	50	Moderate Buy
 RZLV	100	Moderate Buy
 SAIL	74	Moderate Buy
-SBET	100	Strong Buy
+SBET	100	Moderate Buy
 SEDG	83	Hold
 SEZL	100	Moderate Buy
 SGRY	100	Hold
@@ -3420,7 +3419,7 @@ SOLS	67	Moderate Buy
 SPTX	100	Strong Buy
 STBA	100	Hold
 STLN	100	Moderate Buy
-SUJA	33	Hold
+SUJA	50	Moderate Buy
 SVRA	100	Moderate Buy
 SYNA	100	Hold
 AFRY.ST	50	Moderate Buy
@@ -3431,7 +3430,7 @@ ALD.ASX	75	Strong Buy
 AMP.ASX	80	Strong Buy
 ARB.ASX	45	Moderate Buy
 BAP.ASX	67	Hold
-BOE.ASX	43	Hold
+BOE.ASX	33	Hold
 CDA.ASX	100	Moderate Buy
 CKF.ASX	100	Moderate Buy
 COL.ASX	100	Hold
@@ -3444,24 +3443,24 @@ HLS.ASX	100	Hold
 IEL.ASX	75	Hold
 ING.ASX	100	Hold
 KAR.ASX	50	Moderate Buy
-LOV.ASX	100	Moderate Buy
+LOV.ASX	70	Moderate Buy
 MIN.ASX	33	Moderate Sell
-MTS.ASX	50	Moderate Buy
+MTS.ASX	100	Hold
 NEU.ASX	100	Moderate Buy
 NUF.ASX	100	Strong Buy
 ORA.ASX	100	Hold
-PMV.ASX	33	Moderate Buy
+PMV.ASX	100	Hold
 PXA.ASX	33	Moderate Buy
-RGN.ASX	50	Moderate Buy
+RGN.ASX	100	Moderate Buy
 RRL.ASX	50	Moderate Buy
 SEK.ASX	75	Strong Buy
-SHL.ASX	75	Hold
+SHL.ASX	33	Moderate Sell
 SPK.ASX	60	Moderate Buy
 TCL.ASX	100	Hold
 TPW.ASX	50	Moderate Buy
 VUL.ASX	100	Hold
 WEB.ASX	100	Moderate Buy
-WOW.ASX	100	Strong Sell
+WOW.ASX	100	Moderate Sell
 TARS	100	Strong Buy
 TCBI	38	Moderate Buy
 TFSL	100	Hold
@@ -3482,14 +3481,14 @@ VECO	67	Moderate Buy
 VERX	33	Moderate Buy
 VNDA	100	Moderate Buy
 VRDN	100	Strong Buy
-VRTX	89	Strong Buy
+VRTX	88	Strong Buy
 VTRS	56	Moderate Buy
 WASH	100	Hold
 WBTN	50	Moderate Buy
 WEST	100	Strong Buy
 WRD	100	Hold
 WSFS	33	Moderate Buy
-WVE	86	Strong Buy
+WVE	83	Strong Buy
 XE	100	Strong Buy
 XRAY	50	Hold
 YORW.US	100	Hold
@@ -3504,32 +3503,32 @@ SGSN.ZU	100	Moderate Buy
 UBSG.ZU	71	Moderate Buy
 ADUS	100	Strong Buy
 ABCL	100	Strong Buy
-ACRS	50	Moderate Buy
-ABVX	88	Strong Buy
-ADI.US	93	Strong Buy
-ACHC	67	Moderate Buy
+ADI.US	100	Strong Buy
 AGIO	67	Moderate Buy
-AHCO	100	Strong Buy
+ACRS	50	Moderate Buy
+ACHC	63	Moderate Buy
+ABVX	88	Strong Buy
 AIRS	75	Strong Buy
-ALGT	60	Moderate Buy
 ALAB	69	Moderate Buy
 ALT.US	100	Moderate Buy
-AMKR	43	Moderate Buy
+AHCO	100	Strong Buy
 ALMR	50	Moderate Buy
+ALGT	60	Moderate Buy
 AMBA	55	Moderate Buy
+AMKR	43	Moderate Buy
 AMTX	100	Strong Buy
 ANIK	100	Moderate Buy
 APA	50	Hold
-APPN	33	Hold
 ARCT	80	Strong Buy
+APPN	33	Hold
 AROW	67	Moderate Buy
 ARWR	100	Strong Buy
 ASPI	100	Moderate Buy
 ASUR	100	Strong Buy
 ATLX	100	Moderate Buy
 ATTO	100	Moderate Buy
-AURA	100	Moderate Buy
 AVLN	100	Moderate Buy
+AURA	100	Moderate Buy
 AXGN	100	Strong Buy
 ABN.NV	80	Strong Buy
 APAM.NV	50	Moderate Buy
@@ -3538,7 +3537,7 @@ CRBN.NV	100	Moderate Buy
 HAVAS.NV	100	Hold
 INGA.NV	88	Strong Buy
 LKFT.NV	100	Moderate Sell
-BAND.US	60	Moderate Buy
+BAND.US	75	Strong Buy
 BBSI	50	Moderate Buy
 BDTX	100	Moderate Buy
 BILI	100	Moderate Buy
@@ -3565,11 +3564,11 @@ COLB	44	Moderate Buy
 COST	77	Strong Buy
 CRCT	100	Moderate Sell
 CRSR	100	Moderate Buy
-CSGP	57	Moderate Buy
+CSGP	50	Moderate Buy
 CTBI	100	Hold
 CVCO	100	Strong Buy
 CYPH	100	Moderate Buy
-DASH.US	89	Strong Buy
+DASH.US	85	Strong Buy
 DERM	100	Moderate Buy
 DH	33	Hold
 DMRA	100	Strong Buy
@@ -3580,8 +3579,8 @@ EGBN	50	Moderate Buy
 EMAT	100	Moderate Buy
 ENTG	89	Strong Buy
 ERII	100	Hold
-ETOR	67	Moderate Buy
-EXC	90	Hold
+ETOR	63	Moderate Buy
+EXC	89	Hold
 EXTR	75	Strong Buy
 FAST	43	Moderate Buy
 FDMT	80	Strong Buy
@@ -3604,24 +3603,23 @@ BEI.DE	60	Moderate Sell
 BSL.DE	100	Moderate Buy
 DEQ.DE	100	Hold
 DHL.DE	75	Hold
-DOU.DE	100	Moderate Buy
+DOU.DE	50	Moderate Buy
 DTG.DE	80	Strong Buy
-EVK.DE	75	Hold
+EVK.DE	33	Moderate Buy
 FRA.DE	50	Moderate Buy
 G24.DE	100	Strong Buy
-HDD.DE	100	Moderate Buy
 HNR1.DE	0	Hold
 HYQ.DE	100	Moderate Buy
 JUN3.DE	75	Strong Buy
-KRN.DE	100	Strong Buy
-LXS.DE	0	Hold
+KRN.DE	100	Moderate Buy
+LXS.DE	67	Moderate Sell
 PSH0.DE	100	Moderate Buy
 RAW.DE	100	Hold
 SAP.DE	78	Strong Buy
 SHL.DE	100	Hold
 SZG.DE	60	Moderate Buy
 TLX.DE	100	Strong Buy
-VOW3.DE	50	Moderate Buy
+VOW3.DE	40	Moderate Buy
 WAC.DE	100	Hold
 GAIN	100	Strong Buy
 GDRX	100	Moderate Sell
@@ -3648,13 +3646,12 @@ HURN	100	Moderate Buy
 1072.HK	100	Strong Buy
 1171.HK	100	Moderate Sell
 1288.HK	100	Moderate Buy
-1347.HK	100	Hold
+1347.HK	50	Moderate Buy
 1658.HK	100	Moderate Buy
 1816.HK	86	Strong Buy
 1898.HK	100	Hold
 2328.HK	50	Moderate Buy
 2423.HK	100	Strong Buy
-2611.HK	100	Moderate Buy
 3759.HK	100	Hold
 3968.HK	100	Moderate Buy
 6030.HK	50	Moderate Buy
@@ -3676,17 +3673,17 @@ INVZ	100	Hold
 IPGP	100	Moderate Buy
 JAZZ	100	Strong Buy
 KMB	38	Moderate Buy
+KRNT	50	Moderate Buy
 KRUS	100	Hold
 KELYA.US	100	Moderate Buy
 KOD	100	Strong Buy
 LAMR	100	Hold
 LFCR	100	Hold
 LGND	100	Strong Buy
-LILA	100	Moderate Sell
 LINE	50	Moderate Buy
 LMAT	100	Moderate Buy
 LNWO	100	Moderate Buy
-LPLA.US	67	Moderate Buy
+LPLA.US	75	Strong Buy
 LTRX	100	Moderate Buy
 LYEL	80	Moderate Buy
 AAL.L	67	Moderate Buy
@@ -3700,7 +3697,7 @@ BP.L	90	Strong Buy
 CCH.L	60	Moderate Buy
 CNA.L	100	Moderate Buy
 CWK.L	100	Moderate Buy
-DLN.L	25	Hold
+DLN.L	33	Hold
 ECOR.L	100	Moderate Buy
 ENQ.L	100	Moderate Buy
 EZJ.L	100	Hold
@@ -3732,11 +3729,11 @@ RWA.L	100	Moderate Buy
 SBRY.L	50	Moderate Buy
 SMIN.L	100	Hold
 THRL.L	100	Moderate Buy
-TTG.L	100	Hold
+TTG.L	33	Moderate Buy
 VALT.L	67	Moderate Buy
 VOF.L	100	Moderate Buy
 WISE.L	100	Moderate Buy
-WTB.L	50	Moderate Buy
+WTB.L	100	Hold
 ZEG.L	100	Moderate Buy
 ABDP.L	100	Moderate Buy
 ALL.L	100	Hold
@@ -3759,11 +3756,11 @@ MGEE	33	Hold
 MIDD.US	100	Strong Buy
 MLAB	100	Moderate Buy
 MMED	90	Strong Buy
-MNST	73	Moderate Buy
+MNST	70	Moderate Buy
 MPAA	100	Moderate Buy
 MREO	100	Moderate Buy
 MSBI	100	Hold
-MTCH	57	Moderate Buy
+MTCH	50	Moderate Buy
 MYRG	83	Strong Buy
 AMS.MC	100	Moderate Buy
 CABK.MC	83	Strong Buy
@@ -3774,6 +3771,7 @@ TEF.MC	50	Moderate Sell
 ARIS.MI	100	Moderate Buy
 BPE.MI	100	Moderate Buy
 DLG.MI	100	Moderate Buy
+FCT.MI	100	Moderate Buy
 MB.MI	100	Moderate Sell
 RACE.MI	100	Strong Buy
 TIT.MI	100	Moderate Buy
@@ -3785,13 +3783,13 @@ NKTR	67	Moderate Buy
 NNE	100	Moderate Buy
 NRIM	100	Hold
 NTCT	100	Hold
-NTRS	67	Hold
+NTRS	64	Hold
 NVDA	69	Moderate Buy
 NWPX.US	100	Hold
 NYAX	100	Strong Buy
-ABG	50	Moderate Sell
+ABG	33	Moderate Sell
 ACCO	100	Moderate Buy
-ACN	62	Moderate Buy
+ACN	64	Moderate Buy
 ADM	100	Hold
 AEO	90	Hold
 AFG	100	Hold
@@ -3800,7 +3798,7 @@ AHRT	100	Moderate Buy
 ALG	100	Hold
 ALLY	85	Strong Buy
 AM	75	Hold
-AMH	57	Moderate Buy
+AMH	67	Moderate Buy
 AMRC	100	Moderate Buy
 AMWL	100	Hold
 ANF	58	Moderate Buy
@@ -3817,8 +3815,8 @@ BA	93	Strong Buy
 BAM	56	Moderate Buy
 BBAI	100	Hold
 BBUC	67	Moderate Buy
-BCC	50	Moderate Buy
-BDC	100	Strong Buy
+BCC	100	Hold
+BDC	100	Moderate Buy
 BEPC	100	Moderate Sell
 BFLY	100	Strong Buy
 BHB	100	Hold
@@ -3835,7 +3833,7 @@ BXDC	50	Moderate Buy
 BZH	100	Hold
 CAH	91	Strong Buy
 CARS	33	Moderate Buy
-CCEP	83	Strong Buy
+CCEP	80	Strong Buy
 CCU	100	Strong Sell
 CEPU	100	Moderate Buy
 CHD	50	Moderate Buy
@@ -3857,7 +3855,7 @@ CURB	80	Strong Buy
 CVLG	100	Moderate Buy
 CVX.US	80	Strong Buy
 CX	75	Strong Buy
-D	29	Moderate Buy
+D	33	Moderate Buy
 DB	88	Strong Buy
 DCO	75	Strong Buy
 DEA	50	Moderate Sell
@@ -3873,7 +3871,7 @@ ECVT	100	Moderate Buy
 EFOR	33	Moderate Buy
 EGO	67	Moderate Buy
 EL	57	Moderate Buy
-ELV	73	Moderate Buy
+ELV	70	Moderate Buy
 ENB	50	Moderate Buy
 EOG	59	Moderate Buy
 EPR	67	Moderate Buy
@@ -3887,10 +3885,10 @@ FDS	60	Hold
 FG	100	Hold
 FINV	100	Moderate Buy
 FLO	33	Moderate Sell
-FN	83	Strong Buy
+FN	80	Strong Buy
 FRT	50	Moderate Buy
 FTI	89	Strong Buy
-FUN.US	63	Moderate Buy
+FUN.US	56	Moderate Buy
 GEO	100	Moderate Buy
 GFR	33	Moderate Sell
 GIC	100	Hold
@@ -3903,17 +3901,17 @@ GTES	40	Moderate Buy
 GWW	50	Hold
 HASI	60	Moderate Buy
 HCI	100	Strong Buy
-HESM	25	Hold
+HESM	60	Moderate Sell
 HII	40	Moderate Buy
 HLI	67	Moderate Buy
 HMC	100	Hold
 HOMB	80	Hold
 HR	50	Moderate Buy
-HSY	40	Moderate Buy
+HSY	50	Moderate Buy
 HUBB	50	Moderate Buy
 HWM	85	Strong Buy
-IBM	73	Moderate Buy
-IDA	67	Moderate Buy
+IBM	69	Moderate Buy
+IDA	75	Strong Buy
 IFS	100	Hold
 IMAX	71	Moderate Buy
 INN	0	Hold
@@ -3927,8 +3925,8 @@ JPM	60	Moderate Buy
 KD	100	Hold
 KEYS	75	Strong Buy
 KKR	80	Strong Buy
-KMX	100	Hold
-KO	90	Strong Buy
+KMX	86	Hold
+KO	89	Strong Buy
 KRC	33	Moderate Buy
 L	100	Moderate Buy
 LAZ	33	Moderate Buy
@@ -3946,11 +3944,11 @@ MCO	70	Moderate Buy
 MEC	100	Strong Buy
 MFC	50	Moderate Buy
 MH	83	Strong Buy
-MKC	67	Moderate Buy
+MKC	50	Moderate Buy
 MMI	100	Moderate Sell
 MOD	100	Strong Buy
 MPC	64	Moderate Buy
-MRSH	43	Moderate Buy
+MRSH	50	Moderate Buy
 MTB	62	Hold
 MTRN	100	Strong Buy
 MUR	90	Hold
@@ -3971,31 +3969,31 @@ OGE	80	Hold
 OIS	50	Moderate Buy
 OMF	67	Moderate Buy
 OOMA	100	Strong Buy
-OR.US	100	Moderate Buy
+OR.US	67	Moderate Buy
 OSCR	100	Hold
-OVV	79	Strong Buy
+OVV	85	Strong Buy
 PAC	67	Moderate Buy
-PAR	50	Moderate Buy
+PAR	100	Hold
 PBA	43	Moderate Buy
 PCG	38	Moderate Buy
-PEG	50	Moderate Buy
-PG	67	Moderate Buy
+PEG	44	Moderate Buy
+PG	64	Moderate Buy
 PHM	44	Moderate Buy
 PJT	50	Moderate Buy
 PLD	75	Strong Buy
 PMT	80	Hold
 POST	75	Strong Buy
-PRIM	40	Moderate Buy
+PRIM	33	Moderate Buy
 PRU	75	Hold
 PWR	100	Strong Buy
 QXO	100	Strong Buy
-RBLX	53	Hold
+RBLX	50	Hold
 RDDT	50	Moderate Buy
 RF	60	Hold
-RIG	25	Hold
+RIG	33	Hold
 RLGT	100	Moderate Buy
 RMD	83	Hold
-ROK	56	Moderate Buy
+ROK	50	Moderate Buy
 RRX	100	Strong Buy
 RTX	67	Moderate Buy
 RYAN	60	Moderate Buy
@@ -4023,17 +4021,17 @@ TDY	80	Strong Buy
 TEO	100	Moderate Buy
 TFX	60	Moderate Buy
 THG	33	Moderate Buy
-TME	67	Moderate Buy
-TNL	71	Moderate Buy
+TME	100	Moderate Buy
+TNL	75	Strong Buy
 TRGP	100	Strong Buy
 TRTX	100	Moderate Buy
 TSM	100	Strong Buy
 TTI	100	Moderate Buy
-UAMY	100	Moderate Buy
+UAMY	100	Strong Buy
 UE	33	Moderate Buy
 UI	0	Hold
 UNF	100	Hold
-UPS	46	Moderate Buy
+UPS	50	Moderate Buy
 UVE	100	Hold
 VALE	78	Hold
 VIA	100	Strong Buy
@@ -4062,12 +4060,12 @@ OPRA	100	Strong Buy
 OSPN	75	Hold
 WCPRF	100	Strong Buy
 PACB	50	Hold
-PCAR	57	Moderate Buy
 PDFS	80	Strong Buy
+PCAR	57	Moderate Buy
 PENG	75	Moderate Buy
 PFBC	50	Moderate Buy
 PGY	100	Strong Buy
-PIII	100	Hold
+PIII	50	Moderate Buy
 POWW	100	Moderate Buy
 PRAX	100	Strong Buy
 PRTS	100	Hold
@@ -4080,7 +4078,7 @@ CA.PA	100	Hold
 COV.PA	100	Moderate Buy
 EN.PA	33	Moderate Buy
 ETL.PA	100	Hold
-FDJU.PA	50	Moderate Sell
+FDJU.PA	100	Hold
 FRVIA.PA	100	Moderate Buy
 GFC.PA	100	Hold
 GTT.PA	60	Moderate Buy
@@ -4090,7 +4088,7 @@ PUB.PA	100	Moderate Buy
 RI.PA	50	Moderate Buy
 SAF.PA	75	Strong Buy
 SCR.PA	100	Hold
-STLAP.PA	60	Hold
+STLAP.PA	43	Moderate Sell
 TEP.PA	33	Moderate Sell
 TRI.PA	100	Moderate Buy
 VIV.PA	100	Moderate Buy
@@ -4109,7 +4107,7 @@ RXST	100	Hold
 SABR	100	Hold
 SBGI	33	Hold
 SEER	100	Moderate Buy
-SFD	67	Moderate Buy
+SFD	100	Moderate Buy
 SG	75	Strong Buy
 SHAZ	100	Strong Buy
 SHOE	100	Moderate Buy
@@ -4130,22 +4128,22 @@ ALFA.ST	33	Moderate Buy
 BOL.ST	80	Hold
 CAST.ST	100	Hold
 HACK.ST	100	Moderate Buy
-SAND.ST	67	Moderate Buy
+SAND.ST	50	Moderate Buy
 SOBI.ST	67	Moderate Buy
 SYNSAM.ST	100	Moderate Buy
-A2M.ASX	100	Strong Buy
+A2M.ASX	83	Strong Buy
 ALL.ASX	67	Moderate Buy
 ANN.ASX	33	Moderate Buy
 ARF.ASX	71	Moderate Buy
 BEN.ASX	43	Moderate Sell
 BOQ.ASX	56	Moderate Sell
 BWP.ASX	100	Moderate Buy
-CGF.ASX	50	Moderate Buy
+CGF.ASX	33	Moderate Buy
 CLW.ASX	20	Hold
 CPU.ASX	100	Hold
-DOW.ASX	60	Moderate Buy
-EDV.ASX	50	Moderate Sell
-FBU.ASX	100	Strong Sell
+DOW.ASX	100	Strong Buy
+EDV.ASX	100	Moderate Sell
+FBU.ASX	100	Moderate Sell
 GNC.ASX	33	Moderate Buy
 HMC.ASX	100	Moderate Buy
 IGO.ASX	43	Moderate Buy
@@ -4154,18 +4152,18 @@ KGN.ASX	100	Moderate Buy
 LTR.ASX	67	Moderate Buy
 MMS.ASX	60	Moderate Buy
 MYR.ASX	100	Strong Buy
-NHC.ASX	100	Hold
+NHC.ASX	60	Moderate Buy
 ORG.ASX	33	Hold
 PNI.ASX	100	Moderate Buy
 QAN.ASX	100	Strong Buy
 RHC.ASX	60	Hold
 RWC.ASX	100	Hold
 SFR.ASX	57	Moderate Buy
-SIG.ASX	60	Moderate Buy
+SIG.ASX	50	Moderate Buy
 STO.ASX	75	Strong Buy
 TLC.ASX	33	Hold
-TWE.ASX	100	Moderate Buy
-WES.ASX	33	Moderate Sell
+TWE.ASX	40	Moderate Buy
+WES.ASX	50	Moderate Sell
 WPR.ASX	75	Moderate Buy
 TASK	33	Moderate Sell
 TCBK	100	Moderate Buy
@@ -4178,7 +4176,7 @@ TMUS	75	Strong Buy
 TRDA	100	Moderate Buy
 TRNS	100	Strong Buy
 TRVG	33	Moderate Sell
-TSLA	47	Moderate Buy
+TSLA	44	Moderate Buy
 TTEK	67	Moderate Buy
 TWST	75	Moderate Buy
 UCTT	67	Moderate Buy
@@ -4192,14 +4190,14 @@ VISN	100	Hold
 VNET	100	Strong Buy
 VSAT	100	Strong Buy
 WATT	100	Moderate Buy
-WDAY	44	Moderate Buy
+WDAY	50	Moderate Buy
 WINA	100	Moderate Buy
 WLFC	100	Moderate Buy
 WW	100	Moderate Buy
-XEL	89	Strong Buy
+XEL	88	Strong Buy
 XRX	100	Moderate Sell
-YSWY	60	Moderate Buy
-ZION	62	Hold
+YSWY	80	Strong Buy
+ZION	58	Hold
 ADEN.ZU	100	Moderate Buy
 BARN.ZU	100	Hold
 DKSH.ZU	100	Hold
