@@ -17,7 +17,7 @@
 144.HK	China Merchants Port Holding	17.55				NOFAQ	TRADEABLE
 1456.HK	Guolian Minsheng Securities H	3.04				NOFAQ	TRADEABLE
 151.HK	Want Want China Holdings Ltd	2.85				NOFAQ	TRADEABLE
-1519.HK	J&T Global Express Ltd	8.69	10.50	12.91	15.00	OK	TRADEABLE
+1519.HK	J&T Global Express Ltd	8.69	10.50	12.70	15.00	OK	TRADEABLE
 1530.HK	3SBio Inc	12.71	17.80	26.29	34.78	OK	TRADEABLE
 1585.HK	Yadea Group Holdings Ltd	8.22	9.30	13.39	16.50	OK	TRADEABLE
 1618.HK	Metallurgical Corporation of China	1.27				NOFAQ	TRADEABLE
