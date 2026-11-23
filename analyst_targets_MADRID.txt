@@ -32,7 +32,7 @@ LDA.MC	Línea Directa Aseguradora S.A. Compania de Seguros y Reaseguros	1.23				
 LOG.MC	Compania de Distribucion Integral Logista Holdings	36.48				NOFAQ	TRADEABLE
 MAP.MC	Mapfre	4.09	3.90	3.90	3.90	OK	TRADEABLE
 MEL.MC	Melia Hotels International SA	11.08				NOFAQ	TRADEABLE
-MRL.MC	Merlin Properties SOCIMI SA	10.93	14.70	16.10	17.50	OK	TRADEABLE
+MRL.MC	Merlin Properties SOCIMI SA	10.93	14.70	16.07	17.50	OK	TRADEABLE
 MTS.MC	ArcelorMittal	51.64	54.00	65.40	71.00	OK	TRADEABLE
 NTGY.MC	Naturgy Energy Group, S.A.	30.02	33.00	34.17	35.00	OK	TRADEABLE
 OHLA.MC	OHL	0.34				NOFAQ	TRADEABLE
