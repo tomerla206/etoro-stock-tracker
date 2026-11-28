@@ -1,1 +1,1 @@
-XFAB.PA	X Fab Silicon Foundries EV	4.20				NOFAQ	TRADEABLE
+XFAB.PA	X Fab Silicon Foundries EV	4.52	12.90	12.90	12.90	OK	TRADEABLE
